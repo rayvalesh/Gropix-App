@@ -61,16 +61,7 @@ class MainActivity : BaseActivity(), View.OnClickListener {
     override fun initializeRecyclerView() {
         super.initializeRecyclerView()
         val linearLayoutManager = LinearLayoutManager(this)
-        binding!!.idRecyclerViewPlaced.layoutManager = linearLayoutManager
-//        binding!!.idRecyclerViewPlaced.adapter = OrderStatusAdapter(Constants.MODULE_PLACED, listener)
 
-//        binding!!.idRecyclerViewPending.layoutManager = linearLayoutManager
-//        binding!!.idRecyclerViewPending.adapter =
-//            OrderStatusAdapter(Constants.MODULE_PENDING, listener)
-//
-//        binding!!.idRecyclerViewCancelled.layoutManager = linearLayoutManager
-//        binding!!.idRecyclerViewCancelled.adapter =
-//            OrderStatusAdapter(Constants.MODULE_CANCELLED, listener)
 
         initializeEmptyView(true)
     }

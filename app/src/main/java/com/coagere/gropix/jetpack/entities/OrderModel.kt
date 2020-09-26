@@ -1,4 +1,4 @@
-package com.darubaba.android.jetpack.entities
+package com.coagere.gropix.jetpack.entities
 
 import com.google.gson.annotations.SerializedName
 

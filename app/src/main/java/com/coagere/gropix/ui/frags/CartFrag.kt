@@ -13,7 +13,7 @@
 //import com.coagere.gropix.prefs.UserStorage
 //import com.coagere.gropix.utils.elements.BaseFragment
 //import com.coagere.gropix.jetpack.entities.ItemModel
-//import com.darubaba.android.jetpack.entities.PriceModel
+//import com.coagere.gropix.jetpack.entities.PriceModel
 //import com.tc.utils.receivers.ServiceReceiver
 //import com.tc.utils.utils.utility.isNull
 //import com.tc.utils.variables.abstracts.OnEventOccurListener
