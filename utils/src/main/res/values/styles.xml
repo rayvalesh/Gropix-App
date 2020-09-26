@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="AppBarTheme" parent="AppBarTheme.parent" />
+
+    <style name="AppBarTheme.parent" parent="ThemeOverlay.AppCompat.DayNight">
+        <item name="android:textColorPrimary">@color/colorTextPrimary</item>
+        <item name="android:textColorSecondary">@color/colorTextPrimaryLight</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/colorTextPrimary</item>
+        <item name="android:textSize">19sp</item>
+        <item name="android:layout_gravity">center_vertical</item>
+    </style>
+
+    <style name="AppBarPop" parent="@style/ThemeOverlay.AppCompat.DayNight">
+        <item name="android:textColorPrimary">@color/colorTextPrimary</item>
+        <item name="android:textColorSecondary">@color/colorTextPrimary</item>
+        <item name="android:textColor">@color/colorTextPrimary</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textSize">13sp</item>
+    </style>
+
+    <style name="AppBarPopWhite" parent="@style/ThemeOverlay.AppCompat.DayNight">
+        <item name="android:textColorPrimary">@color/colorTextPrimary</item>
+        <item name="android:textColorSecondary">@color/colorTextPrimaryLight</item>
+        <item name="android:textColor">@color/colorTextPrimary</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textSize">13sp</item>
+    </style>
+
+    <style name="AppBarWhite" parent="AppBarWhite.parent" />
+
+    <style name="AppBarWhite.parent" parent="ThemeOverlay.AppCompat.DayNight">
+        <item name="android:textColorPrimary">@color/colorTextPrimary</item>
+        <item name="android:textColorSecondary">@color/colorTextPrimaryLight</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">19sp</item>
+    </style>
+
+    <style name="DialogAnimation">
+        <item name="android:windowEnterAnimation">@anim/dialog_slide_up</item>
+        <item name="android:windowExitAnimation">@anim/dialog_slide_down</item>
+    </style>
+
+
+    <style name="TextViewStyleTab" parent="@style/TextAppearance.Design.Tab">
+        <item name="android:textStyle">normal</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+
+    <style name="CardStylePopup" parent="CardStylePopup.Parent" />
+
+    <style name="CardStylePopup.Parent" parent="Base.CardView">
+        <item name="cardCornerRadius">@dimen/dimen_slices_radius</item>
+        <item name="cardBackgroundColor">@color/colorWhite</item>
+        <item name="cardPreventCornerOverlap">false</item>
+        <item name="cardElevation">@dimen/dimen_popup_elevation</item>
+    </style>
+
+    <style name="CardStyle" parent="Base.CardView">
+        <item name="cardCornerRadius">@dimen/dimen_slices_radius_small</item>
+        <item name="cardBackgroundColor">@color/colorWhite</item>
+        <item name="cardPreventCornerOverlap">false</item>
+        <item name="cardElevation">3dp</item>
+    </style>
+
+    <style name="CardStyleSlice" parent="Base.CardView">
+        <item name="cardCornerRadius">@dimen/dimen_slices_radius_large</item>
+        <item name="cardBackgroundColor">@color/colorWhite</item>
+        <item name="cardPreventCornerOverlap">false</item>
+        <item name="cardElevation">2dp</item>
+    </style>
+
+    <style name="CardStyleSliceDark" parent="Base.CardView">
+        <item name="cardCornerRadius">16dp</item>
+        <item name="cardBackgroundColor">@color/colorWhite</item>
+        <item name="cardPreventCornerOverlap">false</item>
+        <item name="cardElevation">3dp</item>
+    </style>
+
+    <style name="AppBarTextViewStyle" parent="android:Widget.TextView">
+        <item name="android:textSize">20sp</item>
+        <item name="fontFamily">@font/poppins_regular</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:textColor">@color/colorTextPrimary</item>
+    </style>
+
+
+    <style name="AppBarTextViewStyleWhite" parent="android:Widget.TextView">
+        <item name="android:textSize">20sp</item>
+        <item name="fontFamily">@font/poppins_regular</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:textColor">@color/colorWhite</item>
+    </style>
+
+    <style name="BottomSheetDialogTheme" parent="Theme.Design.Light.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/BottomSheetStyle</item>
+    </style>
+
+    <style name="BottomSheetStyle" parent="Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@android:color/transparent</item>
+    </style>
+
+    <style name="CheckBoxStyle" parent="android:Widget.Holo.CompoundButton.CheckBox">
+        <item name="colorControlNormal">@color/colorTextPrimaryAlpha</item>
+        <item name="colorControlActivated">@color/colorPrimary</item>
+    </style>
+
+    <style name="RadioTextStyle" parent="android:Widget.Holo.CompoundButton.RadioButton">
+        <item name="android:fontFamily">@font/poppins_regular</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>
+
+    <style name="TextViewStyleLight" parent="android:Widget.TextView">
+        <item name="android:fontFamily">@font/poppins_light</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:lineSpacingExtra">-4dp</item>
+    </style>
+
+    <style name="TextViewStyle" parent="android:Widget.TextView">
+        <item name="android:fontFamily">@font/poppins_regular</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:lineSpacingExtra">-4dp</item>
+    </style>
+
+    <style name="TextViewStyleMedium" parent="android:Widget.TextView">
+        <item name="android:fontFamily">@font/poppins_medium</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:lineSpacingExtra">-4dp</item>
+    </style>
+
+    <style name="TextViewStyleBold" parent="android:Widget.TextView">
+        <item name="android:textStyle">bold</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:fontFamily">@font/poppins_medium</item>
+        <item name="android:lineSpacingExtra">-4dp</item>
+    </style>
+
+    <style name="AutoCompleteTextStyle" parent="android:Widget.Holo.AutoCompleteTextView">
+        <item name="android:fontFamily">@font/poppins_medium</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:popupElevation">1dp</item>
+        <item name="elevation">1dp</item>
+    </style>
+
+    <style name="EditTextStyle" parent="android:Widget.Holo.EditText">
+        <item name="android:fontFamily">@font/poppins_medium</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>
+
+    <style name="ButtonTextStyle" parent="android:Widget.Holo.Button">
+        <item name="android:fontFamily">@font/poppins_medium</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>
+
+    <style name="RadioStyle" parent="Theme.AppCompat.DayNight">
+        <item name="colorControlNormal">@color/colorTextPrimary</item>
+        <item name="colorControlActivated">@color/colorAccentDark</item>
+        <item name="android:textViewStyle">@style/TextViewStyle</item>
+    </style>
+
+
+    <style name="AlertDialogStyle" parent="Theme.AppCompat.Light.Dialog">
+        <item name="android:textColor">@color/colorTextPrimary</item>
+        <item name="android:textColorPrimary">@color/colorPrimaryDark</item>
+    </style>
+
+    <declare-styleable name="CustomTabLayout">
+        <attr name="ddIndicatorHeight" format="dimension" />
+        <attr name="ddIndicatorColor" format="color" />
+        <attr name="ddCenterAlign" format="boolean" />
+        <attr name="ddAnimatedIndicator" format="enum">
+            <enum name="dachshund" value="0" />
+            <enum name="pointMove" value="1" />
+            <enum name="lineMove" value="2" />
+            <enum name="pointFade" value="3" />
+            <enum name="lineFade" value="4" />
+        </attr>
+    </declare-styleable>
+</resources>

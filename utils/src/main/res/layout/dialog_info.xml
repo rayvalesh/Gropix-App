@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/transparent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent">
+
+        <androidx.cardview.widget.CardView
+            style="@style/CardStylePopup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/dimen_common_margin_more">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/colorWhite"
+                android:orientation="vertical"
+                android:paddingBottom="@dimen/dimen_common_margin_large">
+
+                <TextView
+                    android:id="@+id/id_text_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:padding="@dimen/dimen_common_margin_less_more"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="@dimen/dimen_common_text_size_large"
+                    android:textStyle="bold" />
+
+                <include layout="@layout/utility_vertical_border_layout_shadow" />
+
+                <FrameLayout
+                    android:visibility="gone"
+                    android:id="@+id/id_parent_play"
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:layout_marginStart="@dimen/dimen_common_margin_more"
+                    android:layout_marginEnd="@dimen/dimen_common_margin_more"
+                    android:layout_marginTop="@dimen/dimen_common_margin_more"
+                    android:clickable="true"
+                    android:focusable="true">
+
+                    <ImageView
+                        android:id="@+id/id_image"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:contentDescription="@string/string_icon_desc_video"
+                        android:scaleType="centerCrop" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom"
+                        android:background="@drawable/style_shadow_tile"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:paddingTop="@dimen/dimen_common_margin_very_large"
+                        android:paddingBottom="@dimen/dimen_common_margin_medium">
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:layout_width="@dimen/dimen_icon_size"
+                            android:layout_height="@dimen/dimen_icon_size"
+                            android:layout_marginStart="@dimen/dimen_common_margin_medium"
+                            android:contentDescription="@string/string_icon_desc_video"
+                            android:tint="@color/colorWhite"
+                            app:srcCompat="@drawable/icon_vd_player" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:maxLines="2"
+                            android:paddingLeft="@dimen/dimen_common_margin_medium"
+                            android:paddingRight="@dimen/dimen_common_margin_medium"
+                            android:textColor="@color/colorWhite"
+                            android:textSize="@dimen/dimen_common_text_size_title" />
+                    </LinearLayout>
+                </FrameLayout>
+
+                <TextView
+                    android:visibility="gone"
+                    android:id="@+id/id_text_description"
+                    style="@style/TextViewStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dimen_common_margin_large"
+                    android:layout_marginStart="@dimen/dimen_common_margin_very_large"
+                    android:layout_marginEnd="@dimen/dimen_common_margin_very_large"
+                    android:gravity="center"
+                    android:textColor="@color/colorTextPrimary"
+                    android:textSize="@dimen/dimen_common_text_size_med_large" />
+
+                <Button
+                    android:id="@+id/id_button_dismiss"
+                    style="?attr/buttonBarStyle"
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="@dimen/dimen_common_margin_large"
+                    android:layout_height="@dimen/dimen_button_height_default"
+                    android:layout_marginStart="@dimen/dimen_common_margin_large"
+                    android:layout_marginEnd="@dimen/dimen_common_margin_large"
+                    android:layout_marginBottom="@dimen/dimen_common_margin_small"
+                    android:background="@drawable/button_background_positive_rect"
+                    android:text="@string/string_button_name_dismiss"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="@dimen/dimen_button_text_size" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+    </LinearLayout>
+
+    <include layout="@layout/dialog_include_cancel" />
+</FrameLayout>
+

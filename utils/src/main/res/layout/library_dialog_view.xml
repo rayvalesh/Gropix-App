@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/transparent">
+
+    <androidx.cardview.widget.CardView
+        style="@style/CardStylePopup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/dimen_common_margin_very_large">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingTop="@dimen/dimen_common_margin_less_large"
+            android:paddingBottom="@dimen/dimen_common_margin_less_large"
+            android:paddingStart="@dimen/dimen_common_margin_large"
+            android:paddingEnd="@dimen/dimen_common_margin_large">
+
+            <TextView
+                android:id="@+id/id_text_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/dimen_common_margin"
+                android:textColor="@color/colorTextPrimary"
+                android:textSize="@dimen/dimen_common_text_size_med_large"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/id_text_message"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/dimen_common_margin_med_large"
+                android:padding="@dimen/dimen_common_margin_medium"
+                android:text="Are you sure want to logut?"
+                android:textColor="@color/colorTextPrimary"
+                android:textSize="@dimen/dimen_common_text_size_med_large" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/id_button_neg"
+                    style="?attr/borderlessButtonStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/dimen_button_height_medium"
+                    android:layout_margin="@dimen/dimen_common_margin_medium"
+                    android:background="@drawable/more_layouts_click"
+                    android:text="No"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/dimen_button_text_size_med"
+                    android:visibility="gone" />
+
+                <Button
+                    android:id="@+id/id_button_pos"
+                    style="?attr/borderlessButtonStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/dimen_button_height_medium"
+                    android:layout_margin="@dimen/dimen_common_margin_medium"
+                    android:background="@drawable/button_background_positive"
+                    android:text="Yes"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="@dimen/dimen_button_text_size_med"
+                    android:visibility="gone" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+</FrameLayout>

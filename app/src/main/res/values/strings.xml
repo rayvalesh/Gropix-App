@@ -1,0 +1,141 @@
+<resources>
+    <string name="app_name">GroPix</string>
+    <string name="string_label_tag">You Shop, We Deliver</string>
+    <string name="string_message_connection_title">Oops! Internet Issue</string>
+    <string name="string_app_version">Version 0.0.1</string>
+
+    <string name="string_toast_otp_resent">OTP resend to</string>
+
+    <!-- Launcher Activity-->
+    <string name="string_label_agree_to_Terms">I agree to all the</string>
+    <string name="string_label_terms">Terms &amp; Condition</string>
+    <string name="string_error_no_internet">No Internet!\nCheck your Connection and Try Again</string>
+
+    <string name="string_toast_url_copied">Copied to Clipboard</string>
+
+    <string name="string_activity_name_fill_information">Fill Information</string>
+    <string name="string_button_name_submit_info">Submit Information</string>
+    <string name="string_label_name">Name*</string>
+    <string name="string_edit_hint_name">Enter your full name</string>
+    <string name="string_edit_hint_display_name">Display Name (Like : SpiderMen, SuperMen)</string>
+    <string name="string_edit_hint_gender">Gender</string>
+    <string name="string_edit_hint_male">Male</string>
+    <string name="string_edit_hint_female">Female</string>
+    <string name="string_edit_hint_others">Other</string>
+    <string name="string_edit_title_dob">Date of Birth </string>
+    <string name="string_edit_hint_dob">Date Of Birth : —/—/----</string>
+    <string name="string_icon_desc_arrow">Drop Down</string>
+    <string name="string_edit_title_email">Email Address*</string>
+    <string name="string_edit_hint_email">Enter Email Address</string>
+    <string name="string_button_name_remove">Remove</string>
+    <string name="string_edit_title_name">Name*</string>
+    <string name="string_icon_desc_image">Image</string>
+    <string name="string_label_menu_overflow">Overflow</string>
+    <string name="string_icon_desc_shortlist">Bookmark</string>
+
+    <string name="string_activity_name_my_profile">My Profile</string>
+    <string name="string_label_share_app">Share App</string>
+    <string name="string_label_rate_us">Rate Us</string>
+    <string name="string_activity_name_edit_profile">View/Edit Profile</string>
+    <string name="string_label_my_personals">My Personals</string>
+    <string name="string_label_default_country">+91-</string>
+    <string name="string_edit_hint_login_number">Enter Mobile Number</string>
+    <string name="string_toast_logout_success">Sign Out Successfully</string>
+
+    <string name="string_message_sure_go_back">Are you sure want to Go Back?</string>
+    <string name="string_menu_label_others">Others</string>
+    <string name="string_label_privacy_policy">Privacy Policy</string>
+    <string name="string_label_options">More Options</string>
+    <string name="string_label_logout">Sign Out</string>
+
+
+    <string name="string_text_loose_update">Update the App now to enjoy all the new Features and Bug Fixes.</string>
+    <string name="string_text_force_update">You need to update the app now to keep using all our Services and also enjoy some new Functionality and Bug Fixes</string>
+    <string name="string_text_update_avail">Update Available!</string>
+    <string name="string_text_update_now">Update Now!</string>
+    <string name="string_activity_name_recent_feeds">Recent Feeds</string>
+    <string name="string_activity_name_refer">Refer</string>
+    <string name="string_button_name_previous">Previous</string>
+    <string name="string_button_name_next">Next</string>
+    <string name="string_button_name_finish">Finish</string>
+    <string name="string_message_sure_back_test">Are you sure want to Go Back? You will loose your Quiz!</string>
+    <string name="string_activity_name_share_friends">Share App with Friends</string>
+    <string name="string_label_your_referral_code">Referral Code</string>
+    <string name="string_label_hide">Hide</string>
+    <string name="string_label_art">Art</string>
+    <string name="string_button_name_share">Share</string>
+    <string name="string_tab_feeds_student">Practice</string>
+    <string name="string_tab_video">Lectures</string>
+    <string name="string_activity_name_saved_videos">My Lectures</string>
+    <string name="string_tab_label_bookmark_video">Saved Lectures</string>
+    <string name="string_tab_help">Help</string>
+    <string name="string_label_edit">Edit?</string>
+    <string name="string_label_notification">Notification</string>
+    <string name="string_label_visit_website">Visit our Website</string>
+    <string name="drawer_open">"Open "</string>
+    <string name="drawer_close">Close</string>
+    <string name="string_button_name_submit_otp">SUBMIT OTP</string>
+    <string name="string_validation_message_wrong_otp">Wrong OTP!</string>
+    <string name="string_edit_hint_otp">One Time Password</string>
+    <string name="string_button_name_verify_otp">VERIFY OTP</string>
+    <string name="string_api_message_teacher_number">This number is registered with Teacher App!</string>
+    <string name="string_label_invite_teacher">Invite Teacher</string>
+    <string name="string_label_explore_city_chat">Chat with Students</string>
+    <string name="string_label_youtube">Youtube</string>
+    <string name="string_label_instagram">Instagram</string>
+    <string name="string_label_follow_us">Follow us on</string>
+    <string name="string_button_name_popup_notification">Notification</string>
+    <string name="string_label_do_not_disturb">Do Not Distrub</string>
+    <string name="string_icon_desc_share">Share</string>
+
+    <string name="string_label_initializing">Initializing…</string>
+    <string name="string_label_setting_up">Setting up…</string>
+    <string name="string_label_config">Configuring…</string>
+    <string name="string_are_you_sure_wanna_logout"><![CDATA[Are you sure want to Logout? You will loose your Save Settings & Data.]]></string>
+    <string name="string_lorem_lipsum">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+    </string>
+    <string name="string_label_otp_desc">Enter OTP sent to mobile number</string>
+    <string name="string_edit_hint_additional">Additional (optional)</string>
+    <string name="string_label_menu">Menu</string>
+    <string name="string_label_male">Male</string>
+    <string name="string_label_female">Female</string>
+    <string name="string_label_other">Others</string>
+    <string name="string_label_gender">Gender</string>
+    <string name="string_button_name_camera">Camera</string>
+    <string name="string_button_name_manager">Gallery</string>
+    <string name="string_dialog_desc_remove_profile">Are you sure want to Remove Picture?</string>
+    <string name="string_message_error_incorrect_format">Incorrect format of File</string>
+    <string name="string_edit_title_mobile">Mobile No.*</string>
+    <string name="string_button_name_update">Update</string>
+    <string name="string_activity_name_notification">Notification</string>
+    <string name="string_dialog_desc_logout">Are you sure want to logout?</string>
+    <string name="string_label_message">Message*</string>
+    <string name="string_label_contact_desc">Stuck somewhere, We are here for your help.</string>
+    <string name="string_button_name_resend_otp">Resend Otp</string>
+    <string name="string_activity_name_my_cart">Your Cart</string>
+    <string name="string_button_name_edit_location">Change Location</string>
+    <string name="string_label_added_items">Added Items</string>
+    <string name="string_button_name_sub">Remove Item</string>
+    <string name="string_button_name_add">Add</string>
+    <string name="string_button_name_add_more_items">Add More Items</string>
+    <string name="string_label_anything">Anything else</string>
+    <string name="string_edit_hint_anything">Add anything more you require or add a note for delivery boy</string>
+    <string name="string_order_explore_label_billing_title">Billing Details</string>
+    <string name="string_label_serial_no">Sr.</string>
+    <string name="string_label_item_name">Name</string>
+    <string name="string_label_items">Items</string>
+    <string name="string_label_times">Times</string>
+    <string name="string_label_total_amount">Total amount</string>
+    <string name="string_label_amount_unit">/-</string>
+    <string name="string_label_amount">Amount</string>
+    <string name="string_label_quantity">No. of Items</string>
+    <string name="string_label_amount_paid">Payable Amount</string>
+    <string name="string_label_colon">:</string>
+    <string name="string_label_about_delivery_issue">Delivery Issue</string>
+    <string name="string_button_name_pay">Pay &amp; Submit</string>
+    <string name="string_toast_success_feedback">Feedback sent successfully</string>
+    <string name="string_label_choose_image">"Select Image for Shopping  "</string>
+    <string name="string_message_error_file_size">Please select Image less then 12 mb.</string>
+
+</resources>

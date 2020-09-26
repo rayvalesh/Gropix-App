@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.AppCompatImageView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/id_image_cancel"
+    android:layout_width="@dimen/dimen_dialog_image_cancel"
+    android:layout_height="@dimen/dimen_dialog_image_cancel"
+    android:layout_gravity="end"
+    android:background="@drawable/style_circular_cross_cancel"
+    android:clickable="true"
+    android:contentDescription="@string/string_icon_desc_clear"
+    android:focusable="true"
+    android:padding="@dimen/dimen_common_margin_small"
+    android:tint="@color/colorTextPrimary"
+    app:srcCompat="@drawable/icon_vd_cancel" />

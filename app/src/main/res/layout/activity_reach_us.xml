@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/id_coordinator_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
+    android:fitsSystemWindows="true"
+    tools:context=".ui.activities.ReachUsActivity">
+
+    <include layout="@layout/include_app_bar_layout" />
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/id_scroll_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/background_scroll_white_top"
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/dimen_common_margin_more"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:orientation="vertical"
+            android:padding="@dimen/dimen_common_padding">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/string_edit_title_name"
+                android:textColor="@color/colorEditTextTitle"
+                android:textSize="@dimen/dimen_edit_text_title_size" />
+
+            <EditText
+                android:id="@+id/id_edit_name"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_edit_text_height_default"
+                android:layout_marginTop="@dimen/dimen_edit_text_margin_top_for_title"
+                android:background="@drawable/drawable_edit_text"
+                android:hint="@string/string_edit_hint_name"
+                android:imeOptions="actionNext"
+                android:importantForAutofill="no"
+                android:inputType="textCapWords"
+                android:maxLines="1"
+                android:paddingLeft="@dimen/dimen_edit_text_padding"
+                android:paddingRight="@dimen/dimen_edit_text_padding"
+                android:textColorHint="@color/colorTextHint"
+                android:textSize="@dimen/dimen_edit_text_size" />
+
+            <include
+                android:id="@+id/id_text_error_name"
+                layout="@layout/include_layout_text_error" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_edit_text_title_margin_top"
+                android:text="@string/string_edit_title_email"
+                android:textColor="@color/colorEditTextTitle"
+                android:textSize="@dimen/dimen_edit_text_title_size" />
+
+            <EditText
+                android:id="@+id/id_edit_email"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_edit_text_height_default"
+                android:layout_marginTop="@dimen/dimen_edit_text_margin_top_for_title"
+                android:background="@drawable/drawable_edit_text"
+                android:hint="@string/string_edit_hint_email_address"
+                android:imeOptions="actionNext"
+                android:importantForAutofill="no"
+                android:inputType="textEmailAddress"
+                android:maxLines="1"
+                android:paddingLeft="@dimen/dimen_edit_text_padding"
+                android:paddingRight="@dimen/dimen_edit_text_padding"
+                android:textColorHint="@color/colorTextHint"
+                android:textSize="@dimen/dimen_edit_text_size" />
+
+            <include
+                android:id="@+id/id_text_error_email"
+                layout="@layout/include_layout_text_error" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_edit_text_margin_top_big"
+                android:text="@string/string_label_message"
+                android:textColor="@color/colorEditTextTitle"
+                android:textSize="@dimen/dimen_edit_text_title_size" />
+
+            <EditText
+                android:id="@+id/id_edit_message"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_edit_text_margin_top_for_title"
+                android:background="@drawable/drawable_edit_text"
+                android:gravity="start|top"
+                android:hint="@string/string_edit_hint_type_message_for_us"
+                android:importantForAutofill="no"
+                android:inputType="textMultiLine|textCapSentences"
+                android:maxLines="5"
+                android:minLines="4"
+                android:padding="@dimen/dimen_edit_text_padding"
+                android:textColorHint="@color/colorTextHint"
+                android:textSize="@dimen/dimen_edit_text_size" />
+
+            <include
+                android:id="@+id/id_text_error_message"
+                layout="@layout/include_layout_text_error" />
+
+            <Button
+                android:id="@+id/id_button_submit"
+                style="?attr/buttonBarButtonStyle"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_button_height_default"
+                android:layout_marginTop="@dimen/dimen_edit_text_title_margin_top"
+                android:background="@drawable/button_background_positive"
+                android:text="@string/string_button_name_submit"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="@dimen/dimen_button_text_size" />
+
+            <include layout="@layout/include_vector_spinner" />
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

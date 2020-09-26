@@ -1,0 +1,32 @@
+<resources>
+     <string name="string_message_cant_empty">Can not be Empty!</string>
+    <string name="string_message_email_incorrect">Incorrect Email Address!</string>
+    <string name="string_message_email_length">Please enter the Correct Email Address!</string>
+
+    <string name="string_message_error_number_length">Enter the valid number of 10 Digits</string>
+    <string name="string_activity_name_contact_us">Reach to US</string>
+
+    <string name="connection_check_no_internet">Please Check Your Connection and Try Again!</string>
+
+
+    <string name="string_toast_successful_post">Successfully Posted</string>
+    <string name="string_edit_hint_name">Enter your full name</string>
+    <string name="string_edit_hint_email_address">Enter Email Address</string>
+    <string name="string_edit_hint_type_message_for_us">Type your message here..</string>
+    <string name="string_button_name_submit">Submit</string>
+    <string name="string_icon_desc_clear">Clear</string>
+
+    <string name="string_text_explore_more">Explore More</string>
+    <string name="string_message_inbox_empty">Oops! Empty</string>
+    <string name="string_message_inbox_empty_description">Its seem we don\'t have data to display</string>
+    <string name="string_button_name_try_again">Try Again</string>
+    <string name="string_transition_name">Transition</string>
+
+
+    <string name="string_button_name_no">No</string>
+    <string name="string_button_name_yes_want">Yes i want to</string>
+    <string name="string_edit_hint_enter_code">Enter Teacher Code</string>
+    <string name="string_button_name_dismiss">Dismiss</string>
+    <string name="string_icon_desc_video">Video</string>
+
+</resources>

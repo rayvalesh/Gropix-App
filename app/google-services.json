@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "524741990956",
+    "firebase_url": "https://gropix-ce0df.firebaseio.com",
+    "project_id": "gropix-ce0df",
+    "storage_bucket": "gropix-ce0df.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:524741990956:android:983425e4ac19cb75e48f89",
+        "android_client_info": {
+          "package_name": "com.coagere.gropix"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "524741990956-q8fh95fll6t5tlim4vlfeukls927ifgk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAiSxDzgxs6ATMtGYiNNqOmQ9Hm5c0D_XI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "524741990956-q8fh95fll6t5tlim4vlfeukls927ifgk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

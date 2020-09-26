@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#0380DD</color>
+    <color name="colorPrimaryDark">#005b9f</color>
+    <color name="colorAccent">#42ABFE</color>
+    <color name="colorMessageSelection">#80ffffff</color>
+    <color name="colorScheduleZero">#38b6d7</color>
+    <color name="colorScheduleOne">#f87505</color>
+    <color name="colorScheduleTwo">#1a96ab</color>
+    <color name="colorScheduleThree">#707070</color>
+    <color name="colorAvailable">#14c307</color>
+    <color name="colorNotAvailable">#ff75ad</color>
+    <color name="colorScheduleNormal">#959595</color>
+    <color name="colorAdd">#adebad</color>
+    <color name="colorWarning">#fcbd36</color>
+
+    <!--    <color name="colorPrimary">#E11C3D</color>-->
+<!--    <color name="colorPrimaryDark">#ad2363</color>-->
+<!--    <color name="colorAccent">#e94964</color>-->
+
+<!--    <color name="colorPrimaryDarkTwo">#ccad2363</color>-->
+
+<!--    <color name="colorAccentDark">#F698A8</color>-->
+
+
+</resources>

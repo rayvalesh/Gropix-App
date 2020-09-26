@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/transparent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+
+    <androidx.cardview.widget.CardView
+        style="@style/CardStylePopup"
+        android:layout_width="@dimen/dimen_popup_width"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/dimen_common_margin_large">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/placeholder_rounded_top_shade"
+                android:padding="@dimen/dimen_common_margin"
+                android:text="@string/string_label_menu"
+                android:textColor="@color/colorTextPrimary"
+                android:textSize="@dimen/dimen_common_text_size_large" />
+
+            <LinearLayout
+                android:id="@+id/id_parent_button_share"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/more_layouts_click"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="@dimen/dimen_common_margin_more">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="@dimen/dimen_popup_image_size"
+                    android:layout_height="@dimen/dimen_popup_image_size"
+                    android:layout_marginStart="@dimen/dimen_common_margin_small"
+                    android:tint="@color/colorIconLight"
+                    app:srcCompat="@drawable/icon_vd_share_app" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dimen_common_margin_large"
+                    android:text="@string/string_label_share_app"
+                    android:textColor="@color/colorTextPrimary"
+                    android:textSize="@dimen/dimen_button_text_size" />
+            </LinearLayout>
+
+            <include layout="@layout/utility_vertical_border_layout" />
+
+            <LinearLayout
+                android:id="@+id/id_parent_button_rate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/more_layouts_click"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="@dimen/dimen_common_margin_more">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="@dimen/dimen_popup_image_size"
+                    android:layout_height="@dimen/dimen_popup_image_size"
+                    android:layout_marginStart="@dimen/dimen_common_margin_small"
+                    android:tint="@color/colorIconLight"
+                    app:srcCompat="@drawable/icon_vd_rate" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dimen_common_margin_large"
+                    android:text="@string/string_label_rate_us"
+                    android:textColor="@color/colorTextPrimary"
+                    android:textSize="@dimen/dimen_button_text_size" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/id_parent_button_privacy_policy"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/more_layouts_click"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="@dimen/dimen_common_margin_more">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="@dimen/dimen_popup_image_size"
+                    android:layout_height="@dimen/dimen_popup_image_size"
+                    android:layout_marginStart="@dimen/dimen_common_margin_small"
+                    android:tint="@color/colorIconLight"
+                    app:srcCompat="@drawable/icon_vd_privacy" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dimen_common_margin_large"
+                    android:text="@string/string_label_privacy_policy"
+                    android:textColor="@color/colorTextPrimary"
+                    android:textSize="@dimen/dimen_button_text_size" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/id_parent_button_logout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/more_layouts_click"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="@dimen/dimen_common_margin_more">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="@dimen/dimen_popup_image_size"
+                    android:layout_height="@dimen/dimen_popup_image_size"
+                    android:layout_marginStart="@dimen/dimen_common_margin_small"
+                    android:tint="@color/colorIconLight"
+                    app:srcCompat="@drawable/icon_vd_logout" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dimen_common_margin_large"
+                    android:text="@string/string_label_logout"
+                    android:textColor="@color/colorTextPrimary"
+                    android:textSize="@dimen/dimen_button_text_size" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</LinearLayout>

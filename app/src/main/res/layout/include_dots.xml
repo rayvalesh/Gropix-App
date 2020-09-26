@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.AppCompatImageView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="@dimen/dimen_image_dot_height"
+    android:layout_height="@dimen/dimen_image_dot_height"
+    android:layout_gravity="center"
+    android:layout_marginTop="@dimen/dimen_common_margin_very_small"
+    android:tint="@color/colorIconLight"
+    app:srcCompat="@drawable/icon_vd_dot" />

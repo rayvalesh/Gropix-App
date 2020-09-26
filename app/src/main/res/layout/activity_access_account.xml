@@ -1,0 +1,328 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="clickListener"
+            type="android.view.View.OnClickListener" />
+    </data>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/id_coordinator_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorWhite"
+        tools:context=".ui.activities.AccessAccountActivity">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dimen_common_margin_very_large"
+
+            android:layout_marginTop="@dimen/dimen_common_margin_large"
+            android:layout_marginEnd="@dimen/dimen_common_margin_very_large"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_common_margin_medium"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingTop="@dimen/dimen_common_margin_small"
+                android:paddingBottom="@dimen/dimen_common_margin_small"
+                tools:ignore="UseCompoundDrawables">
+
+                <ImageView
+                    android:id="@+id/id_image_back"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:contentDescription="@string/app_name"
+                    android:src="@drawable/app_logo" />
+
+                <TextView
+                    style="@style/TextViewStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dimen_common_margin"
+                    android:text="@string/app_name"
+                    android:textColor="@color/colorTextPrimary"
+                    android:textSize="@dimen/dimen_common_text_size_very_very_large" />
+            </LinearLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_common_margin_very_large"
+                android:textColorHint="@color/colorTextPrimaryAlpha"
+                app:hintTextAppearance="@style/TextInputLayout">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/id_edit_number"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/string_edit_hint_login_number"
+                    android:imeOptions="actionDone"
+                    android:importantForAutofill="no"
+                    android:inputType="number"
+                    android:maxLength="14"
+                    android:maxLines="1"
+                    android:textAppearance="@style/TextViewStyleBold"
+                    android:textColor="@color/colorTextPrimaryAlpha"
+                    android:textColorHint="@color/colorTextPrimaryAlpha"
+                    android:textSize="@dimen/dimen_edit_text_size_large" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:id="@+id/id_text_error_number"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dimen_common_margin_small"
+                android:layout_marginEnd="@dimen/dimen_common_margin_small"
+                android:text="@string/string_message_error_number_length"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/dimen_text_size_error"
+                android:visibility="gone" />
+
+            <LinearLayout
+                android:id="@+id/id_parent_checkbox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_common_margin_large"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <CheckBox
+                    android:id="@+id/id_checkbox"
+                    style="@style/CheckBoxStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="@dimen/dimen_common_margin"
+                    android:paddingRight="@dimen/dimen_common_margin" />
+
+                <TextView
+                    android:id="@+id/id_text_terms"
+                    style="@style/TextViewStyleLight"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/string_label_agree_to_Terms"
+                    android:textColor="@color/colorTextPrimary"
+                    android:textSize="@dimen/dimen_common_text_size_sub" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/id_parent_otp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/id_button_edit"
+                    style="@style/TextViewStyleBold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/dimen_button_height_medium"
+                    android:layout_gravity="end"
+                    android:background="@drawable/more_layouts_click"
+                    android:gravity="center"
+                    android:onClick="@{clickListener}"
+                    android:text="@string/string_label_edit"
+                    android:textColor="@color/colorTextPrimaryAlpha"
+                    android:textSize="@dimen/dimen_common_text_size_large" />
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dimen_common_margin_less_more">
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColorHint="@color/colorTextPrimaryAlpha"
+                        app:hintTextAppearance="@style/TextInputLayout">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/id_edit_otp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/string_edit_hint_otp"
+                            android:imeOptions="actionDone"
+                            android:importantForAutofill="no"
+                            android:inputType="number"
+                            android:maxLines="1"
+                            android:textColor="@color/colorTextPrimaryAlpha"
+                            android:textColorHint="@color/colorTextPrimaryAlpha"
+                            android:textSize="@dimen/dimen_edit_text_size_large" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/id_progress_bar_otp"
+                        android:layout_width="@dimen/dimen_progress_bar_very_small"
+                        android:layout_height="@dimen/dimen_progress_bar_very_small"
+                        android:layout_gravity="end|center"
+                        android:layout_marginEnd="@dimen/dimen_common_margin_less_more"
+                        android:contentDescription="@null"
+                        android:tint="@color/colorPrimaryDark"
+                        android:visibility="gone"
+                        app:srcCompat="@drawable/avd_progress_bar" />
+                </FrameLayout>
+
+                <TextView
+                    android:id="@+id/id_text_error_otp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dimen_common_margin_small"
+                    android:layout_marginEnd="@dimen/dimen_common_margin_small"
+                    android:text="@string/string_validation_message_wrong_otp"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/dimen_text_size_error"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/id_text_timer"
+                    style="@style/TextViewStyleBold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:gravity="center"
+                    android:paddingTop="@dimen/dimen_common_margin"
+                    android:paddingBottom="@dimen/dimen_common_margin"
+                    android:textColor="@color/colorTextPrimaryAlpha"
+                    android:textSize="@dimen/dimen_common_text_size_large" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/id_progress_bar_resend"
+                    android:layout_width="@dimen/dimen_progress_bar_very_small"
+                    android:layout_height="@dimen/dimen_progress_bar_very_small"
+                    android:layout_gravity="end|center"
+                    android:layout_marginEnd="@dimen/dimen_common_margin_less_more"
+                    android:contentDescription="@null"
+                    android:onClick="@{clickListener}"
+                    android:tint="@color/colorTextPrimary"
+                    android:visibility="gone"
+                    app:srcCompat="@drawable/avd_progress_bar" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/id_parent_button_submit"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_button_height_default"
+                android:layout_marginTop="@dimen/dimen_common_margin_very_large"
+                android:background="@drawable/button_background_positive_rect_light"
+                android:clickable="true"
+                android:focusable="true"
+                android:onClick="@{clickListener}"
+                android:orientation="horizontal"
+                android:paddingLeft="@dimen/dimen_common_margin_more"
+                android:paddingRight="@dimen/dimen_common_margin_more">
+
+                <TextView
+                    android:id="@+id/id_text_button"
+                    style="@style/TextViewStyleBold"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:clickable="false"
+                    android:focusable="false"
+                    android:gravity="center_vertical"
+                    android:text="@string/string_button_name_submit_otp"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="@dimen/dimen_button_text_size" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/id_progress_bar"
+                    android:layout_width="@dimen/dimen_progress_bar_very_small"
+                    android:layout_height="@dimen/dimen_progress_bar_very_small"
+                    android:layout_gravity="center"
+                    android:clickable="false"
+                    android:contentDescription="@string/app_name"
+                    android:focusable="false"
+                    android:tint="@color/colorPrimaryDark"
+                    app:srcCompat="@drawable/icon_vd_arrow_forward" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:background="@drawable/background_scroll_primary_top"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_view_height"
+                android:layout_marginStart="@dimen/dimen_common_margin_very_large"
+                android:layout_marginEnd="@dimen/dimen_common_margin_very_large"
+                android:background="@color/libraryColorViewBlackAlpha" />
+
+            <LinearLayout
+                android:id="@+id/id_parent_button_contact"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/more_layouts_click"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center"
+                android:onClick="@{clickListener}"
+                android:orientation="horizontal"
+                android:paddingLeft="@dimen/dimen_common_margin_very_large"
+                android:paddingTop="@dimen/dimen_common_margin_large"
+                android:paddingRight="@dimen/dimen_common_margin_very_large"
+                android:paddingBottom="@dimen/dimen_common_margin_very_large">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/TextViewStyleBold"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:maxLines="1"
+                        android:text="Reach to us?"
+                        android:textColor="@color/colorWhite"
+                        android:textSize="@dimen/dimen_common_text_size_very_large"
+                        android:visibility="visible" />
+
+                    <TextView
+                        style="@style/TextViewStyleLight"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="-2dp"
+                        android:maxLines="1"
+                        android:text="@string/string_label_contact_desc"
+                        android:textColor="@color/colorWhiteAlpha"
+                        android:textSize="@dimen/dimen_common_text_size_sub" />
+                </LinearLayout>
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="@dimen/dimen_icon_size_large"
+                    android:layout_height="@dimen/dimen_icon_size_large"
+                    android:tint="@color/colorWhite"
+                    app:srcCompat="@drawable/icon_vd_contact_us" />
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>

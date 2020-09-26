@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.AppCompatImageView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/id_progress_bar"
+    app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
+    android:layout_width="@dimen/dimen_progress_bar_small"
+    android:layout_height="@dimen/dimen_progress_bar_small"
+    android:layout_gravity="center"
+    android:visibility="gone"
+    app:srcCompat="@drawable/avd_progress_bar"
+    android:contentDescription="@null" />
+

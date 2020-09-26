@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="clickListener"
+            type="android.view.View.OnClickListener" />
+    </data>
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/id_parent_app_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorWhite"
+
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:elevation="@dimen/dimen_app_bar_elevation_zero"
+        tools:ignore="UnusedAttribute">
+
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="@dimen/dimen_app_bar_height"
+            app:titleEnabled="false">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/id_app_bar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@android:color/transparent"
+                android:minHeight="@dimen/dimen_app_bar_height"
+                android:theme="@style/AppBarTheme"
+                app:contentInsetStartWithNavigation="0dp"
+                app:popupTheme="@style/AppBarPop"
+                app:titleTextAppearance="@style/AppBarTextViewStyleWhite"
+                app:titleTextColor="@color/colorTextPrimary" />
+
+            <Button
+                android:id="@+id/id_button_next"
+                style="?attr/borderlessButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/dimen_button_height_medium"
+                android:paddingStart="@dimen/dimen_common_margin_more"
+                android:paddingEnd="@dimen/dimen_common_margin_more"
+                android:layout_gravity="center|end"
+                android:layout_marginEnd="@dimen/dimen_common_margin_less_more"
+                android:background="@drawable/button_background_positive_rect"
+                android:onClick='@{clickListener}'
+                android:textColor="@color/color_button_primary_rect"
+                android:textSize="@dimen/dimen_button_text_size_med"
+                android:visibility="gone" />
+
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+    </com.google.android.material.appbar.AppBarLayout>
+</layout>

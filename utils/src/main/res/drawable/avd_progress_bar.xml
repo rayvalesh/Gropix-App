@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animated-vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:drawable="@drawable/vd_progress_bar">
+    <target android:name="progressBar">
+        <aapt:attr name="android:animation">
+            <set>
+                <objectAnimator
+                    android:duration="1333"
+                    android:propertyName="trimPathStart"
+                    android:repeatCount="-1"
+                    android:valueFrom="0"
+                    android:valueTo="0.75"
+                    android:interpolator="@anim/avd_progress_bar_one"
+                    android:valueType="floatType"/>
+                <objectAnimator
+                    android:duration="1333"
+                    android:propertyName="trimPathEnd"
+                    android:repeatCount="-1"
+                    android:valueFrom="0.03"
+                    android:valueTo="0.78"
+                    android:interpolator="@anim/avd_progress_bar_two"
+                    android:valueType="floatType"/>
+                <objectAnimator
+                    android:duration="1333"
+                    android:interpolator="@android:anim/linear_interpolator"
+                    android:propertyName="trimPathOffset"
+                    android:repeatCount="-1"
+                    android:valueFrom="0"
+                    android:valueTo="0.25"
+                    android:valueType="floatType"/>
+            </set>
+        </aapt:attr>
+    </target>
+    <target android:name="progressBarContainer">
+        <aapt:attr name="android:animation">
+            <objectAnimator
+                android:duration="4444"
+                android:interpolator="@android:anim/linear_interpolator"
+                android:propertyName="rotation"
+                android:repeatCount="-1"
+                android:valueFrom="0"
+                android:valueTo="720"
+                android:valueType="floatType"/>
+        </aapt:attr>
+    </target>
+</animated-vector>

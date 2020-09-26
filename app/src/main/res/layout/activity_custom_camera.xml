@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/id_coordinator_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/libraryColorBlack"
+    tools:context=".ui.activities.CameraActivity">
+
+    <tk.jamunx.ui.camera.customs.CameraSourcePreview
+        android:id="@+id/id_preview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <tk.jamunx.ui.camera.ui.GraphicOverlay
+            android:id="@+id/id_faceOverlay"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </tk.jamunx.ui.camera.customs.CameraSourcePreview>
+
+    <ImageView
+        android:id="@+id/id_image"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/libraryColorBlack"
+        android:contentDescription="@null"
+        android:visibility="gone" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:background="@color/libraryColorCameraAppbar"
+        android:baselineAligned="false"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:padding="@dimen/library_dimen_common_margin">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center|end">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/id_image_flash"
+                android:layout_width="@dimen/library_dimen_image_camera_other_size"
+                android:layout_height="@dimen/library_dimen_image_camera_other_size"
+                android:layout_marginEnd="@dimen/library_dimen_common_margin_very_very_large"
+                android:clickable="true"
+                android:focusable="true"
+                android:onClick="onClickFlash"
+                android:padding="@dimen/library_dimen_common_margin_more"
+                android:tint="@color/libraryColorWhite"
+                app:srcCompat="@drawable/library_icon_vd_flash_off" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/id_image_cancel"
+                android:layout_width="@dimen/library_dimen_image_camera_other_size"
+                android:layout_height="@dimen/library_dimen_image_camera_other_size"
+                android:layout_marginEnd="@dimen/library_dimen_common_margin_very_very_large"
+                android:background="@drawable/library_circular_share_white_stroke_small"
+                android:clickable="true"
+                android:focusable="true"
+                android:onClick="onClickCancel"
+                android:padding="@dimen/library_dimen_common_margin_more"
+                android:tint="@color/libraryColorWhite"
+                android:visibility="gone"
+                app:srcCompat="@drawable/library_icon_vd_clear" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/id_image_camera"
+                android:layout_width="@dimen/library_dimen_image_camera_size"
+                android:layout_height="@dimen/library_dimen_image_camera_size"
+                android:background="@drawable/library_circular_share_white_stroke"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center"
+                android:padding="@dimen/library_dimen_common_margin_more"
+                android:text="TAP"
+                android:textColor="@color/libraryColorWhiteAlpha"
+                android:textSize="@dimen/library_dimen_common_text_size_very_large"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center|start">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/id_image_right"
+                android:layout_width="@dimen/library_dimen_image_camera_other_size"
+                android:layout_height="@dimen/library_dimen_image_camera_other_size"
+                android:layout_marginStart="@dimen/library_dimen_common_margin_very_very_large"
+                android:background="@drawable/library_circular_share_white_stroke_small"
+                android:clickable="true"
+                android:focusable="true"
+                android:onClick="onClickSave"
+                android:padding="@dimen/library_dimen_common_margin_more"
+                android:tint="@color/libraryColorWhite"
+                android:visibility="gone"
+                app:srcCompat="@drawable/library_icon_vd_check" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/id_image_rotation"
+                android:layout_width="@dimen/library_dimen_image_camera_other_size"
+                android:layout_height="@dimen/library_dimen_image_camera_other_size"
+                android:layout_marginStart="@dimen/library_dimen_common_margin_very_very_large"
+                android:clickable="true"
+                android:focusable="true"
+                android:onClick="onClickRotation"
+                android:padding="@dimen/library_dimen_common_margin_more"
+                android:tint="@color/libraryColorWhite"
+                app:srcCompat="@drawable/library_icon_vd_camera_front" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/libraryColorCameraAppbar"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:titleEnabled="false">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/id_app_bar"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/library_dimen_app_bar_height"
+                android:fitsSystemWindows="true"
+                android:minHeight="?attr/actionBarSize"
+                android:theme="@style/LibraryAppBarTheme">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/id_image_crop"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/library_dimen_common_margin_more"
+                    android:tint="@color/libraryColorWhite"
+                    android:visibility="gone"
+                    app:srcCompat="@drawable/library_icon_vd_crop" />
+
+            </androidx.appcompat.widget.Toolbar>
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+    </com.google.android.material.appbar.AppBarLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

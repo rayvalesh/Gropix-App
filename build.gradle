@@ -1,0 +1,46 @@
+buildscript {
+    ext.versions = [
+            'compileSdk'         : 29,
+            'build'              : '30.0.1',
+            'minSdk'             : 21,
+            'targetSdk'          : 29,
+            'firebaseAnalytics'  : "17.5.0",
+            'firebaseCrashlytics': "17.2.1",
+            'firebaseMessaging'  : "20.2.4",
+            'playAuth'           : "18.1.0",
+            'appcompat'          : "1.1.0",
+            'material'           : "1.1.0",
+            'support'            : "1.0.0",
+            'card'               : "1.0.0",
+            'lifecycle'          : "2.2.0",
+            'room'               : "2.2.5",
+            'jamun'              : '0.0.8',
+            'kotlin_version'     : '1.4.0',
+            'playcore'           : '1.7.3',
+    ]
+    repositories {
+        google()
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.google.firebase:firebase-crashlytics-gradle:2.3.0'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${versions.kotlin_version}"
+        classpath 'com.android.tools.build:gradle:4.0.1'
+        classpath 'com.google.gms:google-services:4.3.3'
+
+    }
+}
+
+allprojects {
+    repositories {
+        google()
+        jcenter()
+        maven { url 'https://jitpack.io' }
+        mavenCentral()
+        mavenLocal()
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
