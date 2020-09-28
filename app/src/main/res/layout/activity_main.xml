@@ -15,23 +15,21 @@
         android:id="@+id/id_coordinator_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/colorWhite"
+        android:background="@color/colorPrimary"
         android:fitsSystemWindows="true"
         tools:context=".ui.activities.MainActivity">
-
 
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/id_parent_app_bar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/colorWhite"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
             app:elevation="@dimen/dimen_app_bar_elevation_zero"
             tools:ignore="UnusedAttribute">
 
             <com.google.android.material.appbar.CollapsingToolbarLayout
                 android:layout_width="match_parent"
-                android:layout_height="300dp"
+                android:layout_height="360dp"
                 android:minHeight="@dimen/dimen_app_bar_height"
                 app:contentScrim="@color/colorWhite"
                 app:layout_scrollFlags="scroll|exitUntilCollapsed"
@@ -41,45 +39,93 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginTop="@dimen/dimen_app_bar_height"
-                    android:background="@drawable/background_gradient_home"
                     android:gravity="center"
-                    android:orientation="vertical"
-                    app:layout_collapseMode="pin"
-                    app:layout_collapseParallaxMultiplier="0.2">
+                    android:orientation="vertical">
 
+                    <FrameLayout
+                        android:layout_width="110dp"
+                        android:layout_height="wrap_content">
 
-                    <androidx.cardview.widget.CardView
-                        style="@style/CardStyleSliceDark"
-                        android:id="@+id/id_parent_image_capture"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:clickable="true"
-                        android:focusable="true"
-                        android:onClick="@{clickListener}">
+                        <View
+                            android:id="@+id/id_view_action"
+                            android:layout_width="match_parent"
+                            android:layout_height="240dp"
+                            android:background="@drawable/background_slices_transparent"
+                            android:visibility="gone" />
 
-                        <androidx.appcompat.widget.AppCompatImageView
-                            android:id="@+id/id_image_capture"
-                            android:layout_width="100dp"
-                            android:layout_height="100dp"
-                            android:clickable="true"
-                            android:focusable="true"
-                            android:onClick="@{clickListener}"
-                            android:padding="@dimen/dimen_common_margin_very_very_large"
-                            android:tint="@color/colorScheduleZero"
-                            app:srcCompat="@drawable/photo_camera" />
-                    </androidx.cardview.widget.CardView>
+                        <ImageView
+                            android:id="@+id/id_image_camera"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:layout_gravity="center|top"
+                            android:layout_margin="@dimen/dimen_common_margin_large"
+                            android:contentDescription="@string/app_name"
+                            android:padding="@dimen/dimen_common_margin"
+                            android:src="@drawable/icon_vd_camera"
+                            android:tint="@color/colorWhiteAlpha"
+                            android:visibility="gone" />
+
+                        <ImageView
+                            android:id="@+id/id_image_manager"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:layout_gravity="center|bottom"
+                            android:layout_margin="@dimen/dimen_common_margin_large"
+                            android:contentDescription="@string/app_name"
+                            android:padding="@dimen/dimen_common_margin"
+                            android:src="@drawable/icon_vd_manager"
+                            android:tint="@color/colorWhiteAlpha"
+                            android:visibility="gone" />
+
+                        <FrameLayout
+                            android:id="@+id/id_image_pick"
+                            android:layout_width="110dp"
+                            android:layout_height="110dp"
+                            android:layout_gravity="center">
+
+                            <ImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_gravity="center"
+                                android:contentDescription="@string/app_name"
+                                android:src="@drawable/circular_image" />
+
+                            <TextView
+                                android:id="@+id/id_text_action"
+                                style="@style/TextViewStyleMedium"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:text="Pick"
+                                android:textColor="@color/colorPrimaryDark"
+                                android:textSize="30sp" />
+
+                            <ImageView
+                                android:id="@+id/id_image_action"
+                                android:layout_width="70dp"
+                                android:layout_height="70dp"
+                                android:layout_gravity="center"
+                                android:contentDescription="@string/app_name"
+                                android:src="@drawable/icon_vd_dot"
+                                android:tint="@color/colorAccent"
+                                android:visibility="gone" />
+
+                        </FrameLayout>
+
+                    </FrameLayout>
 
                     <TextView
+                        android:id="@+id/id_text_hint"
+                        style="@style/TextViewStyleMedium"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/dimen_common_margin_more"
                         android:gravity="center"
                         android:paddingStart="@dimen/dimen_common_margin"
                         android:paddingEnd="@dimen/dimen_common_margin"
-                        android:text="Welcome! Press to Capture shopping List"
+                        android:text="Press to Capture"
                         android:textColor="@color/colorTextPrimary"
                         android:textSize="@dimen/dimen_common_text_size_very_very_large" />
-
 
                 </LinearLayout>
 
@@ -87,7 +133,6 @@
                     android:id="@+id/id_app_bar"
                     android:layout_width="match_parent"
                     android:layout_height="?attr/actionBarSize"
-                    android:background="@android:color/transparent"
                     android:minHeight="@dimen/dimen_app_bar_height"
                     android:theme="@style/AppBarTheme"
                     app:contentInsetStartWithNavigation="0dp"
@@ -98,27 +143,60 @@
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="?attr/actionBarSize"
-                        android:layout_marginEnd="@dimen/dimen_common_margin_more"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
                         android:orientation="horizontal">
+
+                        <FrameLayout
+                            android:layout_width="40dp"
+                            android:layout_height="40dp">
+
+                            <ImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_gravity="center"
+                                android:contentDescription="@string/app_name"
+                                android:src="@drawable/circular_image" />
+
+                            <ImageView
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"
+                                android:layout_gravity="center"
+                                android:contentDescription="@string/app_name"
+                                android:src="@drawable/app_logo" />
+
+                        </FrameLayout>
 
                         <TextView
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/dimen_common_margin_large"
                             android:layout_weight="1"
                             android:text="@string/app_name"
-                            android:textColor="@color/colorPrimary"
+                            android:textColor="@color/colorWhite"
                             android:textSize="@dimen/dimen_common_text_size_very_very_large" />
 
-                        <androidx.appcompat.widget.AppCompatImageView
-                            android:id="@+id/id_image_overflow"
-                            android:layout_width="22dp"
-                            android:layout_height="22dp"
-                            android:clickable="true"
-                            android:focusable="true"
-                            android:onClick="@{clickListener}"
-                            android:src="@drawable/icon_vd_overflow"
-                            android:tint="@color/colorPrimary" />
+                        <FrameLayout
+                            android:layout_width="36dp"
+                            android:layout_height="36dp"
+                            android:layout_marginEnd="@dimen/dimen_common_margin_more">
+
+                            <ImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_gravity="center"
+                                android:contentDescription="@string/app_name"
+                                android:src="@drawable/circular_image" />
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:contentDescription="@string/app_name"
+                                android:src="@drawable/icon_vd_overflow" />
+
+                        </FrameLayout>
+
                     </LinearLayout>
 
 
@@ -131,6 +209,7 @@
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/colorWhite"
             app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
             <LinearLayout
@@ -138,79 +217,200 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <TextView
+                <FrameLayout
+                    android:id="@+id/id_frag_pending"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/colorLayoutBackground"
-                    android:padding="@dimen/dimen_common_margin"
-                    android:text="Pending Orders"
-                    android:textColor="@color/colorTextPrimary"
-                    android:textSize="@dimen/dimen_common_text_size_very_very_large" />
+                    android:layout_height="wrap_content" />
 
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/id_recycler_view_pending"
+                <FrameLayout
+                    android:id="@+id/id_frag_complete"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    tools:itemCount="4" />
+                    android:layout_height="wrap_content" />
 
-                <include
-                    android:id="@+id/id_parent_empty_pending"
-                    layout="@layout/include_inbox_empty" />
-
-                <include layout="@layout/utility_vertical_border_layout" />
-
-                <TextView
+                <FrameLayout
+                    android:id="@+id/id_frag_cancelled"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/colorLayoutBackground"
-                    android:padding="@dimen/dimen_common_margin"
-                    android:text="Placed Orders"
-                    android:textColor="@color/colorTextPrimary"
-                    android:textSize="@dimen/dimen_common_text_size_very_very_large" />
-
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/id_recycler_view_placed"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    tools:itemCount="4" />
-
-                <include
-                    android:id="@+id/id_parent_empty_placed"
-                    layout="@layout/include_inbox_empty" />
-
-                <include layout="@layout/utility_vertical_border_layout" />
-
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/colorLayoutBackground"
-                    android:padding="@dimen/dimen_common_margin"
-                    android:text="Cancelled Orders"
-                    android:textColor="@color/colorTextPrimary"
-                    android:textSize="@dimen/dimen_common_text_size_very_very_large" />
-
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/id_recycler_view_cancelled"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    tools:itemCount="4" />
-
-                <include
-                    android:id="@+id/id_parent_empty_cancelled"
-                    layout="@layout/include_inbox_empty" />
-
+                    android:layout_height="wrap_content" />
             </LinearLayout>
 
         </androidx.core.widget.NestedScrollView>
 
+        <FrameLayout
+            android:id="@+id/id_parent_"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom">
 
-        <include layout="@layout/include_app_bar_shadow" />
+            <View
+                android:id="@+id/id_view_shadow_down"
+                android:layout_width="match_parent"
+                android:layout_height="12dp"
+                android:layout_gravity="top"
+                android:background="@drawable/style_shadow_down"
+                app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:layout_marginTop="@dimen/dimen_common_margin"
+                android:background="@drawable/background_scroll_white_top"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dimen_view_height"
+                    android:layout_marginStart="@dimen/dimen_common_margin_very_large"
+                    android:layout_marginEnd="@dimen/dimen_common_margin_very_large"
+                    android:background="@color/libraryColorViewBlackAlpha" />
+
+                <LinearLayout
+                    android:id="@+id/id_parent_button_contact"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:gravity="center"
+                    android:onClick="@{clickListener}"
+                    android:orientation="horizontal"
+                    android:paddingLeft="@dimen/dimen_common_margin_large"
+                    android:paddingTop="@dimen/dimen_common_margin_more"
+                    android:paddingRight="@dimen/dimen_common_margin_large"
+                    android:paddingBottom="@dimen/dimen_common_margin_more">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            style="@style/TextViewStyleMedium"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:maxLines="1"
+                            android:text="Creat your Order"
+                            android:textColor="@color/colorTextPrimary"
+                            android:textSize="@dimen/dimen_common_text_size_very_large"
+                            android:visibility="visible" />
+
+                        <TextView
+                            style="@style/TextViewStyleLight"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="-2dp"
+                            android:maxLines="1"
+                            android:text="Please click your shopping List and send."
+                            android:textColor="@color/colorTextPrimaryLight"
+                            android:textSize="@dimen/dimen_common_text_size_sub" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/dimen_common_margin"
+                            android:orientation="horizontal">
+
+                            <LinearLayout
+                                android:id="@+id/id_parent_camera"
+                                android:layout_width="80dp"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/more_layouts_click"
+                                android:clickable="true"
+                                android:focusable="true"
+                                android:gravity="center"
+                                android:onClick="@{clickListener}"
+                                android:orientation="vertical">
+
+                                <androidx.appcompat.widget.AppCompatImageView
+                                    android:layout_width="50dp"
+                                    android:layout_height="50dp"
+                                    android:layout_marginBottom="@dimen/dimen_common_margin_small"
+                                    android:background="@drawable/circular_arrow"
+                                    android:padding="@dimen/dimen_common_margin_more"
+                                    android:tint="@color/colorWhite"
+                                    app:srcCompat="@drawable/icon_vd_camera" />
+
+                                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                                    android:id="@+id/id_float_camera"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_margin="@dimen/dimen_common_margin_small"
+                                    android:src="@drawable/icon_vd_camera"
+                                    android:tint="@color/colorWhite"
+                                    android:visibility="gone"
+                                    app:backgroundTint="@color/colorPrimary"
+                                    app:elevation="@dimen/dimen_float_elevation"
+                                    app:fabSize="normal" />
+
+                                <TextView
+                                    style="@style/TextViewStyleMedium"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center_vertical"
+                                    android:maxLines="1"
+                                    android:text="Camera"
+                                    android:textColor="@color/colorTextPrimary"
+                                    android:textSize="@dimen/dimen_common_text_size_title" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:id="@+id/id_parent_manager"
+                                android:layout_width="80dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/dimen_common_margin_more"
+                                android:background="@drawable/more_layouts_click"
+                                android:clickable="true"
+                                android:focusable="true"
+                                android:gravity="center"
+                                android:onClick="@{clickListener}"
+                                android:orientation="vertical">
+
+
+                                <androidx.appcompat.widget.AppCompatImageView
+                                    android:layout_width="50dp"
+                                    android:layout_height="50dp"
+                                    android:layout_marginBottom="@dimen/dimen_common_margin_small"
+                                    android:background="@drawable/circular_arrow"
+                                    android:padding="@dimen/dimen_common_margin_more"
+                                    android:tint="@color/colorWhite"
+                                    app:srcCompat="@drawable/icon_vd_manager" />
+
+                                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                                    android:id="@+id/id_float_manager"
+
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_margin="@dimen/dimen_common_margin_small"
+                                    android:src="@drawable/icon_vd_manager"
+                                    android:tint="@color/colorWhite"
+                                    android:visibility="gone"
+                                    app:backgroundTint="@color/colorPrimary"
+                                    app:elevation="@dimen/dimen_float_elevation"
+                                    app:fabSize="normal" />
+
+                                <TextView
+                                    style="@style/TextViewStyleMedium"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center_vertical"
+                                    android:maxLines="1"
+                                    android:text="Gallery"
+                                    android:textColor="@color/colorTextPrimary"
+                                    android:textSize="@dimen/dimen_common_text_size_title" />
+                            </LinearLayout>
+                        </LinearLayout>
+
+                    </LinearLayout>
+                </LinearLayout>
+
+            </LinearLayout>
+        </FrameLayout>
+
+        <include
+            layout="@layout/include_app_bar_shadow"
+            android:visibility="gone" />
+
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

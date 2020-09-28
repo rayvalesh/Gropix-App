@@ -1,32 +1,61 @@
 package com.coagere.gropix.ui.adapters
 
+import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.coagere.gropix.databinding.AdapterOrdersCancelledBinding
+import com.coagere.gropix.databinding.AdapterOrdersPendingBinding
+import com.coagere.gropix.jetpack.entities.OrderModel
 import com.tc.utils.variables.abstracts.OnEventOccurListener
+import com.tc.utils.variables.interfaces.Constants
 
-class OrderStatusAdapter(modulePending: Int, listener: OnEventOccurListener) :
-    RecyclerView.Adapter<OrderStatusAdapter.ViewHolder>() {
+class OrderStatusAdapter(
+    private val moduleType: Int,
+    private val modelList: ArrayList<OrderModel>,
+    private val listener: OnEventOccurListener
+) :
+    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+    var size = modelList.size
 
-    var size = 0
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): OrderStatusAdapter.ViewHolder {
-        TODO("Not yet implemented")
+    ): RecyclerView.ViewHolder {
+        if (moduleType == Constants.MODULE_PENDING) {
+            return ViewHolder(
+                AdapterOrdersPendingBinding.inflate(
+                    LayoutInflater.from(parent.context),
+                    parent,
+                    false
+                )
+            )
+        } else {
+            return CancelViewHolder(
+                AdapterOrdersCancelledBinding.inflate(
+                    LayoutInflater.from(parent.context),
+                    parent,
+                    false
+                )
+            )
+        }
     }
 
-    override fun onBindViewHolder(holder: OrderStatusAdapter.ViewHolder, position: Int) {
-        TODO("Not yet implemented")
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
     }
 
     override fun getItemCount(): Int {
-        TODO("Not yet implemented")
+        return size
     }
 
-    inner class ViewHolder internal constructor(itemView: View) :
-        RecyclerView.ViewHolder(itemView) {
+    inner class ViewHolder(binding: AdapterOrdersPendingBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+
+    }
+
+    inner class CancelViewHolder(binding: AdapterOrdersCancelledBinding) :
+        RecyclerView.ViewHolder(binding.root) {
 
     }
 

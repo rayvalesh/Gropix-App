@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:id="@+id/id_parent"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/more_layouts_click"
+    android:clickable="true"
+    android:focusable="true"
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingStart="@dimen/dimen_common_margin"
+        android:paddingTop="@dimen/dimen_common_margin"
+        android:paddingEnd="@dimen/dimen_common_margin">
+
+        <ImageView
+            android:id="@+id/id_image"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:background="@drawable/placeholder_one"
+            android:contentDescription="@string/string_icon_desc_image"
+            android:src="@drawable/placeholder_one" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dimen_common_margin"
+            android:layout_marginTop="@dimen/dimen_common_margin_very_small"
+            android:layout_marginBottom="@dimen/dimen_common_margin_small"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/id_text_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:textColor="@color/colorBlack"
+                android:textSize="@dimen/dimen_common_text_size_large" />
+
+            <TextView
+                android:id="@+id/id_text_address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_common_margin_very_small"
+                android:maxLines="3"
+                android:textColor="@color/colorTextPrimaryLight"
+                android:textSize="@dimen/dimen_common_text_size_sub" />
+
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <TextView
+        style="@style/TextViewStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center|end"
+        android:gravity="end"
+        android:paddingStart="@dimen/dimen_common_margin"
+        android:paddingEnd="@dimen/dimen_common_margin"
+        android:text="@string/string_label_order_status"
+        android:textColor="@color/colorTextPrimaryLight"
+        android:textSize="@dimen/dimen_common_text_size_sub" />
+
+
+    <TextView
+        android:id="@+id/id_text_status"
+        style="@style/TextViewStyleMedium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center|end"
+        android:gravity="end"
+        android:padding="@dimen/dimen_common_margin_medium"
+        android:text="Completed"
+        android:textColor="@color/colorStyleOneDark"
+        android:textSize="@dimen/dimen_common_text_size_very_large" />
+
+
+    <include layout="@layout/utility_vertical_border_layout" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorStyleFour"
+        android:gravity="end|center"
+        android:orientation="horizontal"
+        android:padding="@dimen/dimen_common_margin_medium">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="end"
+            android:text="@string/string_label_payable_amount"
+            android:textColor="@color/colorTextPrimary"
+            android:textSize="@dimen/dimen_common_text_size_large" />
+
+        <TextView
+            style="@style/TextViewStyleBold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="@dimen/dimen_common_margin_very_very_large"
+            android:layout_marginRight="@dimen/dimen_common_margin_very_very_large"
+            android:text="@string/string_label_colon"
+            android:textColor="@color/colorTextPrimary"
+            android:textSize="@dimen/dimen_common_text_size_large" />
+
+        <LinearLayout
+            android:id="@+id/id_parent_amount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="12dp"
+                android:layout_height="12dp"
+                android:layout_gravity="bottom"
+                android:layout_marginBottom="@dimen/dimen_common_margin"
+                android:tint="@color/colorTextPrimary"
+                app:srcCompat="@drawable/icon_vd_rupee" />
+
+            <TextView
+                android:id="@+id/id_text_amount"
+                style="@style/TextViewStyleMedium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="223"
+                android:textColor="@color/colorTextPrimary"
+                android:textSize="@dimen/dimen_common_text_size_very_very_large" />
+
+            <TextView
+                style="@style/TextViewStyleBold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/string_label_amount_unit"
+                android:textColor="@color/colorTextPrimary"
+                android:textSize="@dimen/dimen_common_text_size_large" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

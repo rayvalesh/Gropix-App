@@ -62,7 +62,7 @@
         <item name="cardCornerRadius">@dimen/dimen_slices_radius_small</item>
         <item name="cardBackgroundColor">@color/colorWhite</item>
         <item name="cardPreventCornerOverlap">false</item>
-        <item name="cardElevation">3dp</item>
+        <item name="cardElevation">1.5dp</item>
     </style>
 
     <style name="CardStyleSlice" parent="Base.CardView">
@@ -103,8 +103,8 @@
     </style>
 
     <style name="CheckBoxStyle" parent="android:Widget.Holo.CompoundButton.CheckBox">
-        <item name="colorControlNormal">@color/colorTextPrimaryAlpha</item>
-        <item name="colorControlActivated">@color/colorPrimary</item>
+        <item name="colorControlNormal">@color/colorWhiteAlpha</item>
+        <item name="colorControlActivated">@color/colorWhite</item>
     </style>
 
     <style name="RadioTextStyle" parent="android:Widget.Holo.CompoundButton.RadioButton">

@@ -7,7 +7,15 @@
     <string name="string_toast_otp_resent">OTP resend to</string>
 
     <!-- Launcher Activity-->
-    <string name="string_label_agree_to_Terms">I agree to all the</string>
+    <string name="string_label_agree_to_Terms">By Clicking Submit, I agree to the
+        <u>
+            <b>Terms</b>
+        </u> &amp;
+        <u>
+            <b>Conditions</b>
+        </u>
+        of GroPix.
+    </string>
     <string name="string_label_terms">Terms &amp; Condition</string>
     <string name="string_error_no_internet">No Internet!\nCheck your Connection and Try Again</string>
 
@@ -137,5 +145,6 @@
     <string name="string_toast_success_feedback">Feedback sent successfully</string>
     <string name="string_label_choose_image">"Select Image for Shopping  "</string>
     <string name="string_message_error_file_size">Please select Image less then 12 mb.</string>
+    <string name="string_label_order_status">Order Status</string>
 
 </resources>

@@ -14,7 +14,7 @@
         android:id="@+id/id_coordinator_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/colorWhite"
+        android:background="@color/colorPrimary"
         tools:context=".ui.activities.AccessAccountActivity">
 
         <LinearLayout
@@ -38,20 +38,33 @@
                 android:paddingBottom="@dimen/dimen_common_margin_small"
                 tools:ignore="UseCompoundDrawables">
 
-                <ImageView
-                    android:id="@+id/id_image_back"
-                    android:layout_width="28dp"
-                    android:layout_height="28dp"
-                    android:contentDescription="@string/app_name"
-                    android:src="@drawable/app_logo" />
+                <FrameLayout
+                    android:layout_width="40dp"
+                    android:layout_height="40dp">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:contentDescription="@string/app_name"
+                        android:src="@drawable/circular_image" />
+
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_gravity="center"
+                        android:contentDescription="@string/app_name"
+                        android:src="@drawable/app_logo" />
+
+                </FrameLayout>
 
                 <TextView
-                    style="@style/TextViewStyle"
+                    style="@style/TextViewStyleMedium"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/dimen_common_margin"
                     android:text="@string/app_name"
-                    android:textColor="@color/colorTextPrimary"
+                    android:textColor="@color/colorWhite"
                     android:textSize="@dimen/dimen_common_text_size_very_very_large" />
             </LinearLayout>
 
@@ -59,11 +72,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dimen_common_margin_very_large"
-                android:textColorHint="@color/colorTextPrimaryAlpha"
+                android:textColorHint="@color/colorWhiteAlpha"
                 app:hintTextAppearance="@style/TextInputLayout">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/id_edit_number"
+                    style="@style/EditTextStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/string_edit_hint_login_number"
@@ -72,9 +86,8 @@
                     android:inputType="number"
                     android:maxLength="14"
                     android:maxLines="1"
-                    android:textAppearance="@style/TextViewStyleBold"
-                    android:textColor="@color/colorTextPrimaryAlpha"
-                    android:textColorHint="@color/colorTextPrimaryAlpha"
+                    android:textColor="@color/colorWhite"
+                    android:textColorHint="@color/colorWhiteAlpha"
                     android:textSize="@dimen/dimen_edit_text_size_large" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -113,7 +126,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="@string/string_label_agree_to_Terms"
-                    android:textColor="@color/colorTextPrimary"
+                    android:textColor="@color/colorWhite"
                     android:textSize="@dimen/dimen_common_text_size_sub" />
             </LinearLayout>
 
@@ -132,9 +145,8 @@
                     android:layout_gravity="end"
                     android:background="@drawable/more_layouts_click"
                     android:gravity="center"
-                    android:onClick="@{clickListener}"
                     android:text="@string/string_label_edit"
-                    android:textColor="@color/colorTextPrimaryAlpha"
+                    android:textColor="@color/colorWhiteAlpha"
                     android:textSize="@dimen/dimen_common_text_size_large" />
 
                 <FrameLayout
@@ -145,7 +157,7 @@
                     <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textColorHint="@color/colorTextPrimaryAlpha"
+                        android:textColorHint="@color/colorWhiteAlpha"
                         app:hintTextAppearance="@style/TextInputLayout">
 
                         <com.google.android.material.textfield.TextInputEditText
@@ -157,8 +169,8 @@
                             android:importantForAutofill="no"
                             android:inputType="number"
                             android:maxLines="1"
-                            android:textColor="@color/colorTextPrimaryAlpha"
-                            android:textColorHint="@color/colorTextPrimaryAlpha"
+                            android:textColor="@color/colorTextWhite"
+                            android:textColorHint="@color/colorTextWhite"
                             android:textSize="@dimen/dimen_edit_text_size_large" />
 
                     </com.google.android.material.textfield.TextInputLayout>
@@ -170,7 +182,7 @@
                         android:layout_gravity="end|center"
                         android:layout_marginEnd="@dimen/dimen_common_margin_less_more"
                         android:contentDescription="@null"
-                        android:tint="@color/colorPrimaryDark"
+                        android:tint="@color/colorWhite"
                         android:visibility="gone"
                         app:srcCompat="@drawable/avd_progress_bar" />
                 </FrameLayout>
@@ -182,7 +194,7 @@
                     android:layout_marginStart="@dimen/dimen_common_margin_small"
                     android:layout_marginEnd="@dimen/dimen_common_margin_small"
                     android:text="@string/string_validation_message_wrong_otp"
-                    android:textColor="@color/colorPrimary"
+                    android:textColor="@color/colorTextWhite"
                     android:textSize="@dimen/dimen_text_size_error"
                     android:visibility="gone" />
 
@@ -197,7 +209,7 @@
                     android:gravity="center"
                     android:paddingTop="@dimen/dimen_common_margin"
                     android:paddingBottom="@dimen/dimen_common_margin"
-                    android:textColor="@color/colorTextPrimaryAlpha"
+                    android:textColor="@color/colorWhiteAlpha"
                     android:textSize="@dimen/dimen_common_text_size_large" />
 
                 <androidx.appcompat.widget.AppCompatImageView
@@ -207,8 +219,7 @@
                     android:layout_gravity="end|center"
                     android:layout_marginEnd="@dimen/dimen_common_margin_less_more"
                     android:contentDescription="@null"
-                    android:onClick="@{clickListener}"
-                    android:tint="@color/colorTextPrimary"
+                    android:tint="@color/colorWhite"
                     android:visibility="gone"
                     app:srcCompat="@drawable/avd_progress_bar" />
 
@@ -218,8 +229,8 @@
                 android:id="@+id/id_parent_button_submit"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dimen_button_height_default"
-                android:layout_marginTop="@dimen/dimen_common_margin_very_large"
-                android:background="@drawable/button_background_positive_rect_light"
+                android:layout_marginTop="@dimen/dimen_common_margin_very_very_large"
+                android:background="@drawable/button_background_positive_white"
                 android:clickable="true"
                 android:focusable="true"
                 android:onClick="@{clickListener}"
@@ -259,7 +270,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:background="@drawable/background_scroll_primary_top"
+            android:background="@drawable/background_scroll_white_top"
             android:gravity="center_horizontal"
             android:orientation="vertical">
 
@@ -292,13 +303,13 @@
                     android:orientation="vertical">
 
                     <TextView
-                        style="@style/TextViewStyleBold"
+                        style="@style/TextViewStyleMedium"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center_vertical"
                         android:maxLines="1"
                         android:text="Reach to us?"
-                        android:textColor="@color/colorWhite"
+                        android:textColor="@color/colorTextPrimary"
                         android:textSize="@dimen/dimen_common_text_size_very_large"
                         android:visibility="visible" />
 
@@ -309,14 +320,14 @@
                         android:layout_marginTop="-2dp"
                         android:maxLines="1"
                         android:text="@string/string_label_contact_desc"
-                        android:textColor="@color/colorWhiteAlpha"
+                        android:textColor="@color/colorTextPrimaryLight"
                         android:textSize="@dimen/dimen_common_text_size_sub" />
                 </LinearLayout>
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:layout_width="@dimen/dimen_icon_size_large"
                     android:layout_height="@dimen/dimen_icon_size_large"
-                    android:tint="@color/colorWhite"
+                    android:tint="@color/colorTextPrimary"
                     app:srcCompat="@drawable/icon_vd_contact_us" />
 
             </LinearLayout>

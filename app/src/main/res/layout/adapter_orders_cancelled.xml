@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <data>
+
+        <variable
+            name="model"
+            type="com.coagere.gropix.jetpack.entities.OrderModel" />
+
+        <variable
+            name="clickListener"
+            type="android.view.View.OnClickListener" />
+    </data>
+
+    <androidx.cardview.widget.CardView
+        style="@style/CardStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dimen_common_margin"
+        android:layout_marginTop="@dimen/dimen_common_margin_medium"
+        android:layout_marginRight="@dimen/dimen_common_margin"
+        android:layout_marginBottom="@dimen/dimen_common_margin_very_small">
+
+        <LinearLayout
+            android:id="@+id/id_parent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/dimen_common_margin_medium"
+            android:background="@drawable/more_layouts_click"
+            android:clickable="true"
+            android:focusable="true"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/id_image"
+                android:layout_width="110dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/placeholder_one"
+                android:contentDescription="@string/string_icon_desc_image"
+                android:src="@drawable/placeholder_one" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="end"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/id_text_title"
+                    style="@style/TextViewStyleMedium"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:maxLines="1"
+                    android:textColor="@color/colorTextPrimary"
+                    android:textSize="@dimen/dimen_common_text_size_large" />
+
+                <TextView
+                    android:id="@+id/id_text_address"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:maxLines="1"
+                    style="@style/TextViewStyleLight"
+                    android:textColor="@color/colorTextPrimaryLight"
+                    android:textSize="@dimen/dimen_common_text_size_sub" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dimen_common_margin_small"
+                    android:layout_marginBottom="@dimen/dimen_common_margin"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/dimen_common_margin_small"
+                        android:layout_marginRight="@dimen/dimen_common_margin_small"
+                        android:text="@string/string_order_label_order_time"
+                        android:textColor="@color/colorTextPrimaryLight"
+                        android:textSize="@dimen/dimen_common_text_size_small" />
+
+                    <TextView
+                        android:id="@+id/id_text_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/colorTextPrimary"
+                        android:textSize="@dimen/dimen_common_text_size_very_small"
+                        android:textStyle="italic" />
+                </LinearLayout>
+
+                <include layout="@layout/utility_vertical_border_layout_header" />
+
+                <TextView
+                    android:id="@+id/id_text_status"
+                    style="@style/TextViewStyleBold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="@dimen/dimen_common_text_size_med_large" />
+            </LinearLayout>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+</layout>
