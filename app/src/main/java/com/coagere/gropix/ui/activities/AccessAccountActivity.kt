@@ -16,6 +16,7 @@ import androidx.lifecycle.lifecycleScope
 import com.coagere.gropix.R
 import com.coagere.gropix.databinding.ActivityAccessAccountBinding
 import com.coagere.gropix.jetpack.viewmodels.UserVM
+import com.coagere.gropix.prefs.UserStorage
 import com.coagere.gropix.utils.UtilityClass
 import com.tc.utils.elements.BaseActivity
 import com.tc.utils.utils.utility.CheckConnection
@@ -110,7 +111,6 @@ class AccessAccountActivity : BaseActivity(), View.OnClickListener {
 
         })
 
-
     }
 
     private fun onClickContact() {
@@ -119,31 +119,30 @@ class AccessAccountActivity : BaseActivity(), View.OnClickListener {
 
     private fun onClickOtp() {
         utilityClass.hideSoftKeyboard()
-        startActivity(Intent(this@AccessAccountActivity, MainActivity::class.java))
+//        startActivity(Intent(this@AccessAccountActivity, MainActivity::class.java))
+        if (validate() && CheckConnection.checkConnection(this)) {
+            utilityClass.startProgressBar()
+            binding!!.idEditNumber.isEnabled = false
+            binding!!.idParentButtonSubmit.isEnabled = false
+            viewModel.performAccessAccount(
+                binding!!.idEditNumber.text.toString()
+                    .substring(4, binding!!.idEditNumber.text.toString().length),
+                object : OnEventOccurListener() {
+                    override fun onErrorResponse(`object`: Any?, errorMessage: String?) {
+                        super.onErrorResponse(`object`, errorMessage)
+                        binding!!.idEditNumber.isEnabled = true
+                        hideProgressBar()
+                        MySnackBar.getInstance()
+                            .showSnackBarForMessage(this@AccessAccountActivity, errorMessage)
+                    }
 
-//        if (validate() && CheckConnection.checkConnection(this)) {
-//            utilityClass.startProgressBar()
-//            binding!!.idEditNumber.isEnabled = false
-//            binding!!.idParentButtonSubmit.isEnabled = false
-//            viewModel.performAccessAccount(
-//                binding!!.idEditNumber.text.toString()
-//                    .substring(4, binding!!.idEditNumber.text.toString().length),
-//                object : OnEventOccurListener() {
-//                    override fun onErrorResponse(`object`: Any?, errorMessage: String?) {
-//                        super.onErrorResponse(`object`, errorMessage)
-//                        binding!!.idEditNumber.isEnabled = true
-//                        hideProgressBar()
-//                        MySnackBar.getInstance()
-//                            .showSnackBarForMessage(this@AccessAccountActivity, errorMessage)
-//                    }
-//
-//                    override fun getEventData(`object`: Any?) {
-//                        super.getEventData(`object`)
-//                        showOtpView()
-//                        hideProgressBar()
-//                    }
-//                })
-//        }
+                    override fun getEventData(`object`: Any?) {
+                        super.getEventData(`object`)
+                        showOtpView()
+                        hideProgressBar()
+                    }
+                })
+        }
     }
 
     private var processingCount = -1
@@ -214,79 +213,41 @@ class AccessAccountActivity : BaseActivity(), View.OnClickListener {
 
     private fun onClickSubmit() {
         utilityClass.hideSoftKeyboard()
-        startActivity(Intent(this@AccessAccountActivity, MainActivity::class.java))
-//        if (validateOtp() && CheckConnection.checkConnection(this)) {
-//            id_parent_button_submit.isEnabled = false
-//            binding!!.idEditOtp.isEnabled = false
-//            binding!!.idEditOtp.setTextColor(
-//                ContextCompat.getColor(
-//                    this@AccessAccountActivity,
-//                    R.color.colorTextWhite
-//                )
-//            )
-//            utilityClass.startProgressBar()
-//            viewModel.performOtpVerification(
-//                binding!!.idEditNumber.text.toString()
-//                    .substring(4, binding!!.idEditNumber.text.toString().length),
-//                binding!!.idEditOtp.text.toString(),
-//                object : OnEventOccurListener() {
-//                    override fun onErrorResponse(`object`: Any, errorMessage: String) {
-//                        hideProgressBar()
-//                        MySnackBar.getInstance()
-//                            .showSnackBarForMessage(this@AccessAccountActivity, errorMessage)
-//                    }
-//
-//                    override fun getEventData(`object`: Any) {
-//                        super.getEventData(`object`)
-//                        val comeFrom: Int = `object` as Int
-//                        UserStorage.instance.mobileNumber = binding!!.idEditNumber.text.toString()
-//                            .substring(4, binding!!.idEditNumber.text.toString().length)
-//                        when (comeFrom) {
-//                            3 -> {
-//                                hideProgressBar()
-//                                viewModel.getProfileData(object : OnEventOccurListener() {
-//                                    override fun getEventData(`object`: Any?) {
-//                                        super.getEventData(`object`)
-//                                        startActivity(
-//                                            Intent(
-//                                                this@AccessAccountActivity,
-//                                                MainActivity::class.java
-//                                            )
-//                                                .putExtra(
-//                                                    IntentInterface.INTENT_COME_FROM,
-//                                                    intent.getStringExtra(IntentInterface.INTENT_COME_FROM)
-//                                                )
-//                                                .putExtra(
-//                                                    IntentInterface.INTENT_FOR_ID,
-//                                                    intent.getStringExtra(IntentInterface.INTENT_FOR_ID)
-//                                                )
-//                                        )
-//                                        finish()
-//                                    }
-//
-//                                    override fun onErrorResponse(
-//                                        `object`: Any?,
-//                                        errorMessage: String?
-//                                    ) {
-//                                        super.onErrorResponse(`object`, errorMessage)
-//                                        MySnackBar.getInstance().showSnackBarForMessage(
-//                                            this@AccessAccountActivity,
-//                                            errorMessage
-//                                        )
-//                                        hideOtpView()
-//                                    }
-//                                })
-//                            }
-//                            else -> {
-//                                MySnackBar.getInstance().showSnackBarForMessage(
-//                                    this@AccessAccountActivity,
-//                                    "This Number no longer available to use, Please try with another number"
-//                                )
-//                            }
-//                        }
-//                    }
-//                })
-//        }
+//        startActivity(Intent(this@AccessAccountActivity, MainActivity::class.java))
+        if (validateOtp() && CheckConnection.checkConnection(this)) {
+            binding!!.idParentButtonSubmit.isEnabled = false
+            binding!!.idEditOtp.isEnabled = false
+            binding!!.idEditOtp.setTextColor(
+                ContextCompat.getColor(
+                    this@AccessAccountActivity,
+                    R.color.colorTextWhite
+                )
+            )
+            utilityClass.startProgressBar()
+            viewModel.performOtpVerification(
+                binding!!.idEditNumber.text.toString()
+                    .substring(4, binding!!.idEditNumber.text.toString().length),
+                binding!!.idEditOtp.text.toString(),
+                object : OnEventOccurListener() {
+                    override fun onErrorResponse(`object`: Any, errorMessage: String) {
+                        hideProgressBar()
+                        MySnackBar.getInstance()
+                            .showSnackBarForMessage(this@AccessAccountActivity, errorMessage)
+                    }
+
+                    override fun getEventData(`object`: Any) {
+                        super.getEventData(`object`)
+                        UserStorage.instance.mobileNumber = binding!!.idEditNumber.text.toString()
+                            .substring(4, binding!!.idEditNumber.text.toString().length)
+                        hideProgressBar()
+                        startActivity(Intent(
+                                this@AccessAccountActivity,
+                                MainActivity::class.java
+                            )
+                        )
+                    }
+                })
+        }
     }
 
     private fun hideProgressBar() {
@@ -331,7 +292,8 @@ class AccessAccountActivity : BaseActivity(), View.OnClickListener {
                             progressView = binding!!.idProgressBarResend
                         )
                         MySnackBar.getInstance().showSnackBarForMessage(
-                            this@AccessAccountActivity, getString(R.string.string_toast_otp_resent)
+                            this@AccessAccountActivity,
+                            getString(R.string.string_toast_otp_resent)
                                     + Constants.SPACE + binding!!.idEditNumber.text.toString() + "!"
                         )
                         startTimer()

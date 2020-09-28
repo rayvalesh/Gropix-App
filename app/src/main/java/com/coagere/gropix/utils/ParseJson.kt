@@ -3,6 +3,7 @@ package com.coagere.gropix.utils
 
 import com.tc.utils.variables.abstracts.OnEventOccurListener
 import com.tc.utils.variables.enums.ResponseTypes
+import com.tc.utils.variables.interfaces.Constants
 import org.json.JSONException
 import org.json.JSONObject
 import tk.jamun.volley.helpers.VolleyErrorExceptions
@@ -49,11 +50,12 @@ class ParseJson {
         }
     }
 
-    fun parseLoginResponse(response: Any?, listener: OnEventOccurListener) {
 
-    }
+
+
 
     fun parseOtpVerification(response: Any?, listener: OnEventOccurListener) {
+
 
     }
 

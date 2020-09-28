@@ -25,7 +25,10 @@
             android:layout_marginStart="@dimen/dimen_common_margin_more"
             android:layout_marginTop="@dimen/dimen_common_margin_small"
             android:layout_marginEnd="@dimen/dimen_common_margin_more"
-            android:layout_marginBottom="@dimen/dimen_common_margin_medium">
+            android:layout_marginBottom="@dimen/dimen_common_margin_medium"
+            android:clickable="true"
+            android:focusable="true"
+            android:onClick="@{clickListener}">
 
             <LinearLayout
                 android:id="@+id/id_parent"
@@ -45,7 +48,7 @@
                     android:paddingEnd="@dimen/dimen_common_margin">
 
                     <ImageView
-                        android:id="@+id/id_image"
+                        downloadImage="@{model.image}"
                         android:layout_width="80dp"
                         android:layout_height="80dp"
                         android:background="@drawable/placeholder_one"
@@ -62,6 +65,7 @@
 
                         <TextView
                             android:id="@+id/id_text_title"
+                            text="@{model.title}"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:ellipsize="end"
@@ -71,6 +75,7 @@
 
                         <TextView
                             android:id="@+id/id_text_address"
+                            text='@{model.address.street +","+ model.address.city +","+model.address.state}'
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/dimen_common_margin_very_small"
@@ -98,6 +103,7 @@
                 <TextView
                     android:id="@+id/id_text_status"
                     style="@style/TextViewStyleMedium"
+                    text="@{model.status}"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center|end"
@@ -156,6 +162,7 @@
                         <TextView
                             android:id="@+id/id_text_amount"
                             style="@style/TextViewStyleMedium"
+                            text="@{model.totalAmount}"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="223"

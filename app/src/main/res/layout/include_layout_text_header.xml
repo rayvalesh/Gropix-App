@@ -1,0 +1,9 @@
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/id_text_header"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorLayoutBackground"
+    android:padding="@dimen/dimen_common_margin"
+    android:text="Cancelled Orders"
+    android:textColor="@color/colorTextPrimary"
+    android:textSize="@dimen/dimen_common_text_size_very_very_large" />

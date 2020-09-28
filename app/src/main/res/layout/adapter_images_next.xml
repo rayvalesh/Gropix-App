@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ImageView xmlns:android="http://schemas.android.com/apk/res/android"
+           android:id="@+id/id_image"
+           android:layout_width="60dp"
+           android:layout_height="45dp"
+           android:layout_marginStart="@dimen/dimen_common_margin_very_small"
+           android:layout_marginTop="@dimen/dimen_common_margin_very_small"
+           android:layout_marginBottom="@dimen/dimen_common_margin_very_small"
+           android:background="@drawable/images_background_next"
+           android:contentDescription="@null"
+           android:clickable="true"
+           android:focusable="true" />

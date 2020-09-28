@@ -18,5 +18,15 @@ interface Constants {
         const val MODULE_CANCELLED = 2
         const val MODULE_PLACED = 3
 
+        const val CONSTANTS_IMAGES_COUNT = 8
+        const val VALUE_IMAGE_RADIUS = 22
+
+        const val RESPONSE_PENDING = 1
+        const val RESPONSE_SUCCESS = 2
+        const val TYPE_ACTION_ADD = 1
+        const val TYPE_ACTION_UPLOAD = 3
+        const val TYPE_ACTION_CANCEL = 4
+        const val TYPE_UPLOAD_STOP = 5
+        const val TYPE_ACTION_DELETE = 11
     }
 }

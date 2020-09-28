@@ -14,6 +14,7 @@ public interface IntentInterface {
     String INTENT_FOR_VIEW_TYPE = "11";
     String INTENT_FOR_COMMON_DATA = "12";
     String INTENT_FOR_GENRE = "13";
+    String INTENT_FOR_RECEIVER = "20";
 
 
     int REQUEST_DEFAULT = 111;

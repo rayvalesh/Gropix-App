@@ -1,337 +1,92 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/id_coordinator_layout"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/colorLayoutBackground"
-    android:fitsSystemWindows="true"
-    tools:context=".ui.activities.ExploreOrderActivity">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <include layout="@layout/include_app_bar_layout" />
+    <data>
 
-    <androidx.core.widget.NestedScrollView
+        <variable
+            name="model"
+            type="com.coagere.gropix.jetpack.entities.OrderModel" />
+
+        <variable
+            name="clickListener"
+            type="android.view.View.OnClickListener" />
+
+    </data>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/id_coordinator_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:scrollbars="none"
-        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+        android:layout_height="match_parent"
+        android:background="@color/colorLayoutBackground"
+        android:fitsSystemWindows="true"
+        tools:context=".ui.activities.ExploreOrderActivity">
 
-        <LinearLayout
+        <include layout="@layout/include_app_bar_layout" />
+
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/dimen_common_margin_extra_large"
-            android:orientation="vertical">
+            android:scrollbars="none"
+            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/colorWhite"
+                android:layout_marginBottom="@dimen/dimen_common_margin_extra_large"
                 android:orientation="vertical">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:paddingStart="@dimen/dimen_common_margin"
-                    android:paddingTop="@dimen/dimen_common_margin"
-                    android:paddingEnd="@dimen/dimen_common_margin">
-
-                    <ImageView
-                        android:id="@+id/id_image"
-                        android:layout_width="80dp"
-                        android:layout_height="80dp"
-                        android:background="@drawable/placeholder_one"
-                        android:contentDescription="@string/string_icon_desc_image"
-                        android:src="@drawable/placeholder_one" />
+                    android:background="@color/colorWhite"
+                    android:orientation="vertical">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/dimen_common_margin"
-                        android:layout_marginTop="@dimen/dimen_common_margin_very_small"
-                        android:layout_marginBottom="@dimen/dimen_common_margin_small"
-                        android:orientation="vertical">
+                        android:orientation="horizontal"
+                        android:paddingStart="@dimen/dimen_common_margin"
+                        android:paddingTop="@dimen/dimen_common_margin"
+                        android:paddingEnd="@dimen/dimen_common_margin">
 
-                        <TextView
-                            android:id="@+id/id_text_title"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:ellipsize="end"
-                            android:maxLines="2"
-                            android:textColor="@color/colorBlack"
-                            android:textSize="@dimen/dimen_common_text_size_large" />
-
-                        <TextView
-                            android:id="@+id/id_text_address"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/dimen_common_margin_very_small"
-                            android:maxLines="3"
-                            android:textColor="@color/colorTextPrimaryLight"
-                            android:textSize="@dimen/dimen_common_text_size_sub" />
-
-
-                    </LinearLayout>
-                </LinearLayout>
-
-                <include layout="@layout/utility_vertical_border_layout" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="end|center"
-                    android:orientation="horizontal"
-                    android:padding="@dimen/dimen_common_margin_less_more">
-
-                    <TextView
-                        android:id="@+id/id_text_status_title"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:text="@string/string_label_order_status"
-                        android:textColor="@color/colorTextPrimaryAlpha"
-                        android:textSize="@dimen/dimen_common_text_size_title" />
-
-                    <TextView
-                        style="@style/TextViewStyleBold"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginLeft="@dimen/dimen_common_margin_very_very_large"
-                        android:layout_marginRight="@dimen/dimen_common_margin_very_very_large"
-                        android:text="@string/string_label_colon"
-                        android:textColor="@color/colorTextPrimary"
-                        android:textSize="@dimen/dimen_common_text_size_large" />
-
-                    <TextView
-                        android:id="@+id/id_text_status"
-                        style="@style/TextViewStyleBold"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/colorPrimaryDark"
-                        android:textSize="@dimen/dimen_common_text_size_med_large" />
-                </LinearLayout>
-
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dimen_view_height"
-                android:layout_marginBottom="@dimen/dimen_common_margin_more"
-                android:background="@drawable/style_shadow_up" />
-
-            <LinearLayout
-                android:id="@+id/id_parent_billing"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/colorWhite"
-                android:orientation="vertical">
-
-                <TextView
-                    style="@style/TextViewStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:padding="@dimen/dimen_common_margin"
-                    android:text="@string/string_order_explore_label_billing_title"
-                    android:textColor="@color/colorStyleOneDark"
-                    android:textSize="@dimen/dimen_common_text_size_med_large" />
-
-                <View
-                    android:layout_width="40dp"
-                    android:layout_height="@dimen/dimen_view_height_large"
-                    android:layout_gravity="center"
-                    android:layout_marginBottom="@dimen/dimen_common_margin_more"
-                    android:background="@color/colorViewBlackDark" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/dimen_common_margin"
-                    android:layout_marginRight="@dimen/dimen_common_margin"
-                    android:layout_marginBottom="@dimen/dimen_common_margin_more"
-                    android:background="@drawable/background_slices_white_bottom"
-                    android:orientation="vertical">
-
-                    <com.tc.utils.utils.customs.CustomHorizontalView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:scrollbars="none">
+                        <ImageView
+                            android:id="@+id/id_image"
+                            android:layout_width="80dp"
+                            android:layout_height="80dp"
+                            android:background="@drawable/placeholder_one"
+                            android:contentDescription="@string/string_icon_desc_image"
+                            android:src="@drawable/placeholder_one" />
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/dimen_common_margin"
+                            android:layout_marginTop="@dimen/dimen_common_margin_very_small"
+                            android:layout_marginBottom="@dimen/dimen_common_margin_small"
                             android:orientation="vertical">
 
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="@dimen/dimen_margin_balancing"
-                                android:layout_marginTop="@dimen/dimen_margin_balancing"
-                                android:layout_marginRight="@dimen/dimen_margin_balancing"
-                                android:background="@drawable/background_slices_white_top"
-                                android:gravity="center_vertical"
-                                android:orientation="horizontal"
-                                android:paddingTop="@dimen/dimen_common_margin_less_more"
-                                android:paddingBottom="@dimen/dimen_common_margin_less_more">
-
-                                <TextView
-                                    style="@style/TextViewStyleBold"
-                                    android:layout_width="@dimen/dimen_sheet_label_serial_width"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginStart="@dimen/dimen_common_margin_very_small"
-                                    android:gravity="center"
-                                    android:maxLines="2"
-                                    android:text="@string/string_label_serial_no"
-                                    android:textColor="@color/colorTextPrimary"
-                                    android:textSize="@dimen/dimen_common_text_size_sub" />
-
-                                <include layout="@layout/utility_horizontal_border_layout" />
-
-                                <TextView
-                                    style="@style/TextViewStyleBold"
-                                    android:layout_width="@dimen/dimen_sheet_label_title_width"
-                                    android:layout_height="wrap_content"
-                                    android:ellipsize="end"
-                                    android:gravity="center"
-                                    android:maxLines="2"
-                                    android:paddingLeft="@dimen/dimen_common_margin_medium"
-                                    android:paddingRight="@dimen/dimen_common_margin_medium"
-                                    android:text="@string/string_label_item_name"
-                                    android:textColor="@color/colorTextPrimary"
-                                    android:textSize="@dimen/dimen_common_text_size_sub" />
-
-                                <include layout="@layout/utility_horizontal_border_layout" />
-
-                                <TextView
-                                    style="@style/TextViewStyleBold"
-                                    android:layout_width="140dp"
-                                    android:layout_height="wrap_content"
-                                    android:ellipsize="end"
-                                    android:gravity="center"
-                                    android:maxLines="2"
-                                    android:paddingLeft="@dimen/dimen_common_margin_medium"
-                                    android:paddingRight="@dimen/dimen_common_margin_medium"
-                                    android:text="@string/string_label_items"
-                                    android:textColor="@color/colorTextPrimary"
-                                    android:textSize="@dimen/dimen_common_text_size_sub" />
-
-                                <include layout="@layout/utility_horizontal_border_layout" />
-
-                                <TextView
-                                    style="@style/TextViewStyleBold"
-                                    android:layout_width="@dimen/dimen_sheet_label_serial_width"
-                                    android:layout_height="wrap_content"
-                                    android:ellipsize="end"
-                                    android:gravity="center"
-                                    android:maxLines="2"
-                                    android:paddingLeft="@dimen/dimen_common_margin_medium"
-                                    android:paddingRight="@dimen/dimen_common_margin_medium"
-                                    android:text="@string/string_label_times"
-                                    android:textColor="@color/colorTextPrimary"
-                                    android:textSize="@dimen/dimen_common_text_size_sub" />
-
-                                <include layout="@layout/utility_horizontal_border_layout" />
-
-                                <TextView
-                                    style="@style/TextViewStyleBold"
-                                    android:layout_width="@dimen/dimen_sheet_label_large_width"
-                                    android:layout_height="wrap_content"
-                                    android:ellipsize="end"
-                                    android:gravity="center"
-                                    android:maxLines="2"
-                                    android:text="@string/string_label_total_amount"
-                                    android:textColor="@color/colorTextPrimary"
-                                    android:textSize="@dimen/dimen_common_text_size_sub" />
-
-                            </LinearLayout>
-
-                            <androidx.recyclerview.widget.RecyclerView
-                                android:id="@+id/id_recycler_view_bills"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="@dimen/dimen_margin_balancing"
-                                android:layout_marginRight="@dimen/dimen_margin_balancing"
-                                android:background="@color/colorLayoutBackground"
-                                android:nestedScrollingEnabled="false"
-                                tools:itemCount="3"
-                                tools:listitem="@layout/adapter_item" />
-
-                        </LinearLayout>
-                    </com.tc.utils.utils.customs.CustomHorizontalView>
-
-                    <include layout="@layout/utility_vertical_border_layout_shadow_up" />
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="end"
-                        android:orientation="horizontal"
-                        android:paddingTop="@dimen/dimen_common_margin_less_more">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:gravity="end"
-                            android:text="@string/string_label_amount"
-                            android:textColor="@color/colorTextPrimary"
-                            android:textSize="@dimen/dimen_common_text_size_title" />
-
-                        <include layout="@layout/include_colon" />
-
-                        <LinearLayout
-                            android:layout_width="@dimen/string_order_bill_label_width"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:orientation="horizontal">
-
-                            <androidx.appcompat.widget.AppCompatImageView
-                                android:layout_width="@dimen/dimen_rupee_small"
-                                android:layout_height="@dimen/dimen_rupee_small"
-                                android:layout_gravity="center"
-                                android:layout_marginTop="@dimen/dimen_margin_balancing"
-                                android:tint="@color/colorTextPrimary"
-                                app:srcCompat="@drawable/icon_vd_rupee" />
-
                             <TextView
-                                android:id="@+id/id_text_bill_amount"
-                                style="@style/TextViewStyleBold"
+                                android:id="@+id/id_text_title"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:gravity="center"
-                                android:textColor="@color/colorTextPrimary"
+                                android:ellipsize="end"
+                                android:maxLines="2"
+                                android:textColor="@color/colorBlack"
+                                android:textSize="@dimen/dimen_common_text_size_large" />
+
+                            <TextView
+                                android:id="@+id/id_text_address"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/dimen_common_margin_very_small"
+                                android:maxLines="3"
+                                android:textColor="@color/colorTextPrimaryLight"
                                 android:textSize="@dimen/dimen_common_text_size_sub" />
 
+
                         </LinearLayout>
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="end"
-                        android:orientation="horizontal"
-                        android:paddingTop="@dimen/dimen_common_margin_less_more"
-                        android:paddingBottom="@dimen/dimen_common_margin_less_more">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:gravity="end"
-                            android:text="@string/string_label_quantity"
-                            android:textColor="@color/colorTextPrimaryAlpha"
-                            android:textSize="@dimen/dimen_common_text_size_title" />
-
-                        <include layout="@layout/include_colon" />
-
-                        <TextView
-                            android:id="@+id/id_text_selected_items"
-                            style="@style/TextViewStyleBold"
-                            android:layout_width="@dimen/string_order_bill_label_width"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:textColor="@color/colorTextPrimary"
-                            android:textSize="@dimen/dimen_common_text_size_title" />
                     </LinearLayout>
 
                     <include layout="@layout/utility_vertical_border_layout" />
@@ -339,158 +94,417 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="end"
-                        android:gravity="center|end"
+                        android:gravity="end|center"
                         android:orientation="horizontal"
-                        android:paddingTop="@dimen/dimen_common_margin_less_more">
+                        android:padding="@dimen/dimen_common_margin_less_more">
 
                         <TextView
-                            android:id="@+id/id_text_gst_title"
+                            android:id="@+id/id_text_status_title"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:gravity="end"
-                            android:text="@string/string_label_amount_paid"
-                            android:textColor="@color/colorTextPrimary"
-                            android:textSize="@dimen/dimen_common_text_size_large" />
+                            android:layout_gravity="center"
+                            android:text="@string/string_label_order_status"
+                            android:textColor="@color/colorTextPrimaryAlpha"
+                            android:textSize="@dimen/dimen_common_text_size_title" />
 
                         <TextView
                             style="@style/TextViewStyleBold"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/dimen_common_margin_extra_large"
-                            android:gravity="center"
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="@dimen/dimen_common_margin_very_very_large"
+                            android:layout_marginRight="@dimen/dimen_common_margin_very_very_large"
                             android:text="@string/string_label_colon"
                             android:textColor="@color/colorTextPrimary"
-                            android:textSize="@dimen/dimen_common_text_size_very_large" />
+                            android:textSize="@dimen/dimen_common_text_size_large" />
 
+                        <TextView
+                            android:id="@+id/id_text_status"
+                            style="@style/TextViewStyleBold"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/colorPrimaryDark"
+                            android:textSize="@dimen/dimen_common_text_size_med_large" />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dimen_view_height"
+                    android:layout_marginBottom="@dimen/dimen_common_margin_more"
+                    android:background="@drawable/style_shadow_up" />
+
+                <LinearLayout
+                    android:id="@+id/id_parent_billing"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorWhite"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/TextViewStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:padding="@dimen/dimen_common_margin"
+                        android:text="@string/string_order_explore_label_billing_title"
+                        android:textColor="@color/colorStyleOneDark"
+                        android:textSize="@dimen/dimen_common_text_size_med_large" />
+
+                    <View
+                        android:layout_width="40dp"
+                        android:layout_height="@dimen/dimen_view_height_large"
+                        android:layout_gravity="center"
+                        android:layout_marginBottom="@dimen/dimen_common_margin_more"
+                        android:background="@color/colorViewBlackDark" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/dimen_common_margin"
+                        android:layout_marginRight="@dimen/dimen_common_margin"
+                        android:layout_marginBottom="@dimen/dimen_common_margin_more"
+                        android:background="@drawable/background_slices_white_bottom"
+                        android:orientation="vertical">
+
+                        <com.tc.utils.utils.customs.CustomHorizontalView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:scrollbars="none">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical">
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="@dimen/dimen_margin_balancing"
+                                    android:layout_marginTop="@dimen/dimen_margin_balancing"
+                                    android:layout_marginRight="@dimen/dimen_margin_balancing"
+                                    android:background="@drawable/background_slices_white_top"
+                                    android:gravity="center_vertical"
+                                    android:orientation="horizontal"
+                                    android:paddingTop="@dimen/dimen_common_margin_less_more"
+                                    android:paddingBottom="@dimen/dimen_common_margin_less_more">
+
+                                    <TextView
+                                        style="@style/TextViewStyleBold"
+                                        android:layout_width="@dimen/dimen_sheet_label_serial_width"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginStart="@dimen/dimen_common_margin_very_small"
+                                        android:gravity="center"
+                                        android:maxLines="2"
+                                        android:text="@string/string_label_serial_no"
+                                        android:textColor="@color/colorTextPrimary"
+                                        android:textSize="@dimen/dimen_common_text_size_sub" />
+
+                                    <include layout="@layout/utility_horizontal_border_layout" />
+
+                                    <TextView
+                                        style="@style/TextViewStyleBold"
+                                        android:layout_width="@dimen/dimen_sheet_label_title_width"
+                                        android:layout_height="wrap_content"
+                                        android:ellipsize="end"
+                                        android:gravity="center"
+                                        android:maxLines="2"
+                                        android:paddingLeft="@dimen/dimen_common_margin_medium"
+                                        android:paddingRight="@dimen/dimen_common_margin_medium"
+                                        android:text="@string/string_label_item_name"
+                                        android:textColor="@color/colorTextPrimary"
+                                        android:textSize="@dimen/dimen_common_text_size_sub" />
+
+                                    <include layout="@layout/utility_horizontal_border_layout" />
+
+                                    <TextView
+                                        style="@style/TextViewStyleBold"
+                                        android:layout_width="140dp"
+                                        android:layout_height="wrap_content"
+                                        android:ellipsize="end"
+                                        android:gravity="center"
+                                        android:maxLines="2"
+                                        android:paddingLeft="@dimen/dimen_common_margin_medium"
+                                        android:paddingRight="@dimen/dimen_common_margin_medium"
+                                        android:text="@string/string_label_items"
+                                        android:textColor="@color/colorTextPrimary"
+                                        android:textSize="@dimen/dimen_common_text_size_sub" />
+
+                                    <include layout="@layout/utility_horizontal_border_layout" />
+
+                                    <TextView
+                                        style="@style/TextViewStyleBold"
+                                        android:layout_width="@dimen/dimen_sheet_label_serial_width"
+                                        android:layout_height="wrap_content"
+                                        android:ellipsize="end"
+                                        android:gravity="center"
+                                        android:maxLines="2"
+                                        android:paddingLeft="@dimen/dimen_common_margin_medium"
+                                        android:paddingRight="@dimen/dimen_common_margin_medium"
+                                        android:text="@string/string_label_times"
+                                        android:textColor="@color/colorTextPrimary"
+                                        android:textSize="@dimen/dimen_common_text_size_sub" />
+
+                                    <include layout="@layout/utility_horizontal_border_layout" />
+
+                                    <TextView
+                                        style="@style/TextViewStyleBold"
+                                        android:layout_width="@dimen/dimen_sheet_label_large_width"
+                                        android:layout_height="wrap_content"
+                                        android:ellipsize="end"
+                                        android:gravity="center"
+                                        android:maxLines="2"
+                                        android:text="@string/string_label_total_amount"
+                                        android:textColor="@color/colorTextPrimary"
+                                        android:textSize="@dimen/dimen_common_text_size_sub" />
+
+                                </LinearLayout>
+
+                                <androidx.recyclerview.widget.RecyclerView
+                                    android:id="@+id/id_recycler_view_bills"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="@dimen/dimen_margin_balancing"
+                                    android:layout_marginRight="@dimen/dimen_margin_balancing"
+                                    android:background="@color/colorLayoutBackground"
+                                    android:nestedScrollingEnabled="false"
+                                    tools:itemCount="3"
+                                    tools:listitem="@layout/adapter_item" />
+
+                            </LinearLayout>
+                        </com.tc.utils.utils.customs.CustomHorizontalView>
+
+                        <include layout="@layout/utility_vertical_border_layout_shadow_up" />
 
                         <LinearLayout
-                            android:layout_width="120dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginEnd="@dimen/dimen_common_margin_medium"
-                            android:gravity="center"
-                            android:orientation="horizontal">
-
-                            <androidx.appcompat.widget.AppCompatImageView
-                                android:layout_width="11dp"
-                                android:layout_height="11dp"
-                                android:layout_gravity="center"
-                                android:layout_marginTop="@dimen/dimen_common_margin_very_small"
-                                android:tint="@color/colorStyleOneDark"
-                                app:srcCompat="@drawable/icon_vd_rupee" />
+                            android:layout_gravity="end"
+                            android:orientation="horizontal"
+                            android:paddingTop="@dimen/dimen_common_margin_less_more">
 
                             <TextView
-                                android:id="@+id/id_text_total_amount"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="end"
+                                android:text="@string/string_label_amount"
+                                android:textColor="@color/colorTextPrimary"
+                                android:textSize="@dimen/dimen_common_text_size_title" />
+
+                            <include layout="@layout/include_colon" />
+
+                            <LinearLayout
+                                android:layout_width="@dimen/string_order_bill_label_width"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:orientation="horizontal">
+
+                                <androidx.appcompat.widget.AppCompatImageView
+                                    android:layout_width="@dimen/dimen_rupee_small"
+                                    android:layout_height="@dimen/dimen_rupee_small"
+                                    android:layout_gravity="center"
+                                    android:layout_marginTop="@dimen/dimen_margin_balancing"
+                                    android:tint="@color/colorTextPrimary"
+                                    app:srcCompat="@drawable/icon_vd_rupee" />
+
+                                <TextView
+                                    android:id="@+id/id_text_bill_amount"
+                                    style="@style/TextViewStyleBold"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center"
+                                    android:textColor="@color/colorTextPrimary"
+                                    android:textSize="@dimen/dimen_common_text_size_sub" />
+
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="end"
+                            android:orientation="horizontal"
+                            android:paddingTop="@dimen/dimen_common_margin_less_more"
+                            android:paddingBottom="@dimen/dimen_common_margin_less_more">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="end"
+                                android:text="@string/string_label_quantity"
+                                android:textColor="@color/colorTextPrimaryAlpha"
+                                android:textSize="@dimen/dimen_common_text_size_title" />
+
+                            <include layout="@layout/include_colon" />
+
+                            <TextView
+                                android:id="@+id/id_text_selected_items"
+                                style="@style/TextViewStyleBold"
+                                android:layout_width="@dimen/string_order_bill_label_width"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:textColor="@color/colorTextPrimary"
+                                android:textSize="@dimen/dimen_common_text_size_title" />
+                        </LinearLayout>
+
+                        <include layout="@layout/utility_vertical_border_layout" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="end"
+                            android:gravity="center|end"
+                            android:orientation="horizontal"
+                            android:paddingTop="@dimen/dimen_common_margin_less_more">
+
+                            <TextView
+                                android:id="@+id/id_text_gst_title"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="end"
+                                android:text="@string/string_label_amount_paid"
+                                android:textColor="@color/colorTextPrimary"
+                                android:textSize="@dimen/dimen_common_text_size_large" />
+
+                            <TextView
                                 style="@style/TextViewStyleBold"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:textColor="@color/colorStyleOneDark"
+                                android:layout_marginStart="@dimen/dimen_common_margin_extra_large"
+                                android:gravity="center"
+                                android:text="@string/string_label_colon"
+                                android:textColor="@color/colorTextPrimary"
                                 android:textSize="@dimen/dimen_common_text_size_very_large" />
 
-                            <TextView
-                                style="@style/TextViewStyleBold"
-                                android:layout_width="wrap_content"
+
+                            <LinearLayout
+                                android:layout_width="120dp"
                                 android:layout_height="wrap_content"
-                                android:text="@string/string_label_amount_unit"
-                                android:textColor="@color/colorStyleOneDark"
-                                android:textSize="@dimen/dimen_common_text_size_large" />
+                                android:layout_marginEnd="@dimen/dimen_common_margin_medium"
+                                android:gravity="center"
+                                android:orientation="horizontal">
+
+                                <androidx.appcompat.widget.AppCompatImageView
+                                    android:layout_width="11dp"
+                                    android:layout_height="11dp"
+                                    android:layout_gravity="center"
+                                    android:layout_marginTop="@dimen/dimen_common_margin_very_small"
+                                    android:tint="@color/colorStyleOneDark"
+                                    app:srcCompat="@drawable/icon_vd_rupee" />
+
+                                <TextView
+                                    android:id="@+id/id_text_total_amount"
+                                    style="@style/TextViewStyleBold"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textColor="@color/colorStyleOneDark"
+                                    android:textSize="@dimen/dimen_common_text_size_very_large" />
+
+                                <TextView
+                                    style="@style/TextViewStyleBold"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/string_label_amount_unit"
+                                    android:textColor="@color/colorStyleOneDark"
+                                    android:textSize="@dimen/dimen_common_text_size_large" />
+                            </LinearLayout>
+
                         </LinearLayout>
 
                     </LinearLayout>
 
                 </LinearLayout>
-
             </LinearLayout>
-        </LinearLayout>
 
-    </androidx.core.widget.NestedScrollView>
-
-    <LinearLayout
-        android:id="@+id/id_parent_bottom"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:orientation="vertical"
-        android:visibility="gone">
-
-        <include layout="@layout/include_app_bar_shadow_down" />
+        </androidx.core.widget.NestedScrollView>
 
         <LinearLayout
+            android:id="@+id/id_parent_bottom"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/dimen_app_bar_height_small"
-            android:background="@color/colorStyleThreeDark"
-            android:gravity="center"
-            android:orientation="horizontal">
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:orientation="vertical"
+            android:visibility="gone">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/dimen_common_margin"
-                android:layout_marginLeft="@dimen/dimen_common_margin"
-                android:text="Total Payable :"
-                android:textColor="@color/colorWhite"
-                android:textSize="@dimen/dimen_common_text_size_med_large" />
+            <include layout="@layout/include_app_bar_shadow_down" />
 
             <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/dimen_common_margin"
-                android:layout_marginLeft="@dimen/dimen_common_margin"
-                android:gravity="center_vertical"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_app_bar_height_small"
+                android:background="@color/colorStyleThreeDark"
+                android:gravity="center"
                 android:orientation="horizontal">
 
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:layout_width="14dp"
-                    android:layout_height="14dp"
-                    android:layout_marginTop="@dimen/dimen_margin_balancing"
-                    android:tint="@color/colorWhite"
-                    app:srcCompat="@drawable/icon_vd_rupee" />
-
                 <TextView
-                    android:id="@+id/id_text_payment_amount"
-                    style="@style/TextViewStyleBold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dimen_common_margin"
+                    android:layout_marginLeft="@dimen/dimen_common_margin"
+                    android:text="Total Payable :"
                     android:textColor="@color/colorWhite"
                     android:textSize="@dimen/dimen_common_text_size_med_large" />
 
-            </LinearLayout>
-
-            <View
-                android:layout_width="0dp"
-                android:layout_height="@dimen/dimen_common_margin"
-                android:layout_weight="1" />
-
-            <FrameLayout
-                android:layout_width="wrap_content"
-                android:layout_height="@dimen/dimen_button_height_medium_small">
-
-                <Button
-                    android:id="@+id/id_button_submit"
-                    style="?attr/buttonBarStyle"
+                <LinearLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="@dimen/dimen_button_height_medium_small"
-                    android:layout_gravity="end|center"
-                    android:layout_marginEnd="@dimen/dimen_common_margin_more"
-                    android:layout_marginRight="@dimen/dimen_common_margin_more"
-                    android:background="@drawable/button_background_white"
-                    android:paddingLeft="@dimen/dimen_common_margin"
-                    android:paddingRight="@dimen/dimen_common_margin"
-                    android:text="@string/string_button_name_pay"
-                    android:textColor="@color/colorTextPrimary"
-                    android:textSize="@dimen/dimen_button_text_size_small" />
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dimen_common_margin"
+                    android:layout_marginLeft="@dimen/dimen_common_margin"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:layout_width="14dp"
+                        android:layout_height="14dp"
+                        android:layout_marginTop="@dimen/dimen_margin_balancing"
+                        android:tint="@color/colorWhite"
+                        app:srcCompat="@drawable/icon_vd_rupee" />
+
+                    <TextView
+                        android:id="@+id/id_text_payment_amount"
+                        style="@style/TextViewStyleBold"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/colorWhite"
+                        android:textSize="@dimen/dimen_common_text_size_med_large" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/dimen_common_margin"
+                    android:layout_weight="1" />
+
+                <FrameLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/dimen_button_height_medium_small">
+
+                    <Button
+                        android:id="@+id/id_button_submit"
+                        style="?attr/buttonBarStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/dimen_button_height_medium_small"
+                        android:layout_gravity="end|center"
+                        android:layout_marginEnd="@dimen/dimen_common_margin_more"
+                        android:background="@drawable/button_background_positive_white"
+                        android:paddingLeft="@dimen/dimen_common_margin"
+                        android:paddingRight="@dimen/dimen_common_margin"
+                        android:text="@string/string_button_name_pay"
+                        android:textColor="@color/colorTextPrimary"
+                        android:textSize="@dimen/dimen_button_text_size_small" />
 
 
-                <include
-                    android:id="@+id/id_progress_bar_book"
-                    layout="@layout/include_vector_spinner_small" />
+                    <include
+                        android:id="@+id/id_progress_bar_book"
+                        layout="@layout/include_vector_spinner_small" />
 
-            </FrameLayout>
+                </FrameLayout>
+            </LinearLayout>
         </LinearLayout>
-    </LinearLayout>
 
-    <include
-        layout="@layout/include_app_bar_shadow"
-        android:visibility="gone" />
+        <include
+            layout="@layout/include_app_bar_shadow"
+            android:visibility="gone" />
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>

@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="@dimen/dimen_add_image_width"
+    android:layout_height="@dimen/dimen_add_image_height"
+    android:layout_marginStart="@dimen/dimen_common_margin_medium"
+    android:layout_marginTop="@dimen/dimen_common_margin_medium"
+    android:layout_marginEnd="@dimen/dimen_common_margin_medium">
+
+    <ImageView
+        android:id="@+id/id_image"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/string_icon_desc_image"
+        android:maxHeight="@dimen/dimen_message_image_size"
+        android:minHeight="@dimen/dimen_message_image_min_size"
+        android:scaleType="centerCrop"/>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/placeholder_shade">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@drawable/button_background_transparent"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="@dimen/dimen_common_margin_medium">
+
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/id_image_file_action"
+                    android:layout_width="@dimen/dimen_icon_size_large"
+                    android:layout_height="@dimen/dimen_icon_size_large"
+                    android:layout_gravity="center"
+                    android:background="@drawable/button_background_transparent"
+                    android:padding="@dimen/dimen_common_margin_small"
+                    android:tint="@color/colorWhite"
+                    app:srcCompat="@drawable/icon_vd_upload" />
+
+                <ProgressBar
+                    android:id="@+id/id_progress_bar"
+                    android:layout_width="@dimen/dimen_icon_size_large"
+                    android:layout_height="@dimen/dimen_icon_size_large"
+                    android:layout_gravity="center"
+                    android:max="100"
+                    android:visibility="gone" />
+
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/id_text_file_description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dimen_common_margin"
+                android:layout_marginEnd="@dimen/dimen_common_margin"
+                android:gravity="center"
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/dimen_common_text_size_very_small" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/id_image_file_delete"
+                android:layout_width="@dimen/dimen_icon_size_large"
+                android:layout_height="@dimen/dimen_icon_size_large"
+                android:layout_gravity="center"
+                android:background="@drawable/button_background_transparent"
+                android:padding="@dimen/dimen_common_margin_small"
+                android:visibility="gone"
+                android:tint="@color/colorWhite"
+                app:srcCompat="@drawable/icon_vd_delete" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/id_text_file_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_margin="@dimen/dimen_common_margin_small"
+            android:background="@drawable/button_background_transparent"
+            android:gravity="center"
+            android:paddingLeft="@dimen/dimen_common_margin_medium"
+            android:paddingTop="@dimen/dimen_common_margin_very_small"
+            android:paddingRight="@dimen/dimen_common_margin_medium"
+            android:paddingBottom="@dimen/dimen_common_margin_very_small"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/library_dimen_common_text_size_very_very_small" />
+    </FrameLayout>
+</FrameLayout>

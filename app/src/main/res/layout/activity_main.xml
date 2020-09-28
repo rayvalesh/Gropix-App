@@ -177,9 +177,13 @@
                             android:textSize="@dimen/dimen_common_text_size_very_very_large" />
 
                         <FrameLayout
+                            android:id="@+id/id_parent_overflow"
                             android:layout_width="36dp"
                             android:layout_height="36dp"
-                            android:layout_marginEnd="@dimen/dimen_common_margin_more">
+                            android:layout_marginEnd="@dimen/dimen_common_margin_more"
+                            android:background="@drawable/more_layouts_click"
+                            android:clickable="true"
+                            android:focusable="true">
 
                             <ImageView
                                 android:layout_width="match_parent"

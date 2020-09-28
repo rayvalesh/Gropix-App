@@ -3,9 +3,9 @@ package com.tc.utils.variables.enums
 enum class ActionType {
     ACTION_EXPLORE,
     ACTION_EXPLORE_IMAGE,
-    ACTION_LIKE,
-    ACTION_DISLIKE,
-    ACTION_REPORT,
+    ACTION_UPDATE_STATUS,
+    ACTION_CANCEL,
+    ACTION_UPLOAD,
     ACTION_ADD,
     ACTION_REMOVE,
     ACTION_UPDATE,

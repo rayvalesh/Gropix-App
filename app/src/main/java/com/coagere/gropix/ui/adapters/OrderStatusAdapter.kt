@@ -8,6 +8,7 @@ import com.coagere.gropix.databinding.AdapterOrdersCancelledBinding
 import com.coagere.gropix.databinding.AdapterOrdersPendingBinding
 import com.coagere.gropix.jetpack.entities.OrderModel
 import com.tc.utils.variables.abstracts.OnEventOccurListener
+import com.tc.utils.variables.enums.ActionType
 import com.tc.utils.variables.interfaces.Constants
 
 class OrderStatusAdapter(
@@ -17,6 +18,17 @@ class OrderStatusAdapter(
 ) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     var size = modelList.size
+
+    fun notifyAdapterDataSetChanged() {
+        size = this.modelList.size
+        notifyDataSetChanged()
+    }
+
+    fun notifyAdapterItemRangeChanged() {
+        val lastSize = size
+        size = modelList.size
+        notifyItemRangeChanged(lastSize, size - lastSize)
+    }
 
 
     override fun onCreateViewHolder(
@@ -43,20 +55,54 @@ class OrderStatusAdapter(
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        if (holder is ViewHolder) holder.bindTo(modelList[position])
+        else if (holder is CancelViewHolder) holder.bindTo(modelList[position])
+
     }
+
 
     override fun getItemCount(): Int {
         return size
     }
 
-    inner class ViewHolder(binding: AdapterOrdersPendingBinding) :
-        RecyclerView.ViewHolder(binding.root) {
+    inner class ViewHolder(private var binding: AdapterOrdersPendingBinding) :
+        RecyclerView.ViewHolder(binding.root), View.OnClickListener {
+
+        fun bindTo(orderModel: OrderModel) {
+            binding.apply {
+                clickListener = this@ViewHolder
+                model = orderModel
+                executePendingBindings()
+            }
+        }
+
+        override fun onClick(v: View?) {
+            listener.getEventData(
+                modelList[adapterPosition],
+                ActionType.ACTION_EXPLORE,
+                adapterPosition
+            )
+        }
 
     }
 
-    inner class CancelViewHolder(binding: AdapterOrdersCancelledBinding) :
-        RecyclerView.ViewHolder(binding.root) {
+    inner class CancelViewHolder(private var binding: AdapterOrdersCancelledBinding) :
+        RecyclerView.ViewHolder(binding.root), View.OnClickListener {
+        override fun onClick(v: View?) {
+            listener.getEventData(
+                modelList[adapterPosition],
+                ActionType.ACTION_EXPLORE,
+                adapterPosition
+            )
+        }
 
+        fun bindTo(orderModel: OrderModel) {
+            binding.apply {
+                clickListener = this@CancelViewHolder
+                model = orderModel
+                executePendingBindings()
+            }
+        }
     }
 
 }

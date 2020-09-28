@@ -7,12 +7,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.animation.AnimationUtils
-import android.widget.TextView
 import androidx.lifecycle.lifecycleScope
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.coagere.gropix.R
 import com.coagere.gropix.databinding.ActivityMainBinding
 import com.coagere.gropix.jetpack.entities.FileModel
+import com.coagere.gropix.ui.frags.OrderListFrag
 import com.coagere.gropix.ui.popups.Popups
 import com.coagere.gropix.utils.ShareData
 import com.coagere.gropix.utils.UtilityClass
@@ -24,6 +23,7 @@ import com.tc.utils.utils.utility.UtilityCheckPermission
 import com.tc.utils.variables.abstracts.OnEventOccurListener
 import com.tc.utils.variables.enums.ActionType
 import com.tc.utils.variables.interfaces.ApiKeys
+import com.tc.utils.variables.interfaces.Constants
 import com.tc.utils.variables.interfaces.IntentInterface
 import tk.jamun.ui.share.models.ModelIntentPicker
 import tk.jamun.ui.share.views.PickerIntent
@@ -39,6 +39,9 @@ class MainActivity : BaseActivity(), View.OnClickListener {
     private var utilityClass: UtilityClass? = null
     private var intentPicker: PickerIntent? = null
     private var popup: Popups? = null
+    private var pendingFrag: OrderListFrag = OrderListFrag.get(Constants.MODULE_PENDING)
+    private var cancelledFrag: OrderListFrag = OrderListFrag.get(Constants.MODULE_PLACED)
+    private var placedFrag: OrderListFrag = OrderListFrag.get(Constants.MODULE_CANCELLED)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,48 +57,48 @@ class MainActivity : BaseActivity(), View.OnClickListener {
             setContentView(binding!!.root)
             initializeViewModel()
             initializeListeners()
-            initializeRecyclerView()
+            initializeFragsView()
         }
     }
 
-    override fun initializeRecyclerView() {
-        super.initializeRecyclerView()
-        val linearLayoutManager = LinearLayoutManager(this)
-
-
-        initializeEmptyView(true)
-    }
-
-    private var listener = object : OnEventOccurListener() {
-        override fun getEventData(`object`: Any?, actionType: ActionType?, adapterPosition: Int) {
-            super.getEventData(`object`, actionType, adapterPosition)
+    override fun initializeFragsView() {
+        super.initializeFragsView()
+        val transactionManager = supportFragmentManager.beginTransaction()
+        if (!pendingFrag.isAdded) {
+            transactionManager.add(
+                R.id.id_frag_pending,
+                pendingFrag,
+                "Pending Frag"
+            )
         }
-    }
+        if (!cancelledFrag.isAdded) {
+            transactionManager.add(
+                R.id.id_frag_cancelled,
+                cancelledFrag,
+                "Cancelled Frag"
+            )
+        }
+        if (!placedFrag.isAdded) {
+            transactionManager.add(
+                R.id.id_frag_complete,
+                placedFrag,
+                "Placed Frag"
+            )
+        }
 
-    override fun initializeEmptyView(isEmpty: Boolean) {
-        super.initializeEmptyView(isEmpty)
-        binding!!.idParentEmptyPending.visibility = View.VISIBLE
-        binding!!.idParentEmptyPlaced.visibility = View.VISIBLE
-        binding!!.idParentEmptyCancelled.visibility = View.VISIBLE
-        binding!!.root.findViewById<TextView>(R.id.id_text_inbox_description).text =
-            "What is stopping you? Click on button Capture Your Shopping List"
-    }
-
-    override fun initializeViewModel() {
-        super.initializeViewModel()
     }
 
 
     override fun onClick(v: View?) {
         when (v?.id) {
-            R.id.id_image_overflow -> {
-                binding!!.idImageOverflow.startAnimation(
+            R.id.id_parent_overflow -> {
+                createPopup(binding!!.idParentOverflow)
+                binding!!.idParentOverflow.startAnimation(
                     AnimationUtils.loadAnimation(
                         this@MainActivity,
                         R.anim.bounce
                     )
                 )
-                createPopup(binding!!.idImageOverflow)
             }
             R.id.id_parent_image_capture, R.id.id_image_capture -> {
                 binding!!.idImageCapture.startAnimation(

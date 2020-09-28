@@ -20,7 +20,10 @@
         android:layout_marginLeft="@dimen/dimen_common_margin"
         android:layout_marginTop="@dimen/dimen_common_margin_medium"
         android:layout_marginRight="@dimen/dimen_common_margin"
-        android:layout_marginBottom="@dimen/dimen_common_margin_very_small">
+        android:layout_marginBottom="@dimen/dimen_common_margin_very_small"
+        android:clickable="true"
+        android:focusable="true"
+        android:onClick="@{clickListener}">
 
         <LinearLayout
             android:id="@+id/id_parent"
@@ -34,6 +37,7 @@
 
             <ImageView
                 android:id="@+id/id_image"
+                downloadImage="@{model.image}"
                 android:layout_width="110dp"
                 android:layout_height="match_parent"
                 android:background="@drawable/placeholder_one"
@@ -50,6 +54,7 @@
                 <TextView
                     android:id="@+id/id_text_title"
                     style="@style/TextViewStyleMedium"
+                    text="@{model.title}"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:maxLines="1"
@@ -58,10 +63,11 @@
 
                 <TextView
                     android:id="@+id/id_text_address"
+                    style="@style/TextViewStyleLight"
+                    text='@{model.address.street +","+ model.address.city +","+model.address.state}'
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:maxLines="1"
-                    style="@style/TextViewStyleLight"
                     android:textColor="@color/colorTextPrimaryLight"
                     android:textSize="@dimen/dimen_common_text_size_sub" />
 
@@ -84,6 +90,7 @@
 
                     <TextView
                         android:id="@+id/id_text_time"
+                        timeStamp="@{model.timestamp}"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/colorTextPrimary"
@@ -96,6 +103,7 @@
                 <TextView
                     android:id="@+id/id_text_status"
                     style="@style/TextViewStyleBold"
+                    text="@{model.status}"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/colorPrimaryDark"

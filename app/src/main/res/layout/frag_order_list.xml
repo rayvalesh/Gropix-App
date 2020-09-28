@@ -1,32 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@color/colorWhite"
-    android:orientation="vertical">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <TextView
-        style="@style/TextViewStyleMedium"
+    <data>
+
+    </data>
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dimen_common_margin_small"
-        android:padding="@dimen/dimen_common_margin"
-        android:text="Pending Orders"
-        android:textColor="@color/colorTextPrimary"
-        android:textSize="@dimen/dimen_common_text_size_large" />
+        android:background="@color/colorWhite"
+        android:orientation="vertical">
 
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/id_recycler_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        tools:itemCount="4"
-        tools:listitem="@layout/adapter_orders_pending" />
+        <TextView
+            android:id="@+id/id_text_title"
+            style="@style/TextViewStyleMedium"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_common_margin_small"
+            android:padding="@dimen/dimen_common_margin"
+            android:text="Pending Orders"
+            android:textColor="@color/colorTextPrimary"
+            android:textSize="@dimen/dimen_common_text_size_large" />
 
-    <include layout="@layout/include_inbox_empty" />
+        <include layout="@layout/include_vector_spinner" />
 
-</LinearLayout>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/id_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:itemCount="4"
+            tools:listitem="@layout/adapter_orders_pending" />
+
+
+        <include layout="@layout/include_inbox_empty" />
+
+
+    </LinearLayout>
+</layout>
