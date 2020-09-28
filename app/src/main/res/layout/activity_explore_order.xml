@@ -113,36 +113,6 @@
                         android:textSize="@dimen/dimen_common_text_size_med_large" />
                 </LinearLayout>
 
-                <LinearLayout
-                    android:id="@+id/id_parent_time"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/colorStyleFour"
-                    android:gravity="end"
-                    android:orientation="horizontal"
-                    android:padding="@dimen/dimen_common_margin"
-                    android:visibility="gone">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="end"
-                        android:text="@string/string_label_pickup_time_colon"
-                        android:textColor="@color/colorTextPrimary"
-                        android:textSize="@dimen/dimen_common_text_size_med" />
-
-                    <TextView
-                        android:id="@+id/id_text_pickup_time"
-                        style="@style/TextViewStyleBold"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/dimen_common_margin_small"
-                        android:layout_marginLeft="@dimen/dimen_common_margin_small"
-                        android:textColor="@color/colorTextPrimary"
-                        android:textSize="@dimen/dimen_common_text_size_sub" />
-
-                </LinearLayout>
             </LinearLayout>
 
             <View
