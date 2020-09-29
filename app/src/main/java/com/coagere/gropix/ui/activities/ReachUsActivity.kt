@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
-import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.lifecycleScope
 import com.coagere.gropix.R
 import com.coagere.gropix.databinding.ActivityReachUsBinding
@@ -15,7 +14,7 @@ import com.coagere.gropix.prefs.UserStorage
 import com.coagere.gropix.utils.MyApplication.Companion.isLoggedIn
 import com.coagere.gropix.utils.UtilityClass
 import com.tc.utils.elements.BaseActivity
-import com.tc.utils.utils.helpers.HelperActionBar.setSupportActionBar
+import com.tc.utils.utils.helpers.HelperActionBar
 import com.tc.utils.variables.abstracts.OnEventOccurListener
 import kotlinx.android.synthetic.main.activity_reach_us.*
 import tk.jamun.ui.snacks.MySnackBar
@@ -48,10 +47,15 @@ class ReachUsActivity : BaseActivity(), View.OnClickListener {
 
     override fun setToolbar() {
         super.setToolbar()
-        val toolbar = findViewById<Toolbar>(R.id.id_app_bar)
-        setSupportActionBar(toolbar)
-        setSupportActionBar(supportActionBar, R.string.string_activity_name_contact_us)
+        HelperActionBar.setSupportActionBar(
+            activity = this@ReachUsActivity,
+            view = binding!!.idAppBar,
+            title = getString(
+                R.string.string_activity_name_contact_us,
+            )
+        )
     }
+
 
     override fun initializeView() {
         super.initializeView()
@@ -118,6 +122,10 @@ class ReachUsActivity : BaseActivity(), View.OnClickListener {
         model!!.message = id_edit_message!!.text.toString()
         model!!.email = id_edit_email!!.text.toString()
         return true
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
     }
 
     override fun onClick(v: View?) {

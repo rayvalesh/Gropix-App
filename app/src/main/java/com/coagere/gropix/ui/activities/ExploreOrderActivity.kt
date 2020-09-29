@@ -65,7 +65,7 @@ class ExploreOrderActivity : BaseActivity(), View.OnClickListener {
         HelperActionBar.setSupportActionBar(
             this@ExploreOrderActivity,
             binding!!.idAppBar,
-            orderModel?.title,
+            orderModel?.title
         )
     }
 
