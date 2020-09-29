@@ -4,27 +4,34 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.SharedPreferences
 import androidx.core.content.edit
+import com.coagere.gropix.jetpack.entities.AddressModel
 import com.coagere.gropix.jetpack.entities.UserModel
 import com.coagere.gropix.utils.MyApplication
+import com.google.gson.reflect.TypeToken
+import tk.jamun.volley.classes.VolleyGSON
 import tk.jamun.volley.model.ModelHeader
 import java.util.*
 
 class UserStorage(context: Context) {
 
-    val isAdmin: Boolean
-        get() = sharedPreferences.getBoolean("isAdmin", false)
 
     private val sharedPreferences: SharedPreferences =
         context.getSharedPreferences(SHARED_NAME, SHARED_MODE)
 
-    var isDoNotDisturbEnabled: Boolean
-        get() = sharedPreferences.getBoolean(SHARED_SETTING_NOTIFICATION_DO_NOT_DISTURB, false)
-        set(value) = sharedPreferences.edit {
-            putBoolean(
-                SHARED_SETTING_NOTIFICATION_DO_NOT_DISTURB,
-                value
-            )
-        }
+    var addressModel: AddressModel?
+        get() = VolleyGSON.get().fromJson(
+            VolleyGSON.get().getTypeToken(object : TypeToken<AddressModel?>() {}),
+            sharedPreferences.getString(SHARED_ADDRESS, null)
+        ) as AddressModel?
+        set(value) = sharedPreferences.edit().putString(
+            SHARED_ADDRESS,
+            VolleyGSON.get()
+                .toJson(
+                    value,
+                    VolleyGSON.get().getTypeToken(object : TypeToken<AddressModel?>() {})
+                )
+        ).apply()
+
 
     var isNotificationEnabled: Boolean
         get() = sharedPreferences.getBoolean(SHARED_SETTING_NOTIFICATION, true)
@@ -162,6 +169,10 @@ class UserStorage(context: Context) {
         set(value) = sharedPreferences.edit().putBoolean(SHARED_NAVIGATION, value).apply()
 
 
+    fun getCompressions(): Int {
+        return sharedPreferences.getInt("shared_compressions", 70);
+    }
+
     var classes: Int
         get() = sharedPreferences.getInt(SHARED_CLASS, 0)
         set(value) {
@@ -215,7 +226,7 @@ class UserStorage(context: Context) {
         private const val SHARED_PAGE = "shared_page"
         private const val SHARED_SUBSCRIPTION = "shared_has_subscription"
         private const val SHARED_LOGIN_CHECK = "shared_check_login"
-        private const val SHARED_TEACHERS_ID = "shared_teacher_data"
+        private const val SHARED_ADDRESS = "shared_address_data"
         private const val SHARED_TOKEN = "shared_key"
         private const val SHARED_USER_ID = "shared_user"
         private const val SHARED_REFERRAL = "shared_referral"

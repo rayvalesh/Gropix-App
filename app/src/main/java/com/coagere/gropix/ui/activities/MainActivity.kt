@@ -13,6 +13,7 @@ import com.coagere.gropix.databinding.ActivityMainBinding
 import com.coagere.gropix.jetpack.entities.FileModel
 import com.coagere.gropix.ui.frags.OrderListFrag
 import com.coagere.gropix.ui.popups.Popups
+import com.coagere.gropix.utils.HelperFileFormat
 import com.coagere.gropix.utils.ShareData
 import com.coagere.gropix.utils.UtilityClass
 import com.tc.utils.elements.BaseActivity
@@ -29,7 +30,6 @@ import tk.jamun.ui.share.models.ModelIntentPicker
 import tk.jamun.ui.share.views.PickerIntent
 import tk.jamun.ui.share.views.PickerShareFiles
 import tk.jamun.ui.snacks.MySnackBar
-import tk.jamunx.ui.camera.utils.HelperFileFormat
 import tk.jamunx.ui.camera.utils.InterfaceUtils
 import java.io.File
 import java.util.*
@@ -70,20 +70,26 @@ class MainActivity : BaseActivity(), View.OnClickListener {
                 pendingFrag,
                 "Pending Frag"
             )
+                .setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right)
+
         }
         if (!cancelledFrag.isAdded) {
-            transactionManager.add(
-                R.id.id_frag_cancelled,
-                cancelledFrag,
-                "Cancelled Frag"
-            )
+            transactionManager
+                .setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right)
+                .add(
+                    R.id.id_frag_cancelled,
+                    cancelledFrag,
+                    "Cancelled Frag"
+                )
         }
         if (!placedFrag.isAdded) {
-            transactionManager.add(
-                R.id.id_frag_complete,
-                placedFrag,
-                "Placed Frag"
-            )
+            transactionManager
+                .add(
+                    R.id.id_frag_complete,
+                    placedFrag,
+                    "Placed Frag"
+                )
+                .setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right)
         }
 
     }
@@ -100,14 +106,20 @@ class MainActivity : BaseActivity(), View.OnClickListener {
                     )
                 )
             }
-            R.id.id_parent_image_capture, R.id.id_image_capture -> {
-                binding!!.idImageCapture.startAnimation(
+            R.id.id_image_pick -> {
+                binding!!.idParent.visibility = View.VISIBLE
+                binding!!.idImagePick.startAnimation(
                     AnimationUtils.loadAnimation(
                         this@MainActivity,
                         R.anim.bounce
                     )
                 )
-                onClickImage()
+            }
+            R.id.id_parent_camera -> {
+                onClickCamera()
+            }
+            R.id.id_parent_manager -> {
+                onClickManager()
             }
         }
     }
@@ -179,6 +191,7 @@ class MainActivity : BaseActivity(), View.OnClickListener {
         }
     }
 
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == Activity.RESULT_OK && data != null)
@@ -187,26 +200,37 @@ class MainActivity : BaseActivity(), View.OnClickListener {
                     val fileModel = utilityClass!!.getFileModelFromFile(
                         File(data.getStringExtra(InterfaceUtils.CAMERA_RESULT_IMAGE_PATH)!!)
                     )
-                    uploadImage(fileModel!!)
+                    fileModel?.let {
+                        uploadImage(fileModel)
+                    }
                 }
                 IntentInterface.REQUEST_MANAGER -> {
-                    utilityClass!!.getFileModelFromUri(arrayOf(data.data!!),
-                        object : OnEventOccurListener() {
-                            override fun getEventData(`object`: Any) {
-                                super.getEventData(`object`)
-                                val fileModel: FileModel = (`object` as Array<FileModel>)[0]
-                                uploadImage(fileModel)
-                            }
+                    if (resultCode == Activity.RESULT_OK) {
+                        if (data != null && data.data != null) {
+                            HelperFileFormat.getInstance().getFileFromUri(this,
+                                data.data!!,
+                                object : OnEventOccurListener() {
+                                    override fun getEventData(`object`: Any?) {
+                                        super.getEventData(`object`)
+                                        val fileModel: FileModel = (`object` as Array<FileModel>)[0]
+                                        uploadImage(fileModel)
+                                    }
 
-                            override fun onErrorResponse(`object`: Any?, errorMessage: String?) {
-                                super.onErrorResponse(`object`, errorMessage)
-                                MySnackBar.getInstance()
-                                    .showSnackBarForMessage(this@MainActivity, errorMessage)
-                            }
-                        })
+                                    override fun onErrorResponse(
+                                        `object`: Any?,
+                                        errorMessage: String?
+                                    ) {
+                                        super.onErrorResponse(`object`, errorMessage)
+                                        MySnackBar.getInstance()
+                                            .showSnackBarForMessage(this@MainActivity, errorMessage)
+                                    }
+                                });
+                        }
+                    }
                 }
             }
     }
+
 
     private fun createPopup(view: View) {
         popup = Popups(this@MainActivity, object : OnEventOccurListener() {
@@ -248,7 +272,13 @@ class MainActivity : BaseActivity(), View.OnClickListener {
     }
 
     private fun uploadImage(fileModel: FileModel) {
+        startActivity(
+            Intent(this@MainActivity, OrderConfirmationActivity::class.java)
+                .putExtra(IntentInterface.INTENT_FOR_MODEL, fileModel)
+        )
+    }
 
-
+    override fun onBackPressed() {
+        super.onBackPressed()
     }
 }

@@ -98,7 +98,7 @@ class ImagesAddFrag : BaseFragment(), ServiceReceiver.Receiver {
                             adapterPosition
                         )
                     }
-                    ActionType.ACTION_EXPLORE_IMAGE -> {
+                    else -> {
 //                        ViewImageActivity.launch(activity, fileModel.downloadUrl)
                     }
                 }
@@ -108,7 +108,7 @@ class ImagesAddFrag : BaseFragment(), ServiceReceiver.Receiver {
     }
 
     fun addImages(fileModel: FileModel) {
-        if (modelList!!.size + 1 <= Constants.CONSTANTS_IMAGES_COUNT) {
+        if (modelList.size + 1 <= Constants.CONSTANTS_IMAGES_COUNT) {
             Collections.addAll(modelList, fileModel)
             if (isNullAndEmpty(fileModel.downloadUrl)) {
                 fileModel.actionType = Constants.TYPE_ACTION_CANCEL

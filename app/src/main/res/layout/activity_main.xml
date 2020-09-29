@@ -81,7 +81,8 @@
                             android:id="@+id/id_image_pick"
                             android:layout_width="110dp"
                             android:layout_height="110dp"
-                            android:layout_gravity="center">
+                            android:layout_gravity="center"
+                            android:onClick="@{clickListener}">
 
                             <ImageView
                                 android:layout_width="match_parent"
@@ -183,7 +184,8 @@
                             android:layout_marginEnd="@dimen/dimen_common_margin_more"
                             android:background="@drawable/more_layouts_click"
                             android:clickable="true"
-                            android:focusable="true">
+                            android:focusable="true"
+                            android:onClick="@{clickListener}">
 
                             <ImageView
                                 android:layout_width="match_parent"
@@ -240,10 +242,12 @@
         </androidx.core.widget.NestedScrollView>
 
         <FrameLayout
-            android:id="@+id/id_parent_"
+            android:id="@+id/id_parent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom">
+            android:layout_gravity="bottom"
+            android:onClick="@{clickListener}"
+            android:visibility="gone">
 
             <View
                 android:id="@+id/id_view_shadow_down"
@@ -295,7 +299,7 @@
                             android:layout_height="wrap_content"
                             android:gravity="center_vertical"
                             android:maxLines="1"
-                            android:text="Creat your Order"
+                            android:text="Create your Order"
                             android:textColor="@color/colorTextPrimary"
                             android:textSize="@dimen/dimen_common_text_size_very_large"
                             android:visibility="visible" />

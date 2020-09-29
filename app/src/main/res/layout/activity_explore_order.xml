@@ -53,6 +53,7 @@
 
                         <ImageView
                             android:id="@+id/id_image"
+                            downloadImage="@{model.image}"
                             android:layout_width="80dp"
                             android:layout_height="80dp"
                             android:background="@drawable/placeholder_one"
@@ -69,6 +70,7 @@
 
                             <TextView
                                 android:id="@+id/id_text_title"
+                                text="@{model.title}"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:ellipsize="end"
@@ -78,6 +80,7 @@
 
                             <TextView
                                 android:id="@+id/id_text_address"
+                                text='@{model.address.street +","+model.address.city+","+model.address.state}'
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="@dimen/dimen_common_margin_very_small"
@@ -121,6 +124,7 @@
                         <TextView
                             android:id="@+id/id_text_status"
                             style="@style/TextViewStyleBold"
+                            text="@{model.status}"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textColor="@color/colorPrimaryDark"
@@ -246,6 +250,7 @@
                                         android:textColor="@color/colorTextPrimary"
                                         android:textSize="@dimen/dimen_common_text_size_sub" />
 
+
                                     <include layout="@layout/utility_horizontal_border_layout" />
 
                                     <TextView
@@ -268,9 +273,8 @@
                                     android:layout_marginLeft="@dimen/dimen_margin_balancing"
                                     android:layout_marginRight="@dimen/dimen_margin_balancing"
                                     android:background="@color/colorLayoutBackground"
-                                    android:nestedScrollingEnabled="false"
                                     tools:itemCount="3"
-                                    tools:listitem="@layout/adapter_item" />
+                                    tools:listitem="@layout/adapter_billing_details" />
 
                             </LinearLayout>
                         </com.tc.utils.utils.customs.CustomHorizontalView>
@@ -305,7 +309,7 @@
                                     android:layout_height="@dimen/dimen_rupee_small"
                                     android:layout_gravity="center"
                                     android:layout_marginTop="@dimen/dimen_margin_balancing"
-                                    android:tint="@color/colorTextPrimary"
+                                    android:tint="@color/colorStyleFour"
                                     app:srcCompat="@drawable/icon_vd_rupee" />
 
                                 <TextView
@@ -314,7 +318,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:gravity="center"
-                                    android:textColor="@color/colorTextPrimary"
+                                    android:textColor="@color/colorStyleFour"
                                     android:textSize="@dimen/dimen_common_text_size_sub" />
 
                             </LinearLayout>
@@ -333,7 +337,7 @@
                                 android:layout_height="wrap_content"
                                 android:gravity="end"
                                 android:text="@string/string_label_quantity"
-                                android:textColor="@color/colorTextPrimaryAlpha"
+                                android:textColor="@color/colorTextPrimaryLight"
                                 android:textSize="@dimen/dimen_common_text_size_title" />
 
                             <include layout="@layout/include_colon" />
@@ -364,7 +368,7 @@
                                 android:layout_height="wrap_content"
                                 android:gravity="end"
                                 android:text="@string/string_label_amount_paid"
-                                android:textColor="@color/colorTextPrimary"
+                                android:textColor="@color/colorStyleFour"
                                 android:textSize="@dimen/dimen_common_text_size_large" />
 
                             <TextView
@@ -390,7 +394,7 @@
                                     android:layout_height="11dp"
                                     android:layout_gravity="center"
                                     android:layout_marginTop="@dimen/dimen_common_margin_very_small"
-                                    android:tint="@color/colorStyleOneDark"
+                                    android:tint="@color/colorStyleFour"
                                     app:srcCompat="@drawable/icon_vd_rupee" />
 
                                 <TextView
@@ -398,7 +402,7 @@
                                     style="@style/TextViewStyleBold"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:textColor="@color/colorStyleOneDark"
+                                    android:textColor="@color/colorStyleFourDark"
                                     android:textSize="@dimen/dimen_common_text_size_very_large" />
 
                                 <TextView
@@ -406,13 +410,14 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="@string/string_label_amount_unit"
-                                    android:textColor="@color/colorStyleOneDark"
+                                    android:textColor="@color/colorStyleFourDark"
                                     android:textSize="@dimen/dimen_common_text_size_large" />
                             </LinearLayout>
 
                         </LinearLayout>
 
                     </LinearLayout>
+
 
                 </LinearLayout>
             </LinearLayout>

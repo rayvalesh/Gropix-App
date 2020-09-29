@@ -78,6 +78,8 @@
         <activity android:name=".ui.activities.CameraActivity" />
         <activity android:name=".ui.activities.AccessAccountActivity" />
         <activity android:name=".ui.activities.MainActivity" />
+        <activity android:name=".ui.activities.ReachUsActivity" />
+        <activity android:name=".ui.activities.OrderConfirmationActivity" />
 
         <service android:name=".services.get.MyFirebaseMessagingService" />
     </application>

@@ -17,6 +17,7 @@ interface Constants {
         const val MODULE_PENDING = 1
         const val MODULE_CANCELLED = 2
         const val MODULE_PLACED = 3
+        const val MODULE_CART = 4
 
         const val CONSTANTS_IMAGES_COUNT = 8
         const val VALUE_IMAGE_RADIUS = 22
@@ -28,5 +29,9 @@ interface Constants {
         const val TYPE_ACTION_CANCEL = 4
         const val TYPE_UPLOAD_STOP = 5
         const val TYPE_ACTION_DELETE = 11
+
+        const val FILE_SIZE_LIMIT = 12 * 1024 * 1024;
     }
+
+
 }

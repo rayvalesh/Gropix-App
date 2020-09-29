@@ -38,20 +38,6 @@
                 app:titleTextAppearance="@style/AppBarTextViewStyleWhite"
                 app:titleTextColor="@color/colorTextPrimary" />
 
-            <Button
-                android:id="@+id/id_button_next"
-                style="?attr/borderlessButtonStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="@dimen/dimen_button_height_medium"
-                android:paddingStart="@dimen/dimen_common_margin_more"
-                android:paddingEnd="@dimen/dimen_common_margin_more"
-                android:layout_gravity="center|end"
-                android:layout_marginEnd="@dimen/dimen_common_margin_less_more"
-                android:background="@drawable/button_background_positive_rect"
-                android:onClick='@{clickListener}'
-                android:textColor="@color/color_button_primary_rect"
-                android:textSize="@dimen/dimen_button_text_size_med"
-                android:visibility="gone" />
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
     </com.google.android.material.appbar.AppBarLayout>

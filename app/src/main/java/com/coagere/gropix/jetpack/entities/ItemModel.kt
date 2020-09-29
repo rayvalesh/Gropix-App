@@ -1,8 +1,12 @@
 package com.coagere.gropix.jetpack.entities
 
 import android.os.Parcelable
+import androidx.versionedparcelable.NonParcelField
+import com.coagere.gropix.ui.adapters.ItemAdapter
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.IgnoredOnParcel
 import kotlinx.android.parcel.Parcelize
+import tk.jamun.volley.variables.Exclude
 
 @Parcelize
 data class ItemModel(
@@ -31,10 +35,10 @@ data class ItemModel(
     @SerializedName("categoryName")
     var categoryName: String
 ) : Parcelable {
-//    @NonParcelField
-//    @IgnoredOnParcel
-//    @Exclude
-//    var adapter: ItemAdapter.ViewHolder? = null
+    @NonParcelField
+    @IgnoredOnParcel
+    @Exclude
+    var adapter: ItemAdapter.ViewHolder? = null
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true

@@ -1,7 +1,9 @@
 package com.tc.utils.utils.helpers
 
 import android.app.Activity
+import android.view.View
 import androidx.appcompat.app.ActionBar
+import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.appbar.AppBarLayout
 import com.tc.utils.utils.utility.isNotNull
 import com.tc.utils.R
@@ -13,6 +15,15 @@ object HelperActionBar {
 
     fun setSupportActionBar(actionBar: ActionBar, activity: Activity, title: Int): ActionBar? {
         return setSupportActionBar(actionBar, activity.getString(title))
+    }
+
+    fun setSupportActionBar(
+        activity: AppCompatActivity,
+        view: View,
+        title: String? = null
+    ) {
+        activity.setSupportActionBar(view.findViewById(R.id.id_app_bar))
+        setSupportActionBar(activity.supportActionBar, title)
     }
 
     fun setSupportActionBar(actionBar: ActionBar?, title: String? = ""): ActionBar? {

@@ -1,166 +1,225 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <include layout="@layout/include_app_bar_layout" />
+    <data>
 
-    <androidx.core.widget.NestedScrollView
+        <variable
+            name="model"
+            type="com.coagere.gropix.jetpack.entities.AddressModel" />
+
+        <variable
+            name="clickListener"
+            type="android.view.View.OnClickListener" />
+
+    </data>
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <LinearLayout
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/id_parent_app_bar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/dimen_common_margin"
-            android:orientation="vertical">
+            android:background="@color/colorPrimary"
 
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:elevation="@dimen/dimen_app_bar_elevation_zero"
+            tools:ignore="UnusedAttribute">
 
-
-            <TextView
+            <com.google.android.material.appbar.CollapsingToolbarLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dimen_common_margin"
-                android:layout_marginBottom="@dimen/dimen_common_margin_medium"
-                android:gravity="center"
-                android:text="Address Details*"
-                android:textColor="@color/colorTextPrimaryLight"
-                android:textSize="@dimen/dimen_common_text_size_very_large" />
+                android:minHeight="@dimen/dimen_app_bar_height"
+                app:titleEnabled="false">
 
-            <View
-                android:layout_width="80dp"
-                android:layout_height="1dp"
-                android:layout_gravity="center"
-                android:background="@color/colorViewBlackDark" />
+                <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/id_app_bar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    android:background="@android:color/transparent"
+                    android:minHeight="@dimen/dimen_app_bar_height"
+                    android:theme="@style/AppBarTheme"
+                    app:contentInsetStartWithNavigation="0dp"
+                    app:popupTheme="@style/AppBarPop"
+                    app:titleTextAppearance="@style/AppBarTextViewStyleWhite"
+                    app:titleTextColor="@color/colorTextPrimary" />
 
-            <TextView
-                android:layout_width="wrap_content"
+
+            </com.google.android.material.appbar.CollapsingToolbarLayout>
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dimen_common_margin_medium"
-                android:layout_marginBottom="@dimen/dimen_common_margin_small"
-                android:text="Street"
-                android:textColor="@color/colorTextPrimaryLight"
-                android:textSize="@dimen/dimen_edit_text_title_size" />
+                android:orientation="vertical">
 
-            <EditText
-                android:id="@+id/id_edit_street"
-                style="@style/EditTextStyle"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dimen_edit_text_height"
-                android:layout_marginEnd="@dimen/dimen_common_margin_small"
-                android:background="@drawable/drawable_edit_text"
-                android:hint="@string/string_edit_text_hint_enter_street"
-                android:imeOptions="actionNext"
-                android:importantForAutofill="no"
-                android:inputType="textCapWords"
-                android:maxLines="1"
-                android:minLines="1"
-                android:paddingStart="@dimen/dimen_edit_text_padding_small"
-                android:paddingEnd="@dimen/dimen_edit_text_padding_small"
-                android:textColor="@color/colorEditTextText"
-                android:textColorHint="@color/colorTextHint"
-                android:textSize="@dimen/dimen_edit_text_size" />
+                <fragment
+                    android:id="@+id/id_frag_image"
+                    android:name="com.coagere.gropix.ui.frags.ImagesAddFrag"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
+                    tools:layout="@layout/frag_images_add" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dimen_common_margin_medium"
-                android:layout_marginBottom="@dimen/dimen_common_margin_small"
-                android:text="City"
-                android:textColor="@color/colorTextPrimaryLight"
-                android:textSize="@dimen/dimen_edit_text_title_size" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/dimen_common_margin"
+                    android:orientation="vertical">
 
-            <EditText
-                android:id="@+id/id_edit_city"
-                style="@style/EditTextStyle"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dimen_edit_text_height"
-                android:layout_marginEnd="@dimen/dimen_common_margin_small"
-                android:background="@drawable/drawable_edit_text"
-                android:hint="@string/string_edit_text_hint_enter_city"
-                android:imeOptions="actionNext"
-                android:importantForAutofill="no"
-                android:inputType="textCapWords"
-                android:maxLines="1"
-                android:minLines="1"
-                android:paddingStart="@dimen/dimen_edit_text_padding_small"
-                android:paddingEnd="@dimen/dimen_edit_text_padding_small"
-                android:textColor="@color/colorEditTextText"
-                android:textColorHint="@color/colorTextHint"
-                android:textSize="@dimen/dimen_edit_text_size" />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dimen_common_margin"
+                        android:layout_marginBottom="@dimen/dimen_common_margin_medium"
+                        android:gravity="center"
+                        android:text="Address Details*"
+                        android:textColor="@color/colorTextPrimaryLight"
+                        android:textSize="@dimen/dimen_common_text_size_very_large" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dimen_common_margin_medium"
-                android:layout_marginBottom="@dimen/dimen_common_margin_small"
-                android:text="State"
-                android:textColor="@color/colorTextPrimaryLight"
-                android:textSize="@dimen/dimen_edit_text_title_size" />
+                    <View
+                        android:layout_width="80dp"
+                        android:layout_height="1dp"
+                        android:layout_gravity="center"
+                        android:background="@color/colorViewBlackDark" />
 
-            <EditText
-                android:id="@+id/id_edit_state"
-                style="@style/EditTextStyle"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dimen_edit_text_height"
-                android:layout_marginEnd="@dimen/dimen_common_margin_small"
-                android:background="@drawable/drawable_edit_text"
-                android:hint="@string/string_edit_text_hint_enter_state"
-                android:imeOptions="actionNext"
-                android:importantForAutofill="no"
-                android:inputType="textCapWords"
-                android:maxLines="1"
-                android:minLines="1"
-                android:paddingStart="@dimen/dimen_edit_text_padding_small"
-                android:paddingEnd="@dimen/dimen_edit_text_padding_small"
-                android:textColor="@color/colorEditTextText"
-                android:textColorHint="@color/colorTextHint"
-                android:textSize="@dimen/dimen_edit_text_size" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dimen_common_margin_medium"
+                        android:layout_marginBottom="@dimen/dimen_common_margin_small"
+                        android:text="Street"
+                        android:textColor="@color/colorTextPrimaryLight"
+                        android:textSize="@dimen/dimen_edit_text_title_size" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dimen_common_margin_medium"
-                android:layout_marginBottom="@dimen/dimen_common_margin_small"
-                android:text="PinCode"
-                android:textColor="@color/colorTextPrimaryLight"
-                android:textSize="@dimen/dimen_edit_text_title_size" />
+                    <EditText
+                        android:id="@+id/id_edit_street"
+                        style="@style/EditTextStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dimen_edit_text_height"
+                        android:layout_marginEnd="@dimen/dimen_common_margin_small"
+                        android:background="@drawable/drawable_edit_text"
+                        android:hint="Enter street"
+                        android:imeOptions="actionNext"
+                        android:importantForAutofill="no"
+                        android:inputType="textCapWords"
+                        android:maxLines="1"
+                        android:minLines="1"
+                        android:paddingStart="@dimen/dimen_edit_text_padding_small"
+                        android:paddingEnd="@dimen/dimen_edit_text_padding_small"
+                        android:textColor="@color/colorEditTextText"
+                        android:textColorHint="@color/colorTextHint"
+                        android:textSize="@dimen/dimen_edit_text_size" />
 
-            <EditText
-                android:id="@+id/id_edit_pin_code"
-                style="@style/EditTextStyle"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dimen_edit_text_height"
-                android:layout_marginEnd="@dimen/dimen_common_margin_small"
-                android:background="@drawable/drawable_edit_text"
-                android:hint="@string/string_edit_text_hint_enter_pin_code"
-                android:imeOptions="actionNext"
-                android:importantForAutofill="no"
-                android:inputType="textCapWords"
-                android:maxLines="1"
-                android:minLines="1"
-                android:paddingStart="@dimen/dimen_edit_text_padding_small"
-                android:paddingEnd="@dimen/dimen_edit_text_padding_small"
-                android:textColor="@color/colorEditTextText"
-                android:textColorHint="@color/colorTextHint"
-                android:textSize="@dimen/dimen_edit_text_size" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dimen_common_margin_medium"
+                        android:layout_marginBottom="@dimen/dimen_common_margin_small"
+                        android:text="City"
+                        android:textColor="@color/colorTextPrimaryLight"
+                        android:textSize="@dimen/dimen_edit_text_title_size" />
 
-            <Button
-                android:id="@+id/id_button_submit"
-                style="?attr/buttonBarButtonStyle"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dimen_button_height_default"
-                android:layout_margin="@dimen/dimen_common_margin_large"
-                android:background="@drawable/button_background_positive"
-                android:clickable="true"
-                android:focusable="true"
-                android:text="Place Order" />
+                    <AutoCompleteTextView
+                        android:id="@+id/id_edit_city"
+                        style="@style/EditTextStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dimen_edit_text_height"
+                        android:layout_marginEnd="@dimen/dimen_common_margin_small"
+                        android:background="@drawable/drawable_edit_text"
+                        android:hint="Enter city"
+                        android:imeOptions="actionNext"
+                        android:importantForAutofill="no"
+                        android:inputType="textCapWords"
+                        android:maxLines="1"
+                        android:minLines="1"
+                        android:paddingStart="@dimen/dimen_edit_text_padding_small"
+                        android:paddingEnd="@dimen/dimen_edit_text_padding_small"
+                        android:textColor="@color/colorEditTextText"
+                        android:textColorHint="@color/colorTextHint"
+                        android:textSize="@dimen/dimen_edit_text_size" />
 
-        </LinearLayout>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dimen_common_margin_medium"
+                        android:layout_marginBottom="@dimen/dimen_common_margin_small"
+                        android:text="State"
+                        android:textColor="@color/colorTextPrimaryLight"
+                        android:textSize="@dimen/dimen_edit_text_title_size" />
 
-    </androidx.core.widget.NestedScrollView>
+                    <AutoCompleteTextView
+                        android:id="@+id/id_edit_state"
+                        style="@style/EditTextStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dimen_edit_text_height"
+                        android:layout_marginEnd="@dimen/dimen_common_margin_small"
+                        android:background="@drawable/drawable_edit_text"
+                        android:hint="Enter state"
+                        android:imeOptions="actionNext"
+                        android:importantForAutofill="no"
+                        android:inputType="textCapWords"
+                        android:maxLines="1"
+                        android:minLines="1"
+                        android:paddingStart="@dimen/dimen_edit_text_padding_small"
+                        android:paddingEnd="@dimen/dimen_edit_text_padding_small"
+                        android:textColor="@color/colorEditTextText"
+                        android:textColorHint="@color/colorTextHint"
+                        android:textSize="@dimen/dimen_edit_text_size" />
 
-</LinearLayout>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dimen_common_margin_medium"
+                        android:layout_marginBottom="@dimen/dimen_common_margin_small"
+                        android:text="PinCode"
+                        android:textColor="@color/colorTextPrimaryLight"
+                        android:textSize="@dimen/dimen_edit_text_title_size" />
+
+                    <EditText
+                        android:id="@+id/id_edit_pin_code"
+                        style="@style/EditTextStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dimen_edit_text_height"
+                        android:layout_marginEnd="@dimen/dimen_common_margin_small"
+                        android:background="@drawable/drawable_edit_text"
+                        android:hint="Enter pincode"
+                        android:imeOptions="actionNext"
+                        android:importantForAutofill="no"
+                        android:inputType="textCapWords"
+                        android:maxLines="1"
+                        android:minLines="1"
+                        android:paddingStart="@dimen/dimen_edit_text_padding_small"
+                        android:paddingEnd="@dimen/dimen_edit_text_padding_small"
+                        android:textColor="@color/colorEditTextText"
+                        android:textColorHint="@color/colorTextHint"
+                        android:textSize="@dimen/dimen_edit_text_size" />
+
+                    <Button
+                        android:id="@+id/id_button_submit"
+                        style="?attr/buttonBarButtonStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dimen_button_height_default"
+                        android:layout_margin="@dimen/dimen_common_margin_large"
+                        android:background="@drawable/button_background_positive"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:text="Place Order" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+    </LinearLayout>
+</layout>
