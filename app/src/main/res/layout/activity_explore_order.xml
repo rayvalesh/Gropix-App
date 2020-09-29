@@ -23,7 +23,36 @@
         android:fitsSystemWindows="true"
         tools:context=".ui.activities.ExploreOrderActivity">
 
-        <include layout="@layout/include_app_bar_layout" />
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/id_parent_app_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:elevation="@dimen/dimen_app_bar_elevation_zero"
+            tools:ignore="UnusedAttribute">
+
+            <com.google.android.material.appbar.CollapsingToolbarLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="@dimen/dimen_app_bar_height"
+                app:titleEnabled="false">
+
+                <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/id_app_bar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    android:background="@android:color/transparent"
+                    android:minHeight="@dimen/dimen_app_bar_height"
+                    android:theme="@style/AppBarWhite"
+                    app:contentInsetStartWithNavigation="0dp"
+                    app:popupTheme="@style/AppBarPop"
+                    app:titleTextAppearance="@style/AppBarTextViewStyleWhite"
+                    app:titleTextColor="@color/colorWhite" />
+
+
+            </com.google.android.material.appbar.CollapsingToolbarLayout>
+        </com.google.android.material.appbar.AppBarLayout>
 
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
@@ -51,11 +80,12 @@
                         android:paddingTop="@dimen/dimen_common_margin"
                         android:paddingEnd="@dimen/dimen_common_margin">
 
-                        <ImageView
+                        <androidx.appcompat.widget.AppCompatImageView
                             android:id="@+id/id_image"
                             downloadImage="@{model.image}"
                             android:layout_width="80dp"
                             android:layout_height="80dp"
+                            android:layout_marginBottom="@dimen/dimen_common_margin"
                             android:background="@drawable/placeholder_one"
                             android:contentDescription="@string/string_icon_desc_image"
                             android:src="@drawable/placeholder_one" />
@@ -80,7 +110,7 @@
 
                             <TextView
                                 android:id="@+id/id_text_address"
-                                text='@{model.address.street +","+model.address.city+","+model.address.state}'
+                                text='@{model.address.street +" , "+ model.address.city+" , " + model.address.state }'
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="@dimen/dimen_common_margin_very_small"
@@ -124,9 +154,10 @@
                         <TextView
                             android:id="@+id/id_text_status"
                             style="@style/TextViewStyleBold"
-                            text="@{model.status}"
+                            text='@{(model.status == 1) ? "Completed" : "Cancelled" '
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:text="Completed"
                             android:textColor="@color/colorPrimaryDark"
                             android:textSize="@dimen/dimen_common_text_size_med_large" />
                     </LinearLayout>
@@ -243,7 +274,7 @@
                                         android:layout_height="wrap_content"
                                         android:ellipsize="end"
                                         android:gravity="center"
-                                        android:maxLines="2"
+                                        android:maxLines="1"
                                         android:paddingLeft="@dimen/dimen_common_margin_medium"
                                         android:paddingRight="@dimen/dimen_common_margin_medium"
                                         android:text="@string/string_label_times"
@@ -315,6 +346,7 @@
                                 <TextView
                                     android:id="@+id/id_text_bill_amount"
                                     style="@style/TextViewStyleBold"
+                                    text="@{model.totalAmount}"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:gravity="center"
@@ -348,6 +380,7 @@
                                 android:layout_width="@dimen/string_order_bill_label_width"
                                 android:layout_height="wrap_content"
                                 android:gravity="center"
+                                android:text="1"
                                 android:textColor="@color/colorTextPrimary"
                                 android:textSize="@dimen/dimen_common_text_size_title" />
                         </LinearLayout>
@@ -400,6 +433,7 @@
                                 <TextView
                                     android:id="@+id/id_text_total_amount"
                                     style="@style/TextViewStyleBold"
+                                    text="@{model.totalAmount}"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:textColor="@color/colorStyleFourDark"
@@ -492,12 +526,12 @@
                         android:layout_gravity="end|center"
                         android:layout_marginEnd="@dimen/dimen_common_margin_more"
                         android:background="@drawable/button_background_positive_white"
+                        android:onClick="@{clickListener}"
                         android:paddingLeft="@dimen/dimen_common_margin"
                         android:paddingRight="@dimen/dimen_common_margin"
                         android:text="@string/string_button_name_pay"
                         android:textColor="@color/colorTextPrimary"
                         android:textSize="@dimen/dimen_button_text_size_small" />
-
 
                     <include
                         android:id="@+id/id_progress_bar_book"

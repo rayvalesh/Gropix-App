@@ -80,6 +80,7 @@
         <activity android:name=".ui.activities.MainActivity" />
         <activity android:name=".ui.activities.ReachUsActivity" />
         <activity android:name=".ui.activities.OrderConfirmationActivity" />
+        <activity android:name=".ui.activities.ExploreOrderActivity" />
 
         <service android:name=".services.get.MyFirebaseMessagingService" />
     </application>

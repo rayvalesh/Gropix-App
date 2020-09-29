@@ -12,6 +12,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.coagere.gropix.R
 import com.coagere.gropix.databinding.FragOrderListBinding
+import com.coagere.gropix.jetpack.entities.AddressModel
 import com.coagere.gropix.jetpack.entities.OrderModel
 import com.coagere.gropix.jetpack.viewmodels.OrderVM
 import com.coagere.gropix.ui.activities.ExploreOrderActivity
@@ -22,6 +23,7 @@ import com.tc.utils.variables.abstracts.OnEventOccurListener
 import com.tc.utils.variables.enums.ActionType
 import com.tc.utils.variables.interfaces.Constants
 import com.tc.utils.variables.interfaces.IntentInterface
+import tk.jamun.ui.snacks.L
 import tk.jamun.ui.snacks.MySnackBar
 
 /**
@@ -71,11 +73,50 @@ class OrderListFrag : BaseFragment() {
                 binding!!.idTextTitle.text = getString(R.string.string_label_pending)
             }
         }
+
+        modelList.add(
+            OrderModel(
+                "1",
+                "Grocery 1",
+                "122332",
+                "https://cdn.vox-cdn.com/thumbor/wvdW8UyL2dIAsXrfwNBy3xKIGe4=/1400x1400/filters:format(jpeg)/cdn.vox-cdn.com/uploads/chorus_asset/file/19744155/Amazon_Go_Grocery_3.jpg",
+                10,
+                1,
+                200.0,
+                AddressModel("Delhi", "Delhi", "Hariyana", "India", "1100110")
+            )
+        )
+
+        modelList.add(
+            OrderModel(
+                "3",
+                "Grocery 2",
+                "122332",
+                "https://cdn.vox-cdn.com/thumbor/wvdW8UyL2dIAsXrfwNBy3xKIGe4=/1400x1400/filters:format(jpeg)/cdn.vox-cdn.com/uploads/chorus_asset/file/19744155/Amazon_Go_Grocery_3.jpg",
+                10,
+                2,
+                200.0,
+                AddressModel("Delhi", "Delhi", "Hariyana", "India", "1100110")
+            )
+        )
+
+        modelList.add(
+            OrderModel(
+                "2",
+                "Grocery 3",
+                "122332",
+                "https://cdn.vox-cdn.com/thumbor/wvdW8UyL2dIAsXrfwNBy3xKIGe4=/1400x1400/filters:format(jpeg)/cdn.vox-cdn.com/uploads/chorus_asset/file/19744155/Amazon_Go_Grocery_3.jpg",
+                10,
+                1,
+                200.0,
+                AddressModel("Delhi", "Delhi", "Hariyana", "India", "1100110")
+            )
+        )
+
     }
 
     override fun initializeViewModel() {
         super.initializeViewModel()
-        utilityClass!!.startProgressBar()
         viewModel.getApiOrderStatusList(
             moduleType = moduleType,
             modelList = modelList,
@@ -99,20 +140,24 @@ class OrderListFrag : BaseFragment() {
         adapter = OrderStatusAdapter(
             moduleType = moduleType,
             modelList = modelList,
-            object : OnEventOccurListener() {
-                override fun getEventData(
-                    `object`: Any?,
-                    actionType: ActionType?,
-                    adapterPosition: Int
-                ) {
-                    super.getEventData(`object`, actionType, adapterPosition)
-                    startActivity(
-                        Intent(context, ExploreOrderActivity::class.java)
-                            .putExtra(IntentInterface.INTENT_FOR_MODEL, `object` as OrderModel)
-                    )
-                }
-            })
+            listener
+        )
         binding!!.idRecyclerView.adapter = adapter
+        adapter!!.notifyAdapterDataSetChanged()
+    }
+
+    private var listener = object : OnEventOccurListener() {
+        override fun getEventData(
+            `object`: Any?,
+            actionType: ActionType?,
+            adapterPosition: Int
+        ) {
+            super.getEventData(`object`, actionType, adapterPosition)
+            startActivity(
+                Intent(requireActivity(), ExploreOrderActivity::class.java)
+                    .putExtra(IntentInterface.INTENT_FOR_MODEL, `object` as OrderModel)
+            )
+        }
     }
 
     override fun initializeEmptyView(isEmpty: Boolean) {

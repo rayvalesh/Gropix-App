@@ -25,8 +25,6 @@
             android:textColor="@color/colorTextPrimary"
             android:textSize="@dimen/dimen_common_text_size_large" />
 
-        <include layout="@layout/include_vector_spinner" />
-
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/id_recycler_view"
             android:layout_width="match_parent"

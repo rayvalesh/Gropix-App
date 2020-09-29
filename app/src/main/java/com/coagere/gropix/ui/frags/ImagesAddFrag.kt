@@ -3,14 +3,13 @@ package com.coagere.gropix.ui.frags
 import UploadPhotoAsync
 import android.content.Intent
 import android.os.Bundle
-import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.localbroadcastmanager.content.LocalBroadcastManager
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.coagere.gropix.R
+import com.coagere.gropix.databinding.FragImagesAddBinding
 import com.coagere.gropix.jetpack.entities.FileModel
 import com.coagere.gropix.ui.adapters.ImageAdapter
 import com.coagere.gropix.utils.UtilityClass
@@ -21,12 +20,13 @@ import com.tc.utils.utils.utility.isNotNull
 import com.tc.utils.utils.utility.isNullAndEmpty
 import com.tc.utils.variables.abstracts.OnEventOccurListener
 import com.tc.utils.variables.enums.ActionType
-import com.tc.utils.variables.interfaces.BroadcastKeys
 import com.tc.utils.variables.interfaces.Constants
 import com.tc.utils.variables.interfaces.IntentInterface
+import tk.jamun.ui.snacks.L
 import java.util.*
 
 class ImagesAddFrag : BaseFragment(), ServiceReceiver.Receiver {
+    private var binding: FragImagesAddBinding? = null
     private var utilityClass: UtilityClass? = null
     var modelList: ArrayList<FileModel> = arrayListOf()
     private var adapter: ImageAdapter? = null
@@ -34,11 +34,12 @@ class ImagesAddFrag : BaseFragment(), ServiceReceiver.Receiver {
     private var resultReceiver: ServiceReceiver? = null
     private var recyclerView: RecyclerView? = null
     private var bundle: Intent? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         modelList = ArrayList()
-        bundle = Intent(BroadcastKeys.BROADCAST_RECEIVER_FOR_FEED_SERVICE)
-        resultReceiver = ServiceReceiver(Handler(), this)
+//        bundle = Intent(BroadcastKeys.BROADCAST_RECEIVER_FOR_FEED_SERVICE)
+//        resultReceiver = ServiceReceiver(Handler(), this)
     }
 
     override fun onCreateView(
@@ -46,18 +47,20 @@ class ImagesAddFrag : BaseFragment(), ServiceReceiver.Receiver {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.frag_images_add, container, false)
+        if (binding == null) {
+            binding = FragImagesAddBinding.inflate(inflater, container, false)
+        }
+        lifecycleScope.launchWhenCreated {
+            utilityClass = UtilityClass(requireActivity(), binding!!.root)
+            initializeRecyclerView()
+        }
+        return binding!!.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        utilityClass = UtilityClass(requireActivity(), view)
-        initializeRecyclerView()
-    }
 
     override fun initializeRecyclerView() {
         recyclerView = utilityClass!!.setRecyclerView(
-            R.id.id_recycler_view,
+            binding!!.idRecyclerView.id,
             LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         )
         adapter = ImageAdapter(modelList, object : OnEventOccurListener() {
@@ -76,7 +79,7 @@ class ImagesAddFrag : BaseFragment(), ServiceReceiver.Receiver {
                             IntentInterface.INTENT_COME_FROM,
                             Constants.TYPE_ACTION_CANCEL
                         )
-                        LocalBroadcastManager.getInstance(context!!).sendBroadcast(bundle!!)
+//                        LocalBroadcastManager.getInstance(context!!).sendBroadcast(bundle!!)
                     }
                     ActionType.ACTION_UPLOAD -> if (checkConnection(activity)) {
                         if (UploadPhotoAsync.isRunning) {
@@ -85,9 +88,9 @@ class ImagesAddFrag : BaseFragment(), ServiceReceiver.Receiver {
                                 Constants.TYPE_ACTION_UPLOAD
                             )
                             bundle!!.putExtra(IntentInterface.INTENT_FOR_MODEL, fileModel)
-                            LocalBroadcastManager.getInstance(context!!).sendBroadcast(bundle!!)
+//                            LocalBroadcastManager.getInstance(context!!).sendBroadcast(bundle!!)
                         } else {
-                            UploadPhotoAsync.start(requireContext(), modelList, resultReceiver)
+//                            UploadPhotoAsync.start(requireContext(), modelList, resultReceiver)
                         }
                     }
                     ActionType.ACTION_DELETE -> if (checkConnection(activity)) {
@@ -104,7 +107,7 @@ class ImagesAddFrag : BaseFragment(), ServiceReceiver.Receiver {
                 }
             }
         })
-        recyclerView!!.adapter = adapter
+        recyclerView?.adapter = adapter
     }
 
     fun addImages(fileModel: FileModel) {
@@ -115,16 +118,16 @@ class ImagesAddFrag : BaseFragment(), ServiceReceiver.Receiver {
             } else {
                 fileModel.actionType = 0
             }
-            adapter!!.notifyAdapterItemInserted()
-            recyclerView!!.scrollToPosition(modelList.size)
-            UploadPhotoAsync.start(requireContext(), modelList, resultReceiver)
+            adapter?.notifyAdapterItemInserted()
+            recyclerView?.scrollToPosition(modelList.size)
+//            UploadPhotoAsync.start(requireContext(), modelList, resultReceiver)
         }
     }
 
     override fun onReceiveResult(requestCode: Int, resultCode: Int, resultData: Bundle) {
         when (resultCode) {
             Constants.RESPONSE_SUCCESS -> if (isNotNull(listeners)) listeners!!.getEventData(
-                modelList!!.toTypedArray(),
+                modelList.toTypedArray(),
                 ActionType.ACTION_UPDATE_STATUS,
                 0
             )

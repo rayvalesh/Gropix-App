@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-
     <data>
 
         <variable
@@ -22,8 +21,7 @@
         android:layout_marginRight="@dimen/dimen_common_margin"
         android:layout_marginBottom="@dimen/dimen_common_margin_very_small"
         android:clickable="true"
-        android:focusable="true"
-        android:onClick="@{clickListener}">
+        android:focusable="true">
 
         <LinearLayout
             android:id="@+id/id_parent"
@@ -33,11 +31,13 @@
             android:background="@drawable/more_layouts_click"
             android:clickable="true"
             android:focusable="true"
+            android:onClick="@{clickListener}"
             android:orientation="horizontal">
 
             <ImageView
                 android:id="@+id/id_image"
                 downloadImage="@{model.image}"
+                shape="1"
                 android:layout_width="110dp"
                 android:layout_height="match_parent"
                 android:background="@drawable/placeholder_one"
@@ -64,7 +64,7 @@
                 <TextView
                     android:id="@+id/id_text_address"
                     style="@style/TextViewStyleLight"
-                    text='@{model.address.street +","+ model.address.city +","+model.address.state}'
+                    text='@{model.address.street +" , "+ model.address.city+" , " + model.address.state }'
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:maxLines="1"
@@ -103,11 +103,13 @@
                 <TextView
                     android:id="@+id/id_text_status"
                     style="@style/TextViewStyleBold"
-                    text="@{model.status}"
+                    text='@{model.status==1 ? "Completed":"Cancelled"}'
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:text="Completed"
                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="@dimen/dimen_common_text_size_med_large" />
+
             </LinearLayout>
         </LinearLayout>
     </androidx.cardview.widget.CardView>

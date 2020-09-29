@@ -64,7 +64,7 @@
     <dimen name="dimen_button_height_medium_small">30dp</dimen>
     <dimen name="dimen_dots_size">10dp</dimen>
     <dimen name="dimen_view_height_large">2dp</dimen>
-    <dimen name="dimen_sheet_label_serial_width">50dp</dimen>
+    <dimen name="dimen_sheet_label_serial_width">60dp</dimen>
     <dimen name="dimen_sheet_label_title_width">180dp</dimen>
     <dimen name="dimen_sheet_label_large_width">120dp</dimen>
     <dimen name="dimen_rupee_small">9dp</dimen>

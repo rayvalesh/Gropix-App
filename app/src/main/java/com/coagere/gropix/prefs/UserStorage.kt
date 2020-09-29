@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import androidx.core.content.edit
 import com.coagere.gropix.jetpack.entities.AddressModel
+import com.coagere.gropix.jetpack.entities.ItemModel
 import com.coagere.gropix.jetpack.entities.UserModel
 import com.coagere.gropix.utils.MyApplication
 import com.google.gson.reflect.TypeToken
@@ -57,8 +58,6 @@ class UserStorage(context: Context) {
             if (MyApplication.isLoggedIn) {
                 headerArrayList.add(ModelHeader("user", userId))
                 headerArrayList.add(ModelHeader("key", accessToken))
-                if (courseId != 0)
-                    headerArrayList.add(ModelHeader("course-id", courseId.toString()))
             }
             return headerArrayList
         }
@@ -98,39 +97,11 @@ class UserStorage(context: Context) {
             sharedPreferences.edit().putString(SHARED_USER_ID, value).apply()
         }
 
-    var referralCode: String?
-        get() = sharedPreferences.getString(SHARED_REFERRAL, null)
-        set(value) {
-            sharedPreferences.edit().putString(SHARED_REFERRAL, value).apply()
-        }
-    var deepReferralCode: String?
-        get() = sharedPreferences.getString("shared_referral_deep", null)
-        set(value) {
-            sharedPreferences.edit().putString("shared_referral_deep", value).apply()
-        }
-
-    var deepPostCode: String?
-        get() = sharedPreferences.getString("shared_post_deep", null)
-        set(value) {
-            sharedPreferences.edit().putString("shared_post_deep", value).apply()
-        }
-
-
-    var deepTeacherCode: String?
-        get() = sharedPreferences.getString("shared_teacher_deep", null)
-        set(value) {
-            sharedPreferences.edit().putString("shared_teacher_deep", value).apply()
-        }
-
     private var accessToken: String?
         get() = sharedPreferences.getString(SHARED_TOKEN, null)
         set(value) {
             sharedPreferences.edit { putString(SHARED_TOKEN, value) }
         }
-
-    var messageUUID: String?
-        get() = sharedPreferences.getString(SHARED_UUID_MESSAGE, null)
-        set(value) = sharedPreferences.edit { putString(SHARED_UUID_MESSAGE, value) }
 
     fun setUserProfile(userModel: UserModel) {
         sharedPreferences.edit()
@@ -164,37 +135,25 @@ class UserStorage(context: Context) {
         MyApplication.instance.setAndRefreshVolleyHeaderCredentials()
     }
 
-    var navigationStatus: Boolean
-        get() = sharedPreferences.getBoolean(SHARED_NAVIGATION, false)
-        set(value) = sharedPreferences.edit().putBoolean(SHARED_NAVIGATION, value).apply()
 
 
     fun getCompressions(): Int {
         return sharedPreferences.getInt("shared_compressions", 70);
     }
 
-    var classes: Int
-        get() = sharedPreferences.getInt(SHARED_CLASS, 0)
-        set(value) {
-            sharedPreferences.edit().putInt(SHARED_CLASS, value).apply()
-        }
-    var boards: Int
-        get() = sharedPreferences.getInt(SHARED_BOARDS, 0)
-        set(value) {
-            sharedPreferences.edit().putInt(SHARED_BOARDS, value).apply()
-        }
+    var cartItems: Array<ItemModel>
+        get() = VolleyGSON.get().fromJson(
+            VolleyGSON.get().getTypeToken(object : TypeToken<Array<ItemModel>>() {}),
+            sharedPreferences.getString("cart_items", "[]")
+        ) as Array<ItemModel>
+        set(value) = sharedPreferences.edit().putString(
+            "cart_items",
+            VolleyGSON.get().toJson(
+                value,
+                VolleyGSON.get().getTypeToken(object : TypeToken<Array<ItemModel>>() {})
+            )
+        ).apply()
 
-    var accountStatus: Int
-        get() = sharedPreferences.getInt(SHARED_ACCOUNT_STATUS, 1)
-        set(value) {
-            sharedPreferences.edit().putInt(SHARED_ACCOUNT_STATUS, value).apply()
-        }
-
-    var courseId: Int
-        get() = sharedPreferences.getInt("shared_course_id", 0)
-        set(value) {
-            sharedPreferences.edit().putInt("shared_course_id", value).apply()
-        }
 
     val city: Int
         get() = sharedPreferences.getInt("KEY_CITY", 0)
@@ -203,22 +162,6 @@ class UserStorage(context: Context) {
         get() = sharedPreferences.getBoolean(SHARED_FCM_STATUS, false)
         set(value) = sharedPreferences.edit().putBoolean(SHARED_FCM_STATUS, value).apply()
 
-    var firstCodeGuiderDone: Boolean
-        get() = sharedPreferences.getBoolean("shared_code_guider", false)
-        set(value) = sharedPreferences.edit().putBoolean("shared_code_guider", value).apply()
-
-    var homeGuiderDone: Boolean
-        get() = sharedPreferences.getBoolean("shared_home_guider", false)
-        set(value) = sharedPreferences.edit().putBoolean("shared_home_guider", value).apply()
-
-    var videoPlayerGuiderDone: Boolean
-        get() = sharedPreferences.getBoolean("shared_video_player_guider", false)
-        set(value) = sharedPreferences.edit().putBoolean("shared_video_player_guider", value)
-            .apply()
-
-    var tabGuiderDone: Boolean
-        get() = sharedPreferences.getBoolean("shared_tab_guider", false)
-        set(value) = sharedPreferences.edit().putBoolean("shared_tab_guider", value).apply()
 
     companion object {
         private const val SHARED_NAME = "studiuz_storage"
@@ -229,17 +172,10 @@ class UserStorage(context: Context) {
         private const val SHARED_ADDRESS = "shared_address_data"
         private const val SHARED_TOKEN = "shared_key"
         private const val SHARED_USER_ID = "shared_user"
-        private const val SHARED_REFERRAL = "shared_referral"
-        private const val SHARED_CLASS = "shared_classes"
         private const val SHARED_NUMBER = "shared_number"
         private const val SHARED_DISPLAY = "shared_display"
         private const val SHARED_DISPLAY_IMAGE = "shared_user_image"
-        private const val SHARED_NAVIGATION = "shared_navigation"
-        private const val SHARED_BOARDS = "shared_boards"
-        private const val SHARED_ACCOUNT_STATUS = "account_status"
-        private const val SHARED_UUID_MESSAGE = "shared_uuid_message"
         private const val SHARED_DIALOG_UPDATE = "shared_update_dialog"
-        private const val SHARED_SETTING_NOTIFICATION_DO_NOT_DISTURB = "shared_dnd"
         private const val SHARED_SETTING_NOTIFICATION = "shared_notification"
         private const val SHARED_FCM_STATUS = "shared_fcm_sent"
 

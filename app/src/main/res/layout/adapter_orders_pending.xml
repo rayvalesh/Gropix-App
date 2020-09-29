@@ -25,10 +25,7 @@
             android:layout_marginStart="@dimen/dimen_common_margin_more"
             android:layout_marginTop="@dimen/dimen_common_margin_small"
             android:layout_marginEnd="@dimen/dimen_common_margin_more"
-            android:layout_marginBottom="@dimen/dimen_common_margin_medium"
-            android:clickable="true"
-            android:focusable="true"
-            android:onClick="@{clickListener}">
+            android:layout_marginBottom="@dimen/dimen_common_margin_medium">
 
             <LinearLayout
                 android:id="@+id/id_parent"
@@ -37,6 +34,7 @@
                 android:background="@drawable/more_layouts_click"
                 android:clickable="true"
                 android:focusable="true"
+                android:onClick="@{clickListener}"
                 android:orientation="vertical">
 
                 <LinearLayout
@@ -47,7 +45,7 @@
                     android:paddingTop="@dimen/dimen_common_margin"
                     android:paddingEnd="@dimen/dimen_common_margin">
 
-                    <ImageView
+                    <androidx.appcompat.widget.AppCompatImageView
                         downloadImage="@{model.image}"
                         android:layout_width="80dp"
                         android:layout_height="80dp"
@@ -75,7 +73,7 @@
 
                         <TextView
                             android:id="@+id/id_text_address"
-                            text='@{model.address.street +","+ model.address.city +","+model.address.state}'
+                            text='@{model.address.street +" , "+ model.address.city+" , " + model.address.state }'
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/dimen_common_margin_very_small"
@@ -103,7 +101,7 @@
                 <TextView
                     android:id="@+id/id_text_status"
                     style="@style/TextViewStyleMedium"
-                    text="@{model.status}"
+                    text="Pending"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center|end"
@@ -165,7 +163,6 @@
                             text="@{model.totalAmount}"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="223"
                             android:textColor="@color/colorTextPrimary"
                             android:textSize="@dimen/dimen_common_text_size_very_very_large" />
 

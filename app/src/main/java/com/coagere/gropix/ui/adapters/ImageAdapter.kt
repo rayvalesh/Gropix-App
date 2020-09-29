@@ -26,7 +26,7 @@ class ImageAdapter(private val modelList: ArrayList<FileModel>, private val list
         if (!isNullAndEmpty(modelList)) {
             var index = 0
             for (fileModelListed in modelList) {
-                if (fileModel.fileUrl == fileModelListed!!.fileUrl) {
+                if (fileModel.fileUrl == fileModelListed.fileUrl) {
                     modelList[index] = fileModel
                     notifyItemChanged(index)
                     break

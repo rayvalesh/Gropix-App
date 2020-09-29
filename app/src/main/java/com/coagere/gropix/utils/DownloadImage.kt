@@ -13,10 +13,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.coagere.gropix.R
 import com.tc.utils.utils.customs.RoundedCornersTransformation
-import com.tc.utils.utils.helpers.Utils
-import com.tc.utils.variables.interfaces.ApiKeys
 import tk.jamun.elements.circularimageview.CircularImageView
-import tk.jamun.ui.snacks.L
 
 object DownloadImage {
 
@@ -83,11 +80,7 @@ object DownloadImage {
                         view,
                         12,
                         0,
-                        if (contentType == 1) {
-                            RoundedCornersTransformation.CornerType.ALL
-                        } else {
-                            RoundedCornersTransformation.CornerType.TOP
-                        }
+                        RoundedCornersTransformation.CornerType.ALL
                     )
                 )
                 .placeholder(

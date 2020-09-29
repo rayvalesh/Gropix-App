@@ -56,6 +56,9 @@ object BindingAdapters {
             is Int -> {
                 view.text = any.toString()
             }
+            is Double -> {
+                view.text = any.toString()
+            }
             else -> view.text = ""
         }
     }

@@ -1,5 +1,5 @@
 <resources>
-     <string name="string_message_cant_empty">Can not be Empty!</string>
+    <string name="string_message_cant_empty">Can not be Empty!</string>
     <string name="string_message_email_incorrect">Incorrect Email Address!</string>
     <string name="string_message_email_length">Please enter the Correct Email Address!</string>
 
@@ -24,7 +24,7 @@
 
 
     <string name="string_button_name_no">No</string>
-    <string name="string_button_name_yes_want">Yes i want to</string>
+    <string name="string_button_name_yes_want">Yes</string>
     <string name="string_edit_hint_enter_code">Enter Teacher Code</string>
     <string name="string_button_name_dismiss">Dismiss</string>
     <string name="string_icon_desc_video">Video</string>

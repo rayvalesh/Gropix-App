@@ -34,6 +34,8 @@ data class FileModel(
         var progress: Int = 0,
         @Exclude
         var progressData: String? = null
+
+
 ) : Parcelable {
 
 }

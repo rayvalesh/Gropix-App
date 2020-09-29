@@ -150,5 +150,6 @@
     <string name="string_label_pending">Pending</string>
     <string name="string_label_cancelled">Cancelled</string>
     <string name="string_activity_name_order_confirmation">Order Confirmation</string>
+    <string name="string_order_explore_label_address_title">Address Details</string>
 
 </resources>

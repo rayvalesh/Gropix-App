@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.animation.AnimationUtils
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
 import com.coagere.gropix.R
 import com.coagere.gropix.databinding.ActivityMainBinding
@@ -17,6 +18,7 @@ import com.coagere.gropix.utils.HelperFileFormat
 import com.coagere.gropix.utils.ShareData
 import com.coagere.gropix.utils.UtilityClass
 import com.tc.utils.elements.BaseActivity
+import com.tc.utils.utils.helpers.HelperActionBar
 import com.tc.utils.utils.helpers.HelperIntent
 import com.tc.utils.utils.helpers.JamunAlertDialog
 import com.tc.utils.utils.helpers.Utils
@@ -58,14 +60,43 @@ class MainActivity : BaseActivity(), View.OnClickListener {
             initializeViewModel()
             initializeListeners()
             initializeFragsView()
+            setToolbar()
         }
+    }
+
+
+    override fun setToolbar() {
+        super.setToolbar()
+        HelperActionBar.setAppBarLayout(
+            this@MainActivity,
+            0.8,
+            object : HelperActionBar.ScrollingListener {
+                override fun up() {
+                    binding!!.idText.setTextColor(
+                        ContextCompat.getColor(
+                            this@MainActivity,
+                            R.color.colorTextPrimary
+                        )
+                    )
+                }
+
+                override fun down() {
+                    binding!!.idText.setTextColor(
+                        ContextCompat.getColor(
+                            this@MainActivity,
+                            R.color.colorWhite
+                        )
+                    )
+                }
+
+            })
     }
 
     override fun initializeFragsView() {
         super.initializeFragsView()
         val transactionManager = supportFragmentManager.beginTransaction()
         if (!pendingFrag.isAdded) {
-            transactionManager.add(
+            transactionManager.replace(
                 R.id.id_frag_pending,
                 pendingFrag,
                 "Pending Frag"
@@ -74,26 +105,24 @@ class MainActivity : BaseActivity(), View.OnClickListener {
 
         }
         if (!cancelledFrag.isAdded) {
-            transactionManager
+            transactionManager.replace(
+                R.id.id_frag_cancelled,
+                cancelledFrag,
+                "Cancelled Frag"
+            )
                 .setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right)
-                .add(
-                    R.id.id_frag_cancelled,
-                    cancelledFrag,
-                    "Cancelled Frag"
-                )
         }
         if (!placedFrag.isAdded) {
-            transactionManager
-                .add(
-                    R.id.id_frag_complete,
-                    placedFrag,
-                    "Placed Frag"
-                )
+            transactionManager.replace(
+                R.id.id_frag_complete,
+                placedFrag,
+                "Placed Frag"
+            )
                 .setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right)
+                .commit()
         }
 
     }
-
 
     override fun onClick(v: View?) {
         when (v?.id) {

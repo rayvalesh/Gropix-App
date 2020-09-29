@@ -56,10 +56,10 @@ class OrderStatusAdapter(
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (holder is ViewHolder) holder.bindTo(modelList[position])
-        else if (holder is CancelViewHolder) holder.bindTo(modelList[position])
-
+        else if (holder is CancelViewHolder) {
+            holder.bindTo(modelList[position])
+        }
     }
-
 
     override fun getItemCount(): Int {
         return size
@@ -76,19 +76,27 @@ class OrderStatusAdapter(
             }
         }
 
-        override fun onClick(v: View?) {
+        override fun onClick(v: View) {
             listener.getEventData(
                 modelList[adapterPosition],
                 ActionType.ACTION_EXPLORE,
                 adapterPosition
             )
         }
-
     }
 
     inner class CancelViewHolder(private var binding: AdapterOrdersCancelledBinding) :
         RecyclerView.ViewHolder(binding.root), View.OnClickListener {
-        override fun onClick(v: View?) {
+
+        fun bindTo(orderModel: OrderModel) {
+            binding.apply {
+                this.clickListener = this@CancelViewHolder
+                model = orderModel
+                executePendingBindings()
+            }
+        }
+
+        override fun onClick(v: View) {
             listener.getEventData(
                 modelList[adapterPosition],
                 ActionType.ACTION_EXPLORE,
@@ -96,13 +104,6 @@ class OrderStatusAdapter(
             )
         }
 
-        fun bindTo(orderModel: OrderModel) {
-            binding.apply {
-                clickListener = this@CancelViewHolder
-                model = orderModel
-                executePendingBindings()
-            }
-        }
     }
 
 }

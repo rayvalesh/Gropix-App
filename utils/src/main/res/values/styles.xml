@@ -7,7 +7,7 @@
         <item name="android:textColorPrimary">@color/colorTextPrimary</item>
         <item name="android:textColorSecondary">@color/colorTextPrimaryLight</item>
         <item name="android:textStyle">bold</item>
-        <item name="android:textColor">@color/colorTextPrimary</item>
+        <item name="android:textColor">@color/colorWhite</item>
         <item name="android:textSize">19sp</item>
         <item name="android:layout_gravity">center_vertical</item>
     </style>
@@ -31,8 +31,8 @@
     <style name="AppBarWhite" parent="AppBarWhite.parent" />
 
     <style name="AppBarWhite.parent" parent="ThemeOverlay.AppCompat.DayNight">
-        <item name="android:textColorPrimary">@color/colorTextPrimary</item>
-        <item name="android:textColorSecondary">@color/colorTextPrimaryLight</item>
+        <item name="android:textColorPrimary">@color/colorWhite</item>
+        <item name="android:textColorSecondary">@color/colorWhiteAlpha</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textSize">19sp</item>
     </style>

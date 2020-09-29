@@ -28,5 +28,47 @@ data class OrderModel(
     var totalAmount: Double = 0.toDouble(),
 
     @SerializedName("address")
-    var address: AddressModel = AddressModel()
-) : Parcelable
+    var address: AddressModel = AddressModel(),
+
+    @SerializedName("fileModels")
+    var fileModels: Array<FileModel> = emptyArray(),
+
+    @SerializedName("itemModels")
+    var itemModels: ArrayList<ItemModel> = arrayListOf()
+
+) : Parcelable {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
+
+        other as OrderModel
+
+        if (orderId != other.orderId) return false
+        if (title != other.title) return false
+        if (timestamp != other.timestamp) return false
+        if (image != other.image) return false
+        if (tax != other.tax) return false
+        if (status != other.status) return false
+        if (totalAmount != other.totalAmount) return false
+        if (address != other.address) return false
+        if (!fileModels.contentEquals(other.fileModels)) return false
+        if (itemModels != other.itemModels) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = orderId?.hashCode() ?: 0
+        result = 31 * result + (title?.hashCode() ?: 0)
+        result = 31 * result + (timestamp?.hashCode() ?: 0)
+        result = 31 * result + (image?.hashCode() ?: 0)
+        result = 31 * result + tax
+        result = 31 * result + status
+        result = 31 * result + totalAmount.hashCode()
+        result = 31 * result + address.hashCode()
+        result = 31 * result + fileModels.contentHashCode()
+        result = 31 * result + itemModels.hashCode()
+        return result
+    }
+
+}

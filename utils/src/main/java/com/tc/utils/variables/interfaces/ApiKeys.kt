@@ -22,6 +22,7 @@ interface ApiKeys {
         const val URL_POST_IMAGE_UPLOAD = ""
 
         const val URL_GET_ORDER_LIST = ""
+        const val URL_GET_ORDER_ITEM_LIST = ""
 
 
         /**

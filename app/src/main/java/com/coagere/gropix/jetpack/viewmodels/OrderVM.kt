@@ -15,6 +15,13 @@ class OrderVM : ViewModel() {
         OrderRepo.instance.apiGetOrderStatusList(moduleType, modelList, listener)
     }
 
+    fun getApiOrderItemList(
+        model: OrderModel,
+        listener: OnEventOccurListener
+    ) {
+        OrderRepo.instance.apiGetOrderItemList(model, listener)
+    }
+
     fun clearEverything() {
     }
 

@@ -25,7 +25,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/colorPrimary"
-
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
             app:elevation="@dimen/dimen_app_bar_elevation_zero"
             tools:ignore="UnusedAttribute">
@@ -42,11 +41,11 @@
                     android:layout_height="?attr/actionBarSize"
                     android:background="@android:color/transparent"
                     android:minHeight="@dimen/dimen_app_bar_height"
-                    android:theme="@style/AppBarTheme"
+                    android:theme="@style/AppBarWhite"
                     app:contentInsetStartWithNavigation="0dp"
                     app:popupTheme="@style/AppBarPop"
                     app:titleTextAppearance="@style/AppBarTextViewStyleWhite"
-                    app:titleTextColor="@color/colorTextPrimary" />
+                    app:titleTextColor="@color/colorWhite" />
 
 
             </com.google.android.material.appbar.CollapsingToolbarLayout>
@@ -62,13 +61,11 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <fragment
+                <FrameLayout
                     android:id="@+id/id_frag_image"
-                    android:name="com.coagere.gropix.ui.frags.ImagesAddFrag"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
-                    tools:layout="@layout/frag_images_add" />
+                    app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -77,19 +74,20 @@
                     android:orientation="vertical">
 
                     <TextView
-                        android:layout_width="match_parent"
+                        style="@style/TextViewStyle"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/dimen_common_margin"
-                        android:layout_marginBottom="@dimen/dimen_common_margin_medium"
-                        android:gravity="center"
-                        android:text="Address Details*"
-                        android:textColor="@color/colorTextPrimaryLight"
-                        android:textSize="@dimen/dimen_common_text_size_very_large" />
+                        android:layout_gravity="center"
+                        android:padding="@dimen/dimen_common_margin"
+                        android:text="@string/string_order_explore_label_address_title"
+                        android:textColor="@color/colorStyleOneDark"
+                        android:textSize="@dimen/dimen_common_text_size_med_large" />
 
                     <View
-                        android:layout_width="80dp"
-                        android:layout_height="1dp"
+                        android:layout_width="40dp"
+                        android:layout_height="@dimen/dimen_view_height_large"
                         android:layout_gravity="center"
+                        android:layout_marginBottom="@dimen/dimen_common_margin_more"
                         android:background="@color/colorViewBlackDark" />
 
                     <TextView
@@ -120,6 +118,11 @@
                         android:textColorHint="@color/colorTextHint"
                         android:textSize="@dimen/dimen_edit_text_size" />
 
+                    <include
+                        android:id="@+id/id_text_error_street"
+                        layout="@layout/include_layout_text_error" />
+
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -147,6 +150,12 @@
                         android:textColor="@color/colorEditTextText"
                         android:textColorHint="@color/colorTextHint"
                         android:textSize="@dimen/dimen_edit_text_size" />
+
+
+                    <include
+                        android:id="@+id/id_text_error_city"
+                        layout="@layout/include_layout_text_error" />
+
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -176,6 +185,12 @@
                         android:textColorHint="@color/colorTextHint"
                         android:textSize="@dimen/dimen_edit_text_size" />
 
+
+                    <include
+                        android:id="@+id/id_text_error_state"
+                        layout="@layout/include_layout_text_error" />
+
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -204,6 +219,12 @@
                         android:textColorHint="@color/colorTextHint"
                         android:textSize="@dimen/dimen_edit_text_size" />
 
+
+                    <include
+                        android:id="@+id/id_text_error_pin"
+                        layout="@layout/include_layout_text_error" />
+
+
                     <Button
                         android:id="@+id/id_button_submit"
                         style="?attr/buttonBarButtonStyle"
@@ -213,6 +234,7 @@
                         android:background="@drawable/button_background_positive"
                         android:clickable="true"
                         android:focusable="true"
+                        android:onClick="@{clickListener}"
                         android:text="Place Order" />
 
                 </LinearLayout>
