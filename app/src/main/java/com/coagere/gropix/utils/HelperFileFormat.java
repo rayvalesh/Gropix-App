@@ -26,6 +26,7 @@ import android.webkit.MimeTypeMap;
 import androidx.core.content.FileProvider;
 
 import com.coagere.gropix.R;
+import com.coagere.gropix.jetpack.entities.FileModel;
 import com.coagere.gropix.prefs.UserStorage;
 import com.tc.utils.utils.helpers.StoragePath;
 import com.tc.utils.variables.abstracts.OnEventOccurListener;
@@ -866,27 +867,38 @@ public class HelperFileFormat {
         return false;
     }
 
-    public void getFileFromUri(Context context, @NotNull Uri uri, @NotNull OnEventOccurListener listener) {
-        new FileAsync(context, uri, listener).execute();
+    private FileAsync fileAsync = null;
+
+    public void getFileFromUri(Context context, @NotNull Uri[] uri,
+                               @NotNull OnEventOccurListener listener) {
+        cancelAsync();
+        fileAsync = new FileAsync(context, uri, listener);
+        fileAsync.execute();
+    }
+
+    public void cancelAsync() {
+        if (fileAsync != null) {
+            fileAsync.cancel(true);
+        }
     }
 
     static class FileAsync extends AsyncTask<Void, Void, Void> {
         @SuppressLint("StaticFieldLeak")
         private Context context;
-        private Uri uri;
+        private Uri[] uris;
         private OnEventOccurListener listeners;
         private String errorMessage;
-        private File file;
+        private ArrayList<FileModel> fileModels= new ArrayList<>();
 
-        public FileAsync(Context context, Uri uri, OnEventOccurListener listeners) {
+        public FileAsync(Context context, Uri[] uris, OnEventOccurListener listeners) {
             this.context = context;
-            this.uri = uri;
+            this.uris = uris;
             this.listeners = listeners;
         }
 
         private Bitmap getBitmapFromUri(Context context, Uri uri) {
             try {
-                ParcelFileDescriptor parcelFileDescriptor = null;
+                ParcelFileDescriptor parcelFileDescriptor;
                 parcelFileDescriptor = context.getContentResolver().openFileDescriptor(uri, "r");
                 FileDescriptor fileDescriptor = parcelFileDescriptor.getFileDescriptor();
                 Bitmap image = BitmapFactory.decodeFileDescriptor(fileDescriptor);
@@ -900,9 +912,11 @@ public class HelperFileFormat {
 
         @Override
         protected Void doInBackground(Void... voids) {
-            Bitmap bitmap = getBitmapFromUri(context, uri);
-            if (bitmap != null) {
-                getFileDetails(bitmap, uri);
+            for (Uri uri : uris) {
+                Bitmap bitmap = getBitmapFromUri(context, uri);
+                if (bitmap != null) {
+                    getFileDetails(bitmap, uri);
+                }
             }
             return null;
         }
@@ -924,7 +938,13 @@ public class HelperFileFormat {
             if (file.length() < Constants.FILE_SIZE_LIMIT) {
                 String fileType = file.getName().substring(file.getName().lastIndexOf(".") + 1);
                 if (HelperFileFormat.getInstance().isImageAvail(fileType)) {
-                    this.file = file;
+                    FileModel fileModel = new FileModel();
+                    fileModel.setFileName(file.getName());
+                    fileModel.setFileUrl(file.getAbsolutePath());
+                    fileModel.setDisplaySize(HelperFileFormat.getInstance().getDisplaySize(file.length()));
+                    fileModel.setFileSize(file.length());
+                    fileModel.setFileType(fileType);
+                    fileModels.add(fileModel);
                 } else {
                     errorMessage = context.getString(R.string.string_message_error_incorrect_format);
                 }
@@ -936,10 +956,10 @@ public class HelperFileFormat {
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
-            if (file == null) {
+            if (fileModels.isEmpty()) {
                 listeners.onErrorResponse(1, errorMessage);
             } else {
-                listeners.getEventData(file);
+                listeners.getEventData(fileModels);
             }
         }
 

@@ -1,0 +1,92 @@
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#1A000000"
+    android:fitsSystemWindows="true"
+    tools:context=".ui.activities.ViewImageActivity">
+
+    <View
+        android:id="@+id/id_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:alpha="0"
+        android:background="@color/colorBlack" />
+
+    <com.coagere.gropix.utils.ElasticDragDismissFrameLayout
+        android:id="@+id/id_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:dragDismissDistance="200dp"
+        app:dragDismissScale="0.95">
+
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/id_scroll_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:fillViewport="true">
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.coagere.gropix.utils.GestureImageView
+                    android:id="@+id/id_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:adjustViewBounds="true"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:transitionName="@string/string_icon_transition_image"/>
+
+                <androidx.viewpager.widget.ViewPager
+                    android:id="@+id/id_view_pager"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+            </FrameLayout>
+        </androidx.core.widget.NestedScrollView>
+
+    </com.coagere.gropix.utils.ElasticDragDismissFrameLayout>
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/id_parent_app_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorAppBarTransparency"
+        app:elevation="@dimen/dimen_app_bar_elevation_zero"
+        app:expanded="false">
+
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:id="@+id/id_collapsing_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_scrollFlags="scroll|enterAlwaysCollapsed"
+            app:titleEnabled="false">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/id_app_bar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:minHeight="@dimen/dimen_app_bar_height"
+                android:theme="@style/AppBarWhite"
+                app:contentInsetStartWithNavigation="0dp"
+                app:layout_scrollFlags="scroll"
+                app:popupTheme="@style/AppBarPopWhite" />
+
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/id_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:orientation="horizontal"
+        android:visibility="gone"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:listitem="@layout/adapter_view_image" />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
+

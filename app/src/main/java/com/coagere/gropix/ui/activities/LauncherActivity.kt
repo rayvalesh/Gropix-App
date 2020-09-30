@@ -140,18 +140,10 @@ class LauncherActivity : BaseActivity() {
     private fun homeStart() {
         handler.removeCallbacks(runnableHome)
         handler.removeCallbacks(runnable!!)
-        when (UserStorage.instance.lastPage) {
-            1 -> startActivity(
-                Intent(this, InformationActivity::class.java)
-                    .putExtra(IntentInterface.INTENT_COME_FROM, true)
-            )
-            else -> {
-                if (MyApplication.isLoggedIn) {
-                    startActivity(Intent(this, MainActivity::class.java))
-                } else {
-                    startActivity(Intent(this, AccessAccountActivity::class.java))
-                }
-            }
+        if (MyApplication.isLoggedIn) {
+            startActivity(Intent(this, MainActivity::class.java))
+        } else {
+            startActivity(Intent(this, AccessAccountActivity::class.java))
         }
         finish()
     }

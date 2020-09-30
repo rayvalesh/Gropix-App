@@ -7,10 +7,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.lifecycleScope
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.coagere.gropix.databinding.FragImagesAddBinding
 import com.coagere.gropix.jetpack.entities.FileModel
+import com.coagere.gropix.ui.activities.ViewImageActivity
 import com.coagere.gropix.ui.adapters.ImageAdapter
 import com.coagere.gropix.utils.UtilityClass
 import com.tc.utils.elements.BaseFragment
@@ -27,20 +29,13 @@ import java.util.*
 
 class ImagesAddFrag : BaseFragment(), ServiceReceiver.Receiver {
     private var binding: FragImagesAddBinding? = null
-    private var utilityClass: UtilityClass? = null
+    private val utilityClass: UtilityClass by lazy { UtilityClass(requireActivity(), binding!!.root) }
     var modelList: ArrayList<FileModel> = arrayListOf()
     private var adapter: ImageAdapter? = null
     private var listeners: OnEventOccurListener? = null
     private var resultReceiver: ServiceReceiver? = null
     private var recyclerView: RecyclerView? = null
     private var bundle: Intent? = null
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        modelList = ArrayList()
-//        bundle = Intent(BroadcastKeys.BROADCAST_RECEIVER_FOR_FEED_SERVICE)
-//        resultReceiver = ServiceReceiver(Handler(), this)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -49,17 +44,16 @@ class ImagesAddFrag : BaseFragment(), ServiceReceiver.Receiver {
     ): View? {
         if (binding == null) {
             binding = FragImagesAddBinding.inflate(inflater, container, false)
-        }
-        lifecycleScope.launchWhenCreated {
-            utilityClass = UtilityClass(requireActivity(), binding!!.root)
-            initializeRecyclerView()
+            lifecycleScope.launchWhenCreated {
+                initializeRecyclerView()
+            }
         }
         return binding!!.root
     }
 
 
     override fun initializeRecyclerView() {
-        recyclerView = utilityClass!!.setRecyclerView(
+        recyclerView = utilityClass.setRecyclerView(
             binding!!.idRecyclerView.id,
             LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         )
@@ -79,7 +73,7 @@ class ImagesAddFrag : BaseFragment(), ServiceReceiver.Receiver {
                             IntentInterface.INTENT_COME_FROM,
                             Constants.TYPE_ACTION_CANCEL
                         )
-//                        LocalBroadcastManager.getInstance(context!!).sendBroadcast(bundle!!)
+                        LocalBroadcastManager.getInstance(context!!).sendBroadcast(bundle!!)
                     }
                     ActionType.ACTION_UPLOAD -> if (checkConnection(activity)) {
                         if (UploadPhotoAsync.isRunning) {
@@ -88,9 +82,9 @@ class ImagesAddFrag : BaseFragment(), ServiceReceiver.Receiver {
                                 Constants.TYPE_ACTION_UPLOAD
                             )
                             bundle!!.putExtra(IntentInterface.INTENT_FOR_MODEL, fileModel)
-//                            LocalBroadcastManager.getInstance(context!!).sendBroadcast(bundle!!)
+                            LocalBroadcastManager.getInstance(context!!).sendBroadcast(bundle!!)
                         } else {
-//                            UploadPhotoAsync.start(requireContext(), modelList, resultReceiver)
+                            UploadPhotoAsync.start(requireContext(), modelList, resultReceiver)
                         }
                     }
                     ActionType.ACTION_DELETE -> if (checkConnection(activity)) {
@@ -102,7 +96,8 @@ class ImagesAddFrag : BaseFragment(), ServiceReceiver.Receiver {
                         )
                     }
                     else -> {
-//                        ViewImageActivity.launch(activity, fileModel.downloadUrl)
+                        ViewImageActivity.launch(requireActivity(), arrayOf(fileModel.downloadUrl!!),
+                            adapterPosition = adapterPosition)
                     }
                 }
             }

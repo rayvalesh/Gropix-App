@@ -25,18 +25,16 @@ class OrderConfirmationActivity : BaseActivity(), View.OnClickListener {
 
     private var binding: ActivityConfirmationBinding? = null
     private var utilityClass: UtilityClass? = null
-    private var imageFrag: ImagesAddFrag? = ImagesAddFrag[Constants.MODULE_CART]
+    private lateinit var imageFrag: ImagesAddFrag
     private var fileModel: FileModel? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        if (binding == null) {
-            binding = ActivityConfirmationBinding.inflate(LayoutInflater.from(this))
-            binding!!.apply {
-                clickListener = this@OrderConfirmationActivity
-                model = UserStorage.instance.addressModel
-                executePendingBindings()
-            }
+        binding = ActivityConfirmationBinding.inflate(LayoutInflater.from(this))
+        binding!!.apply {
+            clickListener = this@OrderConfirmationActivity
+            model = UserStorage.instance.addressModel
+            executePendingBindings()
         }
         lifecycleScope.launchWhenCreated {
             utilityClass = UtilityClass(this@OrderConfirmationActivity)
@@ -66,12 +64,10 @@ class OrderConfirmationActivity : BaseActivity(), View.OnClickListener {
 
     override fun initializeFragsView() {
         super.initializeFragsView()
-        supportFragmentManager.beginTransaction().replace(
-            R.id.id_frag_image,
-            imageFrag!!,
-            "Image Frag"
-        ).setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right).commit()
-        imageFrag!!.addImages(fileModel!!)
+        imageFrag = supportFragmentManager.findFragmentById(R.id.id_frag_image) as ImagesAddFrag
+        Handler().postDelayed({
+            imageFrag.addImages(fileModel!!)
+        }, Constants.THREAD_TIME_DELAY)
     }
 
     override fun onClick(v: View?) {
@@ -80,11 +76,42 @@ class OrderConfirmationActivity : BaseActivity(), View.OnClickListener {
 
     private fun onClickSubmit() {
         if (validate()) {
-
         }
     }
 
     private fun validate(): Boolean {
+        if (utilityClass!!.checkEditTextEmpty(
+                editText = binding!!.idEditName,
+                minLength = resources.getInteger(R.integer.validation_min_name),
+                errorTextView = binding!!.root.findViewById(R.id.id_text_error_name)
+            )
+        ) {
+            return false
+        }
+        if (utilityClass!!.checkEditTextEmpty(
+                editText = binding!!.idEditEmail,
+                minLength = resources.getInteger(R.integer.validation_min_email),
+                errorTextView = binding!!.root.findViewById(R.id.id_text_error_email)
+            )
+        ) {
+            return false
+        }
+        if (utilityClass!!.checkEditTextEmpty(
+                editText = binding!!.idEditStreet,
+                minLength = resources.getInteger(R.integer.validation_min_name),
+                errorTextView = binding!!.root.findViewById(R.id.id_text_error_street)
+            )
+        ) {
+            return false
+        }
+        if (utilityClass!!.checkEditTextEmpty(
+                editText = binding!!.idEditStreet,
+                minLength = resources.getInteger(R.integer.validation_min_name),
+                errorTextView = binding!!.root.findViewById(R.id.id_text_error_street)
+            )
+        ) {
+            return false
+        }
         if (utilityClass!!.checkEditTextEmpty(
                 editText = binding!!.idEditStreet,
                 minLength = resources.getInteger(R.integer.validation_min_name),
@@ -104,7 +131,7 @@ class OrderConfirmationActivity : BaseActivity(), View.OnClickListener {
         if (utilityClass!!.checkEditTextEmpty(
                 editText = binding!!.idEditState,
                 minLength = resources.getInteger(R.integer.validation_min_name),
-                errorTextView = binding!!.root.findViewById(R.id.id_text_error_state)
+                errorTextView = binding!!.root.findViewById(R.id.id_text_error_city)
             )
         ) {
             return false

@@ -15,16 +15,20 @@
 
     </data>
 
-    <LinearLayout
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/id_coordinator_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:background="@color/colorLayoutBackground"
+        android:fitsSystemWindows="true"
+        android:orientation="vertical"
+        tools:context=".ui.activities.OrderConfirmationActivity">
 
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/id_parent_app_bar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/colorPrimary"
+            android:background="@color/colorWhite"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
             app:elevation="@dimen/dimen_app_bar_elevation_zero"
             tools:ignore="UnusedAttribute">
@@ -38,9 +42,8 @@
                 <androidx.appcompat.widget.Toolbar
                     android:id="@+id/id_app_bar"
                     android:layout_width="match_parent"
-                    android:layout_height="?attr/actionBarSize"
+                    android:layout_height="@dimen/dimen_app_bar_height_small"
                     android:background="@android:color/transparent"
-                    android:minHeight="@dimen/dimen_app_bar_height"
                     android:theme="@style/AppBarWhite"
                     app:contentInsetStartWithNavigation="0dp"
                     app:popupTheme="@style/AppBarPop"
@@ -61,39 +64,139 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <FrameLayout
-                    android:id="@+id/id_frag_image"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior" />
-
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/dimen_common_margin"
-                    android:orientation="vertical">
+                    android:background="@color/colorWhite"
+                    android:orientation="vertical"
+                    android:paddingStart="@dimen/dimen_common_margin_large"
+                    android:paddingEnd="@dimen/dimen_common_margin_large"
+                    android:paddingBottom="@dimen/dimen_common_margin_large">
 
                     <TextView
-                        style="@style/TextViewStyle"
+                        style="@style/TextViewStyleMedium"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:padding="@dimen/dimen_common_margin"
-                        android:text="@string/string_order_explore_label_address_title"
+                        android:layout_gravity="center_vertical"
+                        android:text="@string/string_order_explore_label_images"
                         android:textColor="@color/colorStyleOneDark"
-                        android:textSize="@dimen/dimen_common_text_size_med_large" />
+                        android:textSize="@dimen/dimen_common_text_size_large" />
 
                     <View
                         android:layout_width="40dp"
                         android:layout_height="@dimen/dimen_view_height_large"
-                        android:layout_gravity="center"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="@dimen/dimen_common_margin_very_small"
+                        android:layout_marginTop="@dimen/dimen_common_margin"
+                        android:layout_marginBottom="@dimen/dimen_common_margin_more"
+                        android:background="@color/colorViewBlackDark" />
+
+                    <fragment
+                        android:id="@+id/id_frag_image"
+                        android:name="com.coagere.gropix.ui.frags.ImagesAddFrag"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/colorWhite"
+                        android:tag="Images"
+                        tools:layout="@layout/frag_images_add" />
+
+                </LinearLayout>
+
+                <include layout="@layout/utility_vertical_border_layout_shadow" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dimen_common_margin_large"
+                    android:background="@color/colorWhite"
+                    android:orientation="vertical"
+                    android:padding="@dimen/dimen_common_margin_large">
+
+                    <TextView
+                        style="@style/TextViewStyleMedium"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:text="@string/string_order_explore_label_address_title"
+                        android:textColor="@color/colorStyleOneDark"
+                        android:textSize="@dimen/dimen_common_text_size_large" />
+
+                    <View
+                        android:layout_width="40dp"
+                        android:layout_height="@dimen/dimen_view_height_large"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="@dimen/dimen_common_margin_very_small"
+                        android:layout_marginTop="@dimen/dimen_common_margin"
                         android:layout_marginBottom="@dimen/dimen_common_margin_more"
                         android:background="@color/colorViewBlackDark" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/dimen_common_margin_medium"
+                        android:layout_marginBottom="@dimen/dimen_common_margin_small"
+                        android:text="Name"
+                        android:textColor="@color/colorTextPrimaryLight"
+                        android:textSize="@dimen/dimen_edit_text_title_size" />
+
+                    <EditText
+                        android:id="@+id/id_edit_name"
+                        style="@style/EditTextStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dimen_edit_text_height"
+                        android:layout_marginEnd="@dimen/dimen_common_margin_small"
+                        android:background="@drawable/drawable_edit_text"
+                        android:hint="Enter full name"
+                        android:imeOptions="actionNext"
+                        android:importantForAutofill="no"
+                        android:inputType="textCapWords"
+                        android:maxLines="1"
+                        android:minLines="1"
+                        android:paddingStart="@dimen/dimen_edit_text_padding_small"
+                        android:paddingEnd="@dimen/dimen_edit_text_padding_small"
+                        android:textColor="@color/colorEditTextText"
+                        android:textColorHint="@color/colorTextHint"
+                        android:textSize="@dimen/dimen_edit_text_size" />
+
+                    <include
+                        android:id="@+id/id_text_error_name"
+                        layout="@layout/include_layout_text_error" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dimen_common_margin_more"
+                        android:layout_marginBottom="@dimen/dimen_common_margin_small"
+                        android:text="Email Address"
+                        android:textColor="@color/colorTextPrimaryLight"
+                        android:textSize="@dimen/dimen_edit_text_title_size" />
+
+                    <EditText
+                        android:id="@+id/id_edit_email"
+                        style="@style/EditTextStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dimen_edit_text_height"
+                        android:layout_marginEnd="@dimen/dimen_common_margin_small"
+                        android:background="@drawable/drawable_edit_text"
+                        android:hint="Enter email address"
+                        android:imeOptions="actionNext"
+                        android:importantForAutofill="no"
+                        android:inputType="textCapWords"
+                        android:maxLines="1"
+                        android:minLines="1"
+                        android:paddingStart="@dimen/dimen_edit_text_padding_small"
+                        android:paddingEnd="@dimen/dimen_edit_text_padding_small"
+                        android:textColor="@color/colorEditTextText"
+                        android:textColorHint="@color/colorTextHint"
+                        android:textSize="@dimen/dimen_edit_text_size" />
+
+                    <include
+                        android:id="@+id/id_text_error_email"
+                        layout="@layout/include_layout_text_error" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dimen_common_margin_more"
                         android:layout_marginBottom="@dimen/dimen_common_margin_small"
                         android:text="Street"
                         android:textColor="@color/colorTextPrimaryLight"
@@ -122,35 +225,81 @@
                         android:id="@+id/id_text_error_street"
                         layout="@layout/include_layout_text_error" />
 
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/dimen_common_margin_medium"
-                        android:layout_marginBottom="@dimen/dimen_common_margin_small"
-                        android:text="City"
-                        android:textColor="@color/colorTextPrimaryLight"
-                        android:textSize="@dimen/dimen_edit_text_title_size" />
-
-                    <AutoCompleteTextView
-                        android:id="@+id/id_edit_city"
-                        style="@style/EditTextStyle"
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/dimen_edit_text_height"
-                        android:layout_marginEnd="@dimen/dimen_common_margin_small"
-                        android:background="@drawable/drawable_edit_text"
-                        android:hint="Enter city"
-                        android:imeOptions="actionNext"
-                        android:importantForAutofill="no"
-                        android:inputType="textCapWords"
-                        android:maxLines="1"
-                        android:minLines="1"
-                        android:paddingStart="@dimen/dimen_edit_text_padding_small"
-                        android:paddingEnd="@dimen/dimen_edit_text_padding_small"
-                        android:textColor="@color/colorEditTextText"
-                        android:textColorHint="@color/colorTextHint"
-                        android:textSize="@dimen/dimen_edit_text_size" />
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dimen_common_margin_more"
+                        android:layout_marginBottom="@dimen/dimen_common_margin_small"
+                        android:orientation="horizontal">
 
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="City"
+                            android:textColor="@color/colorTextPrimaryLight"
+                            android:textSize="@dimen/dimen_edit_text_title_size" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/dimen_common_margin"
+                            android:layout_weight="1"
+                            android:text="State"
+                            android:textColor="@color/colorTextPrimaryLight"
+                            android:textSize="@dimen/dimen_edit_text_title_size" />
+
+
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <AutoCompleteTextView
+                            android:id="@+id/id_edit_city"
+                            style="@style/EditTextStyle"
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/dimen_edit_text_height"
+                            android:layout_marginEnd="@dimen/dimen_common_margin_small"
+                            android:layout_weight="1"
+                            android:background="@drawable/drawable_edit_text"
+                            android:hint="Enter city"
+                            android:imeOptions="actionNext"
+                            android:importantForAutofill="no"
+                            android:inputType="textCapWords"
+                            android:maxLines="1"
+                            android:minLines="1"
+                            android:paddingStart="@dimen/dimen_edit_text_padding_small"
+                            android:paddingEnd="@dimen/dimen_edit_text_padding_small"
+                            android:textColor="@color/colorEditTextText"
+                            android:textColorHint="@color/colorTextHint"
+                            android:textSize="@dimen/dimen_edit_text_size" />
+
+                        <AutoCompleteTextView
+                            android:id="@+id/id_edit_state"
+                            style="@style/EditTextStyle"
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/dimen_edit_text_height"
+                            android:layout_marginStart="@dimen/dimen_common_margin"
+                            android:layout_marginEnd="@dimen/dimen_common_margin_small"
+                            android:layout_weight="1"
+                            android:background="@drawable/drawable_edit_text"
+                            android:hint="Enter state"
+                            android:imeOptions="actionNext"
+                            android:importantForAutofill="no"
+                            android:inputType="textCapWords"
+                            android:maxLines="1"
+                            android:minLines="1"
+                            android:paddingStart="@dimen/dimen_edit_text_padding_small"
+                            android:paddingEnd="@dimen/dimen_edit_text_padding_small"
+                            android:textColor="@color/colorEditTextText"
+                            android:textColorHint="@color/colorTextHint"
+                            android:textSize="@dimen/dimen_edit_text_size" />
+
+                    </LinearLayout>
 
                     <include
                         android:id="@+id/id_text_error_city"
@@ -160,41 +309,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/dimen_common_margin_medium"
-                        android:layout_marginBottom="@dimen/dimen_common_margin_small"
-                        android:text="State"
-                        android:textColor="@color/colorTextPrimaryLight"
-                        android:textSize="@dimen/dimen_edit_text_title_size" />
-
-                    <AutoCompleteTextView
-                        android:id="@+id/id_edit_state"
-                        style="@style/EditTextStyle"
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/dimen_edit_text_height"
-                        android:layout_marginEnd="@dimen/dimen_common_margin_small"
-                        android:background="@drawable/drawable_edit_text"
-                        android:hint="Enter state"
-                        android:imeOptions="actionNext"
-                        android:importantForAutofill="no"
-                        android:inputType="textCapWords"
-                        android:maxLines="1"
-                        android:minLines="1"
-                        android:paddingStart="@dimen/dimen_edit_text_padding_small"
-                        android:paddingEnd="@dimen/dimen_edit_text_padding_small"
-                        android:textColor="@color/colorEditTextText"
-                        android:textColorHint="@color/colorTextHint"
-                        android:textSize="@dimen/dimen_edit_text_size" />
-
-
-                    <include
-                        android:id="@+id/id_text_error_state"
-                        layout="@layout/include_layout_text_error" />
-
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/dimen_common_margin_medium"
+                        android:layout_marginTop="@dimen/dimen_common_margin_more"
                         android:layout_marginBottom="@dimen/dimen_common_margin_small"
                         android:text="PinCode"
                         android:textColor="@color/colorTextPrimaryLight"
@@ -206,6 +321,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/dimen_edit_text_height"
                         android:layout_marginEnd="@dimen/dimen_common_margin_small"
+                        android:layout_marginBottom="@dimen/dimen_app_bar_height"
                         android:background="@drawable/drawable_edit_text"
                         android:hint="Enter pincode"
                         android:imeOptions="actionNext"
@@ -224,24 +340,94 @@
                         android:id="@+id/id_text_error_pin"
                         layout="@layout/include_layout_text_error" />
 
-
-                    <Button
-                        android:id="@+id/id_button_submit"
-                        style="?attr/buttonBarButtonStyle"
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/dimen_button_height_default"
-                        android:layout_margin="@dimen/dimen_common_margin_large"
-                        android:background="@drawable/button_background_positive"
-                        android:clickable="true"
-                        android:focusable="true"
-                        android:onClick="@{clickListener}"
-                        android:text="Place Order" />
-
                 </LinearLayout>
 
             </LinearLayout>
 
         </androidx.core.widget.NestedScrollView>
 
-    </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:orientation="vertical">
+
+            <include layout="@layout/include_app_bar_shadow_down" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:background="@color/colorStyleThreeDark"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:paddingStart="@dimen/dimen_common_margin"
+                    android:paddingEnd="@dimen/dimen_common_margin">
+
+                    <TextView
+                        style="@style/TextViewStyleMedium"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Place your order"
+                        android:textColor="@color/colorWhite"
+                        android:textSize="@dimen/dimen_common_text_size_very_very_large" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:layout_width="@dimen/dimen_icon_size_very_small"
+                            android:layout_height="@dimen/dimen_icon_size_very_small"
+                            android:padding="@dimen/dimen_margin_balancing"
+                            android:tint="@color/colorWhiteAlpha"
+                            app:srcCompat="@drawable/icon_vd_about" />
+
+                        <TextView
+                            style="@style/TextViewStyleLight"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Terms &amp; Condition"
+                            android:textColor="@color/colorWhite"
+                            android:textSize="@dimen/dimen_common_text_size_med" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <FrameLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <Button
+                        android:id="@+id/id_button_submit"
+                        style="?attr/buttonBarStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/dimen_button_height_default"
+                        android:layout_gravity="end|center"
+                        android:layout_margin="@dimen/dimen_common_margin_more"
+                        android:background="@drawable/button_background_positive_white"
+                        android:paddingLeft="@dimen/dimen_common_margin_large"
+                        android:paddingRight="@dimen/dimen_common_margin_large"
+                        android:text="@string/string_button_name_submit"
+                        android:textColor="@color/colorTextPrimary"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <include
+                        android:id="@+id/id_progress_bar_book"
+                        layout="@layout/include_vector_spinner_small" />
+
+                </FrameLayout>
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

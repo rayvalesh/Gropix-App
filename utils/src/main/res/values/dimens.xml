@@ -53,7 +53,7 @@
 
     <!--buttons -->
     <dimen name="dimen_button_height_medium">34dp</dimen>
-    <dimen name="dimen_button_height_default">44dp</dimen>
+    <dimen name="dimen_button_height_default">40dp</dimen>
     <dimen name="dimen_button_text_size">15sp</dimen>
     <dimen name="dimen_button_text_size_small">13sp</dimen>
     <dimen name="dimen_button_width_default">180dp</dimen>

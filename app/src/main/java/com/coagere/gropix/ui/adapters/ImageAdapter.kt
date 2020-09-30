@@ -116,7 +116,8 @@ class ImageAdapter(private val modelList: ArrayList<FileModel>, private val list
 
         private fun bindImageThings(fileModel: FileModel?, itemView: View) {
             if (fileModel!!.actionType == 0) {
-                if (isNullAndEmpty(fileModel.fileUrl)) downloadImages(itemView.context, fileModel.downloadUrl,
+                if (isNullAndEmpty(fileModel.fileUrl))
+                    downloadImages(itemView.context, fileModel.downloadUrl,
                         imageView, R.drawable.placeholder_rounded, RoundedCornersTransformation.CornerType.ALL, Constants.VALUE_IMAGE_RADIUS)
                 itemView.findViewById<View>(R.id.id_image_file_delete).visibility = View.VISIBLE
                 fileDescriptionTextView.text = itemView.context.getString(R.string.string_button_name_remove)
