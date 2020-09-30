@@ -5,18 +5,22 @@ import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
 import android.view.animation.AnimationUtils
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentPagerAdapter
 import androidx.lifecycle.lifecycleScope
+import androidx.viewpager.widget.ViewPager
 import com.coagere.gropix.R
-import com.coagere.gropix.databinding.ActivityMainBinding
+//import com.coagere.gropix.databinding.ActivityMainBinding
 import com.coagere.gropix.jetpack.entities.FileModel
 import com.coagere.gropix.ui.frags.OrderListFrag
 import com.coagere.gropix.ui.popups.Popups
 import com.coagere.gropix.utils.*
+import com.google.android.material.tabs.TabLayout
 import com.tc.utils.elements.BaseActivity
 import com.tc.utils.utils.helpers.HelperActionBar
 import com.tc.utils.utils.helpers.HelperIntent
@@ -28,36 +32,33 @@ import com.tc.utils.variables.enums.ActionType
 import com.tc.utils.variables.interfaces.ApiKeys
 import com.tc.utils.variables.interfaces.Constants
 import com.tc.utils.variables.interfaces.IntentInterface
-import tk.jamun.ui.share.views.PickerIntent
+import kotlinx.android.synthetic.main.activity_main.*
 import tk.jamun.ui.share.views.PickerShareFiles
 import tk.jamun.ui.snacks.MySnackBar
 import tk.jamunx.ui.camera.utils.InterfaceUtils
 import java.io.File
 
 class MainActivity : BaseActivity(), View.OnClickListener {
-    private var binding: ActivityMainBinding? = null
+    //    private var binding: ActivityMainBinding? = null
     private var utilityClass: UtilityClass? = null
-    private var intentPicker: PickerIntent? = null
     private var popup: Popups? = null
-    private var pendingFrag: OrderListFrag = OrderListFrag.get(Constants.MODULE_PENDING)
-    private var cancelledFrag: OrderListFrag = OrderListFrag.get(Constants.MODULE_PLACED)
-    private var placedFrag: OrderListFrag = OrderListFrag.get(Constants.MODULE_CANCELLED)
+    private lateinit var managerPagerAdapter: ManagerAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        if (binding == null) {
-            binding = ActivityMainBinding.inflate(LayoutInflater.from(this))
-            binding!!.apply {
-                clickListener = this@MainActivity
-                executePendingBindings()
-            }
-        }
+//        if (binding == null) {
+//            binding = ActivityMainBinding.inflate(LayoutInflater.from(this))
+//            binding!!.apply {
+//                clickListener = this@MainActivity
+//                executePendingBindings()
+//            }
+//        }
         lifecycleScope.launchWhenCreated {
             utilityClass = UtilityClass(this@MainActivity)
-            setContentView(binding!!.root)
+            setContentView(R.layout.activity_main)
             initializeViewModel()
             initializeListeners()
-            initializeFragsView()
+            initializeTabView()
             setToolbar()
         }
     }
@@ -70,7 +71,7 @@ class MainActivity : BaseActivity(), View.OnClickListener {
             0.8,
             object : HelperActionBar.ScrollingListener {
                 override fun up() {
-                    binding!!.idText.setTextColor(
+                    id_text.setTextColor(
                         ContextCompat.getColor(
                             this@MainActivity,
                             R.color.colorTextPrimary
@@ -79,7 +80,7 @@ class MainActivity : BaseActivity(), View.OnClickListener {
                 }
 
                 override fun down() {
-                    binding!!.idText.setTextColor(
+                    id_text.setTextColor(
                         ContextCompat.getColor(
                             this@MainActivity,
                             R.color.colorWhite
@@ -88,47 +89,49 @@ class MainActivity : BaseActivity(), View.OnClickListener {
                 }
             })
 
-        (binding!!.idParentBottom.layoutParams as CoordinatorLayout.LayoutParams).behavior =
+        (id_parent_bottom.layoutParams as CoordinatorLayout.LayoutParams).behavior =
             AppCompactBehavior()
     }
 
-    override fun initializeFragsView() {
-        super.initializeFragsView()
-        val transactionManager = supportFragmentManager.beginTransaction()
-        if (!pendingFrag.isAdded) {
-            transactionManager.replace(
-                R.id.id_frag_pending,
-                pendingFrag,
-                "Pending Frag"
+    override fun initializeTabView() {
+        id_view_pager.addOnPageChangeListener(
+            TabLayout.TabLayoutOnPageChangeListener(
+                id_tab_layout
             )
-                .setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right)
+        )
+        managerPagerAdapter = ManagerAdapter(supportFragmentManager)
+        id_view_pager.adapter = managerPagerAdapter
+        id_tab_layout.animatedIndicator = CustomTabIndicator(id_tab_layout)
+        id_view_pager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
+            override fun onPageScrolled(
+                position: Int,
+                positionOffset: Float,
+                positionOffsetPixels: Int
+            ) {
 
-        }
-        if (!cancelledFrag.isAdded) {
-            transactionManager.replace(
-                R.id.id_frag_cancelled,
-                cancelledFrag,
-                "Cancelled Frag"
-            )
-                .setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right)
-        }
-        if (!placedFrag.isAdded) {
-            transactionManager.replace(
-                R.id.id_frag_complete,
-                placedFrag,
-                "Placed Frag"
-            )
-                .setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right)
-                .commit()
-        }
+            }
 
+            override fun onPageSelected(position: Int) {
+            }
+
+            override fun onPageScrollStateChanged(state: Int) {}
+        })
+        id_tab_layout.setupWithViewPager(id_view_pager)
+    }
+
+    override fun initializeListeners() {
+        super.initializeListeners()
+        id_parent_overflow.setOnClickListener(this)
+        id_image_pick.setOnClickListener(this)
+        id_parent_camera.setOnClickListener(this)
+        id_parent_manager.setOnClickListener(this)
     }
 
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.id_parent_overflow -> {
-                createPopup(binding!!.idParentOverflow)
-                binding!!.idParentOverflow.startAnimation(
+                createPopup(id_parent_overflow)
+                id_parent_overflow.startAnimation(
                     AnimationUtils.loadAnimation(
                         this@MainActivity,
                         R.anim.bounce
@@ -136,7 +139,7 @@ class MainActivity : BaseActivity(), View.OnClickListener {
                 )
             }
             R.id.id_image_pick -> {
-                binding!!.idImagePick.startAnimation(
+               id_image_pick.startAnimation(
                     AnimationUtils.loadAnimation(
                         this@MainActivity,
                         R.anim.bounce
@@ -283,5 +286,35 @@ class MainActivity : BaseActivity(), View.OnClickListener {
 
     override fun onBackPressed() {
         super.onBackPressed()
+    }
+
+    inner class ManagerAdapter constructor(fm: FragmentManager) :
+        FragmentPagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
+
+        override fun getPageTitle(position: Int): CharSequence? {
+            return when (position) {
+                0 -> {
+                    getString(R.string.string_label_pending)
+                }
+                1 -> {
+                    getString(R.string.string_label_placed)
+                }
+                else -> {
+                    getString(R.string.string_label_cancelled)
+                }
+            }
+        }
+
+        override fun getItem(position: Int): Fragment {
+            return when (position) {
+                0 -> OrderListFrag.get(Constants.MODULE_PENDING)
+                1 -> OrderListFrag.get(Constants.MODULE_PLACED)
+                else -> OrderListFrag.get(Constants.MODULE_CANCELLED)
+            }
+        }
+
+        override fun getCount(): Int {
+            return 3
+        }
     }
 }

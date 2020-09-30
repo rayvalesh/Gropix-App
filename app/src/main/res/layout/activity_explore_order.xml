@@ -43,11 +43,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dimen_app_bar_height_small"
                     android:background="@android:color/transparent"
-                    android:theme="@style/AppBarWhite"
+                    android:theme="@style/AppBarTheme"
                     app:contentInsetStartWithNavigation="0dp"
                     app:popupTheme="@style/AppBarPop"
                     app:titleTextAppearance="@style/AppBarTextViewStyleWhite"
-                    app:titleTextColor="@color/colorWhite" />
+                    app:titleTextColor="@color/colorTextPrimary" />
 
 
             </com.google.android.material.appbar.CollapsingToolbarLayout>
@@ -560,7 +560,7 @@
 
         <include
             layout="@layout/include_app_bar_shadow"
-            android:visibility="gone" />
+            android:visibility="visible" />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

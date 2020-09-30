@@ -16,4 +16,6 @@ enum class ActionType {
     ACTION_SHARE,
     ACTION_SUBTRACT,
     ACTION_BOOK,
+    DACHSHUND,
+
 }

@@ -26,7 +26,7 @@ class OrderConfirmationActivity : BaseActivity(), View.OnClickListener {
     private var binding: ActivityConfirmationBinding? = null
     private var utilityClass: UtilityClass? = null
     private lateinit var imageFrag: ImagesAddFrag
-    private var fileModel: FileModel? = null
+    private lateinit var fileModels: ArrayList<FileModel>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,7 +38,7 @@ class OrderConfirmationActivity : BaseActivity(), View.OnClickListener {
         }
         lifecycleScope.launchWhenCreated {
             utilityClass = UtilityClass(this@OrderConfirmationActivity)
-            fileModel = intent.getParcelableExtra(IntentInterface.INTENT_FOR_MODEL)
+            fileModels = intent.getParcelableArrayListExtra(IntentInterface.INTENT_FOR_MODEL)
             setToolbar()
             setContentView(binding!!.root)
             initializeView()
@@ -65,9 +65,12 @@ class OrderConfirmationActivity : BaseActivity(), View.OnClickListener {
     override fun initializeFragsView() {
         super.initializeFragsView()
         imageFrag = supportFragmentManager.findFragmentById(R.id.id_frag_image) as ImagesAddFrag
-        Handler().postDelayed({
-            imageFrag.addImages(fileModel!!)
-        }, Constants.THREAD_TIME_DELAY)
+        for (model in fileModels) {
+            Handler().postDelayed({
+                imageFrag.addImages(model)
+            }, Constants.THREAD_TIME_DELAY)
+        }
+
     }
 
     override fun onClick(v: View?) {
@@ -92,22 +95,6 @@ class OrderConfirmationActivity : BaseActivity(), View.OnClickListener {
                 editText = binding!!.idEditEmail,
                 minLength = resources.getInteger(R.integer.validation_min_email),
                 errorTextView = binding!!.root.findViewById(R.id.id_text_error_email)
-            )
-        ) {
-            return false
-        }
-        if (utilityClass!!.checkEditTextEmpty(
-                editText = binding!!.idEditStreet,
-                minLength = resources.getInteger(R.integer.validation_min_name),
-                errorTextView = binding!!.root.findViewById(R.id.id_text_error_street)
-            )
-        ) {
-            return false
-        }
-        if (utilityClass!!.checkEditTextEmpty(
-                editText = binding!!.idEditStreet,
-                minLength = resources.getInteger(R.integer.validation_min_name),
-                errorTextView = binding!!.root.findViewById(R.id.id_text_error_street)
             )
         ) {
             return false
