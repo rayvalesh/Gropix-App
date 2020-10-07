@@ -33,9 +33,6 @@ data class OrderModel(
     @SerializedName("fileModels")
     var fileModels: Array<FileModel> = emptyArray(),
 
-    @SerializedName("itemModels")
-    var itemModels: ArrayList<ItemModel> = arrayListOf()
-
 ) : Parcelable {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -52,7 +49,6 @@ data class OrderModel(
         if (totalAmount != other.totalAmount) return false
         if (address != other.address) return false
         if (!fileModels.contentEquals(other.fileModels)) return false
-        if (itemModels != other.itemModels) return false
 
         return true
     }
@@ -67,8 +63,6 @@ data class OrderModel(
         result = 31 * result + totalAmount.hashCode()
         result = 31 * result + address.hashCode()
         result = 31 * result + fileModels.contentHashCode()
-        result = 31 * result + itemModels.hashCode()
         return result
     }
-
 }

@@ -118,8 +118,8 @@ class AccessAccountActivity : BaseActivity(), View.OnClickListener {
 
     private fun onClickOtp() {
         utilityClass.hideSoftKeyboard()
-        startActivity(Intent(this@AccessAccountActivity, MainActivity::class.java))
-        finish()
+        showOtpView()
+        hideProgressBar()
 //        if (validate() && CheckConnection.checkConnection(this)) {
 //            utilityClass.startProgressBar()
 //            binding!!.idEditNumber.isEnabled = false

@@ -1,6 +1,7 @@
 package com.tc.utils.utils.helpers
 
 import android.content.Context
+import android.graphics.Color
 
 import android.graphics.Point
 import android.graphics.drawable.AnimatedVectorDrawable
@@ -10,6 +11,7 @@ import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
+import android.view.Window
 import android.widget.LinearLayout
 import android.widget.PopupWindow
 import android.widget.TextView
@@ -93,18 +95,14 @@ object Utils {
         return popupWindow
     }
 
-    fun startDialogInfo(title: String?, message: String?, context: Context?) {
-        val view: View = LayoutInflater.from(context).inflate(R.layout.dialog_info, null)
-        val alertDialog = helperDialog(view, context!!)
-        val textView = view.findViewById<TextView>(R.id.id_text_title)
-        textView.text = title
-        alertDialog.setCancelable(true)
-        alertDialog.setCanceledOnTouchOutside(true)
-        val textViewDesc = view.findViewById<TextView>(R.id.id_text_description)
-        textViewDesc.visibility = View.VISIBLE
-        textViewDesc.text = message
-        view.findViewById<View>(R.id.id_button_dismiss).setOnClickListener { alertDialog.dismiss() }
-        view.findViewById<View>(R.id.id_image_cancel).setOnClickListener { alertDialog.dismiss() }
-    }
 
+    /**
+     * Function used for Status bar color white
+     */
+    fun doStatusColorWhite(window: Window) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+            window.statusBarColor = Color.WHITE
+        }
+    }
 }

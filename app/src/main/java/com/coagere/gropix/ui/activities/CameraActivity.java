@@ -163,7 +163,6 @@ public final class CameraActivity extends AppCompatActivity implements View.OnCl
         imageView = findViewById(R.id.id_image);
         imageViewRotation = findViewById(R.id.id_image_rotation);
         imageViewFlash = findViewById(R.id.id_image_flash);
-        findViewById(R.id.id_image_crop).setOnClickListener(this);
         //   textViewRotation = findViewById(R.id.id_text_rotate);
     }
 

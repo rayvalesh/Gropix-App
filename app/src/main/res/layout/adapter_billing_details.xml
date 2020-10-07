@@ -38,9 +38,12 @@
             android:textColor="@color/colorTextPrimary"
             android:textSize="@dimen/dimen_common_text_size_sub" />
 
-        <include layout="@layout/utility_horizontal_border_layout" />
+        <include
+            android:visibility="gone"
+            layout="@layout/utility_horizontal_border_layout" />
 
         <TextView
+            android:visibility="gone"
             android:id="@+id/id_text_items"
             style="@style/TextViewStyle"
             android:layout_width="140dp"
@@ -95,6 +98,8 @@
         </LinearLayout>
     </LinearLayout>
 
-    <include layout="@layout/utility_vertical_border_layout" />
+    <include
+        android:id="@+id/id_view"
+        layout="@layout/utility_vertical_border_layout" />
 
 </LinearLayout>

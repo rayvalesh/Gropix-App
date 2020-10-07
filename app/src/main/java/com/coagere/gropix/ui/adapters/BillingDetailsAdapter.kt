@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.coagere.gropix.R
 import com.coagere.gropix.jetpack.entities.ItemModel
+import com.tc.utils.utils.helpers.Utils
 import com.tc.utils.utils.utility.isNullAndEmpty
 import kotlinx.android.synthetic.main.adapter_billing_details.view.*
 
@@ -13,11 +14,8 @@ class BillingDetailsAdapter(
     var modelList: MutableList<ItemModel>
 ) :
     RecyclerView.Adapter<BillingDetailsAdapter.ViewHolder>() {
-    private var size: Int = 0
+    private var size: Int = modelList.size
 
-    init {
-        size = this.modelList.size
-    }
 
     fun notifyAdapterDataSetChanged(modelList: MutableList<ItemModel>) {
         if (!isNullAndEmpty(modelList)) {
@@ -49,18 +47,12 @@ class BillingDetailsAdapter(
 
         internal fun bindTo(model: ItemModel, position: Int) {
             itemView.id_text_title.text = model.name
-            var items = ""
-            var price =0
-            for (priceModel in model.priceList) {
-                if (priceModel.selectedCount > 0) {
-                    items += priceModel.title + ","
-                    price += priceModel.price
-                }
-            }
-            itemView.id_text_items.text = items
             itemView.id_text_serial.text = "${position + 1}."
             itemView.id_text_times.text = model.times.toString()
-            itemView.id_text_total_amount.text = price.toString()
+            itemView.id_text_total_amount.text = (model.itemPrice * model.times).toString()
+            if (position == size - 1) {
+                Utils.setVisibility(itemView.id_view, false)
+            }
         }
 
     }

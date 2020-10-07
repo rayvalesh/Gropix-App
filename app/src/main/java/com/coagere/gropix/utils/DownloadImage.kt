@@ -59,16 +59,13 @@ object DownloadImage {
     }
 
     @BindingAdapter(
-        value = ["downloadImage", "placeHolder", "radius", "shape"],
+        value = ["downloadImage"],
         requireAll = false
     )
     @JvmStatic
     fun downloadImage(
         view: View,
-        url: String? = null,
-        placeHolder: Drawable? = null,
-        roundRadius: Int = 4,
-        contentType: Int? = 1
+        url: String? = null
     ) {
         if (!url.isNullOrEmpty())
             Glide.with(view.context)
@@ -78,15 +75,13 @@ object DownloadImage {
                     RoundedCornersTransformation(
                         view.context,
                         view,
-                        4,
+                        radius = 12,
                         0,
                         RoundedCornersTransformation.CornerType.ALL
                     )
                 )
                 .placeholder(
-                    if (placeHolder == null)
-                        placeHolder
-                    else view.context.getDrawable(R.drawable.placeholder_one)
+                    view.context.getDrawable(R.drawable.placeholder_one)
                 )
                 .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
                 .into(

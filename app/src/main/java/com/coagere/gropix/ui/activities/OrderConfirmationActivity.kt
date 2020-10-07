@@ -18,6 +18,7 @@ import com.coagere.gropix.utils.UtilityClass
 import com.tc.utils.elements.BaseActivity
 import com.tc.utils.utils.helpers.HelperActionBar
 import com.tc.utils.utils.helpers.JamunAlertDialog
+import com.tc.utils.utils.helpers.Utils
 import com.tc.utils.variables.interfaces.Constants
 import com.tc.utils.variables.interfaces.IntentInterface
 
@@ -49,6 +50,7 @@ class OrderConfirmationActivity : BaseActivity(), View.OnClickListener {
 
     override fun setToolbar() {
         super.setToolbar()
+        Utils.doStatusColorWhite(window)
         HelperActionBar.setSupportActionBar(
             this@OrderConfirmationActivity,
             binding!!.idAppBar,

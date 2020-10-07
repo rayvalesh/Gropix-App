@@ -9,29 +9,24 @@
     <string name="connection_check_no_internet">Please Check Your Connection and Try Again!</string>
 
 
-    <string name="string_toast_successful_post">Successfully Posted</string>
     <string name="string_edit_hint_name">Enter your full name</string>
     <string name="string_edit_hint_email_address">Enter Email Address</string>
     <string name="string_edit_hint_type_message_for_us">Type your message here..</string>
     <string name="string_button_name_submit">Submit</string>
     <string name="string_icon_desc_clear">Clear</string>
 
-    <string name="string_text_explore_more">Explore More</string>
     <string name="string_message_inbox_empty">Oops! Empty</string>
     <string name="string_message_inbox_empty_description">Its seem we don\'t have data to display</string>
     <string name="string_button_name_try_again">Try Again</string>
-    <string name="string_transition_name">Transition</string>
 
 
     <string name="string_button_name_no">No</string>
     <string name="string_button_name_yes_want">Yes</string>
-    <string name="string_edit_hint_enter_code">Enter Teacher Code</string>
     <string name="string_button_name_dismiss">Dismiss</string>
     <string name="string_icon_desc_video">Video</string>
     <string name="string_icon_desc_image">Image</string>
     <string name="string_order_label_order_time">Order Time :</string>
     <string name="string_label_colon">:</string>
-    <string name="string_label_order_info">Order Details</string>
     <string name="string_label_payable_amount">Payable amount</string>
     <string name="string_label_amount_unit">/-</string>
 

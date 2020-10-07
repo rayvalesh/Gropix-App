@@ -35,13 +35,13 @@
             android:padding="@dimen/dimen_common_margin_more">
 
             <ImageView
+                android:scaleType="centerCrop"
                 android:id="@+id/id_image"
                 downloadImage="@{model.image}"
-                android:layout_width="80dp"
+                android:layout_width="110dp"
                 android:layout_height="match_parent"
-                android:contentDescription="@string/string_icon_desc_image"
-                android:scaleType="centerCrop"
-                android:src="@drawable/placeholder_one" />
+                android:src="@drawable/placeholder_one"
+                android:contentDescription="@string/string_icon_desc_image" />
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -80,6 +80,19 @@
                     android:textColor="@color/colorTextPrimary"
                     android:textSize="@dimen/dimen_common_text_size_small" />
 
+                <include
+                    android:id="@+id/id_view"
+                    layout="@layout/utility_vertical_border_layout_header" />
+
+                <TextView
+                    android:id="@+id/id_text_status"
+                    style="@style/TextViewStyleMedium"
+                    setTextColor="@{model.status}"
+                    text='@{model.status==1 ? "Finished":"Cancelled"}'
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Finished"
+                    android:textSize="@dimen/dimen_common_text_size_very_large" />
 
             </LinearLayout>
         </LinearLayout>

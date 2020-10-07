@@ -21,7 +21,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/dimen_common_margin_very_large"
-
             android:layout_marginTop="@dimen/dimen_common_margin_large"
             android:layout_marginEnd="@dimen/dimen_common_margin_very_large"
             android:orientation="vertical">
@@ -30,50 +29,39 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dimen_common_margin_medium"
+                android:layout_marginBottom="@dimen/dimen_common_margin_medium"
                 android:clickable="true"
                 android:focusable="true"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:paddingTop="@dimen/dimen_common_margin_small"
-                android:paddingBottom="@dimen/dimen_common_margin_small"
                 tools:ignore="UseCompoundDrawables">
-
-                <FrameLayout
+                
+                <ImageView
                     android:layout_width="40dp"
-                    android:layout_height="40dp">
+                    android:layout_height="40dp"
+                    android:layout_gravity="center"
+                    android:contentDescription="@string/app_name"
+                    android:src="@drawable/image_logo"
+                    android:tint="@color/colorWhite" />
 
-                    <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="center"
-                        android:contentDescription="@string/app_name"
-                        android:src="@drawable/circular_image" />
+                <ImageView
+                    android:layout_width="74dp"
+                    android:layout_height="28dp"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="@dimen/dimen_common_margin_less_more"
+                    android:contentDescription="@string/app_name"
+                    android:scaleType="centerCrop"
+                    android:tint="@color/colorWhite"
+                    app:srcCompat="@drawable/image_logo_name" />
 
-                    <ImageView
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:layout_gravity="center"
-                        android:contentDescription="@string/app_name"
-                        android:src="@drawable/app_logo" />
-
-                </FrameLayout>
-
-                <TextView
-                    style="@style/TextViewStyleMedium"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/dimen_common_margin"
-                    android:text="@string/app_name"
-                    android:textColor="@color/colorWhite"
-                    android:textSize="@dimen/dimen_common_text_size_very_very_large" />
             </LinearLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dimen_common_margin_very_large"
-                android:textColorHint="@color/colorWhiteAlpha"
-                app:hintTextAppearance="@style/TextInputLayout">
+                android:textColorHint="@color/colorTextWhite"
+                app:hintTextAppearance="@style/TextInputLayoutHint">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/id_edit_number"
@@ -83,11 +71,12 @@
                     android:hint="@string/string_edit_hint_login_number"
                     android:imeOptions="actionDone"
                     android:importantForAutofill="no"
+                    android:textAppearance="@style/TextInputLayout"
                     android:inputType="number"
                     android:maxLength="14"
                     android:maxLines="1"
-                    android:textColor="@color/colorWhite"
-                    android:textColorHint="@color/colorWhiteAlpha"
+                    android:textColor="@color/colorTextWhite"
+                    android:textColorHint="@color/colorTextWhite"
                     android:textSize="@dimen/dimen_edit_text_size_large" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -107,17 +96,17 @@
                 android:id="@+id/id_parent_checkbox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dimen_common_margin_large"
+                android:layout_marginTop="@dimen/dimen_common_margin_med_large"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
                 <CheckBox
                     android:id="@+id/id_checkbox"
-                    style="@style/CheckBoxStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:paddingLeft="@dimen/dimen_common_margin"
-                    android:paddingRight="@dimen/dimen_common_margin" />
+                    android:paddingLeft="@dimen/dimen_common_margin_medium"
+                    android:paddingRight="@dimen/dimen_common_margin_medium"
+                    android:theme="@style/CheckBoxStyle" />
 
                 <TextView
                     android:id="@+id/id_text_terms"
@@ -128,7 +117,7 @@
                     android:lineSpacingExtra="2dp"
                     android:text="@string/string_label_agree_to_Terms"
                     android:textColor="@color/colorWhite"
-                    android:textSize="@dimen/dimen_common_text_size_med" />
+                    android:textSize="@dimen/dimen_common_text_size_small" />
             </LinearLayout>
 
             <LinearLayout
@@ -140,14 +129,14 @@
 
                 <TextView
                     android:id="@+id/id_button_edit"
-                    style="@style/TextViewStyleBold"
+                    style="@style/TextViewStyleMedium"
                     android:layout_width="wrap_content"
                     android:layout_height="@dimen/dimen_button_height_medium"
                     android:layout_gravity="end"
                     android:background="@drawable/more_layouts_click"
                     android:gravity="center"
                     android:text="@string/string_label_edit"
-                    android:textColor="@color/colorWhiteAlpha"
+                    android:textColor="@color/colorTextWhite"
                     android:textSize="@dimen/dimen_common_text_size_large" />
 
                 <FrameLayout
@@ -158,11 +147,12 @@
                     <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textColorHint="@color/colorWhiteAlpha"
-                        app:hintTextAppearance="@style/TextInputLayout">
+                        android:textColorHint="@color/colorTextWhite"
+                        app:hintTextAppearance="@style/TextInputLayoutHint">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/id_edit_otp"
+                            android:textAppearance="@style/TextInputLayout"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="@string/string_edit_hint_otp"
@@ -201,7 +191,7 @@
 
                 <TextView
                     android:id="@+id/id_text_timer"
-                    style="@style/TextViewStyleBold"
+                    style="@style/TextViewStyleMedium"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="end"
@@ -210,7 +200,7 @@
                     android:gravity="center"
                     android:paddingTop="@dimen/dimen_common_margin"
                     android:paddingBottom="@dimen/dimen_common_margin"
-                    android:textColor="@color/colorWhiteAlpha"
+                    android:textColor="@color/colorTextWhite"
                     android:textSize="@dimen/dimen_common_text_size_large" />
 
                 <androidx.appcompat.widget.AppCompatImageView
@@ -318,7 +308,7 @@
                         style="@style/TextViewStyleLight"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="-2dp"
+                        android:layout_marginTop="2dp"
                         android:maxLines="1"
                         android:text="@string/string_label_contact_desc"
                         android:textColor="@color/colorTextPrimaryLight"

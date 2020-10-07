@@ -11,6 +11,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.coagere.gropix.R
 import com.coagere.gropix.databinding.ActivityExploreOrderBinding
+import com.coagere.gropix.jetpack.entities.ItemModel
 import com.coagere.gropix.jetpack.entities.OrderModel
 import com.coagere.gropix.jetpack.entities.PriceModel
 import com.coagere.gropix.jetpack.viewmodels.OrderVM
@@ -18,12 +19,12 @@ import com.coagere.gropix.ui.adapters.BillingDetailsAdapter
 import com.tc.utils.elements.BaseActivity
 import com.tc.utils.utils.helpers.HelperActionBar
 import com.tc.utils.utils.helpers.JamunAlertDialog
+import com.tc.utils.utils.helpers.Utils
 import com.tc.utils.utils.utility.isNull
 import com.tc.utils.variables.abstracts.OnEventOccurListener
 import com.tc.utils.variables.interfaces.Constants
 import com.tc.utils.variables.interfaces.IntentInterface
 import kotlinx.android.synthetic.main.activity_explore_order.*
-import tk.jamun.ui.snacks.L
 
 /**
  * @author Jatin Sahgal by 28-Sep-2020 13:54
@@ -31,37 +32,43 @@ import tk.jamun.ui.snacks.L
 
 class ExploreOrderActivity : BaseActivity(), View.OnClickListener {
     private var binding: ActivityExploreOrderBinding? = null
-    private var serviceAdapter: BillingDetailsAdapter? = null
     private var orderModel: OrderModel? = null
-    private var totalAmount: Int = 0
+    private var totalAmount: Double = 0.toDouble()
     private val viewModel by lazy {
         ViewModelProvider(this).get(OrderVM::class.java)
     }
-
+    val modelList =  arrayListOf(
+        ItemModel("Soap",33,4),
+        ItemModel("Cream",33,4),
+        ItemModel("Soft Drinks",33,4),
+    )
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        if (binding == null) {
-            binding = ActivityExploreOrderBinding.inflate(LayoutInflater.from(this))
-            binding!!.apply {
-                this.model = intent.getParcelableExtra(IntentInterface.INTENT_FOR_MODEL)
-                this.clickListener = this@ExploreOrderActivity
-                executePendingBindings()
-            }
+        binding = ActivityExploreOrderBinding.inflate(LayoutInflater.from(this))
+        orderModel = intent.getParcelableExtra(IntentInterface.INTENT_FOR_MODEL)
+        binding!!.apply {
+            this.model = orderModel
+            this.clickListener = this@ExploreOrderActivity
+            executePendingBindings()
         }
+        Utils.log(orderModel!!.image)
         lifecycleScope.launchWhenCreated {
-            orderModel = intent.getParcelableExtra(IntentInterface.INTENT_FOR_MODEL)
-            L.logE(
-                orderModel!!.image
-            )
             setContentView(binding!!.root)
             initializeViewModel()
-            initializeView()
+            initializeBillingData()
             setToolbar()
         }
     }
 
+    override fun initializeRecyclerView() {
+        super.initializeRecyclerView()
+        binding!!.idRecyclerViewBills.layoutManager = LinearLayoutManager(this)
+        binding!!.idRecyclerViewBills.adapter = BillingDetailsAdapter(modelList)
+    }
+
     override fun setToolbar() {
         super.setToolbar()
+        Utils.doStatusColorWhite(window)
         HelperActionBar.setSupportActionBar(
             this@ExploreOrderActivity,
             binding!!.idAppBar,
@@ -85,43 +92,18 @@ class ExploreOrderActivity : BaseActivity(), View.OnClickListener {
 
     private fun initializeBillingData() {
         var selectedCount = 0
-        for (serviceModel in orderModel!!.itemModels) {
-            for (priceModel: PriceModel in serviceModel.priceList) {
-                totalAmount += (priceModel.price * priceModel.selectedCount)
-                selectedCount += priceModel.selectedCount
+        for (serviceModel in modelList) {
+            for (model: ItemModel in modelList) {
+                totalAmount += (model.itemPrice * model.times)
+                selectedCount += model.times
             }
         }
         id_text_selected_items.text = selectedCount.toString()
-        if (selectedCount > 0) {
-            binding!!.idTextBillAmount.text = totalAmount.toString()
-            if (isNull(serviceAdapter)) {
-                binding!!.idRecyclerViewBills.layoutManager =
-                    LinearLayoutManager(this@ExploreOrderActivity)
-                serviceAdapter = BillingDetailsAdapter(orderModel!!.itemModels)
-                binding!!.idRecyclerViewBills.adapter = serviceAdapter
-                binding!!.idRecyclerViewBills.isNestedScrollingEnabled = false
-            } else {
-                serviceAdapter?.notifyAdapterDataSetChanged(orderModel!!.itemModels)
-            }
-            initializeAmount()
-            binding!!.idParentBilling.visibility = View.VISIBLE
-            binding!!.idParentBottom.visibility = View.VISIBLE
-        } else {
-            binding!!.idParentBottom.visibility = View.GONE
-            binding!!.idParentBilling.visibility = View.GONE
-        }
+        binding!!.idTextBillAmount.text = totalAmount.toString()
+        binding!!.idTextTotalAmount.text = String.format("%.2f", totalAmount)
+        initializeRecyclerView()
+        binding!!.idParentBilling.visibility = View.VISIBLE
     }
-
-    private fun initializeAmount() {
-        val amount = totalAmount + if (orderModel!!.address != null) {
-            (totalAmount * 0.7)
-        } else {
-            (totalAmount * 0.18)
-        }
-        binding!!.idTextTotalAmount.text = String.format("%.2f", amount)
-        binding!!.idTextPaymentAmount.text = String.format("%.2f", amount)
-    }
-
 
     override fun onClick(v: View?) {
         when (v?.id) {

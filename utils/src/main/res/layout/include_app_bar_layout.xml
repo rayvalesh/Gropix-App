@@ -3,12 +3,18 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+
+        <variable
+            name="clickListener"
+            type="android.view.View.OnClickListener" />
+    </data>
+
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/id_parent_app_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"
-
+        android:background="@color/colorWhite"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         app:elevation="@dimen/dimen_app_bar_elevation_zero"
         tools:ignore="UnusedAttribute">
@@ -30,7 +36,6 @@
                 app:popupTheme="@style/AppBarPop"
                 app:titleTextAppearance="@style/AppBarTextViewStyleWhite"
                 app:titleTextColor="@color/colorTextPrimary" />
-
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
     </com.google.android.material.appbar.AppBarLayout>

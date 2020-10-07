@@ -14,6 +14,7 @@ import com.coagere.gropix.databinding.ActivityLauncherBinding
 import com.coagere.gropix.prefs.TempStorage
 import com.coagere.gropix.utils.MyApplication
 import com.tc.utils.elements.BaseActivity
+import com.tc.utils.utils.helpers.Utils
 import com.tc.utils.utils.utility.CheckConnection
 import com.tc.utils.variables.interfaces.Constants
 
@@ -46,6 +47,7 @@ class LauncherActivity : BaseActivity() {
         }
         lifecycleScope.launchWhenCreated {
             setContentView(binding!!.root)
+            Utils.doStatusColorWhite(window)
             initializeView()
             initializeListener()
             checkAndGo()
@@ -102,7 +104,6 @@ class LauncherActivity : BaseActivity() {
     private fun checkAndGo() {
         binding!!.idLinearConnection.visibility = View.GONE
         binding!!.idLinearParent.visibility = View.VISIBLE
-        this.getSystemService(Context.LOCATION_SERVICE) as LocationManager
         if (CheckConnection.checkCon(this)) {
             if (TempStorage.instance.saveAppStatus) {
                 binding!!.idParent.visibility = View.VISIBLE

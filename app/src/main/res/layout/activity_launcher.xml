@@ -74,54 +74,28 @@
             android:background="@color/colorWhite">
 
             <LinearLayout
+                android:id="@+id/id_parent"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center"
-                android:orientation="vertical">
+                android:orientation="horizontal">
 
                 <ImageView
-                    android:id="@+id/id_image"
-                    android:layout_width="140dp"
-                    android:layout_height="140dp"
+                    android:layout_width="90dp"
+                    android:layout_height="90dp"
                     android:layout_gravity="center"
                     android:contentDescription="@string/app_name"
+                    app:srcCompat="@drawable/image_logo" />
+
+                <ImageView
+                    android:layout_width="130dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="@dimen/dimen_common_margin_more"
+                    android:contentDescription="@string/app_name"
                     android:scaleType="centerCrop"
-                    app:srcCompat="@drawable/app_logo" />
-
-
-                <LinearLayout
-                    android:id="@+id/id_parent"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dimen_common_margin_large"
-                    android:gravity="center"
-                    android:orientation="vertical"
-                    android:visibility="visible">
-
-                    <TextView
-                        android:id="@+id/id_text"
-                        style="@style/TextViewStyleMedium"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:gravity="center"
-                        android:text="@string/app_name"
-                        android:textSize="@dimen/dimen_common_text_size_extra_large" />
-
-                    <TextView
-                        style="@style/TextViewStyleLight"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:gravity="center"
-                        android:padding="@dimen/dimen_common_margin_medium"
-                        android:text="@string/string_label_tag"
-                        android:textColor="@color/colorStyleSixDark"
-                        android:textSize="@dimen/dimen_common_text_size_large" />
-
-                </LinearLayout>
-
+                    app:srcCompat="@drawable/image_logo_name" />
 
             </LinearLayout>
 

@@ -58,7 +58,6 @@ class OrderRepo {
                 object : VolleyResponses() {
                     override fun onResponse(response: Any?, body: String?) {
                         super.onResponse(response, body)
-                        model.itemModels.addAll((response as Array<*>).filterIsInstance<ItemModel>())
                         listener.getEventData(ResponseTypes.TYPE_SUCCESS)
                     }
 

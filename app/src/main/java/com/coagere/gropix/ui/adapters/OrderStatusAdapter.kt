@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.coagere.gropix.databinding.AdapterOrderPlacedBinding
 import com.coagere.gropix.databinding.AdapterOrdersCancelledBinding
 import com.coagere.gropix.databinding.AdapterOrdersPendingBinding
 import com.coagere.gropix.jetpack.entities.OrderModel
@@ -43,6 +44,14 @@ class OrderStatusAdapter(
                     false
                 )
             )
+        } else if (moduleType == Constants.MODULE_PLACED) {
+            return PlacedViewHolder(
+                AdapterOrderPlacedBinding.inflate(
+                    LayoutInflater.from(parent.context),
+                    parent,
+                    false
+                )
+            )
         } else {
             return CancelViewHolder(
                 AdapterOrdersCancelledBinding.inflate(
@@ -56,6 +65,7 @@ class OrderStatusAdapter(
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (holder is ViewHolder) holder.bindTo(modelList[position])
+        if (holder is PlacedViewHolder) holder.bindTo(modelList[position])
         else if (holder is CancelViewHolder) {
             holder.bindTo(modelList[position])
         }
@@ -85,6 +95,28 @@ class OrderStatusAdapter(
         }
     }
 
+    inner class PlacedViewHolder(private var binding: AdapterOrderPlacedBinding) :
+        RecyclerView.ViewHolder(binding.root), View.OnClickListener {
+
+        fun bindTo(orderModel: OrderModel) {
+            binding.apply {
+                this.clickListener = this@PlacedViewHolder
+                model = orderModel
+                executePendingBindings()
+            }
+
+        }
+
+        override fun onClick(v: View) {
+            listener.getEventData(
+                modelList[adapterPosition],
+                ActionType.ACTION_EXPLORE,
+                adapterPosition
+            )
+        }
+
+    }
+
     inner class CancelViewHolder(private var binding: AdapterOrdersCancelledBinding) :
         RecyclerView.ViewHolder(binding.root), View.OnClickListener {
 
@@ -94,6 +126,7 @@ class OrderStatusAdapter(
                 model = orderModel
                 executePendingBindings()
             }
+
         }
 
         override fun onClick(v: View) {

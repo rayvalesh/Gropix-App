@@ -15,6 +15,7 @@ import com.coagere.gropix.utils.MyApplication.Companion.isLoggedIn
 import com.coagere.gropix.utils.UtilityClass
 import com.tc.utils.elements.BaseActivity
 import com.tc.utils.utils.helpers.HelperActionBar
+import com.tc.utils.utils.helpers.Utils
 import com.tc.utils.variables.abstracts.OnEventOccurListener
 import kotlinx.android.synthetic.main.activity_reach_us.*
 import tk.jamun.ui.snacks.MySnackBar
@@ -28,12 +29,10 @@ class ReachUsActivity : BaseActivity(), View.OnClickListener {
     private var utilityClass: UtilityClass? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        if (binding == null) {
-            binding = ActivityReachUsBinding.inflate(LayoutInflater.from(this))
-            binding!!.apply {
-                clickListener = this@ReachUsActivity
-                executePendingBindings()
-            }
+        binding = ActivityReachUsBinding.inflate(LayoutInflater.from(this))
+        binding!!.apply {
+            clickListener = this@ReachUsActivity
+            executePendingBindings()
         }
         lifecycleScope.launchWhenCreated {
             setContentView(binding!!.root)
@@ -47,6 +46,7 @@ class ReachUsActivity : BaseActivity(), View.OnClickListener {
 
     override fun setToolbar() {
         super.setToolbar()
+        Utils.doStatusColorWhite(window)
         HelperActionBar.setSupportActionBar(
             activity = this@ReachUsActivity,
             view = binding!!.idAppBar,

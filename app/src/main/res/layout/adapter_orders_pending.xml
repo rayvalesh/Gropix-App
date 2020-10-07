@@ -22,10 +22,10 @@
             style="@style/CardStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/dimen_common_margin"
-            android:layout_marginTop="@dimen/dimen_common_margin_medium"
-            android:layout_marginRight="@dimen/dimen_common_margin"
-            android:layout_marginBottom="@dimen/dimen_common_margin_very_small">
+            android:layout_marginLeft="@dimen/dimen_common_margin_more"
+            android:layout_marginTop="@dimen/dimen_common_margin_less_more"
+            android:layout_marginRight="@dimen/dimen_common_margin_more"
+            android:layout_marginBottom="@dimen/dimen_common_margin_small">
 
             <LinearLayout
                 android:id="@+id/id_parent"
@@ -35,13 +35,15 @@
                 android:clickable="true"
                 android:focusable="true"
                 android:onClick="@{clickListener}"
-                android:orientation="vertical"
-                android:padding="@dimen/dimen_common_margin_more">
+                android:orientation="vertical">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:paddingStart="@dimen/dimen_common_margin_more"
+                    android:paddingTop="@dimen/dimen_common_margin_more"
+                    android:paddingEnd="@dimen/dimen_common_margin_more">
 
                     <androidx.appcompat.widget.AppCompatImageView
                         downloadImage="@{model.image}"
@@ -54,8 +56,7 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/dimen_common_margin"
-                        android:layout_marginTop="@dimen/dimen_common_margin_very_small"
+                        android:layout_marginStart="@dimen/dimen_common_margin_more"
                         android:layout_marginBottom="@dimen/dimen_common_margin_small"
                         android:orientation="vertical">
 
@@ -76,7 +77,6 @@
                             text='@{model.address.street +" , "+ model.address.city+" , " + model.address.state }'
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="-2dp"
                             android:maxLines="3"
                             android:textColor="@color/colorTextPrimaryLight"
                             android:textSize="@dimen/dimen_common_text_size_sub" />
@@ -91,11 +91,11 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center|end"
                     android:gravity="end"
-                    android:paddingStart="@dimen/dimen_common_margin"
-                    android:paddingEnd="@dimen/dimen_common_margin"
+                    android:paddingStart="@dimen/dimen_common_margin_more"
+                    android:paddingEnd="@dimen/dimen_common_margin_more"
                     android:text="@string/string_label_order_status"
                     android:textColor="@color/colorTextPrimaryLight"
-                    android:textSize="@dimen/dimen_common_text_size_sub" />
+                    android:textSize="@dimen/dimen_common_text_size_med" />
 
 
                 <TextView
@@ -107,8 +107,10 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center|end"
                     android:gravity="end"
-                    android:padding="@dimen/dimen_common_margin_medium"
-                    android:text="Completed"
+                    android:paddingStart="@dimen/dimen_common_margin_more"
+                    android:paddingEnd="@dimen/dimen_common_margin_more"
+                    android:paddingBottom="@dimen/dimen_common_margin_medium"
+                    android:text="Finished"
                     android:textSize="@dimen/dimen_common_text_size_med_large" />
 
 
@@ -117,10 +119,12 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/colorStyleFour"
                     android:gravity="end|center"
                     android:orientation="horizontal"
-                    android:padding="@dimen/dimen_common_margin_medium">
+                    android:paddingStart="@dimen/dimen_common_margin_more"
+                    android:paddingTop="@dimen/dimen_common_margin_medium"
+                    android:paddingEnd="@dimen/dimen_common_margin_more"
+                    android:paddingBottom="@dimen/dimen_common_margin_medium">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -128,7 +132,7 @@
                         android:layout_gravity="center"
                         android:gravity="end"
                         android:text="@string/string_label_payable_amount"
-                        android:textColor="@color/colorTextPrimary"
+                        android:textColor="@color/colorTextPrimaryLight"
                         android:textSize="@dimen/dimen_common_text_size_sub" />
 
                     <TextView
@@ -136,8 +140,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:layout_marginLeft="@dimen/dimen_common_margin_very_very_large"
-                        android:layout_marginRight="@dimen/dimen_common_margin_very_very_large"
+                        android:layout_marginLeft="@dimen/dimen_common_margin_very_large"
+                        android:layout_marginRight="@dimen/dimen_common_margin_very_large"
                         android:text="@string/string_label_colon"
                         android:textColor="@color/colorTextPrimary"
                         android:textSize="@dimen/dimen_common_text_size_large" />

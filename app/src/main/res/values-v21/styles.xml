@@ -3,7 +3,7 @@
 
     <style name="AppTheme" parent="AppTheme.Base">
         <item name="actionMenuTextColor">@android:color/white</item>
-        <item name="android:statusBarColor">@color/colorPrimary</item>
+        <item name="android:statusBarColor">@color/colorWhite</item>
         <item name="android:colorControlHighlight">@color/colorRippleEffect</item>
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
         <item name="android:windowContentTransitions">true</item>
@@ -15,7 +15,7 @@
 
     <style name="AppThemePrimary" parent="AppThemePrimary.Base">
         <item name="actionMenuTextColor">@android:color/white</item>
-        <item name="android:statusBarColor">@color/colorWhite</item>
+        <item name="android:statusBarColor">@color/colorPrimary</item>
         <item name="android:colorControlHighlight">@color/colorRippleEffect</item>
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
         <item name="android:windowContentTransitions">true</item>
@@ -25,16 +25,16 @@
         <item name="android:windowAllowReturnTransitionOverlap">true</item>
     </style>
 
-    <style name="AppThemeWhite" parent="AppThemeWhite.Base">
-        <item name="actionMenuTextColor">@color/colorWhite</item>
+
+    <style name="DragDismissTheme" parent="DragDismissTheme.Base">
         <item name="android:statusBarColor">@color/colorBlack</item>
-        <item name="android:colorControlHighlight">@color/colorRippleEffect</item>
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
         <item name="android:windowContentTransitions">true</item>
-        <item name="android:windowBackground">@android:color/white</item>
         <item name="android:windowActivityTransitions">true</item>
         <item name="android:windowAllowEnterTransitionOverlap">true</item>
         <item name="android:windowAllowReturnTransitionOverlap">true</item>
-    </style>
+        <item name="android:windowEnterTransition">@android:transition/explode</item>
+        <item name="android:windowExitTransition">@android:transition/explode</item>
 
+    </style>
 </resources>

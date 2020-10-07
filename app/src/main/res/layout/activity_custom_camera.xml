@@ -132,7 +132,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/libraryColorCameraAppbar"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:elevation="@dimen/dimen_app_bar_elevation_zero">
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
             android:layout_width="match_parent"
@@ -145,18 +146,7 @@
                 android:layout_height="@dimen/library_dimen_app_bar_height"
                 android:fitsSystemWindows="true"
                 android:minHeight="?attr/actionBarSize"
-                android:theme="@style/LibraryAppBarTheme">
-
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:id="@+id/id_image_crop"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="@dimen/library_dimen_common_margin_more"
-                    android:tint="@color/libraryColorWhite"
-                    android:visibility="gone"
-                    app:srcCompat="@drawable/library_icon_vd_crop" />
-
-            </androidx.appcompat.widget.Toolbar>
+                android:theme="@style/LibraryAppBarTheme" />
         </com.google.android.material.appbar.CollapsingToolbarLayout>
     </com.google.android.material.appbar.AppBarLayout>
 

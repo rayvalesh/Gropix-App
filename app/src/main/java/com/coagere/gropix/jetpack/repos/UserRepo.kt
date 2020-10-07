@@ -1,8 +1,10 @@
 package com.coagere.gropix.jetpack.repos
 
+import com.bumptech.glide.util.Util
 import com.coagere.gropix.jetpack.entities.ContactModel
 import com.coagere.gropix.jetpack.entities.UserModel
 import com.coagere.gropix.utils.ParseJson
+import com.tc.utils.utils.helpers.Utils
 import com.tc.utils.variables.abstracts.OnEventOccurListener
 import com.tc.utils.variables.interfaces.ApiKeys.Companion.URL_POST_LOGIN
 import com.tc.utils.variables.interfaces.ApiKeys.Companion.URL_POST_RESEND_OTP
@@ -25,7 +27,7 @@ class UserRepo {
         volleyJsonObjectRequest =
             VolleyJsonObjectRequest(
                 URL_POST_LOGIN,
-                jsonObject.toString(),
+                UserModel::class.java,
                 object : VolleyResponses() {
                     override fun onResponse(response: Any?, body: String?) {
                         super.onResponse(response, body)

@@ -4,19 +4,8 @@
     <color name="colorPrimaryDark">#005b9f</color>
     <color name="colorAccent">#5eb8ff</color>
 
-    <color name="colorAccentDark">#cceeff</color>
-
-    <color name="colorAccentLight">#E7F5FF</color>
     <color name="colorButtonBackground">@color/colorPrimary</color>
     <color name="colorButtonBackgroundDark">@color/colorPrimaryDark</color>
-
-    <color name="colorButtonText">@color/colorPrimary</color>
-    <color name="colorButtonTextLight">@color/colorTextPrimaryAlpha</color>
-
-    <color name="colorSwipeOne">#5eb8ff</color>
-    <color name="colorSwipeTwo">#0288d1</color>
-    <color name="colorSwipeThree">#0288d1</color>
-    <color name="colorSwipeFour">#005b9f</color>
 
     <color name="colorAppBarIcon">#737373</color>
 
@@ -24,10 +13,6 @@
     <color name="colorWhite">#ffffff</color>
     <color name="colorBlack">#000000</color>
     <color name="colorWhiteAlpha">#E0DFDF</color>
-    <color name="colorWhiteSecondary">#E6ffffff</color>
-
-    <color name="colorFavoriteDefault">@color/colorIconLight</color>
-    <color name="colorFavorite">#bb002f</color>
 
     <color name="colorTextPrimary">#262626</color>
     <color name="colorTextPrimaryLight">#565656</color>
@@ -41,7 +26,6 @@
     <color name="colorLayoutBackgroundDark">#e6e6e6</color>
 
     <color name="colorErrorMessage">#bb002f</color>
-    <color name="colorSuccess">#00bf60</color>
     <color name="colorTextSuccess">@color/colorEditTextText</color>
 
     <color name="colorEditTextTitle">#404040</color>
@@ -49,11 +33,7 @@
 
     <color name="colorTabSelected">@color/colorPrimary</color>
 
-    <color name="colorStyleOne">#0077ff</color>
-    <color name="colorStyleTwo">#d6006e</color>
-    <color name="colorStyleThree">#239023</color>
     <color name="colorStyleFour">#fbad04</color>
-    <color name="colorStyleFive">#a854d4</color>
     <color name="colorStyleSix">#f50057</color>
     <color name="colorStyleOneDark">#0052cc</color>
     <color name="colorStyleTwoDark">#bb002f</color>
@@ -61,22 +41,7 @@
     <color name="colorStyleFourDark">#e29c03</color>
     <color name="colorStyleFiveDark">#872eb8</color>
     <color name="colorStyleSixDark">#e0001b</color>
-    <color name="colorStyleOneLight">#66a3ff</color>
-    <color name="colorStyleTwoLight">#ff339c</color>
-    <color name="colorStyleThreeLight">#4dff94</color>
-    <color name="colorStyleFourLight">#fcbd36</color>
-    <color name="colorStyleFiveLight">#d5aeea</color>
-    <color name="colorStyleSixLight">#ff4d61</color>
 
-    <color name="colorCircleTwo">#f15041</color>
-    <color name="colorCircleTwoDark">#be1d0e</color>
-    <color name="colorCircleThree">#fcc54f</color>
-    <color name="colorCircleThreeDark">#fbad04</color>
-
-    <color name="colorStyleCardTextFourDark">#90CAF9</color>
-
-
-    <color name="colorTabTextColor">@color/colorTextPrimaryAlpha</color>
 
     <color name="colorTextHint">#8C8C8C</color>
 
@@ -89,14 +54,7 @@
     <color name="colorShadowView">#1A000000</color>
 
 
-    <color name="colorIconDefault">#000000</color>
-
-
-    <color name="colorButtonPrevious">#607D8B</color>
-    <color name="colorButtonPreviousPressed">#263238</color>
     <color name="colorTextWhite">#ffffff</color>
-    <color name="colorTabTextColorWhite">#ccffffff</color>
-    <color name="colorIconAlpha">#737373</color>
 
 
 </resources>

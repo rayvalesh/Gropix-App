@@ -26,7 +26,7 @@
         android:largeHeap="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppThemeWhite"
+        android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="LockedOrientationActivity"
         tools:targetApi="m">
@@ -49,9 +49,9 @@
             android:name="android.webkit.WebView.EnableSafeBrowsing"
             android:value="true" />
 
-        <!--        <meta-data-->
-        <!--            android:name="com.google.firebase.messaging.default_notification_icon"-->
-        <!--            android:resource="@drawable/image_logo" />-->
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_icon"
+            android:resource="@drawable/image_logo" />
 
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_color"
@@ -67,8 +67,7 @@
 
         <activity
             android:name=".ui.activities.LauncherActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppThemePrimary">
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -76,10 +75,11 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".ui.activities.CameraActivity" />
+        <activity android:name=".ui.activities.CameraActivity"
+            android:theme="@style/DragDismissTheme"  />
         <activity
             android:name=".ui.activities.AccessAccountActivity"
-            android:theme="@style/AppThemeWhite" />
+            android:theme="@style/AppThemePrimary" />
 
         <activity android:name=".ui.activities.MainActivity" />
 
@@ -89,7 +89,8 @@
 
         <activity android:name=".ui.activities.ExploreOrderActivity" />
 
-        <activity android:name=".ui.activities.ViewImageActivity" />
+        <activity android:name=".ui.activities.ViewImageActivity"
+            android:theme="@style/DragDismissTheme" />
 
         <service android:name=".services.get.MyFirebaseMessagingService" />
     </application>

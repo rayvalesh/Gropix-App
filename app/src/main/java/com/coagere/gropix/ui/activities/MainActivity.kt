@@ -3,7 +3,9 @@ package com.coagere.gropix.ui.activities
 import android.app.Activity
 import android.content.ActivityNotFoundException
 import android.content.Intent
+import android.graphics.Color
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.view.animation.AnimationUtils
@@ -41,6 +43,7 @@ class MainActivity : BaseActivity(), View.OnClickListener {
     //    private var binding: ActivityMainBinding? = null
     private var utilityClass: UtilityClass? = null
     private var popup: Popups? = null
+    private val behavior = AppCompactBehavior()
     private lateinit var managerPagerAdapter: ManagerAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -65,12 +68,26 @@ class MainActivity : BaseActivity(), View.OnClickListener {
 
     override fun setToolbar() {
         super.setToolbar()
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+            window.statusBarColor = ContextCompat.getColor(this@MainActivity, R.color.colorPrimary)
+        }
         HelperActionBar.setAppBarLayout(
             this@MainActivity,
             0.8,
             object : HelperActionBar.ScrollingListener {
                 override fun up() {
-                    id_text.setTextColor(
+                    Utils.setVisibility(id_image_overflow, false)
+                    Utils.setVisibility(findViewById<View>(R.id.id_view_shadow), true)
+                    behavior.hideFrameLayout()
+                    Utils.doStatusColorWhite(window)
+                    id_image_app.setColorFilter(
+                        ContextCompat.getColor(
+                            this@MainActivity,
+                            R.color.colorTextPrimary
+                        )
+                    )
+                    id_image_app_name.setColorFilter(
                         ContextCompat.getColor(
                             this@MainActivity,
                             R.color.colorTextPrimary
@@ -79,7 +96,22 @@ class MainActivity : BaseActivity(), View.OnClickListener {
                 }
 
                 override fun down() {
-                    id_text.setTextColor(
+                    Utils.setVisibility(id_image_overflow, true)
+                    if (id_tab_layout.visibility == View.GONE)
+                        Utils.setVisibility(findViewById<View>(R.id.id_view_shadow), false)
+                    behavior.showFrameLayout()
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+                        window.statusBarColor =
+                            ContextCompat.getColor(this@MainActivity, R.color.colorPrimary)
+                    }
+                    id_image_app.setColorFilter(
+                        ContextCompat.getColor(
+                            this@MainActivity,
+                            R.color.colorWhite
+                        )
+                    )
+                    id_image_app_name.setColorFilter(
                         ContextCompat.getColor(
                             this@MainActivity,
                             R.color.colorWhite
@@ -88,8 +120,8 @@ class MainActivity : BaseActivity(), View.OnClickListener {
                 }
             })
 
-        (id_parent_bottom.layoutParams as CoordinatorLayout.LayoutParams).behavior =
-            AppCompactBehavior()
+        (id_parent_bottom.layoutParams as CoordinatorLayout.LayoutParams).behavior = behavior
+
     }
 
     override fun initializeTabView() {
@@ -113,7 +145,6 @@ class MainActivity : BaseActivity(), View.OnClickListener {
             }
 
             override fun onPageSelected(position: Int) {
-                id_view_pager.reMeasureCurrentPage(position)
             }
 
             override fun onPageScrollStateChanged(state: Int) {}
@@ -146,11 +177,15 @@ class MainActivity : BaseActivity(), View.OnClickListener {
                         R.anim.bounce
                     )
                 )
-                if (id_parent_scroll.visibility == View.VISIBLE) {
-                    id_parent_scroll.visibility = View.GONE
+                if (id_tab_layout.visibility == View.VISIBLE) {
+                    id_tab_layout.visibility = View.GONE
+                    id_view_pager.visibility = View.GONE
                     id_parent_bottom.visibility = View.VISIBLE
+                    findViewById<View>(R.id.id_view_shadow).visibility = View.GONE
                 } else {
-                    id_parent_scroll.visibility = View.VISIBLE
+                    findViewById<View>(R.id.id_view_shadow).visibility = View.VISIBLE
+                    id_tab_layout.visibility = View.VISIBLE
+                    id_view_pager.visibility = View.VISIBLE
                     id_parent_bottom.visibility = View.GONE
                 }
             }

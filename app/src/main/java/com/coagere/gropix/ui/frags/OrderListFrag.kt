@@ -76,8 +76,8 @@ class OrderListFrag : BaseFragment() {
         modelList.add(
             OrderModel(
                 "1",
-                "Grocery 1",
-                "122332",
+                "Grocery Order 1",
+                "2020-12-11 11:11:11",
                 "https://cdn.vox-cdn.com/thumbor/wvdW8UyL2dIAsXrfwNBy3xKIGe4=/1400x1400/filters:format(jpeg)/cdn.vox-cdn.com/uploads/chorus_asset/file/19744155/Amazon_Go_Grocery_3.jpg",
                 10,
                 1,
@@ -89,8 +89,8 @@ class OrderListFrag : BaseFragment() {
         modelList.add(
             OrderModel(
                 "3",
-                "Grocery 2",
-                "122332",
+                "Grocery Order 2",
+                "2020-12-11 11:11:11",
                 "https://cdn.vox-cdn.com/thumbor/wvdW8UyL2dIAsXrfwNBy3xKIGe4=/1400x1400/filters:format(jpeg)/cdn.vox-cdn.com/uploads/chorus_asset/file/19744155/Amazon_Go_Grocery_3.jpg",
                 10,
                 2,
@@ -102,8 +102,8 @@ class OrderListFrag : BaseFragment() {
         modelList.add(
             OrderModel(
                 "2",
-                "Grocery 3",
-                "122332",
+                "Grocery Order 3",
+                "2020-12-11 11:11:11",
                 "https://cdn.vox-cdn.com/thumbor/wvdW8UyL2dIAsXrfwNBy3xKIGe4=/1400x1400/filters:format(jpeg)/cdn.vox-cdn.com/uploads/chorus_asset/file/19744155/Amazon_Go_Grocery_3.jpg",
                 10,
                 3,

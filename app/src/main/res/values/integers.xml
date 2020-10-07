@@ -1,12 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <integer name="validation_min_name">2</integer>
-    <integer name="validation_max_name">20</integer>
     <integer name="validation_min_message">6</integer>
     <integer name="validation_min_otp">4</integer>
-    <integer name="validation_min_referral">4</integer>
     <integer name="validation_max_email">80</integer>
     <integer name="validation_min_email">6</integer>
-    <integer name="value_number_min">10</integer>
-    <integer name="value_number_max">10</integer>
 </resources>
