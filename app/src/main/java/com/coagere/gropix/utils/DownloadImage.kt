@@ -67,7 +67,7 @@ object DownloadImage {
         view: View,
         url: String? = null,
         placeHolder: Drawable? = null,
-        roundRadius: Int = 12,
+        roundRadius: Int = 4,
         contentType: Int? = 1
     ) {
         if (!url.isNullOrEmpty())
@@ -78,7 +78,7 @@ object DownloadImage {
                     RoundedCornersTransformation(
                         view.context,
                         view,
-                        12,
+                        4,
                         0,
                         RoundedCornersTransformation.CornerType.ALL
                     )

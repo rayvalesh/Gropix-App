@@ -26,7 +26,7 @@
         android:largeHeap="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme"
+        android:theme="@style/AppThemeWhite"
         android:usesCleartextTraffic="true"
         tools:ignore="LockedOrientationActivity"
         tools:targetApi="m">
@@ -67,7 +67,8 @@
 
         <activity
             android:name=".ui.activities.LauncherActivity"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:theme="@style/AppThemePrimary">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -76,11 +77,18 @@
         </activity>
 
         <activity android:name=".ui.activities.CameraActivity" />
-        <activity android:name=".ui.activities.AccessAccountActivity" />
+        <activity
+            android:name=".ui.activities.AccessAccountActivity"
+            android:theme="@style/AppThemeWhite" />
+
         <activity android:name=".ui.activities.MainActivity" />
+
         <activity android:name=".ui.activities.ReachUsActivity" />
+
         <activity android:name=".ui.activities.OrderConfirmationActivity" />
+
         <activity android:name=".ui.activities.ExploreOrderActivity" />
+
         <activity android:name=".ui.activities.ViewImageActivity" />
 
         <service android:name=".services.get.MyFirebaseMessagingService" />

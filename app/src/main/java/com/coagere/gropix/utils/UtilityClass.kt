@@ -8,6 +8,7 @@ import android.content.Context.INPUT_METHOD_SERVICE
 import android.content.res.Resources
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.graphics.Color
 import android.graphics.drawable.AnimatedVectorDrawable
 import android.net.Uri
 import android.os.AsyncTask
@@ -26,6 +27,7 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.ArrayAdapter
 import android.widget.EditText
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.core.content.ContextCompat
 import androidx.core.widget.NestedScrollView
@@ -491,6 +493,14 @@ class UtilityClass(private val activity: Activity, private val view: View? = nul
         FileAsync(activity, uri, listeners).execute()
     }
 
-
+    fun handleStatusIconColor() {
+        if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_NO) {
+            val window = activity.window
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+                window.statusBarColor = Color.WHITE
+            }
+        }
+    }
 
 }

@@ -15,7 +15,6 @@ import androidx.fragment.app.FragmentPagerAdapter
 import androidx.lifecycle.lifecycleScope
 import androidx.viewpager.widget.ViewPager
 import com.coagere.gropix.R
-//import com.coagere.gropix.databinding.ActivityMainBinding
 import com.coagere.gropix.jetpack.entities.FileModel
 import com.coagere.gropix.ui.frags.OrderListFrag
 import com.coagere.gropix.ui.popups.Popups
@@ -102,6 +101,8 @@ class MainActivity : BaseActivity(), View.OnClickListener {
         managerPagerAdapter = ManagerAdapter(supportFragmentManager)
         id_view_pager.adapter = managerPagerAdapter
         id_tab_layout.animatedIndicator = CustomTabIndicator(id_tab_layout)
+        id_tab_layout.setupWithViewPager(id_view_pager)
+        id_view_pager.offscreenPageLimit = 3
         id_view_pager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
             override fun onPageScrolled(
                 position: Int,
@@ -112,11 +113,11 @@ class MainActivity : BaseActivity(), View.OnClickListener {
             }
 
             override fun onPageSelected(position: Int) {
+                id_view_pager.reMeasureCurrentPage(position)
             }
 
             override fun onPageScrollStateChanged(state: Int) {}
         })
-        id_tab_layout.setupWithViewPager(id_view_pager)
     }
 
     override fun initializeListeners() {
@@ -139,12 +140,19 @@ class MainActivity : BaseActivity(), View.OnClickListener {
                 )
             }
             R.id.id_image_pick -> {
-               id_image_pick.startAnimation(
+                id_image_pick.startAnimation(
                     AnimationUtils.loadAnimation(
                         this@MainActivity,
                         R.anim.bounce
                     )
                 )
+                if (id_parent_scroll.visibility == View.VISIBLE) {
+                    id_parent_scroll.visibility = View.GONE
+                    id_parent_bottom.visibility = View.VISIBLE
+                } else {
+                    id_parent_scroll.visibility = View.VISIBLE
+                    id_parent_bottom.visibility = View.GONE
+                }
             }
             R.id.id_parent_camera -> {
                 onClickCamera()

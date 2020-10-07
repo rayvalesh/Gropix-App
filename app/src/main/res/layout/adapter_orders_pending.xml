@@ -22,10 +22,10 @@
             style="@style/CardStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dimen_common_margin_more"
-            android:layout_marginTop="@dimen/dimen_common_margin_small"
-            android:layout_marginEnd="@dimen/dimen_common_margin_more"
-            android:layout_marginBottom="@dimen/dimen_common_margin_medium">
+            android:layout_marginLeft="@dimen/dimen_common_margin"
+            android:layout_marginTop="@dimen/dimen_common_margin_medium"
+            android:layout_marginRight="@dimen/dimen_common_margin"
+            android:layout_marginBottom="@dimen/dimen_common_margin_very_small">
 
             <LinearLayout
                 android:id="@+id/id_parent"
@@ -35,15 +35,13 @@
                 android:clickable="true"
                 android:focusable="true"
                 android:onClick="@{clickListener}"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:padding="@dimen/dimen_common_margin_more">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:paddingStart="@dimen/dimen_common_margin"
-                    android:paddingTop="@dimen/dimen_common_margin"
-                    android:paddingEnd="@dimen/dimen_common_margin">
+                    android:orientation="horizontal">
 
                     <androidx.appcompat.widget.AppCompatImageView
                         downloadImage="@{model.image}"
@@ -63,20 +61,22 @@
 
                         <TextView
                             android:id="@+id/id_text_title"
+                            style="@style/TextViewStyleMedium"
                             text="@{model.title}"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:ellipsize="end"
                             android:maxLines="2"
                             android:textColor="@color/colorBlack"
-                            android:textSize="@dimen/dimen_common_text_size_large" />
+                            android:textSize="@dimen/dimen_common_text_size_very_large" />
 
                         <TextView
                             android:id="@+id/id_text_address"
+                            style="@style/TextViewStyleLight"
                             text='@{model.address.street +" , "+ model.address.city+" , " + model.address.state }'
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/dimen_common_margin_very_small"
+                            android:layout_marginTop="-2dp"
                             android:maxLines="3"
                             android:textColor="@color/colorTextPrimaryLight"
                             android:textSize="@dimen/dimen_common_text_size_sub" />
@@ -101,6 +101,7 @@
                 <TextView
                     android:id="@+id/id_text_status"
                     style="@style/TextViewStyleMedium"
+                    setTextColor="@{model.status}"
                     text="Pending"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -108,8 +109,7 @@
                     android:gravity="end"
                     android:padding="@dimen/dimen_common_margin_medium"
                     android:text="Completed"
-                    android:textColor="@color/colorStyleOneDark"
-                    android:textSize="@dimen/dimen_common_text_size_very_large" />
+                    android:textSize="@dimen/dimen_common_text_size_med_large" />
 
 
                 <include layout="@layout/utility_vertical_border_layout" />
@@ -129,7 +129,7 @@
                         android:gravity="end"
                         android:text="@string/string_label_payable_amount"
                         android:textColor="@color/colorTextPrimary"
-                        android:textSize="@dimen/dimen_common_text_size_large" />
+                        android:textSize="@dimen/dimen_common_text_size_sub" />
 
                     <TextView
                         style="@style/TextViewStyleBold"
@@ -159,12 +159,12 @@
 
                         <TextView
                             android:id="@+id/id_text_amount"
-                            style="@style/TextViewStyleMedium"
+                            style="@style/TextViewStyleBold"
                             text="@{model.totalAmount}"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textColor="@color/colorTextPrimary"
-                            android:textSize="@dimen/dimen_common_text_size_very_very_large" />
+                            android:textSize="@dimen/dimen_common_text_size_very_large" />
 
                         <TextView
                             style="@style/TextViewStyleBold"
@@ -172,7 +172,7 @@
                             android:layout_height="wrap_content"
                             android:text="@string/string_label_amount_unit"
                             android:textColor="@color/colorTextPrimary"
-                            android:textSize="@dimen/dimen_common_text_size_large" />
+                            android:textSize="@dimen/dimen_common_text_size_title" />
                     </LinearLayout>
 
                 </LinearLayout>

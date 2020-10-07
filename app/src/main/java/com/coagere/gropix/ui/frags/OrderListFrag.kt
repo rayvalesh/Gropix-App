@@ -23,7 +23,6 @@ import com.tc.utils.variables.abstracts.OnEventOccurListener
 import com.tc.utils.variables.enums.ActionType
 import com.tc.utils.variables.interfaces.Constants
 import com.tc.utils.variables.interfaces.IntentInterface
-import tk.jamun.ui.snacks.L
 import tk.jamun.ui.snacks.MySnackBar
 
 /**
@@ -107,7 +106,7 @@ class OrderListFrag : BaseFragment() {
                 "122332",
                 "https://cdn.vox-cdn.com/thumbor/wvdW8UyL2dIAsXrfwNBy3xKIGe4=/1400x1400/filters:format(jpeg)/cdn.vox-cdn.com/uploads/chorus_asset/file/19744155/Amazon_Go_Grocery_3.jpg",
                 10,
-                1,
+                3,
                 200.0,
                 AddressModel("Delhi", "Delhi", "Hariyana", "India", "1100110")
             )

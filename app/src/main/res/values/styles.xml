@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <style name="AppTheme" parent="AppTheme.Base" />
     <!-- Base application theme. -->
@@ -17,42 +17,40 @@
         <item name="editTextStyle">@style/EditTextStyle</item>
         <item name="buttonStyle">@style/ButtonTextStyle</item>
     </style>
-
-    <style name="AppThemePrimary" parent="AppThemePrimary.Base" />
+    <style name="AppThemePrimary" parent="AppTheme.Base" />
     <!-- Base application theme. -->
     <style name="AppThemePrimary.Base" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorWhite</item>
-        <item name="android:windowBackground">@android:color/white</item>
-        <item name="android:textColorPrimary">@color/colorWhite</item>
-        <item name="android:textColorSecondary">@color/colorWhite</item>
-        <item name="android:textViewStyle">@style/TextViewStyle</item>
-        <item name="checkboxStyle">@style/CheckBoxStyle</item>
-        <item name="editTextStyle">@style/EditTextStyle</item>
-        <item name="buttonStyle">@style/ButtonTextStyle</item>
-    </style>
-
-    <style name="AppThemeWhite" parent="AppThemeWhite.Base" />
-    <!-- Base application theme. -->
-    <style name="AppThemeWhite.Base" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="colorPrimary">@color/colorWhite</item>
-        <item name="colorPrimaryDark">@color/colorWhite</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:windowBackground">@android:color/white</item>
         <item name="android:textColorPrimary">@color/colorTextPrimary</item>
         <item name="android:textColorSecondary">@color/colorTextPrimary</item>
         <item name="android:textColor">@color/colorTextPrimary</item>
-        <item name="actionMenuTextColor">@color/colorTextPrimary</item>
-        <item name="colorControlActivated">@color/colorTextPrimary</item>
         <item name="android:textViewStyle">@style/TextViewStyle</item>
         <item name="checkboxStyle">@style/CheckBoxStyle</item>
         <item name="radioButtonStyle">@style/RadioTextStyle</item>
         <item name="editTextStyle">@style/EditTextStyle</item>
         <item name="buttonStyle">@style/ButtonTextStyle</item>
     </style>
-
+    <style name="AppThemeWhite" parent="AppTheme.Base" />
+    <!-- Base application theme. -->
+    <style name="AppThemeWhite.Base" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowBackground">@android:color/white</item>
+        <item name="android:textColorPrimary">@color/colorTextPrimary</item>
+        <item name="android:textColorSecondary">@color/colorTextPrimary</item>
+        <item name="android:textColor">@color/colorTextPrimary</item>
+        <item name="android:textViewStyle">@style/TextViewStyle</item>
+        <item name="checkboxStyle">@style/CheckBoxStyle</item>
+        <item name="radioButtonStyle">@style/RadioTextStyle</item>
+        <item name="editTextStyle">@style/EditTextStyle</item>
+        <item name="buttonStyle">@style/ButtonTextStyle</item>
+    </style>
     <style name="BottomSheetDialogTheme" parent="Theme.Design.Light.BottomSheetDialog">
         <item name="bottomSheetStyle">@style/BottomSheetStyle</item>
     </style>
@@ -67,13 +65,13 @@
         <item name="android:textColor">@color/colorWhiteAlpha</item>
     </style>
 
-    <style name="AppBarTextViewStyleWhite" parent="android:Widget.TextView">
-        <item name="android:fontFamily">@font/poppins_medium</item>
-        <item name="android:textSize">21sp</item>
-        <item name="android:layout_marginLeft">-16dp</item>
-        <item name="android:layout_marginStart">-16dp</item>
-        <item name="android:textColor">@color/colorTextPrimary</item>
-    </style>
+    <!--    <style name="AppBarTextViewStyleWhite" parent="android:Widget.TextView">-->
+    <!--        <item name="android:fontFamily">@font/poppins_medium</item>-->
+    <!--        <item name="android:textSize">21sp</item>-->
+    <!--        <item name="android:layout_marginLeft">-16dp</item>-->
+    <!--        <item name="android:layout_marginStart">-16dp</item>-->
+    <!--        <item name="android:textColor">@color/colorTextPrimary</item>-->
+    <!--    </style>-->
 
     <style name="AppBarExpandedTextViewStyleWhite" parent="android:Widget.TextView">
         <item name="android:fontFamily">@font/poppins_medium</item>

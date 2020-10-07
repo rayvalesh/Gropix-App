@@ -2,6 +2,7 @@ package com.coagere.gropix.ui.activities
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
 import android.location.LocationManager
 import android.os.Bundle
 import android.os.Handler
@@ -11,18 +12,15 @@ import androidx.lifecycle.lifecycleScope
 import com.coagere.gropix.R
 import com.coagere.gropix.databinding.ActivityLauncherBinding
 import com.coagere.gropix.prefs.TempStorage
-import com.coagere.gropix.prefs.UserStorage
 import com.coagere.gropix.utils.MyApplication
 import com.tc.utils.elements.BaseActivity
 import com.tc.utils.utils.utility.CheckConnection
 import com.tc.utils.variables.interfaces.Constants
-import com.tc.utils.variables.interfaces.IntentInterface
 
 class LauncherActivity : BaseActivity() {
     private var handler: Handler = Handler()
     private var binding: ActivityLauncherBinding? = null
     private var runnableHome = Runnable { this.homeStart() }
-
     private var runnable: Runnable? = null
 
 
@@ -79,7 +77,6 @@ class LauncherActivity : BaseActivity() {
                     }
                 }
             }
-
         }
     }
 

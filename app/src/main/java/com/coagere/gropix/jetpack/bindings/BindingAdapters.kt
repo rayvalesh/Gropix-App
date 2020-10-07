@@ -2,7 +2,10 @@ package com.coagere.gropix.jetpack.bindings
 
 import android.view.View
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
+import com.coagere.gropix.R
+import com.coagere.gropix.utils.MyApplication
 import com.tc.utils.utils.helpers.HelperTime
 import com.tc.utils.variables.interfaces.Constants
 
@@ -85,6 +88,37 @@ object BindingAdapters {
         }
     }
 
+    @JvmStatic
+    @BindingAdapter("setTextColor")
+    fun setTextColor(textView: TextView, status: Int) {
+        when (status) {
+            1 -> {
+                textView.setTextColor(
+                    ContextCompat.getColor(
+                        MyApplication.appContext,
+                        R.color.colorStyleOneDark
+                    )
+                )
+            }
+            2 -> {
+                textView.setTextColor(
+                    ContextCompat.getColor(
+                        MyApplication.appContext,
+                        R.color.colorStyleFour
+                    )
+                )
+            }
+            else -> {
+                textView.setTextColor(
+                    ContextCompat.getColor(
+                        MyApplication.appContext,
+                        R.color.colorStyleSix
+                    )
+                )
+            }
+        }
+
+    }
 
     @JvmStatic
     @BindingAdapter(

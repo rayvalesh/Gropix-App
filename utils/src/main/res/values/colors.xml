@@ -47,7 +47,7 @@
     <color name="colorEditTextTitle">#404040</color>
     <color name="colorEditTextText">#1a1a1a</color>
 
-    <color name="colorTabSelected">@color/colorPrimaryDark</color>
+    <color name="colorTabSelected">@color/colorPrimary</color>
 
     <color name="colorStyleOne">#0077ff</color>
     <color name="colorStyleTwo">#d6006e</color>

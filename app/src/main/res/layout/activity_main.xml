@@ -6,7 +6,6 @@
     android:id="@+id/id_coordinator_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorLayoutBackground"
     android:fitsSystemWindows="true"
     tools:context=".ui.activities.MainActivity">
 
@@ -203,7 +202,9 @@
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.core.widget.NestedScrollView
+        android:id="@+id/id_parent_scroll"
         android:layout_width="match_parent"
+        android:visibility="gone"
         android:layout_height="wrap_content"
         android:background="@color/colorWhite"
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
@@ -217,10 +218,10 @@
                 android:id="@+id/id_tab_layout"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dimen_app_bar_height_small"
-                app:tabBackground="@color/colorLayoutBackground"
+                app:tabBackground="@color/colorWhite"
                 app:tabGravity="fill"
                 app:tabIndicatorHeight="2dp"
-                app:tabMode="scrollable"
+                app:tabMode="fixed"
                 app:tabSelectedTextColor="@color/colorTabSelected" />
 
             <include layout="@layout/utility_vertical_border_layout_shadow" />

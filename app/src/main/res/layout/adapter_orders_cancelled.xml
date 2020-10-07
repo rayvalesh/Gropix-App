@@ -27,12 +27,12 @@
             android:id="@+id/id_parent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/dimen_common_margin_medium"
             android:background="@drawable/more_layouts_click"
             android:clickable="true"
             android:focusable="true"
             android:onClick="@{clickListener}"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:padding="@dimen/dimen_common_margin_more">
 
             <ImageView
                 android:id="@+id/id_image"
@@ -59,7 +59,7 @@
                     android:layout_height="wrap_content"
                     android:maxLines="1"
                     android:textColor="@color/colorTextPrimary"
-                    android:textSize="@dimen/dimen_common_text_size_large" />
+                    android:textSize="@dimen/dimen_common_text_size_very_large" />
 
                 <TextView
                     android:id="@+id/id_text_address"
@@ -67,6 +67,7 @@
                     text='@{model.address.street +" , "+ model.address.city+" , " + model.address.state }'
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="-2dp"
                     android:maxLines="1"
                     android:textColor="@color/colorTextPrimaryLight"
                     android:textSize="@dimen/dimen_common_text_size_sub" />
@@ -102,12 +103,12 @@
 
                 <TextView
                     android:id="@+id/id_text_status"
-                    style="@style/TextViewStyleBold"
+                    style="@style/TextViewStyleMedium"
+                    setTextColor="@{model.status}"
                     text='@{model.status==1 ? "Completed":"Cancelled"}'
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Completed"
-                    android:textColor="@color/colorPrimaryDark"
                     android:textSize="@dimen/dimen_common_text_size_med_large" />
 
             </LinearLayout>
