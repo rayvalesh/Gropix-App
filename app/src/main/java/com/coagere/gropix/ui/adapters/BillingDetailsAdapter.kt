@@ -49,7 +49,7 @@ class BillingDetailsAdapter(
             itemView.id_text_title.text = model.name
             itemView.id_text_serial.text = "${position + 1}."
             itemView.id_text_times.text = model.times.toString()
-            itemView.id_text_total_amount.text = (model.itemPrice * model.times).toString()
+            itemView.id_text_total_amount.text = model.itemPrice
             if (position == size - 1) {
                 Utils.setVisibility(itemView.id_view, false)
             }

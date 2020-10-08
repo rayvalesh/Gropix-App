@@ -22,7 +22,7 @@
 
     <color name="colorIconLight">#404040</color>
 
-    <color name="colorLayoutBackground">#F5F5F5</color>
+    <color name="colorLayoutBackground">#e6e6e6</color>
     <color name="colorLayoutBackgroundDark">#e6e6e6</color>
 
     <color name="colorErrorMessage">#bb002f</color>

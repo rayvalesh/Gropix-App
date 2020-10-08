@@ -10,11 +10,11 @@ import tk.jamun.volley.variables.Exclude
 @Parcelize
 data class ItemModel(
     @SerializedName("itemName")
-    var name: String,
+    var name: String = "",
 
     @SerializedName("itemPrice")
-    var itemPrice: Int = 0,
+    var itemPrice: String = "",
 
-    @SerializedName("numberOfItem")
-    var times: Int = 0,
+    @SerializedName("quantity")
+    var times: String = "",
 ) : Parcelable

@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/transparent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/background_scroll_white_top"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:paddingLeft="@dimen/dimen_common_margin_large"
+        android:paddingTop="@dimen/dimen_common_margin_more"
+        android:paddingRight="@dimen/dimen_common_margin_large"
+        android:paddingBottom="@dimen/dimen_common_margin_more">
+
+
+        <TextView
+            style="@style/TextViewStyleMedium"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:maxLines="1"
+            android:text="Create your Order"
+            android:textColor="@color/colorTextPrimary"
+            android:textSize="@dimen/dimen_common_text_size_very_large"
+            android:visibility="visible" />
+
+        <TextView
+            style="@style/TextViewStyleLight"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:maxLines="1"
+            android:text="Please upload a picture of your Grocery List"
+            android:textColor="@color/colorTextPrimaryLight"
+            android:textSize="@dimen/dimen_common_text_size_title" />
+
+        <TextView
+            style="@style/TextViewStyleLight"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:maxLines="1"
+            android:text="Minimum order must be Rs.99*"
+            android:textColor="@color/colorTextPrimaryLight"
+            android:textSize="@dimen/dimen_common_text_size_title" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_common_margin_more"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:id="@+id/id_parent_camera"
+                android:layout_width="70dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/more_layouts_click"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="46dp"
+                    android:layout_height="46dp"
+                    android:layout_marginBottom="@dimen/dimen_common_margin_small"
+                    android:background="@drawable/circular_arrow"
+                    android:padding="@dimen/dimen_common_margin_less_more"
+                    android:tint="@color/colorWhite"
+                    app:srcCompat="@drawable/icon_vd_camera" />
+
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/id_float_camera"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/dimen_common_margin_small"
+                    android:src="@drawable/icon_vd_camera"
+                    android:tint="@color/colorWhite"
+                    android:visibility="gone"
+                    app:backgroundTint="@color/colorPrimary"
+                    app:elevation="@dimen/dimen_float_elevation"
+                    app:fabSize="normal" />
+
+                <TextView
+                    style="@style/TextViewStyleMedium"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:maxLines="1"
+                    android:text="Pix"
+                    android:textColor="@color/colorTextPrimary"
+                    android:textSize="@dimen/dimen_common_text_size_med" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/id_parent_manager"
+                android:layout_width="70dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dimen_common_margin"
+                android:background="@drawable/more_layouts_click"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center"
+                android:orientation="vertical">
+
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="46dp"
+                    android:layout_height="46dp"
+                    android:layout_marginBottom="@dimen/dimen_common_margin_small"
+                    android:background="@drawable/circular_arrow"
+                    android:padding="@dimen/dimen_common_margin_less_more"
+                    android:tint="@color/colorWhite"
+                    app:srcCompat="@drawable/icon_vd_manager" />
+
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/id_float_manager"
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/dimen_common_margin_small"
+                    android:src="@drawable/icon_vd_manager"
+                    android:tint="@color/colorWhite"
+                    android:visibility="gone"
+                    app:backgroundTint="@color/colorPrimary"
+                    app:elevation="@dimen/dimen_float_elevation"
+                    app:fabSize="normal" />
+
+                <TextView
+                    style="@style/TextViewStyleMedium"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:maxLines="1"
+                    android:text="Gallery"
+                    android:textColor="@color/colorTextPrimary"
+                    android:textSize="@dimen/dimen_common_text_size_med" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+</FrameLayout>

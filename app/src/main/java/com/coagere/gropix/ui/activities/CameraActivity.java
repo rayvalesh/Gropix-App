@@ -145,11 +145,11 @@ public final class CameraActivity extends AppCompatActivity implements View.OnCl
     }
 
     private void setVisibility() {
-        if (utilityClass.isFrontCameraId(this) == -1) {
-            imageViewRotation.setVisibility(View.GONE);
-        } else {
-            imageViewRotation.setVisibility(View.VISIBLE);
-        }
+//        if (utilityClass.isFrontCameraId(this) == -1) {
+//            imageViewRotation.setVisibility(View.GONE);
+//        } else {
+//            imageViewRotation.setVisibility(View.VISIBLE);
+//        }
         if (utilityClass.isFlashHardware(this)) {
             imageViewFlash.setVisibility(View.VISIBLE);
         } else {

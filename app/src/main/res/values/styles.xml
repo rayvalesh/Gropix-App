@@ -62,12 +62,12 @@
         <item name="android:textColor">@color/colorTextWhite</item>
     </style>
 
-    <!--    <style name="AppBarTextViewStyleWhite" parent="android:Widget.TextView">-->
-    <!--        <item name="android:fontFamily">@font/poppins_medium</item>-->
-    <!--        <item name="android:textSize">21sp</item>-->
-    <!--        <item name="android:layout_marginLeft">-16dp</item>-->
-    <!--        <item name="android:layout_marginStart">-16dp</item>-->
-    <!--        <item name="android:textColor">@color/colorTextPrimary</item>-->
-    <!--    </style>-->
+    <style name="BottomSheetDialogTheme" parent="Theme.Design.Light.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/LibraryBottomSheetStyle</item>
+    </style>
+
+    <style name="LibraryBottomSheetStyle" parent="Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@android:color/transparent</item>
+    </style>
 
 </resources>

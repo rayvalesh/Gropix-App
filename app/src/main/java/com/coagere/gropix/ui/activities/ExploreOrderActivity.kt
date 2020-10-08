@@ -29,19 +29,18 @@ import kotlinx.android.synthetic.main.activity_explore_order.*
 /**
  * @author Jatin Sahgal by 28-Sep-2020 13:54
  */
-
 class ExploreOrderActivity : BaseActivity(), View.OnClickListener {
     private var binding: ActivityExploreOrderBinding? = null
     private var orderModel: OrderModel? = null
-    private var totalAmount: Double = 0.toDouble()
     private val viewModel by lazy {
         ViewModelProvider(this).get(OrderVM::class.java)
     }
-    val modelList =  arrayListOf(
-        ItemModel("Soap",33,4),
-        ItemModel("Cream",33,4),
-        ItemModel("Soft Drinks",33,4),
+    val modelList = arrayListOf(
+        ItemModel("Soap", "33", "4 KG"),
+        ItemModel("Cream", "33", "4 KG"),
+        ItemModel("Soft Drinks", "33", "4 KG"),
     )
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityExploreOrderBinding.inflate(LayoutInflater.from(this))
@@ -51,7 +50,6 @@ class ExploreOrderActivity : BaseActivity(), View.OnClickListener {
             this.clickListener = this@ExploreOrderActivity
             executePendingBindings()
         }
-        Utils.log(orderModel!!.image)
         lifecycleScope.launchWhenCreated {
             setContentView(binding!!.root)
             initializeViewModel()
@@ -71,8 +69,7 @@ class ExploreOrderActivity : BaseActivity(), View.OnClickListener {
         Utils.doStatusColorWhite(window)
         HelperActionBar.setSupportActionBar(
             this@ExploreOrderActivity,
-            binding!!.idAppBar,
-            orderModel?.title
+            binding!!.idAppBar
         )
     }
 
@@ -91,22 +88,20 @@ class ExploreOrderActivity : BaseActivity(), View.OnClickListener {
     }
 
     private fun initializeBillingData() {
-        var selectedCount = 0
-        for (serviceModel in modelList) {
-            for (model: ItemModel in modelList) {
-                totalAmount += (model.itemPrice * model.times)
-                selectedCount += model.times
-            }
-        }
-        id_text_selected_items.text = selectedCount.toString()
-        binding!!.idTextBillAmount.text = totalAmount.toString()
-        binding!!.idTextTotalAmount.text = String.format("%.2f", totalAmount)
+        id_text_delivery_fee.text = orderModel!!.deliveryFee.toString()
+//        binding!!.idTextBillAmount.text = orderModel!!.totalAmount.toString()
+        binding!!.idTextTotalAmount.text = String.format("%.2f", orderModel!!.totalAmount)
         initializeRecyclerView()
-        binding!!.idParentBilling.visibility = View.VISIBLE
     }
 
     override fun onClick(v: View?) {
         when (v?.id) {
+            R.id.id_image -> {
+
+            }
+            R.id.id_text_button_cancel -> {
+
+            }
         }
     }
 
@@ -121,20 +116,7 @@ class ExploreOrderActivity : BaseActivity(), View.OnClickListener {
     }
 
     override fun onBackPressed() {
-        JamunAlertDialog(this).setAutoCancelable()
-            .setAutoNegativeButton(R.string.string_button_name_no)
-            .setMessage(R.string.string_message_sure_go_back)
-            .setPositiveButton(
-                R.string.string_button_name_yes_want
-            ) {
-                it.dismiss()
-                closeEverything()
-                Handler().postDelayed({
-                    setResult(Activity.RESULT_OK)
-                    finish()
-                }, Constants.THREAD_TIME_DELAY)
-            }
-            .show()
+        super.onBackPressed()
     }
 
 

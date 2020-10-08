@@ -16,10 +16,9 @@
 
         <TextView
             android:id="@+id/id_text_serial"
-            style="@style/TextViewStyleBold"
+            style="@style/TextViewStyle"
             android:layout_width="@dimen/dimen_sheet_label_serial_width"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dimen_common_margin_medium"
             android:gravity="center"
             android:textColor="@color/colorTextPrimary"
             android:textSize="@dimen/dimen_common_text_size_sub" />
@@ -57,8 +56,8 @@
 
         <TextView
             android:id="@+id/id_text_times"
-            style="@style/TextViewStyleBold"
-            android:layout_width="@dimen/dimen_sheet_label_serial_width"
+            style="@style/TextViewStyle"
+            android:layout_width="@dimen/dimen_sheet_label_common_width"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:textColor="@color/colorTextPrimary"
@@ -77,23 +76,23 @@
                 android:layout_height="@dimen/dimen_rupee_small"
                 android:layout_gravity="center_vertical"
                 android:layout_marginTop="@dimen/dimen_margin_balancing"
-                android:tint="@color/colorStyleFour"
+                android:tint="@color/colorTextPrimary"
                 app:srcCompat="@drawable/icon_vd_rupee" />
 
             <TextView
                 android:id="@+id/id_text_total_amount"
-                style="@style/TextViewStyleBold"
+                style="@style/TextViewStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/colorStyleFour"
+                android:textColor="@color/colorTextPrimary"
                 android:textSize="@dimen/dimen_common_text_size_sub" />
 
             <TextView
-                style="@style/TextViewStyleBold"
+                style="@style/TextViewStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/string_label_amount_unit"
-                android:textColor="@color/colorStyleFour"
+                android:textColor="@color/colorTextPrimary"
                 android:textSize="@dimen/dimen_common_text_size_small" />
         </LinearLayout>
     </LinearLayout>

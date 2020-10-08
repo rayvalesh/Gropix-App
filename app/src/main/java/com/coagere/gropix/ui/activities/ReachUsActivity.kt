@@ -46,7 +46,6 @@ class ReachUsActivity : BaseActivity(), View.OnClickListener {
 
     override fun setToolbar() {
         super.setToolbar()
-        Utils.doStatusColorWhite(window)
         HelperActionBar.setSupportActionBar(
             activity = this@ReachUsActivity,
             view = binding!!.idAppBar,

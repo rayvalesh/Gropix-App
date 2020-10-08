@@ -86,7 +86,10 @@
                                 android:layout_width="100dp"
                                 android:layout_height="100dp"
                                 android:layout_marginBottom="@dimen/dimen_common_margin_more"
+                                android:clickable="true"
                                 android:contentDescription="@string/string_icon_desc_image"
+                                android:focusable="true"
+                                android:onClick="@{clickListener}"
                                 android:src="@drawable/placeholder_one" />
 
                             <TextView
@@ -113,69 +116,133 @@
                             android:orientation="vertical">
 
                             <TextView
-                                android:id="@+id/id_text_title"
-                                text="@{model.title}"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:ellipsize="end"
-                                android:maxLines="2"
-                                android:textColor="@color/colorBlack"
-                                android:textSize="@dimen/dimen_common_text_size_very_large" />
-
-                            <TextView
                                 android:id="@+id/id_text_address"
-                                style="@style/TextViewStyleLight"
+                                style="@style/TextViewStyleMedium"
                                 text='@{model.address.street +" , "+ model.address.city+" , " + model.address.state }'
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="-2dp"
                                 android:maxLines="3"
                                 android:textColor="@color/colorTextPrimaryLight"
-                                android:textSize="@dimen/dimen_common_text_size_sub" />
+                                android:textSize="@dimen/dimen_common_text_size_title" />
 
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/dimen_common_margin"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:text="Order id"
+                                    android:textColor="@color/colorTextPrimaryAlpha"
+                                    android:textSize="@dimen/dimen_common_text_size_sub" />
+
+                                <TextView
+                                    style="@style/TextViewStyleBold"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:layout_marginLeft="@dimen/dimen_common_margin_medium"
+                                    android:layout_marginRight="@dimen/dimen_common_margin_medium"
+                                    android:text="@string/string_label_colon"
+                                    android:textColor="@color/colorTextPrimary"
+                                    android:textSize="@dimen/dimen_common_text_size_title" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@{model.orderId}"
+                                    android:textColor="@color/colorTextPrimary"
+                                    android:textSize="@dimen/dimen_common_text_size_title" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:text="Order at"
+                                    android:textColor="@color/colorTextPrimaryAlpha"
+                                    android:textSize="@dimen/dimen_common_text_size_sub" />
+
+                                <TextView
+                                    style="@style/TextViewStyleBold"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:layout_marginLeft="@dimen/dimen_common_margin_medium"
+                                    android:layout_marginRight="@dimen/dimen_common_margin_medium"
+                                    android:text="@string/string_label_colon"
+                                    android:textColor="@color/colorTextPrimary"
+                                    android:textSize="@dimen/dimen_common_text_size_title" />
+
+                                <TextView
+                                    dateTimeStamp='@{model.timestamp}'
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textColor="@color/colorTextPrimary"
+                                    android:textSize="@dimen/dimen_common_text_size_title" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:text="@string/string_label_order_status"
+                                    android:textColor="@color/colorTextPrimaryAlpha"
+                                    android:textSize="@dimen/dimen_common_text_size_small" />
+
+                                <TextView
+                                    style="@style/TextViewStyleBold"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:layout_marginLeft="@dimen/dimen_common_margin_medium"
+                                    android:layout_marginRight="@dimen/dimen_common_margin_medium"
+                                    android:text="@string/string_label_colon"
+                                    android:textColor="@color/colorTextPrimary"
+                                    android:textSize="@dimen/dimen_common_text_size_title" />
+
+                                <TextView
+                                    android:id="@+id/id_text_status"
+                                    style="@style/TextViewStyleMedium"
+                                     android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Pending"
+                                    android:textColor="@color/colorStyleSixDark"
+                                    android:textSize="@dimen/dimen_common_text_size_title" />
+                            </LinearLayout>
 
                         </LinearLayout>
                     </LinearLayout>
 
                     <include layout="@layout/utility_vertical_border_layout" />
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
+                    <TextView
+                        android:id="@+id/id_text_button_cancel"
+                        style="@style/TextViewStyleMedium"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:gravity="end|center"
-                        android:orientation="horizontal"
-                        android:padding="@dimen/dimen_common_margin_less_more">
-
-                        <TextView
-                            android:id="@+id/id_text_status_title"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:text="@string/string_label_order_status"
-                            android:textColor="@color/colorTextPrimaryAlpha"
-                            android:textSize="@dimen/dimen_common_text_size_sub" />
-
-                        <TextView
-                            style="@style/TextViewStyleBold"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_marginLeft="@dimen/dimen_common_margin_very_very_large"
-                            android:layout_marginRight="@dimen/dimen_common_margin_very_very_large"
-                            android:text="@string/string_label_colon"
-                            android:textColor="@color/colorTextPrimary"
-                            android:textSize="@dimen/dimen_common_text_size_large" />
-
-                        <TextView
-                            android:id="@+id/id_text_status"
-                            style="@style/TextViewStyleMedium"
-                            setTextColor="@{model.status}"
-                            text='@{(model.status == 1) ? "Finished" : "Cancelled" '
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Finished"
-                            android:textSize="@dimen/dimen_common_text_size_very_large" />
-                    </LinearLayout>
+                        android:layout_gravity="end"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:onClick="@{clickListener}"
+                        android:padding="@dimen/dimen_common_margin_less_more"
+                        android:text="Cancel Order"
+                        android:textColor="@color/colorErrorMessage"
+                        android:textSize="@dimen/dimen_common_text_size_sub" />
 
                 </LinearLayout>
 
@@ -269,7 +336,6 @@
                                     <include layout="@layout/utility_horizontal_border_layout" />
 
                                     <TextView
-                                        android:visibility="gone"
                                         style="@style/TextViewStyleBold"
                                         android:layout_width="140dp"
                                         android:layout_height="wrap_content"
@@ -280,15 +346,16 @@
                                         android:paddingRight="@dimen/dimen_common_margin_medium"
                                         android:text="@string/string_label_items"
                                         android:textColor="@color/colorTextPrimary"
-                                        android:textSize="@dimen/dimen_common_text_size_sub" />
+                                        android:textSize="@dimen/dimen_common_text_size_sub"
+                                        android:visibility="gone" />
 
                                     <include
-                                        android:visibility="gone"
-                                        layout="@layout/utility_horizontal_border_layout" />
+                                        layout="@layout/utility_horizontal_border_layout"
+                                        android:visibility="gone" />
 
                                     <TextView
                                         style="@style/TextViewStyleBold"
-                                        android:layout_width="@dimen/dimen_sheet_label_serial_width"
+                                        android:layout_width="@dimen/dimen_sheet_label_common_width"
                                         android:layout_height="wrap_content"
                                         android:ellipsize="end"
                                         android:gravity="center"
@@ -335,7 +402,8 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="end"
                             android:orientation="horizontal"
-                            android:paddingTop="@dimen/dimen_common_margin_less_more">
+                            android:paddingTop="@dimen/dimen_common_margin_less_more"
+                            android:visibility="gone">
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -386,19 +454,19 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:gravity="end"
-                                android:text="@string/string_label_quantity"
+                                android:text="Delivery Fee"
                                 android:textColor="@color/colorTextPrimaryLight"
                                 android:textSize="@dimen/dimen_common_text_size_title" />
 
                             <include layout="@layout/include_colon" />
 
                             <TextView
-                                android:id="@+id/id_text_selected_items"
-                                style="@style/TextViewStyleBold"
+                                android:id="@+id/id_text_delivery_fee"
+                                style="@style/TextViewStyle"
+                                text='@{model.deliveryFee+"/-"}'
                                 android:layout_width="@dimen/string_order_bill_label_width"
                                 android:layout_height="wrap_content"
                                 android:gravity="center"
-                                android:text="1"
                                 android:textColor="@color/colorTextPrimary"
                                 android:textSize="@dimen/dimen_common_text_size_large" />
                         </LinearLayout>
@@ -449,19 +517,11 @@
                                 <TextView
                                     android:id="@+id/id_text_total_amount"
                                     style="@style/TextViewStyleBold"
-                                    text="@{model.totalAmount}"
+                                    text='@{model.totalAmount+"/-"}'
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:textColor="@color/colorStyleOneDark"
                                     android:textSize="@dimen/dimen_common_text_size_very_large" />
-
-                                <TextView
-                                    style="@style/TextViewStyleBold"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="@string/string_label_amount_unit"
-                                    android:textColor="@color/colorStyleOneDark"
-                                    android:textSize="@dimen/dimen_common_text_size_large" />
                             </LinearLayout>
 
                         </LinearLayout>

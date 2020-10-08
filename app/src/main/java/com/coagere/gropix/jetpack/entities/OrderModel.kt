@@ -9,9 +9,6 @@ data class OrderModel(
     @SerializedName("orderId")
     var orderId: String? = null,
 
-    @SerializedName("name")
-    var title: String? = null,
-
     @SerializedName("timestamp")
     var timestamp: String? = null,
 
@@ -23,6 +20,9 @@ data class OrderModel(
 
     @SerializedName("status")
     var status: Int = 0,
+
+    @SerializedName("deliveryFee")
+    var deliveryFee: Double = 0.toDouble(),
 
     @SerializedName("totalAmount")
     var totalAmount: Double = 0.toDouble(),
@@ -41,7 +41,6 @@ data class OrderModel(
         other as OrderModel
 
         if (orderId != other.orderId) return false
-        if (title != other.title) return false
         if (timestamp != other.timestamp) return false
         if (image != other.image) return false
         if (tax != other.tax) return false
@@ -55,7 +54,6 @@ data class OrderModel(
 
     override fun hashCode(): Int {
         var result = orderId?.hashCode() ?: 0
-        result = 31 * result + (title?.hashCode() ?: 0)
         result = 31 * result + (timestamp?.hashCode() ?: 0)
         result = 31 * result + (image?.hashCode() ?: 0)
         result = 31 * result + tax

@@ -47,7 +47,7 @@
 
     <!--buttons -->
     <dimen name="dimen_button_height_medium">34dp</dimen>
-    <dimen name="dimen_button_height_default">40dp</dimen>
+    <dimen name="dimen_button_height_default">44dp</dimen>
     <dimen name="dimen_button_text_size">15sp</dimen>
     <dimen name="dimen_button_text_size_small">13sp</dimen>
     <dimen name="dimen_button_radius_small">2dp</dimen>
@@ -64,7 +64,7 @@
 
 
     <dimen name="dimen_dialog_image_cancel">30dp</dimen>
-    <dimen name="dimen_shadow_view">4dp</dimen>
+    <dimen name="dimen_shadow_view">5dp</dimen>
     <dimen name="dimen_popup_image_size">20dp</dimen>
 
     <dimen name="dimen_view_height">1dp</dimen>

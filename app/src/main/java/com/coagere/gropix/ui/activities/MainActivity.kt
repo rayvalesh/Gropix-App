@@ -2,13 +2,16 @@ package com.coagere.gropix.ui.activities
 
 import android.app.Activity
 import android.content.ActivityNotFoundException
+import android.content.DialogInterface
 import android.content.Intent
-import android.graphics.Color
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.os.Handler
 import android.view.View
 import android.view.animation.AnimationUtils
+import android.widget.FrameLayout
+import android.widget.LinearLayout
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -20,7 +23,9 @@ import com.coagere.gropix.R
 import com.coagere.gropix.jetpack.entities.FileModel
 import com.coagere.gropix.ui.frags.OrderListFrag
 import com.coagere.gropix.ui.popups.Popups
+import com.coagere.gropix.ui.sheets.ChooserSheet
 import com.coagere.gropix.utils.*
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.tabs.TabLayout
 import com.tc.utils.elements.BaseActivity
 import com.tc.utils.utils.helpers.HelperActionBar
@@ -40,21 +45,11 @@ import tk.jamunx.ui.camera.utils.InterfaceUtils
 import java.io.File
 
 class MainActivity : BaseActivity(), View.OnClickListener {
-    //    private var binding: ActivityMainBinding? = null
     private var utilityClass: UtilityClass? = null
     private var popup: Popups? = null
-    private val behavior = AppCompactBehavior()
-    private lateinit var managerPagerAdapter: ManagerAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-//        if (binding == null) {
-//            binding = ActivityMainBinding.inflate(LayoutInflater.from(this))
-//            binding!!.apply {
-//                clickListener = this@MainActivity
-//                executePendingBindings()
-//            }
-//        }
         lifecycleScope.launchWhenCreated {
             utilityClass = UtilityClass(this@MainActivity)
             setContentView(R.layout.activity_main)
@@ -62,6 +57,7 @@ class MainActivity : BaseActivity(), View.OnClickListener {
             initializeListeners()
             initializeTabView()
             setToolbar()
+            initializeSheet()
         }
     }
 
@@ -72,91 +68,63 @@ class MainActivity : BaseActivity(), View.OnClickListener {
             window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
             window.statusBarColor = ContextCompat.getColor(this@MainActivity, R.color.colorPrimary)
         }
+        Utils.doStatusColorWhite(window)
         HelperActionBar.setAppBarLayout(
             this@MainActivity,
             0.8,
             object : HelperActionBar.ScrollingListener {
                 override fun up() {
-                    Utils.setVisibility(id_image_overflow, false)
-                    Utils.setVisibility(findViewById<View>(R.id.id_view_shadow), true)
-                    behavior.hideFrameLayout()
-                    Utils.doStatusColorWhite(window)
-                    id_image_app.setColorFilter(
-                        ContextCompat.getColor(
-                            this@MainActivity,
-                            R.color.colorTextPrimary
-                        )
-                    )
-                    id_image_app_name.setColorFilter(
-                        ContextCompat.getColor(
-                            this@MainActivity,
-                            R.color.colorTextPrimary
-                        )
-                    )
                 }
 
                 override fun down() {
-                    Utils.setVisibility(id_image_overflow, true)
-                    if (id_tab_layout.visibility == View.GONE)
-                        Utils.setVisibility(findViewById<View>(R.id.id_view_shadow), false)
-                    behavior.showFrameLayout()
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
-                        window.statusBarColor =
-                            ContextCompat.getColor(this@MainActivity, R.color.colorPrimary)
-                    }
-                    id_image_app.setColorFilter(
-                        ContextCompat.getColor(
-                            this@MainActivity,
-                            R.color.colorWhite
-                        )
-                    )
-                    id_image_app_name.setColorFilter(
-                        ContextCompat.getColor(
-                            this@MainActivity,
-                            R.color.colorWhite
-                        )
-                    )
                 }
             })
-
-        (id_parent_bottom.layoutParams as CoordinatorLayout.LayoutParams).behavior = behavior
-
     }
 
     override fun initializeTabView() {
-        id_view_pager.addOnPageChangeListener(
-            TabLayout.TabLayoutOnPageChangeListener(
-                id_tab_layout
-            )
-        )
-        managerPagerAdapter = ManagerAdapter(supportFragmentManager)
-        id_view_pager.adapter = managerPagerAdapter
-        id_tab_layout.animatedIndicator = CustomTabIndicator(id_tab_layout)
-        id_tab_layout.setupWithViewPager(id_view_pager)
-        id_view_pager.offscreenPageLimit = 3
-        id_view_pager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
-            override fun onPageScrolled(
-                position: Int,
-                positionOffset: Float,
-                positionOffsetPixels: Int
-            ) {
-
-            }
-
-            override fun onPageSelected(position: Int) {
-            }
-
-            override fun onPageScrollStateChanged(state: Int) {}
-        })
+//        id_view_pager.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(id_tab_layout))
+//        managerPagerAdapter = ManagerAdapter(supportFragmentManager)
+//        id_view_pager.adapter = managerPagerAdapter
+//        id_tab_layout.animatedIndicator = CustomTabIndicator(id_tab_layout)
+//        id_tab_layout.setupWithViewPager(id_view_pager)
+//        id_view_pager.offscreenPageLimit = 1
+//        id_view_pager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
+//            override fun onPageScrolled(
+//                position: Int,
+//                positionOffset: Float,
+//                positionOffsetPixels: Int
+//            ) {
+//
+//            }
+//
+//            override fun onPageSelected(position: Int) {
+//            }
+//
+//            override fun onPageScrollStateChanged(state: Int) {}
+//        })
     }
 
     override fun initializeListeners() {
         super.initializeListeners()
+        id_parent_button.setOnClickListener {
+
+            val sheet = ChooserSheet()
+            sheet.showDialog(object : OnEventOccurListener() {
+                override fun getEventData(`object`: Any?) {
+                    super.getEventData(`object`)
+                    when (`object` as ActionType) {
+                        ActionType.ACTION_CAMERA -> {
+                            onClickCamera()
+                        }
+                        else -> {
+                            onClickManager()
+                        }
+                    }
+                }
+            }, supportFragmentManager)
+
+        }
         id_parent_overflow.setOnClickListener(this)
-        id_image_pick.setOnClickListener(this)
-        id_parent_camera.setOnClickListener(this)
-        id_parent_manager.setOnClickListener(this)
     }
 
     override fun onClick(v: View?) {
@@ -169,31 +137,6 @@ class MainActivity : BaseActivity(), View.OnClickListener {
                         R.anim.bounce
                     )
                 )
-            }
-            R.id.id_image_pick -> {
-                id_image_pick.startAnimation(
-                    AnimationUtils.loadAnimation(
-                        this@MainActivity,
-                        R.anim.bounce
-                    )
-                )
-                if (id_tab_layout.visibility == View.VISIBLE) {
-                    id_tab_layout.visibility = View.GONE
-                    id_view_pager.visibility = View.GONE
-                    id_parent_bottom.visibility = View.VISIBLE
-                    findViewById<View>(R.id.id_view_shadow).visibility = View.GONE
-                } else {
-                    findViewById<View>(R.id.id_view_shadow).visibility = View.VISIBLE
-                    id_tab_layout.visibility = View.VISIBLE
-                    id_view_pager.visibility = View.VISIBLE
-                    id_parent_bottom.visibility = View.GONE
-                }
-            }
-            R.id.id_parent_camera -> {
-                onClickCamera()
-            }
-            R.id.id_parent_manager -> {
-                onClickManager()
             }
         }
     }
@@ -328,36 +271,35 @@ class MainActivity : BaseActivity(), View.OnClickListener {
     }
 
     override fun onBackPressed() {
-        super.onBackPressed()
+        JamunAlertDialog(this).setAutoCancelable()
+            .setMessage(R.string.string_message_sure_exit)
+            .setAutoNegativeButton(R.string.string_button_name_no)
+            .setPositiveButton(
+                R.string.string_button_name_yes
+            ) {
+                it.dismiss()
+                closeEverything()
+                Handler().postDelayed({
+                    finish()
+                }, Constants.THREAD_TIME_DELAY)
+            }
+            .show()
     }
 
     inner class ManagerAdapter constructor(fm: FragmentManager) :
         FragmentPagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
 
         override fun getPageTitle(position: Int): CharSequence? {
-            return when (position) {
-                0 -> {
-                    getString(R.string.string_label_pending)
-                }
-                1 -> {
-                    getString(R.string.string_label_placed)
-                }
-                else -> {
-                    getString(R.string.string_label_cancelled)
-                }
-            }
+            return "My Orders"
+
         }
 
         override fun getItem(position: Int): Fragment {
-            return when (position) {
-                0 -> OrderListFrag.get(Constants.MODULE_PENDING)
-                1 -> OrderListFrag.get(Constants.MODULE_PLACED)
-                else -> OrderListFrag.get(Constants.MODULE_CANCELLED)
-            }
+            return OrderListFrag.get(Constants.MODULE_PENDING)
         }
 
         override fun getCount(): Int {
-            return 3
+            return 1
         }
     }
 }

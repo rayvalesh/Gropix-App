@@ -19,7 +19,7 @@
         android:layout_marginLeft="@dimen/dimen_common_margin_more"
         android:layout_marginTop="@dimen/dimen_common_margin_less_more"
         android:layout_marginRight="@dimen/dimen_common_margin_more"
-        android:layout_marginBottom="@dimen/dimen_common_margin_small"
+        android:layout_marginBottom="@dimen/dimen_common_margin_very_small"
         android:clickable="true"
         android:focusable="true">
 
@@ -35,9 +35,8 @@
             android:padding="@dimen/dimen_common_margin_more">
 
             <ImageView
-                android:id="@+id/id_image"
                 downloadImage="@{model.image}"
-                android:layout_width="80dp"
+                android:layout_width="110dp"
                 android:layout_height="match_parent"
                 android:contentDescription="@string/string_icon_desc_image"
                 android:scaleType="centerCrop"
@@ -51,35 +50,33 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/id_text_title"
                     style="@style/TextViewStyleMedium"
-                    text="@{model.title}"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:maxLines="1"
-                    android:textColor="@color/colorTextPrimary"
-                    android:textSize="@dimen/dimen_common_text_size_very_large" />
-
-                <TextView
-                    android:id="@+id/id_text_address"
-                    style="@style/TextViewStyleLight"
                     text='@{model.address.street +" , "+ model.address.city+" , " + model.address.state }'
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:maxLines="1"
+                    android:maxLines="3"
                     android:textColor="@color/colorTextPrimaryLight"
-                    android:textSize="@dimen/dimen_common_text_size_sub" />
+                    android:textSize="@dimen/dimen_common_text_size_title" />
 
                 <TextView
-                    android:id="@+id/id_text_time"
                     dateTimeStamp="@{model.timestamp}"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dimen_common_margin_small"
-                    android:layout_marginBottom="@dimen/dimen_common_margin"
+                    android:layout_marginBottom="@dimen/dimen_common_margin_more"
                     android:textColor="@color/colorTextPrimary"
-                    android:textSize="@dimen/dimen_common_text_size_small" />
+                    android:textSize="@dimen/dimen_common_text_size_med" />
 
+                <include
+                    android:id="@+id/id_view"
+                    layout="@layout/utility_vertical_border_layout_header" />
+
+                <TextView
+                    style="@style/TextViewStyleMedium"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Cancelled"
+                    android:textColor="@color/colorStyleSixDark"
+                    android:textSize="@dimen/dimen_common_text_size_very_large" />
 
             </LinearLayout>
         </LinearLayout>

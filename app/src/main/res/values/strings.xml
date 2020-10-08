@@ -30,6 +30,7 @@
     <string name="string_label_default_country">+91-</string>
     <string name="string_edit_hint_login_number">Enter Mobile Number</string>
     <string name="string_toast_logout_success">Sign Out Successfully</string>
+    <string name="string_message_sure_exit">Do you want to exit the app?</string>
 
     <string name="string_message_sure_go_back">Are you sure want to go back? This will discard your changes.</string>
     <string name="string_label_privacy_policy">Privacy Policy</string>
@@ -59,14 +60,14 @@
     <string name="string_button_name_add">Add</string>
     <string name="string_order_explore_label_billing_title">Billing Details</string>
     <string name="string_label_serial_no">Sr.</string>
-    <string name="string_label_item_name">Name</string>
+    <string name="string_label_item_name">Item Name</string>
     <string name="string_label_items">Items</string>
-    <string name="string_label_times">Times</string>
+    <string name="string_label_times">Quantity</string>
     <string name="string_label_total_amount">Total amount</string>
     <string name="string_label_amount_unit">/-</string>
     <string name="string_label_amount">Amount</string>
     <string name="string_label_quantity">No. of Items</string>
-    <string name="string_label_amount_paid">Payable Amount</string>
+    <string name="string_label_amount_paid">Total Amount Payable</string>
     <string name="string_label_colon">:</string>
     <string name="string_button_name_pay">Pay &amp; Submit</string>
     <string name="string_toast_success_feedback">Feedback sent successfully</string>
@@ -79,5 +80,6 @@
     <string name="string_order_explore_label_address_title">Address Details</string>
     <string name="string_order_explore_label_images">List of Images</string>
     <string name="string_icon_transition_image">transition_image</string>
+    <string name="string_button_name_yes">Yes</string>
 
 </resources>

@@ -31,35 +31,42 @@ class OrderStatusAdapter(
         notifyItemRangeChanged(lastSize, size - lastSize)
     }
 
+    override fun getItemViewType(position: Int): Int {
+        return modelList[position].status
+    }
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
     ): RecyclerView.ViewHolder {
-        if (moduleType == Constants.MODULE_PENDING) {
-            return ViewHolder(
-                AdapterOrdersPendingBinding.inflate(
-                    LayoutInflater.from(parent.context),
-                    parent,
-                    false
+        when (viewType) {
+            Constants.MODULE_CANCELLED -> {
+                return CancelViewHolder(
+                    AdapterOrdersCancelledBinding.inflate(
+                        LayoutInflater.from(parent.context),
+                        parent,
+                        false
+                    )
                 )
-            )
-        } else if (moduleType == Constants.MODULE_PLACED) {
-            return PlacedViewHolder(
-                AdapterOrderPlacedBinding.inflate(
-                    LayoutInflater.from(parent.context),
-                    parent,
-                    false
+            }
+            Constants.MODULE_PLACED -> {
+                return PlacedViewHolder(
+                    AdapterOrderPlacedBinding.inflate(
+                        LayoutInflater.from(parent.context),
+                        parent,
+                        false
+                    )
                 )
-            )
-        } else {
-            return CancelViewHolder(
-                AdapterOrdersCancelledBinding.inflate(
-                    LayoutInflater.from(parent.context),
-                    parent,
-                    false
+            }
+            else -> {
+                return ViewHolder(
+                    AdapterOrdersPendingBinding.inflate(
+                        LayoutInflater.from(parent.context),
+                        parent,
+                        false
+                    )
                 )
-            )
+            }
         }
     }
 

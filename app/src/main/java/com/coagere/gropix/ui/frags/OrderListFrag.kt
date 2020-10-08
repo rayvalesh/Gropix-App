@@ -43,13 +43,12 @@ class OrderListFrag : BaseFragment() {
     ): View? {
         if (binding == null) {
             binding = FragOrderListBinding.inflate(
-                LayoutInflater.from(container!!.context),
+                LayoutInflater.from(requireContext()),
                 container,
                 false
             )
             lifecycleScope.launchWhenCreated {
                 utilityClass = UtilityClass(requireActivity())
-                moduleType = requireArguments().getInt(IntentInterface.INTENT_FOR_MODULE_TYPE)
                 initializeView()
                 initializeViewModel()
                 initializeRecyclerView()
@@ -61,39 +60,26 @@ class OrderListFrag : BaseFragment() {
 
     override fun initializeView() {
         super.initializeView()
-        when (moduleType) {
-            Constants.MODULE_PLACED -> {
-                binding!!.idTextTitle.text = getString(R.string.string_label_placed)
-            }
-            Constants.MODULE_CANCELLED -> {
-                binding!!.idTextTitle.text = getString(R.string.string_label_cancelled)
-            }
-            else -> {
-                binding!!.idTextTitle.text = getString(R.string.string_label_pending)
-            }
-        }
-
         modelList.add(
             OrderModel(
                 "1",
-                "Grocery Order 1",
                 "2020-12-11 11:11:11",
                 "https://cdn.vox-cdn.com/thumbor/wvdW8UyL2dIAsXrfwNBy3xKIGe4=/1400x1400/filters:format(jpeg)/cdn.vox-cdn.com/uploads/chorus_asset/file/19744155/Amazon_Go_Grocery_3.jpg",
                 10,
-                1,
+                Constants.MODULE_PENDING,
+                20.0,
                 200.0,
                 AddressModel("Delhi", "Delhi", "Hariyana", "India", "1100110")
             )
         )
-
         modelList.add(
             OrderModel(
                 "3",
-                "Grocery Order 2",
                 "2020-12-11 11:11:11",
                 "https://cdn.vox-cdn.com/thumbor/wvdW8UyL2dIAsXrfwNBy3xKIGe4=/1400x1400/filters:format(jpeg)/cdn.vox-cdn.com/uploads/chorus_asset/file/19744155/Amazon_Go_Grocery_3.jpg",
                 10,
-                2,
+                Constants.MODULE_PLACED,
+                20.0,
                 200.0,
                 AddressModel("Delhi", "Delhi", "Hariyana", "India", "1100110")
             )
@@ -102,11 +88,11 @@ class OrderListFrag : BaseFragment() {
         modelList.add(
             OrderModel(
                 "2",
-                "Grocery Order 3",
                 "2020-12-11 11:11:11",
                 "https://cdn.vox-cdn.com/thumbor/wvdW8UyL2dIAsXrfwNBy3xKIGe4=/1400x1400/filters:format(jpeg)/cdn.vox-cdn.com/uploads/chorus_asset/file/19744155/Amazon_Go_Grocery_3.jpg",
                 10,
-                3,
+                Constants.MODULE_CANCELLED,
+                20.0,
                 200.0,
                 AddressModel("Delhi", "Delhi", "Hariyana", "India", "1100110")
             )
