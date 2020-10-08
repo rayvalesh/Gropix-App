@@ -46,10 +46,10 @@ class BillingDetailsAdapter(
     inner class ViewHolder constructor(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         internal fun bindTo(model: ItemModel, position: Int) {
-            itemView.id_text_title.text = model.name
+            itemView.id_text_title.text = model.itemName
             itemView.id_text_serial.text = "${position + 1}."
-            itemView.id_text_times.text = model.times.toString()
-            itemView.id_text_total_amount.text = model.itemPrice
+            itemView.id_text_items_count.text = model.itemQuantity
+            itemView.id_text_total_amount.text = model.amount
             if (position == size - 1) {
                 Utils.setVisibility(itemView.id_view, false)
             }

@@ -5,7 +5,8 @@ import android.content.SharedPreferences
 import com.coagere.gropix.utils.MyApplication
 
 class TempStorage private constructor(context: Context) {
-    private val sharedPreferences: SharedPreferences = context.getSharedPreferences(SHARE_TEMP_NAME, SHARED_MODE)
+    private val sharedPreferences: SharedPreferences =
+        context.getSharedPreferences(SHARE_TEMP_NAME, SHARED_MODE)
 
     var isFirstTimeLaunch: Int
         get() = sharedPreferences.getInt("shared_launcher_version", 0)
@@ -19,6 +20,17 @@ class TempStorage private constructor(context: Context) {
     fun saveFcmToken(token: String) {
         sharedPreferences.edit().putString("shared_fcm_token", token).apply()
     }
+
+    var appId: Int
+        get() = sharedPreferences.getInt("shared_app_id", 0)
+        set(value) {
+            sharedPreferences.edit().putInt("shared_app_id", value).apply()
+        }
+
+    var appRegistration: Boolean
+        get() = sharedPreferences.getBoolean("shared_app_register", false)
+        set(value) = sharedPreferences.edit().putBoolean("shared_app_register", value).apply()
+
 
     var saveAppStatus: Boolean
         get() = sharedPreferences.getBoolean("tc_app_status", true)

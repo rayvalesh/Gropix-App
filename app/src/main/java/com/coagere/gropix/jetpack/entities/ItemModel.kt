@@ -1,20 +1,31 @@
 package com.coagere.gropix.jetpack.entities
 
 import android.os.Parcelable
-import androidx.versionedparcelable.NonParcelField
 import com.google.gson.annotations.SerializedName
-import kotlinx.android.parcel.IgnoredOnParcel
 import kotlinx.android.parcel.Parcelize
-import tk.jamun.volley.variables.Exclude
 
 @Parcelize
 data class ItemModel(
+    @SerializedName("itemId")
+    var itemId: String,
+
     @SerializedName("itemName")
-    var name: String = "",
+    var itemName: String,
 
     @SerializedName("itemPrice")
-    var itemPrice: String = "",
+    var itemPrice: String,
 
-    @SerializedName("quantity")
-    var times: String = "",
+    @SerializedName("itemQuantity")
+    var itemQuantity: String,
+
+
+    @SerializedName("amount")
+    var amount: String,
+
+    @SerializedName("status")
+    var status: Int = 0,
+
+    @SerializedName("timeStamp")
+    var timeStamp: String? = null
+
 ) : Parcelable

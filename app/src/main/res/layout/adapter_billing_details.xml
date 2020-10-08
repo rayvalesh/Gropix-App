@@ -55,7 +55,7 @@
         <include layout="@layout/utility_horizontal_border_layout" />
 
         <TextView
-            android:id="@+id/id_text_times"
+            android:id="@+id/id_text_items_count"
             style="@style/TextViewStyle"
             android:layout_width="@dimen/dimen_sheet_label_common_width"
             android:layout_height="wrap_content"

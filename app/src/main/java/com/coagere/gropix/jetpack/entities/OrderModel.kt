@@ -3,37 +3,55 @@ package com.coagere.gropix.jetpack.entities
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
+import tk.jamun.volley.variables.Exclude
 
 @Parcelize
 data class OrderModel(
-    @SerializedName("orderId")
+    @SerializedName("userOrderId")
     var orderId: String? = null,
+
+    @SerializedName("userName")
+    var userName: String? = null,
+
+    @SerializedName("email")
+    var email: String? = null,
+
+    @SerializedName("mobileNumber")
+    var mobileNumber: String? = null,
 
     @SerializedName("timestamp")
     var timestamp: String? = null,
 
-    @SerializedName("image")
-    var image: String? = null,
+    @SerializedName("updateTimeStamp")
+    var updateTimeStamp: String? = null,
 
-    @SerializedName("tax")
-    var tax: Int = 0,
+    @SerializedName("orderImages")
+    var images: ArrayList<String>? = arrayListOf(),
 
     @SerializedName("status")
     var status: Int = 0,
 
+    @SerializedName("amount")
+    var amount: String = "",
+
     @SerializedName("deliveryFee")
-    var deliveryFee: Double = 0.toDouble(),
+    var deliveryFee: String = "",
 
     @SerializedName("totalAmount")
-    var totalAmount: Double = 0.toDouble(),
+    var totalAmount: String = "",
+
+    @SerializedName("discount")
+    var discount: String = "",
 
     @SerializedName("address")
     var address: AddressModel = AddressModel(),
 
-    @SerializedName("fileModels")
+    @SerializedName("itemList")
+    var itemList: Array<ItemModel> = emptyArray(),
+
     var fileModels: Array<FileModel> = emptyArray(),
 
-) : Parcelable {
+    ) : Parcelable {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (javaClass != other?.javaClass) return false
@@ -41,9 +59,11 @@ data class OrderModel(
         other as OrderModel
 
         if (orderId != other.orderId) return false
+        if (userName != other.userName) return false
+        if (email != other.email) return false
+        if (mobileNumber != other.mobileNumber) return false
         if (timestamp != other.timestamp) return false
-        if (image != other.image) return false
-        if (tax != other.tax) return false
+        if (images != other.images) return false
         if (status != other.status) return false
         if (totalAmount != other.totalAmount) return false
         if (address != other.address) return false
@@ -54,13 +74,17 @@ data class OrderModel(
 
     override fun hashCode(): Int {
         var result = orderId?.hashCode() ?: 0
+        result = 31 * result + (userName?.hashCode() ?: 0)
+        result = 31 * result + (email?.hashCode() ?: 0)
+        result = 31 * result + (mobileNumber?.hashCode() ?: 0)
         result = 31 * result + (timestamp?.hashCode() ?: 0)
-        result = 31 * result + (image?.hashCode() ?: 0)
-        result = 31 * result + tax
+        result = 31 * result + (images?.hashCode() ?: 0)
         result = 31 * result + status
         result = 31 * result + totalAmount.hashCode()
         result = 31 * result + address.hashCode()
         result = 31 * result + fileModels.contentHashCode()
         return result
     }
+
+
 }

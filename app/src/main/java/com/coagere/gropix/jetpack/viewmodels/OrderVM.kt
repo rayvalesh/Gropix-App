@@ -7,22 +7,20 @@ import com.tc.utils.variables.abstracts.OnEventOccurListener
 
 class OrderVM : ViewModel() {
 
-    fun getApiOrderStatusList(
-        moduleType: Int,
+    fun getApiOrderList(
         modelList: ArrayList<OrderModel>,
         listener: OnEventOccurListener
     ) {
-        OrderRepo.instance.apiGetOrderStatusList(moduleType, modelList, listener)
+        OrderRepo.instance.apiGetOrderStatusList(modelList, listener)
     }
 
-    fun getApiOrderItemList(
-        model: OrderModel,
-        listener: OnEventOccurListener
-    ) {
-        OrderRepo.instance.apiGetOrderItemList(model, listener)
+
+    fun performCreateOrder(model: OrderModel, listener: OnEventOccurListener) {
+        OrderRepo.instance.apiCreateOrder(model, listener)
     }
 
-    fun clearEverything() {
+    fun getApiOrderDetails(model: OrderModel, listener: OnEventOccurListener) {
+        OrderRepo.instance.apiGetOrderDetails(model, listener)
     }
 
 }

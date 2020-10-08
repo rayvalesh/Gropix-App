@@ -197,6 +197,7 @@
                     android:clickable="true"
                     android:focusable="true"
                     android:gravity="center"
+                    android:onClick="@{clickListener}"
                     android:paddingTop="@dimen/dimen_common_margin"
                     android:paddingBottom="@dimen/dimen_common_margin"
                     android:textColor="@color/colorTextWhite"

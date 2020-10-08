@@ -6,21 +6,28 @@ import android.os.Handler
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.coagere.gropix.R
 import com.coagere.gropix.databinding.ActivityConfirmationBinding
 import com.coagere.gropix.jetpack.entities.AddressModel
 import com.coagere.gropix.jetpack.entities.FileModel
+import com.coagere.gropix.jetpack.entities.OrderModel
+import com.coagere.gropix.jetpack.viewmodels.OrderVM
 import com.coagere.gropix.prefs.UserStorage
 import com.coagere.gropix.ui.frags.ImagesAddFrag
 import com.coagere.gropix.utils.GetData
+import com.coagere.gropix.utils.HelperLogout
 import com.coagere.gropix.utils.UtilityClass
 import com.tc.utils.elements.BaseActivity
 import com.tc.utils.utils.helpers.HelperActionBar
 import com.tc.utils.utils.helpers.JamunAlertDialog
 import com.tc.utils.utils.helpers.Utils
+import com.tc.utils.variables.abstracts.OnEventOccurListener
+import com.tc.utils.variables.enums.ActionType
 import com.tc.utils.variables.interfaces.Constants
 import com.tc.utils.variables.interfaces.IntentInterface
+import tk.jamun.ui.snacks.MySnackBar
 
 class OrderConfirmationActivity : BaseActivity(), View.OnClickListener {
 
@@ -28,6 +35,10 @@ class OrderConfirmationActivity : BaseActivity(), View.OnClickListener {
     private var utilityClass: UtilityClass? = null
     private lateinit var imageFrag: ImagesAddFrag
     private lateinit var fileModels: ArrayList<FileModel>
+    private var model: OrderModel = OrderModel()
+    private val viewModel: OrderVM by lazy {
+        ViewModelProvider(this).get(OrderVM::class.java)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -72,7 +83,20 @@ class OrderConfirmationActivity : BaseActivity(), View.OnClickListener {
                 imageFrag.addImages(model)
             }, Constants.THREAD_TIME_DELAY)
         }
-
+        imageFrag.bindListeners(object : OnEventOccurListener() {
+            override fun getEventData(
+                `object`: Any?,
+                actionType: ActionType?,
+                adapterPosition: Int
+            ) {
+                super.getEventData(`object`, actionType, adapterPosition)
+                if (actionType == ActionType.ACTION_UPDATE_STATUS) {
+                    for (fileModel in (`object` as Array<FileModel>)) {
+                        model.images!!.add(fileModel.downloadUrl!!)
+                    }
+                }
+            }
+        })
     }
 
     override fun onClick(v: View?) {
@@ -81,10 +105,37 @@ class OrderConfirmationActivity : BaseActivity(), View.OnClickListener {
 
     private fun onClickSubmit() {
         if (validate()) {
+            utilityClass!!.startProgressBar()
+            viewModel.performCreateOrder(model, object : OnEventOccurListener() {
+                override fun getEventData(`object`: Any?) {
+                    super.getEventData(`object`)
+                    utilityClass!!.closeProgressBar()
+                    finish()
+                }
+
+                override fun onErrorResponse(`object`: Any?, errorMessage: String?) {
+                    super.onErrorResponse(`object`, errorMessage)
+                    if (utilityClass!!.isUnAuthrized(`object`)) {
+                        HelperLogout.logMeOut(
+                            this@OrderConfirmationActivity,
+                            object : OnEventOccurListener() {})
+                    } else {
+                        utilityClass!!.closeProgressBar()
+                        MySnackBar.getInstance()
+                            .showSnackBarForMessage(
+                                this@OrderConfirmationActivity,
+                                errorMessage
+                            )
+                    }
+                }
+            })
         }
     }
 
     private fun validate(): Boolean {
+//        if (model.images.isNullOrEmpty()) {
+//            return false
+//        }
         if (utilityClass!!.checkEditTextEmpty(
                 editText = binding!!.idEditName,
                 minLength = resources.getInteger(R.integer.validation_min_name),
@@ -131,6 +182,10 @@ class OrderConfirmationActivity : BaseActivity(), View.OnClickListener {
             state = binding!!.idEditState.toString(),
             pinCode = binding!!.idEditPinCode.toString()
         )
+        model.address = UserStorage.instance.addressModel!!
+        model.mobileNumber = UserStorage.instance.mobileNumber
+        model.userName = binding!!.idEditName.toString()
+        model.email = binding!!.idEditEmail.toString()
         return true
     }
 

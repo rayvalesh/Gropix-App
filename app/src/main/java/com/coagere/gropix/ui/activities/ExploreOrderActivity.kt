@@ -1,8 +1,6 @@
 package com.coagere.gropix.ui.activities
 
-import android.app.Activity
 import android.os.Bundle
-import android.os.Handler
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
@@ -13,38 +11,32 @@ import com.coagere.gropix.R
 import com.coagere.gropix.databinding.ActivityExploreOrderBinding
 import com.coagere.gropix.jetpack.entities.ItemModel
 import com.coagere.gropix.jetpack.entities.OrderModel
-import com.coagere.gropix.jetpack.entities.PriceModel
 import com.coagere.gropix.jetpack.viewmodels.OrderVM
 import com.coagere.gropix.ui.adapters.BillingDetailsAdapter
+import com.coagere.gropix.utils.HelperLogout
+import com.coagere.gropix.utils.UtilityClass
 import com.tc.utils.elements.BaseActivity
 import com.tc.utils.utils.helpers.HelperActionBar
-import com.tc.utils.utils.helpers.JamunAlertDialog
 import com.tc.utils.utils.helpers.Utils
-import com.tc.utils.utils.utility.isNull
 import com.tc.utils.variables.abstracts.OnEventOccurListener
-import com.tc.utils.variables.interfaces.Constants
 import com.tc.utils.variables.interfaces.IntentInterface
 import kotlinx.android.synthetic.main.activity_explore_order.*
+import tk.jamun.ui.snacks.MySnackBar
 
 /**
  * @author Jatin Sahgal by 28-Sep-2020 13:54
  */
 class ExploreOrderActivity : BaseActivity(), View.OnClickListener {
     private var binding: ActivityExploreOrderBinding? = null
-    private var orderModel: OrderModel? = null
+    private lateinit var orderModel: OrderModel
     private val viewModel by lazy {
         ViewModelProvider(this).get(OrderVM::class.java)
     }
-    val modelList = arrayListOf(
-        ItemModel("Soap", "33", "4 KG"),
-        ItemModel("Cream", "33", "4 KG"),
-        ItemModel("Soft Drinks", "33", "4 KG"),
-    )
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityExploreOrderBinding.inflate(LayoutInflater.from(this))
-        orderModel = intent.getParcelableExtra(IntentInterface.INTENT_FOR_MODEL)
+        orderModel = intent.getParcelableExtra(IntentInterface.INTENT_FOR_MODEL)!!
         binding!!.apply {
             this.model = orderModel
             this.clickListener = this@ExploreOrderActivity
@@ -60,8 +52,14 @@ class ExploreOrderActivity : BaseActivity(), View.OnClickListener {
 
     override fun initializeRecyclerView() {
         super.initializeRecyclerView()
+        orderModel?.itemList = arrayOf(
+            ItemModel("1", "Soap", "33", "4", "33", 1, ""),
+            ItemModel("2", "Cream", "33", "4", "33", 2, ""),
+            ItemModel("3", "Soft Drinks", "33", "4", "33", 3, ""),
+        )
         binding!!.idRecyclerViewBills.layoutManager = LinearLayoutManager(this)
-        binding!!.idRecyclerViewBills.adapter = BillingDetailsAdapter(modelList)
+        binding!!.idRecyclerViewBills.adapter =
+            BillingDetailsAdapter(orderModel?.itemList!!.toMutableList())
     }
 
     override fun setToolbar() {
@@ -75,22 +73,31 @@ class ExploreOrderActivity : BaseActivity(), View.OnClickListener {
 
     override fun initializeViewModel() {
         super.initializeViewModel()
-        viewModel.getApiOrderItemList(orderModel!!, object : OnEventOccurListener() {
+        viewModel.getApiOrderDetails(orderModel, object : OnEventOccurListener() {
             override fun getEventData(`object`: Any?) {
                 super.getEventData(`object`)
+                orderModel = `object` as OrderModel
                 initializeBillingData()
             }
 
             override fun onErrorResponse(`object`: Any?, errorMessage: String?) {
                 super.onErrorResponse(`object`, errorMessage)
+                if (UtilityClass(this@ExploreOrderActivity).isUnAuthrized(`object`)) {
+                    HelperLogout.logMeOut(
+                        this@ExploreOrderActivity,
+                        object : OnEventOccurListener() {})
+                } else {
+                    MySnackBar.getInstance()
+                        .showSnackBarForMessage(this@ExploreOrderActivity, errorMessage)
+                }
             }
         })
     }
 
     private fun initializeBillingData() {
-        id_text_delivery_fee.text = orderModel!!.deliveryFee.toString()
+        id_text_delivery_fee.text = orderModel.deliveryFee
 //        binding!!.idTextBillAmount.text = orderModel!!.totalAmount.toString()
-        binding!!.idTextTotalAmount.text = String.format("%.2f", orderModel!!.totalAmount)
+        binding!!.idTextTotalAmount.text = orderModel.totalAmount
         initializeRecyclerView()
     }
 

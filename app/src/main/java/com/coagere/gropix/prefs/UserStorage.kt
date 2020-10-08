@@ -51,13 +51,13 @@ class UserStorage(context: Context) {
         set(value) {
             sharedPreferences.edit().putBoolean(SHARED_SUBSCRIPTION, value).apply()
         }
+
     val headerCredentials: ArrayList<ModelHeader>
         get() {
             val headerArrayList = ArrayList<ModelHeader>()
-            headerArrayList.add(ModelHeader("appkey", "3a3848c7-1327-4f2f-989a-3b52d3121477"))
             if (MyApplication.isLoggedIn) {
-                headerArrayList.add(ModelHeader("user", userId))
-                headerArrayList.add(ModelHeader("key", accessToken))
+                headerArrayList.add(ModelHeader("x-token", accessToken))
+                headerArrayList.add(ModelHeader("x-userUID", userId))
             }
             return headerArrayList
         }
@@ -97,7 +97,7 @@ class UserStorage(context: Context) {
             sharedPreferences.edit().putString(SHARED_USER_ID, value).apply()
         }
 
-    private var accessToken: String?
+    var accessToken: String?
         get() = sharedPreferences.getString(SHARED_TOKEN, null)
         set(value) {
             sharedPreferences.edit { putString(SHARED_TOKEN, value) }
@@ -134,7 +134,6 @@ class UserStorage(context: Context) {
         MyApplication.isLoggedIn = false
         MyApplication.instance.setAndRefreshVolleyHeaderCredentials()
     }
-
 
 
     fun getCompressions(): Int {

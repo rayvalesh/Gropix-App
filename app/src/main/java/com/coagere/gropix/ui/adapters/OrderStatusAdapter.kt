@@ -13,7 +13,6 @@ import com.tc.utils.variables.enums.ActionType
 import com.tc.utils.variables.interfaces.Constants
 
 class OrderStatusAdapter(
-    private val moduleType: Int,
     private val modelList: ArrayList<OrderModel>,
     private val listener: OnEventOccurListener
 ) :

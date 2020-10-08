@@ -15,8 +15,8 @@ interface Constants {
         const val VALUE_YES = 1
 
         const val MODULE_PENDING = 1
-        const val MODULE_CANCELLED = 2
-        const val MODULE_PLACED = 3
+        const val MODULE_CANCELLED = 6
+        const val MODULE_PLACED = 5
         const val MODULE_CART = 4
 
         const val CONSTANTS_IMAGES_COUNT = 8

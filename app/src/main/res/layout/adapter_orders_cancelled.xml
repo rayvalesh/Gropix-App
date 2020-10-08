@@ -35,8 +35,8 @@
             android:padding="@dimen/dimen_common_margin_more">
 
             <ImageView
-                downloadImage="@{model.image}"
                 android:layout_width="110dp"
+                downloadImage="@{model.images[0]}"
                 android:layout_height="match_parent"
                 android:contentDescription="@string/string_icon_desc_image"
                 android:scaleType="centerCrop"

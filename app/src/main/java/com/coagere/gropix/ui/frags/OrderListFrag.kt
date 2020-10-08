@@ -17,11 +17,11 @@ import com.coagere.gropix.jetpack.entities.OrderModel
 import com.coagere.gropix.jetpack.viewmodels.OrderVM
 import com.coagere.gropix.ui.activities.ExploreOrderActivity
 import com.coagere.gropix.ui.adapters.OrderStatusAdapter
+import com.coagere.gropix.utils.HelperLogout
 import com.coagere.gropix.utils.UtilityClass
 import com.tc.utils.elements.BaseFragment
 import com.tc.utils.variables.abstracts.OnEventOccurListener
 import com.tc.utils.variables.enums.ActionType
-import com.tc.utils.variables.interfaces.Constants
 import com.tc.utils.variables.interfaces.IntentInterface
 import tk.jamun.ui.snacks.MySnackBar
 
@@ -60,27 +60,18 @@ class OrderListFrag : BaseFragment() {
 
     override fun initializeView() {
         super.initializeView()
+
         modelList.add(
             OrderModel(
-                "1",
+                "2",
+                "Rahul",
+                "",
+                "",
                 "2020-12-11 11:11:11",
-                "https://cdn.vox-cdn.com/thumbor/wvdW8UyL2dIAsXrfwNBy3xKIGe4=/1400x1400/filters:format(jpeg)/cdn.vox-cdn.com/uploads/chorus_asset/file/19744155/Amazon_Go_Grocery_3.jpg",
-                10,
-                Constants.MODULE_PENDING,
-                20.0,
-                200.0,
-                AddressModel("Delhi", "Delhi", "Hariyana", "India", "1100110")
-            )
-        )
-        modelList.add(
-            OrderModel(
-                "3",
                 "2020-12-11 11:11:11",
-                "https://cdn.vox-cdn.com/thumbor/wvdW8UyL2dIAsXrfwNBy3xKIGe4=/1400x1400/filters:format(jpeg)/cdn.vox-cdn.com/uploads/chorus_asset/file/19744155/Amazon_Go_Grocery_3.jpg",
-                10,
-                Constants.MODULE_PLACED,
-                20.0,
-                200.0,
+                images = arrayListOf("https://cdn.vox-cdn.com/thumbor/wvdW8UyL2dIAsXrfwNBy3xKIGe4=/1400x1400/filters:format(jpeg)/cdn.vox-cdn.com/uploads/chorus_asset/file/19744155/Amazon_Go_Grocery_3.jpg"),
+                status = 1,
+                "200", "50", "250", "0",
                 AddressModel("Delhi", "Delhi", "Hariyana", "India", "1100110")
             )
         )
@@ -88,12 +79,29 @@ class OrderListFrag : BaseFragment() {
         modelList.add(
             OrderModel(
                 "2",
+                "Rahul",
+                "",
+                "",
                 "2020-12-11 11:11:11",
-                "https://cdn.vox-cdn.com/thumbor/wvdW8UyL2dIAsXrfwNBy3xKIGe4=/1400x1400/filters:format(jpeg)/cdn.vox-cdn.com/uploads/chorus_asset/file/19744155/Amazon_Go_Grocery_3.jpg",
-                10,
-                Constants.MODULE_CANCELLED,
-                20.0,
-                200.0,
+                "2020-12-11 11:11:11",
+                images = arrayListOf("https://cdn.vox-cdn.com/thumbor/wvdW8UyL2dIAsXrfwNBy3xKIGe4=/1400x1400/filters:format(jpeg)/cdn.vox-cdn.com/uploads/chorus_asset/file/19744155/Amazon_Go_Grocery_3.jpg"),
+                status = 2,
+                "200", "50", "250", "0",
+                AddressModel("Delhi", "Delhi", "Hariyana", "India", "1100110")
+            )
+        )
+
+        modelList.add(
+            OrderModel(
+                "2",
+                "Rahul",
+                "",
+                "",
+                "2020-12-11 11:11:11",
+                "2020-12-11 11:11:11",
+                images = arrayListOf("https://cdn.vox-cdn.com/thumbor/wvdW8UyL2dIAsXrfwNBy3xKIGe4=/1400x1400/filters:format(jpeg)/cdn.vox-cdn.com/uploads/chorus_asset/file/19744155/Amazon_Go_Grocery_3.jpg"),
+                status = 3,
+                "200", "50", "250", "0",
                 AddressModel("Delhi", "Delhi", "Hariyana", "India", "1100110")
             )
         )
@@ -102,8 +110,7 @@ class OrderListFrag : BaseFragment() {
 
     override fun initializeViewModel() {
         super.initializeViewModel()
-        viewModel.getApiOrderStatusList(
-            moduleType = moduleType,
+        viewModel.getApiOrderList(
             modelList = modelList,
             object : OnEventOccurListener() {
                 override fun getEventData(`object`: Any?) {
@@ -114,7 +121,14 @@ class OrderListFrag : BaseFragment() {
 
                 override fun onErrorResponse(`object`: Any?, errorMessage: String?) {
                     super.onErrorResponse(`object`, errorMessage)
-                    MySnackBar.getInstance().showSnackBarForMessage(requireActivity(), errorMessage)
+                    if (UtilityClass(requireActivity()).isUnAuthrized(`object`)) {
+                        HelperLogout.logMeOut(
+                            requireActivity(),
+                            object : OnEventOccurListener() {})
+                    } else {
+                        MySnackBar.getInstance()
+                            .showSnackBarForMessage(requireActivity(), errorMessage)
+                    }
                 }
             })
     }
@@ -123,7 +137,6 @@ class OrderListFrag : BaseFragment() {
         super.initializeRecyclerView()
         binding!!.idRecyclerView.layoutManager = LinearLayoutManager(requireContext())
         adapter = OrderStatusAdapter(
-            moduleType = moduleType,
             modelList = modelList,
             listener
         )

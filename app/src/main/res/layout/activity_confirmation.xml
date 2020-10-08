@@ -420,9 +420,7 @@
                         android:textSize="16sp"
                         android:textStyle="bold" />
 
-                    <include
-                        android:id="@+id/id_progress_bar_book"
-                        layout="@layout/include_vector_spinner_small" />
+                    <include layout="@layout/include_vector_spinner_small" />
 
                 </FrameLayout>
             </LinearLayout>
