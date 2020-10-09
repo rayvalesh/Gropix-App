@@ -8,19 +8,22 @@ import com.tc.utils.variables.interfaces.ApiKeys.Companion.URL_GET_ORDER_LIST
 import com.tc.utils.variables.interfaces.ApiKeys.Companion.URL_POST_CREATE_ORDER
 import org.json.JSONArray
 import org.json.JSONObject
+import tk.jamun.ui.snacks.L
+import tk.jamun.volley.classes.VolleyJsonArrayRequest
 import tk.jamun.volley.classes.VolleyJsonObjectRequest
 import tk.jamun.volley.helpers.VolleyNeeds
 import tk.jamun.volley.variables.VolleyResponses
 
 class OrderRepo {
     private var volleyJsonObjectRequest: VolleyJsonObjectRequest? = null
+    private var volleyJsonArrayRequest: VolleyJsonArrayRequest? = null
 
     fun apiGetOrderStatusList(
         modelList: ArrayList<OrderModel>,
         listener: OnEventOccurListener
     ) {
-        volleyJsonObjectRequest =
-            VolleyJsonObjectRequest(
+        volleyJsonArrayRequest =
+            VolleyJsonArrayRequest(
                 URL_GET_ORDER_LIST,
                 Array<OrderModel>::class.java,
                 object : VolleyResponses() {
@@ -35,18 +38,16 @@ class OrderRepo {
                         listener.onErrorResponse(statusCode, errorMessage)
                     }
                 })
-        VolleyNeeds.get().addCalls(volleyJsonObjectRequest!!)
+        VolleyNeeds.get().addCalls(volleyJsonArrayRequest!!)
     }
 
     fun apiCreateOrder(model: OrderModel, listener: OnEventOccurListener) {
         val jsonObject = JSONObject()
         val jsonObjectAddress = JSONObject()
         val jsonArray = JSONArray()
-
         for (image in model.images!!) {
             jsonArray.put(image)
         }
-
         jsonObjectAddress.put("addressLine", model.address.street)
         jsonObjectAddress.put("city", model.address.city)
         jsonObjectAddress.put("state", model.address.state)

@@ -6,13 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
-import android.widget.TextView
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.coagere.gropix.R
 import com.coagere.gropix.databinding.FragOrderListBinding
-import com.coagere.gropix.jetpack.entities.AddressModel
 import com.coagere.gropix.jetpack.entities.OrderModel
 import com.coagere.gropix.jetpack.viewmodels.OrderVM
 import com.coagere.gropix.ui.activities.ExploreOrderActivity
@@ -31,7 +29,12 @@ import tk.jamun.ui.snacks.MySnackBar
  */
 class OrderListFrag : BaseFragment() {
     private var binding: FragOrderListBinding? = null
-    private val utilityClass: UtilityClass by lazy {  UtilityClass(requireActivity(), requireView()) }
+    private val utilityClass: UtilityClass by lazy {
+        UtilityClass(
+            requireActivity(),
+            requireView()
+        )
+    }
     private val viewModel: OrderVM by lazy { ViewModelProvider(this).get(OrderVM::class.java) }
     private var modelList: ArrayList<OrderModel> = arrayListOf()
     private var adapter: OrderStatusAdapter = OrderStatusAdapter(
@@ -83,7 +86,7 @@ class OrderListFrag : BaseFragment() {
 
                 override fun onErrorResponse(`object`: Any?, errorMessage: String?) {
                     super.onErrorResponse(`object`, errorMessage)
-                    if (UtilityClass(requireActivity()).isUnAuthrized(`object`)) {
+                    if (utilityClass.isUnAuthrized(`object`)) {
                         HelperLogout.logMeOut(
                             requireActivity(),
                             object : OnEventOccurListener() {})
@@ -106,7 +109,7 @@ class OrderListFrag : BaseFragment() {
         super.initializeEmptyView(isEmpty)
         Utils.setVisibility(
             binding!!.root.findViewById<LinearLayout>(R.id.id_linear_inbox_empty),
-            !isEmpty
+            isEmpty
         )
     }
 

@@ -23,6 +23,7 @@ import com.tc.utils.elements.BaseActivity
 import com.tc.utils.utils.helpers.HelperActionBar
 import com.tc.utils.utils.helpers.JamunAlertDialog
 import com.tc.utils.utils.helpers.Utils
+import com.tc.utils.utils.utility.CheckConnection
 import com.tc.utils.variables.abstracts.OnEventOccurListener
 import com.tc.utils.variables.enums.ActionType
 import com.tc.utils.variables.interfaces.Constants
@@ -32,7 +33,7 @@ import tk.jamun.ui.snacks.MySnackBar
 class OrderConfirmationActivity : BaseActivity(), View.OnClickListener {
 
     private var binding: ActivityConfirmationBinding? = null
-    private var utilityClass: UtilityClass? = null
+    private val utilityClass: UtilityClass by lazy { UtilityClass(this) }
     private lateinit var imageFrag: ImagesAddFrag
     private lateinit var fileModels: ArrayList<FileModel>
     private var model: OrderModel = OrderModel()
@@ -49,8 +50,7 @@ class OrderConfirmationActivity : BaseActivity(), View.OnClickListener {
             executePendingBindings()
         }
         lifecycleScope.launchWhenCreated {
-            utilityClass = UtilityClass(this@OrderConfirmationActivity)
-            fileModels = intent.getParcelableArrayListExtra(IntentInterface.INTENT_FOR_MODEL)
+            fileModels = intent.getParcelableArrayListExtra(IntentInterface.INTENT_FOR_MODEL)!!
             setToolbar()
             setContentView(binding!!.root)
             initializeView()
@@ -71,8 +71,8 @@ class OrderConfirmationActivity : BaseActivity(), View.OnClickListener {
 
     override fun initializeView() {
         super.initializeView()
-        binding!!.idEditCity.setAdapter(utilityClass!!.setAdapter(GetData.getCitiesName()))
-        binding!!.idEditState.setAdapter(utilityClass!!.setAdapter(GetData.getStateName()))
+        binding!!.idEditCity.setAdapter(utilityClass.setAdapter(GetData.getCitiesName()))
+        binding!!.idEditState.setAdapter(utilityClass.setAdapter(GetData.getStateName()))
     }
 
     override fun initializeFragsView() {
@@ -104,23 +104,24 @@ class OrderConfirmationActivity : BaseActivity(), View.OnClickListener {
     }
 
     private fun onClickSubmit() {
-        if (validate()) {
-            utilityClass!!.startProgressBar()
+        utilityClass.hideSoftKeyboard()
+        if (validate() && CheckConnection.checkConnection(this)) {
+//            utilityClass.startProgressBar()
             viewModel.performCreateOrder(model, object : OnEventOccurListener() {
                 override fun getEventData(`object`: Any?) {
                     super.getEventData(`object`)
-                    utilityClass!!.closeProgressBar()
+//                    utilityClass.closeProgressBar()
                     finish()
                 }
 
                 override fun onErrorResponse(`object`: Any?, errorMessage: String?) {
                     super.onErrorResponse(`object`, errorMessage)
-                    if (utilityClass!!.isUnAuthrized(`object`)) {
+                    if (utilityClass.isUnAuthrized(`object`)) {
                         HelperLogout.logMeOut(
                             this@OrderConfirmationActivity,
                             object : OnEventOccurListener() {})
                     } else {
-                        utilityClass!!.closeProgressBar()
+//                        utilityClass.closeProgressBar()
                         MySnackBar.getInstance()
                             .showSnackBarForMessage(
                                 this@OrderConfirmationActivity,

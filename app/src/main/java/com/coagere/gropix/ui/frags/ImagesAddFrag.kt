@@ -1,6 +1,5 @@
 package com.coagere.gropix.ui.frags
 
-import UploadPhotoAsync
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -12,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.coagere.gropix.databinding.FragImagesAddBinding
 import com.coagere.gropix.jetpack.entities.FileModel
+import com.coagere.gropix.services.post.UploadPhotoAsync
 import com.coagere.gropix.ui.activities.ViewImageActivity
 import com.coagere.gropix.ui.adapters.ImageAdapter
 import com.coagere.gropix.utils.UtilityClass
@@ -66,7 +66,7 @@ class ImagesAddFrag : BaseFragment(), ServiceReceiver.Receiver {
             override fun getEventData(`object`: Any, actionType: ActionType, adapterPosition: Int) {
                 super.getEventData(`object`, actionType, adapterPosition)
                 val fileModel = `object` as FileModel
-                bundle!!.putExtra(IntentInterface.INTENT_FOR_POSITION, adapterPosition)
+                bundle?.putExtra(IntentInterface.INTENT_FOR_POSITION, adapterPosition)
                 when (actionType) {
                     ActionType.ACTION_CANCEL -> if (UploadPhotoAsync.isRunning) {
                         bundle!!.putExtra(
@@ -115,7 +115,7 @@ class ImagesAddFrag : BaseFragment(), ServiceReceiver.Receiver {
             }
             adapter?.notifyAdapterItemInserted()
             recyclerView?.scrollToPosition(modelList.size)
-//            UploadPhotoAsync.start(requireContext(), modelList, resultReceiver)
+            UploadPhotoAsync.start(requireContext(), modelList, resultReceiver)
         }
     }
 

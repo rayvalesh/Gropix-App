@@ -49,6 +49,7 @@ data class OrderModel(
     @SerializedName("itemList")
     var itemList: Array<ItemModel> = emptyArray(),
 
+    @Exclude
     var fileModels: Array<FileModel> = emptyArray(),
 
     ) : Parcelable {

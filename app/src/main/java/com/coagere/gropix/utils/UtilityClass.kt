@@ -107,11 +107,9 @@ class UtilityClass(private val activity: Activity, private val view: View? = nul
     }
 
     fun startProgressBarById(id: Int): AppCompatImageView {
-        appCompatImageViewProgress = if (isNotNull(view)) {
+        appCompatImageViewProgress = (if (isNotNull(view)) {
             view!!.findViewById(id)
-        } else {
-            activity.findViewById(id)
-        }
+        } else activity.findViewById(id))
         appCompatImageViewProgress!!.visibility = View.VISIBLE
         appCompatImageViewProgress!!.setImageResource(R.drawable.avd_progress_bar)
         swapAnimation(appCompatImageViewProgress!!)

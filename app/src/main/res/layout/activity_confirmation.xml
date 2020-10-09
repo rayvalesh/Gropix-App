@@ -413,6 +413,7 @@
                         android:layout_gravity="end|center"
                         android:layout_margin="@dimen/dimen_common_margin_more"
                         android:background="@drawable/button_background_positive_white"
+                        android:onClick="@{clickListener}"
                         android:paddingLeft="@dimen/dimen_common_margin_large"
                         android:paddingRight="@dimen/dimen_common_margin_large"
                         android:text="@string/string_button_name_submit"
@@ -420,8 +421,15 @@
                         android:textSize="16sp"
                         android:textStyle="bold" />
 
-                    <include layout="@layout/include_vector_spinner_small" />
-
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/id_progress_bar"
+                        android:layout_width="@dimen/dimen_progress_bar_very_small"
+                        android:layout_height="@dimen/dimen_progress_bar_very_small"
+                        android:layout_gravity="center"
+                        android:clickable="false"
+                        android:contentDescription="@string/app_name"
+                        android:focusable="false"
+                        android:tint="@color/colorPrimaryDark" />
                 </FrameLayout>
             </LinearLayout>
 

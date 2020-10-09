@@ -94,6 +94,8 @@
             android:theme="@style/DragDismissTheme" />
 
         <service android:name=".services.get.MyFirebaseMessagingService" />
+
+        <service android:name=".services.post.UploadPhotoAsync" />
     </application>
 
 </manifest>

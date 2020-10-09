@@ -1,3 +1,5 @@
+package com.coagere.gropix.services.post
+
 import android.app.IntentService
 import android.content.BroadcastReceiver
 import android.content.Context
@@ -15,10 +17,7 @@ import com.tc.utils.utils.utility.isNullAndEmpty
 import com.tc.utils.variables.interfaces.ApiKeys
 import com.tc.utils.variables.interfaces.BroadcastKeys
 import com.tc.utils.variables.interfaces.Constants
-import com.tc.utils.variables.interfaces.Constants.Companion.RESPONSE_PENDING
-import com.tc.utils.variables.interfaces.Constants.Companion.RESPONSE_SUCCESS
 import com.tc.utils.variables.interfaces.IntentInterface
-import com.tc.utils.variables.interfaces.IntentInterface.INTENT_FOR_RECEIVER
 import org.json.JSONException
 import org.json.JSONObject
 import tk.jamun.ui.snacks.L
@@ -46,7 +45,7 @@ class UploadPhotoAsync : IntentService(UploadPhotoAsync::class.java.simpleName) 
                         modelList!!.add(fileModel)
                     } else {
                         if (modelList!!.size > removedIndex) {
-                            modelList!![removedIndex]?.actionType = Constants.TYPE_ACTION_UPLOAD
+                            modelList!![removedIndex]?.actionType = (Constants.TYPE_ACTION_UPLOAD)
                             if (currentIndex == removedIndex) {
                                 connection!!.disconnect()
                             }
@@ -64,7 +63,7 @@ class UploadPhotoAsync : IntentService(UploadPhotoAsync::class.java.simpleName) 
                 broadcastReceiver,
                 IntentFilter(BroadcastKeys.BROADCAST_RECEIVER_FOR_FEED_SERVICE)
             )
-            resultReceiver = intent!!.getParcelableExtra(INTENT_FOR_RECEIVER)
+            resultReceiver = intent!!.getParcelableExtra(IntentInterface.INTENT_FOR_RECEIVER)
             bundle = Bundle()
             performOperation()
         }
@@ -72,16 +71,16 @@ class UploadPhotoAsync : IntentService(UploadPhotoAsync::class.java.simpleName) 
 
     private fun performOperation() {
         if (!isNullAndEmpty(modelList)) {
-            val modelListClear: ArrayList<FileModel?> = ArrayList<FileModel?>(modelList!!)
-            for ((index, fileModel) in modelListClear.withIndex()) {
-                if (fileModel?.actionType === Constants.TYPE_ACTION_CANCEL) {
-                    if (File(fileModel?.fileUrl).exists()) {
-                        postFileByApi(fileModel!!, index)
+            val modelListClear: ArrayList<FileModel>? = ArrayList<FileModel>(modelList!!)
+            for ((index, fileModel) in modelListClear!!.withIndex()) {
+                if (fileModel.actionType == Constants.TYPE_ACTION_CANCEL) {
+                    if (File(fileModel.fileUrl!!).exists()) {
+                        postFileByApi(fileModel, index)
                     } else {
                         fileModel.progress = 0
-                        fileModel.actionType = Constants.TYPE_ACTION_UPLOAD
+                        fileModel.actionType = (Constants.TYPE_ACTION_UPLOAD)
                         bundle!!.putParcelable(IntentInterface.INTENT_FOR_MODEL, fileModel)
-                        resultReceiver!!.send(RESPONSE_PENDING, bundle)
+                        resultReceiver!!.send(Constants.RESPONSE_PENDING, bundle)
                     }
                 }
                 try {
@@ -92,26 +91,26 @@ class UploadPhotoAsync : IntentService(UploadPhotoAsync::class.java.simpleName) 
             modelList!!.removeAll(modelListClear)
             performOperation()
         } else {
-            resultReceiver!!.send(RESPONSE_SUCCESS, bundle)
+            resultReceiver!!.send(Constants.RESPONSE_SUCCESS, bundle)
         }
         removedIndex = -1
     }
 
     private fun postFileByApi(fileModel: FileModel, index: Int) {
         currentIndex = index
-        val response = uploadFile(File(fileModel.fileUrl), fileModel, index)
+        val response = uploadFile(File(fileModel.fileUrl!!), fileModel, index)
         if (isNotNull(response)) {
             try {
-                val jsonObject = JSONObject(response)
-                if (ParseJson.instance.dataCheck(jsonObject, "url")) {
-                    fileModel.progress = 0
-                    fileModel.actionType = 0
-                    fileModel.progressData = null
-                    fileModel.downloadUrl = jsonObject.getString("url")
+                val jsonObject = JSONObject(response!!)
+                if (ParseJson.instance.dataCheck(jsonObject, "orderFilePath")) {
+                    fileModel.progress = (0)
+                    fileModel.actionType = (0)
+                    fileModel.progressData = (null)
+                    fileModel.downloadUrl = (jsonObject.getString("orderFilePath"))
                     if (index != removedIndex) {
-                        bundle!!.putParcelable(IntentInterface.INTENT_FOR_MODEL, fileModel)
-                        bundle!!.putInt(IntentInterface.INTENT_FOR_POSITION, index)
-                        resultReceiver!!.send(RESPONSE_PENDING, bundle)
+                        bundle?.putParcelable(IntentInterface.INTENT_FOR_MODEL, fileModel)
+                        bundle?.putInt(IntentInterface.INTENT_FOR_POSITION, index)
+                        resultReceiver?.send(Constants.RESPONSE_PENDING, bundle)
                     }
                     return
                 }
@@ -119,10 +118,10 @@ class UploadPhotoAsync : IntentService(UploadPhotoAsync::class.java.simpleName) 
                 L.logE(e.message)
             }
         }
-        fileModel.progress = 0
-        fileModel.actionType = Constants.TYPE_ACTION_UPLOAD
+        fileModel.progress = (0)
+        fileModel.actionType = (Constants.TYPE_ACTION_UPLOAD)
         bundle!!.putParcelable(IntentInterface.INTENT_FOR_MODEL, fileModel)
-        resultReceiver!!.send(RESPONSE_PENDING, bundle)
+        resultReceiver!!.send(Constants.RESPONSE_PENDING, bundle)
     }
 
     private fun uploadFile(sourceFile: File, fileModel: FileModel, index: Int): String? {
@@ -148,7 +147,7 @@ class UploadPhotoAsync : IntentService(UploadPhotoAsync::class.java.simpleName) 
                 $lineEnd
                 """.trimIndent()
             val fileLength = sourceFile.length() + tail.length
-            val tag: String = "img"
+            val tag = "file"
             val stringData = """
                 $metadataPart--$boundary${lineEnd}Content-Disposition: form-data; name=$tag; filename="${sourceFile.name}"
                 Content-Type: application/octet-stream${lineEnd}Content-Transfer-Encoding: binary${lineEnd}Content-length: $fileLength$lineEnd$lineEnd
@@ -182,9 +181,9 @@ class UploadPhotoAsync : IntentService(UploadPhotoAsync::class.java.simpleName) 
                             fileModel
                         )
                         fileModel.actionType = (Constants.TYPE_ACTION_CANCEL)
-                        bundle!!.putParcelable(IntentInterface.INTENT_FOR_MODEL, fileModel)
-                        bundle!!.putInt(IntentInterface.INTENT_FOR_POSITION, index)
-                        resultReceiver!!.send(RESPONSE_PENDING, bundle)
+                        bundle?.putParcelable(IntentInterface.INTENT_FOR_MODEL, fileModel)
+                        bundle?.putInt(IntentInterface.INTENT_FOR_POSITION, index)
+                        resultReceiver?.send(Constants.RESPONSE_PENDING, bundle)
                         delayAfterCount = 0
                         maintainTotal = total.toLong()
                     }
@@ -274,8 +273,7 @@ class UploadPhotoAsync : IntentService(UploadPhotoAsync::class.java.simpleName) 
                 intent = Intent(
                     Intent.ACTION_SYNC, null, context,
                     UploadPhotoAsync::class.java
-                )
-                    .putExtra(INTENT_FOR_RECEIVER, resultReceiver)
+                ).putExtra(IntentInterface.INTENT_FOR_RECEIVER, resultReceiver)
                     .putParcelableArrayListExtra(
                         IntentInterface.INTENT_FOR_MODEL_LIST,
                         fileModelArrayList

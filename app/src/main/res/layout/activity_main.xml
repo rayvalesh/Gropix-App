@@ -135,7 +135,7 @@
                 android:id="@+id/id_frag"
                 android:name="com.coagere.gropix.ui.frags.OrderListFrag"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:tag="list"
                 tools:layout="@layout/frag_order_list" />
 
