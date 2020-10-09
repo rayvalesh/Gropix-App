@@ -33,7 +33,7 @@ class UploadPhotoAsync : IntentService(UploadPhotoAsync::class.java.simpleName) 
     private var bundle: Bundle? = null
     private var currentIndex = 0
     private var removedIndex = -1
-    var broadcastReceiver: BroadcastReceiver = object : BroadcastReceiver() {
+    private var broadcastReceiver: BroadcastReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent) {
             AsyncTask.execute {
                 if (isNotNull(intent)) {
@@ -91,7 +91,7 @@ class UploadPhotoAsync : IntentService(UploadPhotoAsync::class.java.simpleName) 
             modelList!!.removeAll(modelListClear)
             performOperation()
         } else {
-            resultReceiver!!.send(Constants.RESPONSE_SUCCESS, bundle)
+            resultReceiver?.send(Constants.RESPONSE_SUCCESS, bundle)
         }
         removedIndex = -1
     }

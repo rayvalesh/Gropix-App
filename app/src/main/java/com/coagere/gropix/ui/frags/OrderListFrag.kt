@@ -29,6 +29,7 @@ import tk.jamun.ui.snacks.MySnackBar
  */
 class OrderListFrag : BaseFragment() {
     private var binding: FragOrderListBinding? = null
+    private var parentListener: OnEventOccurListener? = null
     private val utilityClass: UtilityClass by lazy {
         UtilityClass(
             requireActivity(),
@@ -67,7 +68,6 @@ class OrderListFrag : BaseFragment() {
             lifecycleScope.launchWhenCreated {
                 initializeViewModel()
                 initializeRecyclerView()
-
             }
         }
         return binding!!.root
@@ -111,6 +111,11 @@ class OrderListFrag : BaseFragment() {
             binding!!.root.findViewById<LinearLayout>(R.id.id_linear_inbox_empty),
             isEmpty
         )
+        parentListener?.getEventData(isEmpty)
+    }
+
+    fun bindListener(listener: OnEventOccurListener) {
+        parentListener = listener
     }
 
     companion object {

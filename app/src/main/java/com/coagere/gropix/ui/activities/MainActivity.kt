@@ -55,9 +55,8 @@ class MainActivity : BaseActivity(), View.OnClickListener {
             setContentView(R.layout.activity_main)
             initializeViewModel()
             initializeListeners()
-            initializeTabView()
             setToolbar()
-            initializeSheet()
+            initializeFragsView()
         }
     }
 
@@ -81,27 +80,18 @@ class MainActivity : BaseActivity(), View.OnClickListener {
             })
     }
 
-    override fun initializeTabView() {
-//        id_view_pager.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(id_tab_layout))
-//        managerPagerAdapter = ManagerAdapter(supportFragmentManager)
-//        id_view_pager.adapter = managerPagerAdapter
-//        id_tab_layout.animatedIndicator = CustomTabIndicator(id_tab_layout)
-//        id_tab_layout.setupWithViewPager(id_view_pager)
-//        id_view_pager.offscreenPageLimit = 1
-//        id_view_pager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
-//            override fun onPageScrolled(
-//                position: Int,
-//                positionOffset: Float,
-//                positionOffsetPixels: Int
-//            ) {
-//
-//            }
-//
-//            override fun onPageSelected(position: Int) {
-//            }
-//
-//            override fun onPageScrollStateChanged(state: Int) {}
-//        })
+    override fun initializeFragsView() {
+        super.initializeFragsView()
+        val frag = supportFragmentManager.findFragmentById(R.id.id_frag) as OrderListFrag
+        Handler().postDelayed({
+            frag.bindListener(object : OnEventOccurListener() {
+                override fun getEventData(`object`: Any?) {
+                    super.getEventData(`object`)
+                    Utils.setVisibility(id_parent_my_order, !(`object` as Boolean))
+                    Utils.setVisibility(findViewById(R.id.id_view_shadow), !`object`)
+                }
+            })
+        }, 100)
     }
 
     override fun initializeListeners() {

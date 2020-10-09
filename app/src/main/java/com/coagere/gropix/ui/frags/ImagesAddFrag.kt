@@ -2,6 +2,7 @@ package com.coagere.gropix.ui.frags
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -44,6 +45,7 @@ class ImagesAddFrag : BaseFragment(), ServiceReceiver.Receiver {
     ): View? {
         if (binding == null) {
             binding = FragImagesAddBinding.inflate(inflater, container, false)
+            resultReceiver = ServiceReceiver(Handler(), this)
             lifecycleScope.launchWhenCreated {
                 initializeRecyclerView()
             }
@@ -60,7 +62,8 @@ class ImagesAddFrag : BaseFragment(), ServiceReceiver.Receiver {
         adapter = ImageAdapter(modelList, object : OnEventOccurListener() {
             override fun getEventData(`object`: Any) {
                 super.getEventData(`object`)
-                if (isNotNull(listeners)) listeners!!.getEventData(`object`)
+                ViewImageActivity.launch(requireActivity(), arrayOf(`object` as String))
+//                if (isNotNull(listeners)) listeners!!.getEventData(`object`)
             }
 
             override fun getEventData(`object`: Any, actionType: ActionType, adapterPosition: Int) {

@@ -11,10 +11,12 @@
         android:id="@+id/id_image"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:clickable="true"
         android:contentDescription="@string/string_icon_desc_image"
+        android:focusable="true"
         android:maxHeight="@dimen/dimen_message_image_size"
         android:minHeight="@dimen/dimen_message_image_min_size"
-        android:scaleType="centerCrop"/>
+        android:scaleType="centerCrop" />
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -71,8 +73,8 @@
                 android:layout_gravity="center"
                 android:background="@drawable/button_background_transparent"
                 android:padding="@dimen/dimen_common_margin_small"
-                android:visibility="gone"
                 android:tint="@color/colorWhite"
+                android:visibility="gone"
                 app:srcCompat="@drawable/icon_vd_delete" />
 
         </LinearLayout>

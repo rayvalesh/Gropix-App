@@ -52,14 +52,8 @@ class ExploreOrderActivity : BaseActivity(), View.OnClickListener {
 
     override fun initializeRecyclerView() {
         super.initializeRecyclerView()
-        orderModel?.itemList = arrayOf(
-            ItemModel("1", "Soap", "33", "4", "33", 1, ""),
-            ItemModel("2", "Cream", "33", "4", "33", 2, ""),
-            ItemModel("3", "Soft Drinks", "33", "4", "33", 3, ""),
-        )
         binding!!.idRecyclerViewBills.layoutManager = LinearLayoutManager(this)
-        binding!!.idRecyclerViewBills.adapter =
-            BillingDetailsAdapter(orderModel?.itemList!!.toMutableList())
+        binding!!.idRecyclerViewBills.adapter = BillingDetailsAdapter(orderModel.itemList.toMutableList())
     }
 
     override fun setToolbar() {
