@@ -16,10 +16,7 @@ import com.coagere.gropix.jetpack.entities.FileModel
 import com.coagere.gropix.ui.frags.OrderListFrag
 import com.coagere.gropix.ui.popups.Popups
 import com.coagere.gropix.ui.sheets.ChooserSheet
-import com.coagere.gropix.utils.CheckOs
-import com.coagere.gropix.utils.HelperFileFormat
-import com.coagere.gropix.utils.ShareData
-import com.coagere.gropix.utils.UtilityClass
+import com.coagere.gropix.utils.*
 import com.tc.utils.elements.BaseActivity
 import com.tc.utils.utils.helpers.HelperActionBar
 import com.tc.utils.utils.helpers.HelperIntent
@@ -227,7 +224,20 @@ class MainActivity : BaseActivity(), View.OnClickListener {
                             .setPositiveButton(
                                 R.string.string_label_logout
                             ) {
-                                it.dismiss()
+                                HelperLogout.logMeOut(this@MainActivity,
+                                    object : OnEventOccurListener() {
+                                        override fun getEventData(`object`: Any?) {
+                                            super.getEventData(`object`)
+                                            it.dismiss()
+                                            startActivity(
+                                                Intent(
+                                                    this@MainActivity,
+                                                    AccessAccountActivity::class.java
+                                                )
+                                            )
+                                            finish()
+                                        }
+                                    })
                             }.setAutoNegativeButton(R.string.string_button_name_no)
                             .setAutoCancelable()
                             .show()
