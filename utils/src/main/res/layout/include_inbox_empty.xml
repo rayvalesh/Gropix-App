@@ -4,33 +4,24 @@
     android:id="@+id/id_linear_inbox_empty"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginTop="@dimen/dimen_common_margin_extra_large"
-    android:layout_marginBottom="@dimen/dimen_common_margin_extra_large"
+    android:background="@color/colorWhite"
     android:gravity="center"
-    android:orientation="vertical"
     android:visibility="gone"
+    android:orientation="vertical"
     app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
-    <androidx.appcompat.widget.AppCompatImageView
-        android:layout_width="@dimen/dimen_inbox_image"
-        android:layout_height="@dimen/dimen_inbox_image"
-        android:layout_gravity="center"
-        android:layout_marginBottom="@dimen/dimen_common_margin_large"
-        android:visibility="gone"
-        app:srcCompat="@drawable/image_vd_inbox" />
 
     <TextView
-        android:layout_width="300dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:gravity="center"
         android:lineSpacingExtra="2dp"
         android:padding="@dimen/dimen_common_margin"
-        android:text="@string/string_message_inbox_empty"
+        android:text="Create your First Order"
         android:textColor="@color/colorTextPrimary"
-        android:textSize="@dimen/dimen_common_text_size_very_large"
-        android:textStyle="bold"
-        android:visibility="gone" />
+        android:textSize="@dimen/dimen_common_text_size_very_very_large"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/id_text_inbox_description"
@@ -41,22 +32,7 @@
         android:lineSpacingExtra="2dp"
         android:paddingLeft="@dimen/dimen_common_margin_less_more"
         android:paddingRight="@dimen/dimen_common_margin_less_more"
-        android:text="@string/string_message_inbox_empty_description"
+        android:text="Click on 'Create Order' and upload a picture of your Grocery List"
         android:textColor="@color/colorTextPrimary"
-        android:textSize="@dimen/dimen_common_text_size_large" />
-
-    <Button
-        android:id="@+id/id_button_inbox"
-        android:layout_width="wrap_content"
-        android:layout_height="@dimen/dimen_button_height_medium"
-        android:layout_marginTop="@dimen/dimen_common_margin_large"
-        android:layout_marginBottom="@dimen/dimen_common_margin_extra_large"
-        android:background="@drawable/button_background_positive"
-        android:paddingLeft="@dimen/dimen_common_margin_very_large"
-        android:paddingRight="@dimen/dimen_common_margin_very_large"
-        android:text="@string/string_button_name_try_again"
-        android:textColor="@color/colorPrimaryDark"
-        android:textSize="@dimen/dimen_button_text_size"
-        android:visibility="gone" />
-
+        android:textSize="@dimen/dimen_common_text_size_med_large" />
 </LinearLayout>

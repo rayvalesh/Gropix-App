@@ -60,7 +60,7 @@
                         android:contentDescription="@string/app_name"
                         android:scaleType="centerCrop"
                         android:tint="@color/colorBlack"
-                        app:srcCompat="@drawable/image_logo_name" />
+                        app:srcCompat="@drawable/image_logo_app_name" />
 
                     <View
                         android:layout_width="0dp"
@@ -127,9 +127,9 @@
         </LinearLayout>
 
         <FrameLayout
-            android:background="@color/colorLayoutBackground"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="@color/colorLayoutBackground">
 
             <fragment
                 android:id="@+id/id_frag"
@@ -303,10 +303,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|center"
-        android:layout_margin="@dimen/dimen_common_margin_large"
+        android:layout_margin="@dimen/dimen_common_margin_very_large"
         app:cardBackgroundColor="@color/colorPrimary"
         app:cardCornerRadius="22dp"
-        app:cardElevation="4dp">
+        app:cardElevation="6dp">
 
         <LinearLayout
             android:id="@+id/id_parent_button"

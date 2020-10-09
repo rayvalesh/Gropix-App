@@ -20,6 +20,7 @@ import com.coagere.gropix.ui.adapters.OrderStatusAdapter
 import com.coagere.gropix.utils.HelperLogout
 import com.coagere.gropix.utils.UtilityClass
 import com.tc.utils.elements.BaseFragment
+import com.tc.utils.utils.helpers.Utils
 import com.tc.utils.variables.abstracts.OnEventOccurListener
 import com.tc.utils.variables.enums.ActionType
 import com.tc.utils.variables.interfaces.IntentInterface
@@ -30,11 +31,24 @@ import tk.jamun.ui.snacks.MySnackBar
  */
 class OrderListFrag : BaseFragment() {
     private var binding: FragOrderListBinding? = null
-    private var utilityClass: UtilityClass? = null
+    private val utilityClass: UtilityClass by lazy {  UtilityClass(requireActivity(), requireView()) }
     private val viewModel: OrderVM by lazy { ViewModelProvider(this).get(OrderVM::class.java) }
-    private var adapter: OrderStatusAdapter? = null
-    private var moduleType: Int = 0
     private var modelList: ArrayList<OrderModel> = arrayListOf()
+    private var adapter: OrderStatusAdapter = OrderStatusAdapter(
+        modelList = modelList, object : OnEventOccurListener() {
+            override fun getEventData(
+                `object`: Any?,
+                actionType: ActionType?,
+                adapterPosition: Int
+            ) {
+                super.getEventData(`object`, actionType, adapterPosition)
+                startActivity(
+                    Intent(requireActivity(), ExploreOrderActivity::class.java)
+                        .putExtra(IntentInterface.INTENT_FOR_MODEL, `object` as OrderModel)
+                )
+            }
+        }
+    )
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -48,64 +62,12 @@ class OrderListFrag : BaseFragment() {
                 false
             )
             lifecycleScope.launchWhenCreated {
-                utilityClass = UtilityClass(requireActivity())
-                initializeView()
                 initializeViewModel()
                 initializeRecyclerView()
 
             }
         }
         return binding!!.root
-    }
-
-    override fun initializeView() {
-        super.initializeView()
-
-        modelList.add(
-            OrderModel(
-                "2",
-                "Rahul",
-                "",
-                "",
-                "2020-12-11 11:11:11",
-                "2020-12-11 11:11:11",
-                images = arrayListOf("https://cdn.vox-cdn.com/thumbor/wvdW8UyL2dIAsXrfwNBy3xKIGe4=/1400x1400/filters:format(jpeg)/cdn.vox-cdn.com/uploads/chorus_asset/file/19744155/Amazon_Go_Grocery_3.jpg"),
-                status = 1,
-                "200", "50", "250", "0",
-                AddressModel("Delhi", "Delhi", "Hariyana", "India", "1100110")
-            )
-        )
-
-        modelList.add(
-            OrderModel(
-                "2",
-                "Rahul",
-                "",
-                "",
-                "2020-12-11 11:11:11",
-                "2020-12-11 11:11:11",
-                images = arrayListOf("https://cdn.vox-cdn.com/thumbor/wvdW8UyL2dIAsXrfwNBy3xKIGe4=/1400x1400/filters:format(jpeg)/cdn.vox-cdn.com/uploads/chorus_asset/file/19744155/Amazon_Go_Grocery_3.jpg"),
-                status = 2,
-                "200", "50", "250", "0",
-                AddressModel("Delhi", "Delhi", "Hariyana", "India", "1100110")
-            )
-        )
-
-        modelList.add(
-            OrderModel(
-                "2",
-                "Rahul",
-                "",
-                "",
-                "2020-12-11 11:11:11",
-                "2020-12-11 11:11:11",
-                images = arrayListOf("https://cdn.vox-cdn.com/thumbor/wvdW8UyL2dIAsXrfwNBy3xKIGe4=/1400x1400/filters:format(jpeg)/cdn.vox-cdn.com/uploads/chorus_asset/file/19744155/Amazon_Go_Grocery_3.jpg"),
-                status = 3,
-                "200", "50", "250", "0",
-                AddressModel("Delhi", "Delhi", "Hariyana", "India", "1100110")
-            )
-        )
-
     }
 
     override fun initializeViewModel() {
@@ -115,7 +77,7 @@ class OrderListFrag : BaseFragment() {
             object : OnEventOccurListener() {
                 override fun getEventData(`object`: Any?) {
                     super.getEventData(`object`)
-                    adapter?.notifyAdapterDataSetChanged()
+                    adapter.notifyAdapterDataSetChanged()
                     initializeEmptyView(modelList.isNullOrEmpty())
                 }
 
@@ -136,35 +98,16 @@ class OrderListFrag : BaseFragment() {
     override fun initializeRecyclerView() {
         super.initializeRecyclerView()
         binding!!.idRecyclerView.layoutManager = LinearLayoutManager(requireContext())
-        adapter = OrderStatusAdapter(
-            modelList = modelList,
-            listener
-        )
         binding!!.idRecyclerView.adapter = adapter
-        adapter!!.notifyAdapterDataSetChanged()
     }
 
-    private var listener = object : OnEventOccurListener() {
-        override fun getEventData(
-            `object`: Any?,
-            actionType: ActionType?,
-            adapterPosition: Int
-        ) {
-            super.getEventData(`object`, actionType, adapterPosition)
-            startActivity(
-                Intent(requireActivity(), ExploreOrderActivity::class.java)
-                    .putExtra(IntentInterface.INTENT_FOR_MODEL, `object` as OrderModel)
-            )
-        }
-    }
 
     override fun initializeEmptyView(isEmpty: Boolean) {
         super.initializeEmptyView(isEmpty)
-        binding!!.root.findViewById<LinearLayout>(R.id.id_linear_inbox_empty).visibility =
-            if (isEmpty) View.VISIBLE else
-                View.GONE
-        binding!!.root.findViewById<TextView>(R.id.id_text_inbox_description).text =
-            "What is stopping you? Click on button Capture Your Shopping List"
+        Utils.setVisibility(
+            binding!!.root.findViewById<LinearLayout>(R.id.id_linear_inbox_empty),
+            !isEmpty
+        )
     }
 
     companion object {
@@ -176,5 +119,4 @@ class OrderListFrag : BaseFragment() {
             return frag
         }
     }
-
 }
