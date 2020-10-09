@@ -74,6 +74,7 @@ class OrderConfirmationActivity : BaseActivity(), View.OnClickListener {
         super.initializeView()
         binding!!.idEditCity.setAdapter(utilityClass.setAdapter(GetData.getCitiesName()))
         binding!!.idEditState.setAdapter(utilityClass.setAdapter(GetData.getStateName()))
+        binding!!.idEditPinCode.setAdapter(utilityClass.setAdapter(GetData.getPinCode()))
     }
 
     override fun initializeFragsView() {

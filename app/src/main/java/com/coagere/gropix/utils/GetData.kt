@@ -78,4 +78,15 @@ object GetData {
         view.visibility = if (isVisible) View.VISIBLE else View.GONE
     }
 
+    fun getPinCode(): Array<String> {
+        return arrayOf(
+            "110010",
+            "120011",
+            "130011",
+            "123432",
+            "100001",
+            "122222"
+        )
+    }
+
 }

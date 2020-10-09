@@ -316,7 +316,7 @@
                         android:textColor="@color/colorTextPrimaryLight"
                         android:textSize="@dimen/dimen_edit_text_title_size" />
 
-                    <EditText
+                    <AutoCompleteTextView
                         android:id="@+id/id_edit_pin_code"
                         style="@style/EditTextStyle"
                         android:layout_width="match_parent"
@@ -325,9 +325,9 @@
                         android:layout_marginBottom="@dimen/dimen_app_bar_height"
                         android:background="@drawable/drawable_edit_text"
                         android:hint="Enter pincode"
-                        android:imeOptions="actionNext"
+                        android:imeOptions="actionDone"
                         android:importantForAutofill="no"
-                        android:inputType="textCapWords"
+                        android:inputType="number"
                         android:maxLines="1"
                         android:minLines="1"
                         android:paddingStart="@dimen/dimen_edit_text_padding_small"
