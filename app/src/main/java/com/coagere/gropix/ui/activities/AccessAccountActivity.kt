@@ -37,11 +37,9 @@ class AccessAccountActivity : BaseActivity(), View.OnClickListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        if (binding == null) {
-            binding = ActivityAccessAccountBinding.inflate(LayoutInflater.from(this))
-            binding.apply {
-                this!!.clickListener = this@AccessAccountActivity
-            }
+        binding = ActivityAccessAccountBinding.inflate(LayoutInflater.from(this))
+        binding.apply {
+            this!!.clickListener = this@AccessAccountActivity
         }
         lifecycleScope.launchWhenCreated {
             setContentView(binding!!.root)

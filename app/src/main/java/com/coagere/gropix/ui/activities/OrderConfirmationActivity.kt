@@ -6,6 +6,7 @@ import android.os.Handler
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.coagere.gropix.R
@@ -111,7 +112,15 @@ class OrderConfirmationActivity : BaseActivity(), View.OnClickListener {
                 override fun getEventData(`object`: Any?) {
                     super.getEventData(`object`)
 //                    utilityClass.closeProgressBar()
-                    finish()
+                    Toast.makeText(
+                        this@OrderConfirmationActivity,
+                        "Order Placed Successfully!!",
+                        Toast.LENGTH_LONG
+                    ).show()
+                    Handler().postDelayed({
+                        setResult(Activity.RESULT_OK)
+                        finish()
+                    }, Constants.THREAD_TIME_DELAY)
                 }
 
                 override fun onErrorResponse(`object`: Any?, errorMessage: String?) {
@@ -153,7 +162,7 @@ class OrderConfirmationActivity : BaseActivity(), View.OnClickListener {
         ) {
             return false
         }
-        if (utilityClass!!.checkEditTextEmpty(
+        if (utilityClass.checkEditTextEmpty(
                 editText = binding!!.idEditStreet,
                 minLength = resources.getInteger(R.integer.validation_min_name),
                 errorTextView = binding!!.root.findViewById(R.id.id_text_error_street)
@@ -178,15 +187,15 @@ class OrderConfirmationActivity : BaseActivity(), View.OnClickListener {
             return false
         }
         UserStorage.instance.addressModel = AddressModel(
-            street = binding!!.idEditStreet.toString(),
-            city = binding!!.idEditCity.toString(),
-            state = binding!!.idEditState.toString(),
-            pinCode = binding!!.idEditPinCode.toString()
+            street = binding!!.idEditStreet.text.toString(),
+            city = binding!!.idEditCity.text.toString(),
+            state = binding!!.idEditState.text.toString(),
+            pinCode = binding!!.idEditPinCode.text.toString()
         )
         model.address = UserStorage.instance.addressModel!!
         model.mobileNumber = UserStorage.instance.mobileNumber
-        model.userName = binding!!.idEditName.toString()
-        model.email = binding!!.idEditEmail.toString()
+        model.userName = binding!!.idEditName.text.toString()
+        model.email = binding!!.idEditEmail.text.toString()
         return true
     }
 

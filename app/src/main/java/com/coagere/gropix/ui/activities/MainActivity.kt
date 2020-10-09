@@ -2,7 +2,6 @@ package com.coagere.gropix.ui.activities
 
 import android.app.Activity
 import android.content.ActivityNotFoundException
-import android.content.DialogInterface
 import android.content.Intent
 import android.net.Uri
 import android.os.Build
@@ -10,23 +9,17 @@ import android.os.Bundle
 import android.os.Handler
 import android.view.View
 import android.view.animation.AnimationUtils
-import android.widget.FrameLayout
-import android.widget.LinearLayout
-import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.content.ContextCompat
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentPagerAdapter
 import androidx.lifecycle.lifecycleScope
-import androidx.viewpager.widget.ViewPager
 import com.coagere.gropix.R
 import com.coagere.gropix.jetpack.entities.FileModel
 import com.coagere.gropix.ui.frags.OrderListFrag
 import com.coagere.gropix.ui.popups.Popups
 import com.coagere.gropix.ui.sheets.ChooserSheet
-import com.coagere.gropix.utils.*
-import com.google.android.material.bottomsheet.BottomSheetBehavior
-import com.google.android.material.tabs.TabLayout
+import com.coagere.gropix.utils.CheckOs
+import com.coagere.gropix.utils.HelperFileFormat
+import com.coagere.gropix.utils.ShareData
+import com.coagere.gropix.utils.UtilityClass
 import com.tc.utils.elements.BaseActivity
 import com.tc.utils.utils.helpers.HelperActionBar
 import com.tc.utils.utils.helpers.HelperIntent
@@ -97,7 +90,6 @@ class MainActivity : BaseActivity(), View.OnClickListener {
     override fun initializeListeners() {
         super.initializeListeners()
         id_parent_button.setOnClickListener {
-
             val sheet = ChooserSheet()
             sheet.showDialog(object : OnEventOccurListener() {
                 override fun getEventData(`object`: Any?) {
@@ -276,20 +268,4 @@ class MainActivity : BaseActivity(), View.OnClickListener {
             .show()
     }
 
-    inner class ManagerAdapter constructor(fm: FragmentManager) :
-        FragmentPagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
-
-        override fun getPageTitle(position: Int): CharSequence? {
-            return "My Orders"
-
-        }
-
-        override fun getItem(position: Int): Fragment {
-            return OrderListFrag.get(Constants.MODULE_PENDING)
-        }
-
-        override fun getCount(): Int {
-            return 1
-        }
-    }
 }

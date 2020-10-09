@@ -50,9 +50,7 @@ class LauncherActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        if (binding == null) {
-            binding = ActivityLauncherBinding.inflate(LayoutInflater.from(this))
-        }
+        binding = ActivityLauncherBinding.inflate(LayoutInflater.from(this))
         lifecycleScope.launchWhenCreated {
             setContentView(binding!!.root)
             Utils.doStatusColorWhite(window)

@@ -11,12 +11,13 @@ import com.coagere.gropix.jetpack.entities.OrderModel
 import com.tc.utils.variables.abstracts.OnEventOccurListener
 import com.tc.utils.variables.enums.ActionType
 import com.tc.utils.variables.interfaces.Constants
+import tk.jamun.ui.snacks.L
 
 class OrderStatusAdapter(
     private val modelList: ArrayList<OrderModel>,
     private val listener: OnEventOccurListener
-) :
-    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+
     var size = modelList.size
 
     fun notifyAdapterDataSetChanged() {
@@ -69,6 +70,11 @@ class OrderStatusAdapter(
         }
     }
 
+    override fun getItemCount(): Int {
+        L.logE("aya")
+        return size
+    }
+
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (holder is ViewHolder) holder.bindTo(modelList[position])
         if (holder is PlacedViewHolder) holder.bindTo(modelList[position])
@@ -77,13 +83,9 @@ class OrderStatusAdapter(
         }
     }
 
-    override fun getItemCount(): Int {
-        return size
-    }
 
     inner class ViewHolder(private var binding: AdapterOrdersPendingBinding) :
         RecyclerView.ViewHolder(binding.root), View.OnClickListener {
-
         fun bindTo(orderModel: OrderModel) {
             binding.apply {
                 clickListener = this@ViewHolder
@@ -91,7 +93,6 @@ class OrderStatusAdapter(
                 executePendingBindings()
             }
         }
-
         override fun onClick(v: View) {
             listener.getEventData(
                 modelList[adapterPosition],

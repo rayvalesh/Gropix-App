@@ -29,6 +29,7 @@ class OrderRepo {
                 object : VolleyResponses() {
                     override fun onResponse(response: Any?, body: String?) {
                         super.onResponse(response, body)
+                        L.logE(body)
                         modelList.addAll((response as Array<*>).filterIsInstance<OrderModel>())
                         listener.getEventData(ResponseTypes.TYPE_SUCCESS)
                     }
@@ -58,7 +59,6 @@ class OrderRepo {
         jsonObject.put("mobileNumber", model.userName)
         jsonObject.put("address", jsonObjectAddress)
         jsonObject.put("orderImages", jsonArray)
-
 
         volleyJsonObjectRequest =
             VolleyJsonObjectRequest(
@@ -96,7 +96,6 @@ class OrderRepo {
                 })
         VolleyNeeds.get().addCalls(volleyJsonObjectRequest!!)
     }
-
 
     companion object {
         @get:Synchronized

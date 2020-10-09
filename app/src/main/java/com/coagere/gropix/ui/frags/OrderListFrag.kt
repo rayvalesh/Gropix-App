@@ -38,21 +38,7 @@ class OrderListFrag : BaseFragment() {
     }
     private val viewModel: OrderVM by lazy { ViewModelProvider(this).get(OrderVM::class.java) }
     private var modelList: ArrayList<OrderModel> = arrayListOf()
-    private var adapter: OrderStatusAdapter = OrderStatusAdapter(
-        modelList = modelList, object : OnEventOccurListener() {
-            override fun getEventData(
-                `object`: Any?,
-                actionType: ActionType?,
-                adapterPosition: Int
-            ) {
-                super.getEventData(`object`, actionType, adapterPosition)
-                startActivity(
-                    Intent(requireActivity(), ExploreOrderActivity::class.java)
-                        .putExtra(IntentInterface.INTENT_FOR_MODEL, `object` as OrderModel)
-                )
-            }
-        }
-    )
+    private var adapter: OrderStatusAdapter? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -80,7 +66,7 @@ class OrderListFrag : BaseFragment() {
             object : OnEventOccurListener() {
                 override fun getEventData(`object`: Any?) {
                     super.getEventData(`object`)
-                    adapter.notifyAdapterDataSetChanged()
+                    adapter?.notifyAdapterDataSetChanged()
                     initializeEmptyView(modelList.isNullOrEmpty())
                 }
 
@@ -101,7 +87,23 @@ class OrderListFrag : BaseFragment() {
     override fun initializeRecyclerView() {
         super.initializeRecyclerView()
         binding!!.idRecyclerView.layoutManager = LinearLayoutManager(requireContext())
+        adapter = OrderStatusAdapter(
+            modelList = modelList, object : OnEventOccurListener() {
+                override fun getEventData(
+                    `object`: Any?,
+                    actionType: ActionType?,
+                    adapterPosition: Int
+                ) {
+                    super.getEventData(`object`, actionType, adapterPosition)
+                    startActivity(
+                        Intent(requireActivity(), ExploreOrderActivity::class.java)
+                            .putExtra(IntentInterface.INTENT_FOR_MODEL, `object` as OrderModel)
+                    )
+                }
+            }
+        )
         binding!!.idRecyclerView.adapter = adapter
+        adapter?.notifyAdapterDataSetChanged()
     }
 
 
