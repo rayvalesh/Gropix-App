@@ -48,6 +48,7 @@ class OrderConfirmationActivity : BaseActivity(), View.OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityConfirmationBinding.inflate(LayoutInflater.from(this))
+        setContentView(binding!!.root)
         binding!!.apply {
             clickListener = this@OrderConfirmationActivity
             this.addressModel = UserStorage.instance.addressModel
@@ -56,10 +57,8 @@ class OrderConfirmationActivity : BaseActivity(), View.OnClickListener {
         lifecycleScope.launchWhenCreated {
             fileModels = intent.getParcelableArrayListExtra(IntentInterface.INTENT_FOR_MODEL)!!
             setToolbar()
-            setContentView(binding!!.root)
             initializeView()
             initializeFragsView()
-            initializeViewModel()
         }
     }
 
@@ -79,33 +78,7 @@ class OrderConfirmationActivity : BaseActivity(), View.OnClickListener {
             "Please select pincode first."
         binding!!.idEditCity.setAdapter(utilityClass.setAdapter(GetData.getCitiesName()))
         binding!!.idEditState.setAdapter(utilityClass.setAdapter(GetData.getStateName()))
-        binding!!.idSpinnerPincode.adapter = utilityClass.setAdapter(GetData.getPinCode())
-        binding!!.idSpinnerPincode.onItemSelectedListener =
-            object : AdapterView.OnItemSelectedListener {
-                override fun onItemSelected(
-                    parent: AdapterView<*>?,
-                    view: View?,
-                    position: Int,
-                    id: Long
-                ) {
-                    if (position == 0) {
-                        Utils.setVisibility(
-                            binding!!.root.findViewById(R.id.id_text_error_pin),
-                            true
-                        )
-                        model.address.pinCode = null
-                    } else {
-                        Utils.setVisibility(
-                            binding!!.root.findViewById(R.id.id_text_error_pin),
-                            false
-                        )
-                        model.address.pinCode = GetData.getPinCode()[position]
-                    }
-                }
-
-                override fun onNothingSelected(parent: AdapterView<*>?) {
-                }
-            }
+        binding!!.idEditPincode.setAdapter(utilityClass.setAdapter(GetData.getPinCode()))
     }
 
     override fun initializeFragsView() {
@@ -191,7 +164,11 @@ class OrderConfirmationActivity : BaseActivity(), View.OnClickListener {
     }
 
     private fun validate(): Boolean {
+        Utils.setVisibility(binding!!.root.findViewById(R.id.id_text_error_image), false)
         if (model.images.isNullOrEmpty()) {
+            Utils.setVisibility(binding!!.root.findViewById(R.id.id_text_error_image), true)
+            binding!!.root.findViewById<TextView>(R.id.id_text_error_image).text =
+                "Please add your Groccery list first."
             return false
         }
         if (utilityClass.checkEditTextEmpty(
@@ -235,16 +212,33 @@ class OrderConfirmationActivity : BaseActivity(), View.OnClickListener {
             return false
         }
         Utils.setVisibility(binding!!.root.findViewById(R.id.id_text_error_pin), false)
-        if (model.address.pinCode == null) {
-            Utils.setVisibility(binding!!.root.findViewById(R.id.id_text_error_pin), true)
-            binding!!.idScrollView.fullScroll(View.FOCUS_DOWN)
+        if (utilityClass.checkEditTextEmpty(
+                editText = binding!!.idEditPincode,
+                minLength = resources.getInteger(R.integer.validation_min_pincode),
+                errorTextView = binding!!.root.findViewById(R.id.id_text_error_pin)
+            )
+        ) {
             return false
+        } else {
+            var isFound = false
+            for (model in GetData.getPinCode()) {
+                if (model == binding!!.idEditPincode.text.toString()) {
+                    isFound = true
+                    break
+                }
+            }
+            if (!isFound) {
+                Utils.setVisibility(binding!!.root.findViewById(R.id.id_text_error_pin), true)
+                binding!!.root.findViewById<TextView>(R.id.id_text_error_pin).text =
+                    "Please select pincode from suggestions"
+                return false
+            }
         }
         val addressModel = AddressModel(
             street = binding!!.idEditStreet.text.toString(),
             city = binding!!.idEditCity.text.toString(),
             state = binding!!.idEditState.text.toString(),
-            pinCode = model.address.pinCode
+            pinCode = binding!!.idEditPincode.text.toString()
         )
         UserStorage.instance.addressModel = addressModel
         model.address = addressModel

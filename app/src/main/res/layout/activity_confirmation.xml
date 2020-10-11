@@ -101,18 +101,24 @@
                         android:tag="Images"
                         tools:layout="@layout/frag_images_add" />
 
+                    <include
+                        android:id="@+id/id_text_error_image"
+                        layout="@layout/include_layout_text_error" />
+
                 </LinearLayout>
 
                 <include layout="@layout/utility_vertical_border_layout_shadow" />
 
                 <LinearLayout
-                    android:paddingBottom="60dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dimen_common_margin_large"
                     android:background="@color/colorWhite"
                     android:orientation="vertical"
-                    android:padding="@dimen/dimen_common_margin_large">
+                    android:paddingStart="@dimen/dimen_common_margin_large"
+                    android:paddingTop="@dimen/dimen_common_margin_large"
+                    android:paddingEnd="@dimen/dimen_common_margin_large"
+                    android:paddingBottom="100dp">
 
                     <TextView
                         style="@style/TextViewStyleMedium"
@@ -182,7 +188,7 @@
                         android:hint="Enter email address"
                         android:imeOptions="actionNext"
                         android:importantForAutofill="no"
-                        android:inputType="textCapWords"
+                        android:inputType="textEmailAddress"
                         android:maxLines="1"
                         android:minLines="1"
                         android:paddingStart="@dimen/dimen_edit_text_padding_small"
@@ -320,20 +326,25 @@
                         android:textColor="@color/colorTextPrimaryLight"
                         android:textSize="@dimen/dimen_edit_text_title_size" />
 
-                    <LinearLayout
+                    <AutoCompleteTextView
+                        android:id="@+id/id_edit_pincode"
+                        style="@style/EditTextStyle"
+                        text="@{addressModel.pinCode}"
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/dimen_edit_text_height_default"
-                        android:background="@drawable/drawable_edit_text">
-
-                        <Spinner
-                            android:id="@+id/id_spinner_pincode"
-                            android:layout_width="match_parent"
-                            android:layout_height="@dimen/dimen_edit_text_height_default"
-                            android:layout_margin="@dimen/dimen_common_margin_very_small"
-                            android:popupElevation="@dimen/dimen_popup_elevation"
-                            tools:listitem="@layout/simple_spinner_dropdown" />
-
-                    </LinearLayout>
+                        android:layout_height="@dimen/dimen_edit_text_height"
+                        android:background="@drawable/drawable_edit_text"
+                        android:hint="Enter pincode"
+                        android:imeOptions="actionNext"
+                        android:importantForAutofill="no"
+                        android:inputType="number"
+                        android:maxLength="6"
+                        android:maxLines="1"
+                        android:minLines="1"
+                        android:paddingStart="@dimen/dimen_edit_text_padding_small"
+                        android:paddingEnd="@dimen/dimen_edit_text_padding_small"
+                        android:textColor="@color/colorEditTextText"
+                        android:textColorHint="@color/colorTextHint"
+                        android:textSize="@dimen/dimen_edit_text_size" />
 
                     <include
                         android:id="@+id/id_text_error_pin"

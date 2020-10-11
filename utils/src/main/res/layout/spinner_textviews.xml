@@ -8,9 +8,9 @@
     android:gravity="center_vertical"
     android:maxLines="1"
     style="@style/TextViewStyleMedium"
-    android:paddingBottom="@dimen/dimen_common_margin"
+    android:paddingBottom="@dimen/dimen_common_margin_more"
     android:paddingLeft="@dimen/dimen_edit_text_padding"
     android:paddingRight="@dimen/dimen_edit_text_padding"
-    android:paddingTop="@dimen/dimen_common_margin"
+    android:paddingTop="@dimen/dimen_common_margin_more"
     android:textColor="@color/colorTextPrimary"
     android:textSize="@dimen/dimen_spinner_text_size" />

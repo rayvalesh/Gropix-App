@@ -82,9 +82,8 @@
                             android:layout_width="100dp"
                             android:layout_height="100dp">
 
-                            <androidx.appcompat.widget.AppCompatImageView
+                            <ImageView
                                 android:id="@+id/id_image"
-                                downloadImage="@{model.images[0]}"
                                 android:layout_width="100dp"
                                 android:layout_height="100dp"
                                 android:layout_marginBottom="@dimen/dimen_common_margin_more"
@@ -104,7 +103,7 @@
                                 android:paddingTop="@dimen/dimen_margin_balancing"
                                 android:paddingEnd="@dimen/dimen_common_margin_small"
                                 android:paddingBottom="@dimen/dimen_margin_balancing"
-                                android:text="1/10"
+                                android:text='@{"1/"+model.images.size()}'
                                 android:textColor="@color/colorWhite"
                                 android:textSize="@dimen/dimen_common_text_size_small" />
 
@@ -241,7 +240,7 @@
                         android:focusable="true"
                         android:onClick="@{clickListener}"
                         android:padding="@dimen/dimen_common_margin_less_more"
-                        android:text="Cancel Order"
+                        android:text="@string/string_button_name_cancel_order"
                         android:textColor="@color/colorErrorMessage"
                         android:textSize="@dimen/dimen_common_text_size_sub"
                         android:visibility="gone" />

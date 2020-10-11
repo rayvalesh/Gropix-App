@@ -7,6 +7,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.coagere.gropix.R
 import com.coagere.gropix.utils.GestureImageView
 import com.tc.utils.elements.BaseFragment
+import com.tc.utils.variables.interfaces.ApiKeys
 import com.tc.utils.variables.interfaces.IntentInterface
 import kotlinx.android.synthetic.main.frag_view_image.*
 
@@ -18,7 +19,11 @@ class ViewImageFrag : BaseFragment() {
     private var mScaleFactor = 1.0f
     private var isZoomIn = false
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         return inflater.inflate(R.layout.frag_view_image, container, false)
     }
 
@@ -37,7 +42,7 @@ class ViewImageFrag : BaseFragment() {
             }
         }
         Glide.with(requireContext())
-            .load(requireArguments().getString(IntentInterface.INTENT_FOR_URL)!!)
+            .load(ApiKeys.URL_DOMAIN + requireArguments().getString(IntentInterface.INTENT_FOR_URL)!!)
             .diskCacheStrategy(DiskCacheStrategy.NONE)
             .into(id_image)
     }

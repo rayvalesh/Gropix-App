@@ -103,15 +103,14 @@ class OrderRepo {
         VolleyNeeds.get().addCalls(volleyJsonObjectRequest!!)
     }
 
-    fun apiGetOrderDetails(model: OrderModel, listener: OnEventOccurListener) {
+    fun apiGetOrderDetails(id: String, listener: OnEventOccurListener) {
         volleyJsonObjectRequest =
             VolleyJsonObjectRequest(
-                URL_GET_ORDER_DETAILS + model.orderId,
+                URL_GET_ORDER_DETAILS + id,
                 OrderModel::class.java,
                 object : VolleyResponses() {
                     override fun onResponse(response: Any?, body: String?) {
                         super.onResponse(response, body)
-                        Utils.log(body)
                         listener.getEventData(response as OrderModel)
                     }
 
@@ -124,11 +123,23 @@ class OrderRepo {
     }
 
     fun apiCancelOrder(model: OrderModel, listener: OnEventOccurListener) {
-        VolleySolutions.instance.postCommonTasks(URL_POST_ORDER_CANCEL + model.orderId,null, listener)
+        val jsonObject = JSONObject()
+        jsonObject.put("userOrderId", model.orderId)
+        jsonObject.put("comment", "")
+        Utils.log(jsonObject.toString())
+        VolleySolutions.instance.postCommonTasks(
+            URL_POST_ORDER_CANCEL,
+            jsonObject.toString(),
+            listener
+        )
     }
 
     fun apiConfirmOrder(model: OrderModel, listener: OnEventOccurListener) {
-        VolleySolutions.instance.postCommonTasks(URL_POST_ORDER_CONFIRM + model.orderId,null, listener)
+        VolleySolutions.instance.postCommonTasks(
+            URL_POST_ORDER_CONFIRM + model.orderId,
+            null,
+            listener
+        )
     }
 
     companion object {

@@ -6,6 +6,7 @@ import android.os.Handler
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -16,9 +17,11 @@ import com.coagere.gropix.jetpack.entities.OrderModel
 import com.coagere.gropix.jetpack.repos.OrderRepo
 import com.coagere.gropix.jetpack.viewmodels.OrderVM
 import com.coagere.gropix.ui.adapters.BillingDetailsAdapter
+import com.coagere.gropix.utils.DownloadImage
 import com.coagere.gropix.utils.HelperLogout
 import com.coagere.gropix.utils.UtilityClass
 import com.tc.utils.elements.BaseActivity
+import com.tc.utils.utils.customs.RoundedCornersTransformation
 import com.tc.utils.utils.helpers.HelperActionBar
 import com.tc.utils.utils.helpers.JamunAlertDialog
 import com.tc.utils.utils.helpers.Utils
@@ -38,21 +41,23 @@ class ExploreOrderActivity : BaseActivity(), View.OnClickListener {
         ViewModelProvider(this).get(OrderVM::class.java)
     }
     private val utilityClass by lazy { UtilityClass(this) }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityExploreOrderBinding.inflate(LayoutInflater.from(this))
-        orderModel = intent.getParcelableExtra(IntentInterface.INTENT_FOR_MODEL)!!
-        binding!!.apply {
-            this.model = orderModel
-            this.clickListener = this@ExploreOrderActivity
-            executePendingBindings()
-        }
-        lifecycleScope.launchWhenCreated {
-            setContentView(binding!!.root)
+        setContentView(binding!!.root)
+        setToolbar()
+        if (intent.getParcelableExtra<OrderModel>(IntentInterface.INTENT_FOR_MODEL) != null) {
+            orderModel = intent.getParcelableExtra(IntentInterface.INTENT_FOR_MODEL)!!
+            binding!!.apply {
+                this.model = orderModel
+                this.clickListener = this@ExploreOrderActivity
+                executePendingBindings()
+            }
             initializeView()
-            initializeViewModel()
             initializeBillingData()
-            setToolbar()
+        } else {
+            initializeViewModel()
         }
     }
 
@@ -66,35 +71,41 @@ class ExploreOrderActivity : BaseActivity(), View.OnClickListener {
 
     override fun setToolbar() {
         super.setToolbar()
+        setSupportActionBar(findViewById(R.id.id_app_bar))
+        supportActionBar?.title = getString(R.string.string_activity_name_order_details)
         Utils.doStatusColorWhite(window)
         HelperActionBar.setSupportActionBar(
             this@ExploreOrderActivity,
             binding!!.idAppBar
         )
+
     }
 
     override fun initializeViewModel() {
         super.initializeViewModel()
-        viewModel.getApiOrderDetails(orderModel, object : OnEventOccurListener() {
-            override fun getEventData(`object`: Any?) {
-                super.getEventData(`object`)
-                orderModel = `object` as OrderModel
-                initializeView()
-                initializeBillingData()
-            }
-
-            override fun onErrorResponse(`object`: Any?, errorMessage: String?) {
-                super.onErrorResponse(`object`, errorMessage)
-                if (UtilityClass(this@ExploreOrderActivity).isUnAuthrized(`object`)) {
-                    HelperLogout.logMeOut(
-                        this@ExploreOrderActivity,
-                        object : OnEventOccurListener() {})
-                } else {
-                    MySnackBar.getInstance()
-                        .showSnackBarForMessage(this@ExploreOrderActivity, errorMessage)
+        viewModel.getApiOrderDetails(
+            intent.getStringExtra(IntentInterface.INTENT_FOR_ID),
+            object : OnEventOccurListener() {
+                override fun getEventData(`object`: Any?) {
+                    super.getEventData(`object`)
+                    orderModel = `object` as OrderModel
+                    orderModel.orderId = intent.getStringExtra(IntentInterface.INTENT_FOR_ID)
+                    initializeView()
+                    initializeBillingData()
                 }
-            }
-        })
+
+                override fun onErrorResponse(`object`: Any?, errorMessage: String?) {
+                    super.onErrorResponse(`object`, errorMessage)
+                    if (UtilityClass(this@ExploreOrderActivity).isUnAuthrized(`object`)) {
+                        HelperLogout.logMeOut(
+                            this@ExploreOrderActivity,
+                            object : OnEventOccurListener() {})
+                    } else {
+                        MySnackBar.getInstance()
+                            .showSnackBarForMessage(this@ExploreOrderActivity, errorMessage)
+                    }
+                }
+            })
     }
 
     override fun initializeView() {
@@ -105,31 +116,43 @@ class ExploreOrderActivity : BaseActivity(), View.OnClickListener {
         when (orderModel.status) {
             Constants.ORDER_CART -> {
                 Utils.setVisibility(binding!!.idParentConfirmation, true)
+                binding!!.idTextStatus.setTextColor(ContextCompat.getColor(this, R.color.colorStyleSixDark))
                 binding!!.idTextStatus.text =
                     getString(R.string.string_label_status_cart)
             }
             Constants.ORDER_PENDING -> {
                 Utils.setVisibility(binding!!.idParentBilling, false)
+                binding!!.idTextStatus.setTextColor(ContextCompat.getColor(this, R.color.colorStyleFourDark))
                 binding!!.idTextStatus.text =
                     getString(R.string.string_label_status_placed)
             }
             Constants.ORDER_CONFIRMED -> {
+                binding!!.idTextStatus.setTextColor(ContextCompat.getColor(this, R.color.colorStyleThreeDark))
                 binding!!.idTextStatus.text =
                     getString(R.string.string_label_status_confirmed)
             }
             Constants.ORDER_OUT_FOR_DELIVERY -> {
+                binding!!.idTextStatus.setTextColor(ContextCompat.getColor(this, R.color.colorStyleThreeDark))
                 binding!!.idTextStatus.text =
                     getString(R.string.string_label_status_out_delivery)
             }
             Constants.ORDER_COMPLETE -> {
+                binding!!.idTextStatus.setTextColor(ContextCompat.getColor(this, R.color.colorStyleOneDark))
                 Utils.setVisibility(binding!!.idTextButtonCancel, false)
             }
             Constants.ORDER_CANCELLED -> {
                 Utils.setVisibility(binding!!.idParentBilling, false)
                 Utils.setVisibility(binding!!.idTextButtonCancel, false)
             }
-
         }
+        DownloadImage.downloadImages(
+            this,
+            orderModel.images[0],
+            binding!!.idImage,
+            R.drawable.placeholder_one,
+            RoundedCornersTransformation.CornerType.ALL,
+            12
+        )
     }
 
     private fun initializeBillingData() {

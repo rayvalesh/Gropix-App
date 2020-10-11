@@ -42,7 +42,7 @@ object DownloadImage {
     ) {
         url?.let {
             Glide.with(context)
-                .load(getUrl(url))
+                .load(ApiKeys.URL_DOMAIN + url)
                 .transform(
                     RoundedCornersTransformation(
                         context,
@@ -81,9 +81,7 @@ object DownloadImage {
                         RoundedCornersTransformation.CornerType.ALL
                     )
                 )
-                .placeholder(
-                    view.context.getDrawable(R.drawable.placeholder_one)
-                )
+                .placeholder(view.context.getDrawable(R.drawable.placeholder_one))
                 .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
                 .into(
                     if (view is AppCompatImageView) {

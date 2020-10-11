@@ -9,6 +9,7 @@ import com.coagere.gropix.prefs.UserStorage
 import com.coagere.gropix.utils.MyApplication
 import com.coagere.gropix.utils.ParseJson
 import com.coagere.gropix.utils.VolleySolutions
+import com.google.gson.reflect.TypeToken
 import com.tc.utils.utils.helpers.DeviceInfo
 import com.tc.utils.utils.helpers.Utils
 import com.tc.utils.variables.abstracts.OnEventOccurListener
@@ -19,6 +20,7 @@ import com.tc.utils.variables.interfaces.ApiKeys.Companion.URL_POST_RESEND_OTP
 import com.tc.utils.variables.interfaces.ApiKeys.Companion.URL_POST_VERIFY_OTP
 import org.json.JSONException
 import org.json.JSONObject
+import tk.jamun.volley.classes.VolleyGSON
 import tk.jamun.volley.classes.VolleyJsonObjectRequest
 import tk.jamun.volley.helpers.VolleyNeeds
 import tk.jamun.volley.variables.VolleyResponses
@@ -135,8 +137,27 @@ class UserRepo {
         VolleyNeeds.get().addCalls(volleyJsonObjectRequest!!)
     }
 
+    fun postFcm() {
+        val jsonObject = JSONObject()
+        jsonObject.put("fcm", TempStorage.instance.fcmToken)
+        VolleySolutions.instance.postCommonTasks(ApiKeys.URL_POST_FCM, jsonObject.toString(),
+            object : OnEventOccurListener() {
+                override fun getEventData(`object`: Any?) {
+                    super.getEventData(`object`)
+                    TempStorage.instance.isFcmSent = true
+                }
+            })
+    }
 
     fun postFeedback(model: ContactModel, listener: OnEventOccurListener) {
+        VolleySolutions.instance.postCommonTasks(
+            ApiKeys.URL_POST_FEEDBACK,
+            VolleyGSON.get().toJson(
+                model,
+                VolleyGSON.get().getTypeToken(object : TypeToken<ContactModel>() {})
+            ),
+            listener
+        )
     }
 
     fun logout(listener: OnEventOccurListener) {

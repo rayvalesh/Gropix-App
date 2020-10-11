@@ -11,5 +11,7 @@ data class ContactModel(
         @SerializedName("email")
         var email: String? = null,
         @SerializedName("message")
-        var message: String? = null
+        var message: String? = null,
+        @SerializedName("mobileNumber")
+        var mobileNumber: String = ""
 ) : Parcelable

@@ -170,7 +170,6 @@ class AccessAccountActivity : BaseActivity(), View.OnClickListener {
         utilityClass.startProgressBar(progressBar = binding!!.root.findViewById(R.id.id_progress_bar_otp))
         binding!!.idEditOtp.requestFocus()
         callRunnable()
-        setAutoSmsReceiver()
         binding!!.idParentCheckbox.visibility = View.GONE
         binding!!.idParentOtp.visibility = View.VISIBLE
         binding!!.idTextButton.text = getString(R.string.string_button_name_verify_otp)
@@ -189,16 +188,6 @@ class AccessAccountActivity : BaseActivity(), View.OnClickListener {
         binding!!.idParentOtp.visibility = View.GONE
     }
 
-    private fun setAutoSmsReceiver() {
-//        SMSReceiver.setUpEverything(this) { messageText: String ->
-//            binding!!.idEditOtp.setText(messageText)
-//            cancelAutoPicker()
-//        }
-    }
-
-    private fun cancelAutoPicker() {
-//        StartAndStopReceivers().disableBroadcastReceiver(this, SMSReceiver::class.java)
-    }
 
     private fun onClickSubmit() {
         utilityClass.hideSoftKeyboard()
@@ -363,7 +352,6 @@ class AccessAccountActivity : BaseActivity(), View.OnClickListener {
     override fun closeEverything() {
         cancelTimer()
         viewModel.clearEverything()
-        cancelAutoPicker()
     }
 
     override fun onClick(v: View?) {

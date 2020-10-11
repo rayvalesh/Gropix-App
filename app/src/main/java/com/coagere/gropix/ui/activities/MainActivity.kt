@@ -13,6 +13,8 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
 import com.coagere.gropix.R
 import com.coagere.gropix.jetpack.entities.FileModel
+import com.coagere.gropix.jetpack.repos.UserRepo
+import com.coagere.gropix.prefs.TempStorage
 import com.coagere.gropix.ui.frags.OrderListFrag
 import com.coagere.gropix.ui.popups.Popups
 import com.coagere.gropix.ui.sheets.ChooserSheet
@@ -47,6 +49,10 @@ class MainActivity : BaseActivity(), View.OnClickListener {
             initializeListeners()
             setToolbar()
             initializeFragsView()
+            if (TempStorage.instance.isFcmSent) {
+                UserRepo.instance.postFcm()
+            }
+
         }
     }
 
@@ -145,51 +151,54 @@ class MainActivity : BaseActivity(), View.OnClickListener {
         }
     }
 
-
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (resultCode == Activity.RESULT_OK && data != null)
+        if (resultCode == Activity.RESULT_OK)
             when (requestCode) {
                 IntentInterface.REQUEST_CAMERA -> {
-                    val fileModel = utilityClass!!.getFileModelFromFile(
-                        File(data.getStringExtra(InterfaceUtils.CAMERA_RESULT_IMAGE_PATH)!!)
-                    )
-                    fileModel?.let {
-                        uploadImage(arrayListOf(fileModel))
+                    if (data != null) {
+                        val fileModel = utilityClass!!.getFileModelFromFile(
+                            File(data.getStringExtra(InterfaceUtils.CAMERA_RESULT_IMAGE_PATH)!!)
+                        )
+                        fileModel?.let {
+                            uploadImage(arrayListOf(fileModel))
+                        }
                     }
                 }
                 IntentInterface.REQUEST_MANAGER -> {
-                    val uris = arrayListOf<Uri>()
-                    if (resultCode == Activity.RESULT_OK) {
-                        if (data.data != null) {
-                            uris.add(data.data!!)
-                        } else if (CheckOs.checkForJellyBean() && data.clipData != null) {
-                            val mClipData = data.clipData
-                            for (i in 0 until mClipData!!.itemCount) {
-                                val item = mClipData.getItemAt(i)
-                                uris.add(item.uri)
+                    if (data != null) {
+                        val uris = arrayListOf<Uri>()
+                        if (resultCode == Activity.RESULT_OK) {
+                            if (data.data != null) {
+                                uris.add(data.data!!)
+                            } else if (CheckOs.checkForJellyBean() && data.clipData != null) {
+                                val mClipData = data.clipData
+                                for (i in 0 until mClipData!!.itemCount) {
+                                    val item = mClipData.getItemAt(i)
+                                    uris.add(item.uri)
+                                }
                             }
-                        }
-                        HelperFileFormat.getInstance().getFileFromUri(this,
-                            uris.toTypedArray(),
-                            object : OnEventOccurListener() {
-                                override fun getEventData(`object`: Any?) {
-                                    super.getEventData(`object`)
-                                    uploadImage(`object` as ArrayList<FileModel>)
-                                }
+                            HelperFileFormat.getInstance().getFileFromUri(this,
+                                uris.toTypedArray(),
+                                object : OnEventOccurListener() {
+                                    override fun getEventData(`object`: Any?) {
+                                        super.getEventData(`object`)
+                                        uploadImage(`object` as ArrayList<FileModel>)
+                                    }
 
-                                override fun onErrorResponse(
-                                    `object`: Any?,
-                                    errorMessage: String?
-                                ) {
-                                    super.onErrorResponse(`object`, errorMessage)
-                                    MySnackBar.getInstance()
-                                        .showSnackBarForMessage(
-                                            this@MainActivity,
-                                            errorMessage
-                                        )
-                                }
-                            });
+                                    override fun onErrorResponse(
+                                        `object`: Any?,
+                                        errorMessage: String?
+                                    ) {
+                                        super.onErrorResponse(`object`, errorMessage)
+                                        MySnackBar.getInstance()
+                                            .showSnackBarForMessage(
+                                                this@MainActivity,
+                                                errorMessage
+                                            )
+                                    }
+                                });
+                        }
                     }
                 }
                 else -> {

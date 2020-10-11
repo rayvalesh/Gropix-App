@@ -19,8 +19,8 @@ class OrderVM : ViewModel() {
         OrderRepo.instance.apiCreateOrder(model, listener)
     }
 
-    fun getApiOrderDetails(model: OrderModel, listener: OnEventOccurListener) {
-        OrderRepo.instance.apiGetOrderDetails(model, listener)
+    fun getApiOrderDetails(id : String, listener: OnEventOccurListener) {
+        OrderRepo.instance.apiGetOrderDetails(id, listener)
     }
 
     fun cancelOrder(model: OrderModel, listener: OnEventOccurListener) {

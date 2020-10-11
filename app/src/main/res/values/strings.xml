@@ -82,10 +82,10 @@
     <string name="string_order_explore_label_images">Grocery List</string>
     <string name="string_icon_transition_image">transition_image</string>
     <string name="string_button_name_yes">Yes</string>
-    <string name="string_message_confirmation">Did you confirm your Details and Grocery List. Please confirm and place your Order.</string>
+    <string name="string_message_confirmation">Did you check your Details and Grocery List? Please confirm and place your Order.</string>
     <string name="string_button_name_confirm_place">Confirmed, Lets Place</string>
     <string name="string_message_sure_cancel_order">Are you sure want to Cancel Order?</string>
-    <string name="string_button_name_cancel_order">Cancel My Order</string>
+    <string name="string_button_name_cancel_order">Cancel Order</string>
     <string name="string_button_name_place_order">Place your Order</string>
     <string name="string_button_name_confirm_order">Confirm your order</string>
     <string name="string_label_status_placed">Placed, Please Wait</string>
@@ -95,5 +95,6 @@
     <string name="string_message_sure_confirm_order">Please confirm your order? We will pack your order for delivery.</string>
     <string name="string_button_name_confirm">Confirm</string>
     <string name="string_button_name_wait">Wait</string>
+    <string name="string_activity_name_order_details">Order Details</string>
 
 </resources>

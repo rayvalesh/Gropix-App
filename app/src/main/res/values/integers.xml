@@ -5,4 +5,5 @@
     <integer name="validation_min_otp">4</integer>
     <integer name="validation_max_email">80</integer>
     <integer name="validation_min_email">6</integer>
+    <integer name="validation_min_pincode">6</integer>
 </resources>

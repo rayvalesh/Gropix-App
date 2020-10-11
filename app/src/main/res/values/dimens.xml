@@ -12,7 +12,7 @@
     <dimen name="dimen_message_image_min_size">90dp</dimen>
 
     <dimen name="dimen_icon_size_large">28dp</dimen>
-    <dimen name="dimen_add_image_width">150dp</dimen>
+    <dimen name="dimen_add_image_width">130dp</dimen>
     <dimen name="dimen_add_image_height">80dp</dimen>
     <dimen name="dimen_common_margin_med_large">20dp</dimen>
     <dimen name="dimen_progress_bar_very_small">26dp</dimen>

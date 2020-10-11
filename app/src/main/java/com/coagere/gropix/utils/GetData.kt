@@ -80,7 +80,6 @@ object GetData {
 
     fun getPinCode(): Array<String> {
         return arrayOf(
-            "Select Pincode",
             "110010",
             "120011",
             "130011",

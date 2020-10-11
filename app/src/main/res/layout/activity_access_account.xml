@@ -86,7 +86,7 @@
                 android:layout_marginStart="@dimen/dimen_common_margin_small"
                 android:layout_marginEnd="@dimen/dimen_common_margin_small"
                 android:text="@string/string_message_error_number_length"
-                android:textColor="@color/colorPrimary"
+                android:textColor="@color/colorTextWhite"
                 android:textSize="@dimen/dimen_text_size_error"
                 android:visibility="gone" />
 

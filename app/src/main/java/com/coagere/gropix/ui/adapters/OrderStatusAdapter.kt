@@ -3,6 +3,7 @@ package com.coagere.gropix.ui.adapters
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.coagere.gropix.R
 import com.coagere.gropix.databinding.AdapterOrderPlacedBinding
@@ -27,7 +28,7 @@ class OrderStatusAdapter(
         notifyDataSetChanged()
     }
 
-    fun notifyAdapterItemChange(position: Int){
+    fun notifyAdapterItemChange(position: Int) {
         notifyItemChanged(position)
     }
 
@@ -83,7 +84,6 @@ class OrderStatusAdapter(
     }
 
 
-
     inner class ViewHolder(private var binding: AdapterOrdersPendingBinding) :
         RecyclerView.ViewHolder(binding.root), View.OnClickListener {
 
@@ -95,18 +95,42 @@ class OrderStatusAdapter(
             }
             when (orderModel.status) {
                 Constants.ORDER_CART -> {
+                    binding.idTextStatus.setTextColor(
+                        ContextCompat.getColor(
+                            itemView.context,
+                            R.color.colorStyleSixDark
+                        )
+                    )
                     binding.idTextStatus.text =
                         itemView.context.getString(R.string.string_label_status_cart)
                 }
                 Constants.ORDER_PENDING -> {
+                    binding.idTextStatus.setTextColor(
+                        ContextCompat.getColor(
+                            itemView.context,
+                            R.color.colorStyleFourDark
+                        )
+                    )
                     binding.idTextStatus.text =
                         itemView.context.getString(R.string.string_label_status_placed)
                 }
                 Constants.ORDER_CONFIRMED -> {
+                    binding.idTextStatus.setTextColor(
+                        ContextCompat.getColor(
+                            itemView.context,
+                            R.color.colorStyleThreeDark
+                        )
+                    )
                     binding.idTextStatus.text =
                         itemView.context.getString(R.string.string_label_status_confirmed)
                 }
                 Constants.ORDER_OUT_FOR_DELIVERY -> {
+                    binding.idTextStatus.setTextColor(
+                        ContextCompat.getColor(
+                            itemView.context,
+                            R.color.colorStyleThreeDark
+                        )
+                    )
                     binding.idTextStatus.text =
                         itemView.context.getString(R.string.string_label_status_out_delivery)
                 }

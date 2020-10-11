@@ -66,6 +66,9 @@ class ReachUsActivity : BaseActivity(), View.OnClickListener {
     }
 
 
+    /**
+     * Api call to post Information
+     */
     private fun submitClick() {
         if (validate()) {
             utilityClass!!.startProgressBar()

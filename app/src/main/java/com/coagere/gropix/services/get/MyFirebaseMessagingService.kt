@@ -19,8 +19,10 @@ import com.google.firebase.messaging.FirebaseMessaging
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import com.coagere.gropix.R
+import com.coagere.gropix.jetpack.repos.UserRepo
 import com.coagere.gropix.prefs.TempStorage
 import com.coagere.gropix.ui.activities.MainActivity
+import com.coagere.gropix.utils.MyApplication
 import com.coagere.gropix.utils.ParseJson
 import com.tc.utils.utils.helpers.CheckOs.checkBuildForLolipop
 import com.tc.utils.utils.helpers.HelperNotificationChannel
@@ -36,6 +38,9 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         FirebaseMessaging.getInstance().subscribeToTopic("message")
         TempStorage.instance.saveFcmToken(token)
         TempStorage.instance.saveAppStatus = false
+        if (MyApplication.isLoggedIn){
+            UserRepo.instance.postFcm()
+        }
     }
 
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
