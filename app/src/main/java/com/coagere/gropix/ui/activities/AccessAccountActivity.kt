@@ -97,10 +97,7 @@ class AccessAccountActivity : BaseActivity(), View.OnClickListener {
 
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
                 if (s.length == 1) {
-                    utilityClass.closeProgressDialog(
-                        progressView = binding!!.idProgressBarOtp,
-                        hideView = false
-                    )
+                    utilityClass.closeProgressBar()
                     handler.removeCallbacks(runnable)
                     utilityClass.setEditTextMaxLength(binding!!.idEditOtp, 4)
                     binding!!.idEditOtp.hint = ""
@@ -118,7 +115,7 @@ class AccessAccountActivity : BaseActivity(), View.OnClickListener {
     private fun onClickOtp() {
         utilityClass.hideSoftKeyboard()
         if (validate() && CheckConnection.checkConnection(this)) {
-            utilityClass.startProgressBar()
+            utilityClass.startProgressBar(binding!!.idImageArrow, hideView = true)
             binding!!.idEditNumber.isEnabled = false
             binding!!.idParentButtonSubmit.isEnabled = false
             viewModel.performAccessAccount(
@@ -170,7 +167,7 @@ class AccessAccountActivity : BaseActivity(), View.OnClickListener {
 
     private fun showOtpView() {
         utilityClass.setEditTextMaxLength(binding!!.idEditOtp, 14)
-        utilityClass.showProgressDialog(null, binding!!.idProgressBarOtp, false)
+        utilityClass.startProgressBar(progressBar = binding!!.root.findViewById(R.id.id_progress_bar_otp))
         binding!!.idEditOtp.requestFocus()
         callRunnable()
         setAutoSmsReceiver()
@@ -182,12 +179,7 @@ class AccessAccountActivity : BaseActivity(), View.OnClickListener {
 
     private fun hideOtpView() {
         binding!!.idEditOtp.setText("")
-        utilityClass.closeProgressDialog(
-            progressView = binding!!.idProgressBarOtp,
-            hideView = false
-        )
-        utilityClass.closeProgressBar()
-        binding!!.idProgressBar.setImageResource(R.drawable.icon_vd_arrow_forward)
+        utilityClass.closeProgressBar(binding!!.idImageArrow)
         binding!!.idProgressBar.visibility = View.VISIBLE
         handler.removeCallbacks(runnable)
         binding!!.idTextButton.text = getString(R.string.string_button_name_submit_otp)
@@ -219,7 +211,7 @@ class AccessAccountActivity : BaseActivity(), View.OnClickListener {
                     R.color.colorTextWhite
                 )
             )
-            utilityClass.startProgressBar()
+            utilityClass.startProgressBar(binding!!.idImageArrow, hideView = true)
             viewModel.performOtpVerification(
                 binding!!.idEditNumber.text.toString()
                     .substring(4, binding!!.idEditNumber.text.toString().length),
@@ -249,9 +241,8 @@ class AccessAccountActivity : BaseActivity(), View.OnClickListener {
     }
 
     private fun hideProgressBar() {
-        utilityClass.closeProgressBar()
+        utilityClass.closeProgressBar(binding!!.idImageArrow)
         Handler().postDelayed({
-            binding!!.idProgressBar.setImageResource(R.drawable.icon_vd_arrow_forward)
             binding!!.idProgressBar.visibility = View.VISIBLE
             binding!!.idParentButtonSubmit.isEnabled = true
             binding!!.idEditOtp.isEnabled = true
@@ -264,29 +255,23 @@ class AccessAccountActivity : BaseActivity(), View.OnClickListener {
         utilityClass.hideSoftKeyboard()
         if (CheckConnection.checkConnection(this)) {
             binding!!.idTextTimer.isEnabled = false
-            utilityClass.showProgressView(
+            utilityClass.startProgressBar(
                 binding!!.idTextTimer,
-                progressView = binding!!.idProgressBarResend,
+                progressBar = binding!!.root.findViewById(R.id.id_progress_bar_resend),
                 true
             )
             viewModel.performResendOtp(
                 object : OnEventOccurListener() {
                     override fun onErrorResponse(`object`: Any, errorMessage: String) {
                         binding!!.idTextTimer.isEnabled = true
-                        utilityClass.closeProgressDialog(
-                            binding!!.idTextTimer,
-                            progressView = binding!!.idProgressBarResend
-                        )
+                        utilityClass.closeProgressBar()
                         MySnackBar.getInstance()
                             .showSnackBarForMessage(this@AccessAccountActivity, errorMessage)
                     }
 
                     override fun getEventData(`object`: Any) {
                         count += 1
-                        utilityClass.closeProgressDialog(
-                            binding!!.idTextTimer,
-                            progressView = binding!!.idProgressBarResend
-                        )
+                        utilityClass.closeProgressBar()
                         MySnackBar.getInstance().showSnackBarForMessage(
                             this@AccessAccountActivity,
                             getString(R.string.string_toast_otp_resent)

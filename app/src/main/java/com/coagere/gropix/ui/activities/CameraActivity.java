@@ -287,7 +287,7 @@ public final class CameraActivity extends AppCompatActivity implements View.OnCl
     public boolean saveImageIntoMemo(Bitmap bitmap, File file) {
         try {
             FileOutputStream out = new FileOutputStream(file);
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 60, out);
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 80, out);
             out.flush();
             out.close();
             return true;
@@ -416,7 +416,7 @@ public final class CameraActivity extends AppCompatActivity implements View.OnCl
     private void onClickCamera(View view) {
         cameraSource.takePicture(null, bytes -> {
             try {
-                Bitmap loadedImage = null;
+                Bitmap loadedImage;
                 rtt = Exis.getOrientation(bytes);
                 loadedImage = BitmapFactory.decodeByteArray(bytes, 0,
                         bytes.length);
@@ -427,7 +427,7 @@ public final class CameraActivity extends AppCompatActivity implements View.OnCl
                         rotateMatrix, false);
                 iFile = StoragePath.INSTANCE.createTempFile(CameraActivity.this);
                 ByteArrayOutputStream ostream = new ByteArrayOutputStream();
-                bitmap.compress(Bitmap.CompressFormat.JPEG, 80, ostream);
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 70, ostream);
                 FileOutputStream fout = new FileOutputStream(iFile);
                 fout.write(ostream.toByteArray());
                 fout.close();

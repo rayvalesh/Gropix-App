@@ -29,6 +29,7 @@ import com.coagere.gropix.R;
 import com.coagere.gropix.jetpack.entities.FileModel;
 import com.coagere.gropix.prefs.UserStorage;
 import com.tc.utils.utils.helpers.StoragePath;
+import com.tc.utils.utils.helpers.Utils;
 import com.tc.utils.variables.abstracts.OnEventOccurListener;
 import com.tc.utils.variables.interfaces.Constants;
 
@@ -888,7 +889,7 @@ public class HelperFileFormat {
         private Uri[] uris;
         private OnEventOccurListener listeners;
         private String errorMessage;
-        private ArrayList<FileModel> fileModels= new ArrayList<>();
+        private ArrayList<FileModel> fileModels = new ArrayList<>();
 
         public FileAsync(Context context, Uri[] uris, OnEventOccurListener listeners) {
             this.context = context;

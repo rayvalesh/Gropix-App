@@ -26,4 +26,5 @@
     <dimen name="dimen_sheet_label_large_width">120dp</dimen>
     <dimen name="dimen_rupee_small">9dp</dimen>
     <dimen name="string_order_bill_label_width">120dp</dimen>
+    <dimen name="dimen_button_text_size_large">17sp</dimen>
 </resources>

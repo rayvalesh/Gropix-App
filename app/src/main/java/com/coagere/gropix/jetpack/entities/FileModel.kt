@@ -14,7 +14,7 @@ data class FileModel(
         @SerializedName("fileUrl")
         var fileUrl: String? = null,
 
-        @SerializedName("url")
+        @SerializedName("orderFilePath")
         var downloadUrl: String? = null,
 
         @SerializedName("fileName")

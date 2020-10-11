@@ -165,16 +165,9 @@
 
                     </com.google.android.material.textfield.TextInputLayout>
 
-                    <androidx.appcompat.widget.AppCompatImageView
+                    <include
                         android:id="@+id/id_progress_bar_otp"
-                        android:layout_width="@dimen/dimen_progress_bar_very_small"
-                        android:layout_height="@dimen/dimen_progress_bar_very_small"
-                        android:layout_gravity="end|center"
-                        android:layout_marginEnd="@dimen/dimen_common_margin_less_more"
-                        android:contentDescription="@null"
-                        android:tint="@color/colorWhite"
-                        android:visibility="gone"
-                        app:srcCompat="@drawable/avd_progress_bar" />
+                        layout="@layout/include_vector_spinner_small" />
                 </FrameLayout>
 
                 <TextView
@@ -203,16 +196,9 @@
                     android:textColor="@color/colorTextWhite"
                     android:textSize="@dimen/dimen_common_text_size_large" />
 
-                <androidx.appcompat.widget.AppCompatImageView
+                <include
                     android:id="@+id/id_progress_bar_resend"
-                    android:layout_width="@dimen/dimen_progress_bar_very_small"
-                    android:layout_height="@dimen/dimen_progress_bar_very_small"
-                    android:layout_gravity="end|center"
-                    android:layout_marginEnd="@dimen/dimen_common_margin_less_more"
-                    android:contentDescription="@null"
-                    android:tint="@color/colorWhite"
-                    android:visibility="gone"
-                    app:srcCompat="@drawable/avd_progress_bar" />
+                    layout="@layout/include_vector_spinner_small" />
 
             </LinearLayout>
 
@@ -242,8 +228,12 @@
                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="@dimen/dimen_button_text_size" />
 
-                <androidx.appcompat.widget.AppCompatImageView
+                <include
                     android:id="@+id/id_progress_bar"
+                    layout="@layout/include_vector_spinner_small" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/id_image_arrow"
                     android:layout_width="@dimen/dimen_progress_bar_very_small"
                     android:layout_height="@dimen/dimen_progress_bar_very_small"
                     android:layout_gravity="center"

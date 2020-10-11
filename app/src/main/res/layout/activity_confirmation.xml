@@ -6,7 +6,7 @@
     <data>
 
         <variable
-            name="model"
+            name="addressModel"
             type="com.coagere.gropix.jetpack.entities.AddressModel" />
 
         <variable
@@ -55,6 +55,7 @@
         </com.google.android.material.appbar.AppBarLayout>
 
         <androidx.core.widget.NestedScrollView
+            android:id="@+id/id_scroll_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
@@ -62,8 +63,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:paddingBottom="50dp">
+                android:orientation="vertical">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -106,6 +106,7 @@
                 <include layout="@layout/utility_vertical_border_layout_shadow" />
 
                 <LinearLayout
+                    android:paddingBottom="60dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dimen_common_margin_large"
@@ -206,6 +207,7 @@
                     <EditText
                         android:id="@+id/id_edit_street"
                         style="@style/EditTextStyle"
+                        text="@{addressModel.street}"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/dimen_edit_text_height"
                         android:layout_marginEnd="@dimen/dimen_common_margin_small"
@@ -262,6 +264,7 @@
                         <AutoCompleteTextView
                             android:id="@+id/id_edit_city"
                             style="@style/EditTextStyle"
+                            text="@{addressModel.city}"
                             android:layout_width="0dp"
                             android:layout_height="@dimen/dimen_edit_text_height"
                             android:layout_marginEnd="@dimen/dimen_common_margin_small"
@@ -282,6 +285,7 @@
                         <AutoCompleteTextView
                             android:id="@+id/id_edit_state"
                             style="@style/EditTextStyle"
+                            text="@{addressModel.state}"
                             android:layout_width="0dp"
                             android:layout_height="@dimen/dimen_edit_text_height"
                             android:layout_marginStart="@dimen/dimen_common_margin"
@@ -316,26 +320,20 @@
                         android:textColor="@color/colorTextPrimaryLight"
                         android:textSize="@dimen/dimen_edit_text_title_size" />
 
-                    <AutoCompleteTextView
-                        android:id="@+id/id_edit_pin_code"
-                        style="@style/EditTextStyle"
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/dimen_edit_text_height"
-                        android:layout_marginEnd="@dimen/dimen_common_margin_small"
-                        android:layout_marginBottom="@dimen/dimen_app_bar_height"
-                        android:background="@drawable/drawable_edit_text"
-                        android:hint="Enter pincode"
-                        android:imeOptions="actionDone"
-                        android:importantForAutofill="no"
-                        android:inputType="number"
-                        android:maxLines="1"
-                        android:minLines="1"
-                        android:paddingStart="@dimen/dimen_edit_text_padding_small"
-                        android:paddingEnd="@dimen/dimen_edit_text_padding_small"
-                        android:textColor="@color/colorEditTextText"
-                        android:textColorHint="@color/colorTextHint"
-                        android:textSize="@dimen/dimen_edit_text_size" />
+                        android:layout_height="@dimen/dimen_edit_text_height_default"
+                        android:background="@drawable/drawable_edit_text">
 
+                        <Spinner
+                            android:id="@+id/id_spinner_pincode"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/dimen_edit_text_height_default"
+                            android:layout_margin="@dimen/dimen_common_margin_very_small"
+                            android:popupElevation="@dimen/dimen_popup_elevation"
+                            tools:listitem="@layout/simple_spinner_dropdown" />
+
+                    </LinearLayout>
 
                     <include
                         android:id="@+id/id_text_error_pin"
@@ -347,94 +345,34 @@
 
         </androidx.core.widget.NestedScrollView>
 
-        <LinearLayout
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:orientation="vertical">
+            android:layout_gravity="bottom">
 
-            <include layout="@layout/include_app_bar_shadow_down" />
-
-            <LinearLayout
+            <Button
+                android:id="@+id/id_button_submit"
+                style="?attr/buttonBarStyle"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/colorStyleThreeDark"
-                android:gravity="center"
-                android:orientation="horizontal">
+                android:layout_height="@dimen/dimen_button_height_default"
+                android:layout_gravity="end|center"
+                android:layout_margin="@dimen/dimen_common_margin_large"
+                android:background="@drawable/button_background_positive_green"
+                android:elevation="2dp"
+                android:onClick="@{clickListener}"
+                android:paddingLeft="@dimen/dimen_common_margin_large"
+                android:paddingRight="@dimen/dimen_common_margin_large"
+                android:text="@string/string_button_name_place_order"
+                android:textColor="@color/colorTextWhite"
+                android:textSize="@dimen/dimen_button_text_size"
+                android:textStyle="bold"
+                android:translationZ="2dp" />
 
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical"
-                    android:paddingStart="@dimen/dimen_common_margin"
-                    android:paddingEnd="@dimen/dimen_common_margin">
+            <include
+                android:id="@+id/id_progress_bar_submit"
+                layout="@layout/include_vector_spinner" />
 
-                    <TextView
-                        style="@style/TextViewStyleMedium"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Place your order"
-                        android:textColor="@color/colorWhite"
-                        android:textSize="@dimen/dimen_common_text_size_very_very_large" />
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <androidx.appcompat.widget.AppCompatImageView
-                            android:layout_width="@dimen/dimen_icon_size_very_small"
-                            android:layout_height="@dimen/dimen_icon_size_very_small"
-                            android:padding="@dimen/dimen_margin_balancing"
-                            android:tint="@color/colorWhiteAlpha"
-                            app:srcCompat="@drawable/icon_vd_about" />
-
-                        <TextView
-                            style="@style/TextViewStyleLight"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Terms &amp; Condition"
-                            android:textColor="@color/colorWhite"
-                            android:textSize="@dimen/dimen_common_text_size_med" />
-
-                    </LinearLayout>
-
-                </LinearLayout>
-
-                <FrameLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
-
-                    <Button
-                        android:id="@+id/id_button_submit"
-                        style="?attr/buttonBarStyle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="@dimen/dimen_button_height_default"
-                        android:layout_gravity="end|center"
-                        android:layout_margin="@dimen/dimen_common_margin_more"
-                        android:background="@drawable/button_background_positive_white"
-                        android:onClick="@{clickListener}"
-                        android:paddingLeft="@dimen/dimen_common_margin_large"
-                        android:paddingRight="@dimen/dimen_common_margin_large"
-                        android:text="@string/string_button_name_submit"
-                        android:textColor="@color/colorTextPrimary"
-                        android:textSize="16sp"
-                        android:textStyle="bold" />
-
-                    <androidx.appcompat.widget.AppCompatImageView
-                        android:id="@+id/id_progress_bar"
-                        android:layout_width="@dimen/dimen_progress_bar_very_small"
-                        android:layout_height="@dimen/dimen_progress_bar_very_small"
-                        android:layout_gravity="center"
-                        android:clickable="false"
-                        android:contentDescription="@string/app_name"
-                        android:focusable="false"
-                        android:tint="@color/colorPrimaryDark" />
-                </FrameLayout>
-            </LinearLayout>
-
-        </LinearLayout>
+        </FrameLayout>
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

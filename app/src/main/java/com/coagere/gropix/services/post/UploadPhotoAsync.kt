@@ -12,6 +12,7 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.coagere.gropix.jetpack.entities.FileModel
 import com.coagere.gropix.utils.ParseJson
 import com.tc.utils.receivers.ServiceReceiver
+import com.tc.utils.utils.helpers.Utils
 import com.tc.utils.utils.utility.isNotNull
 import com.tc.utils.utils.utility.isNullAndEmpty
 import com.tc.utils.variables.interfaces.ApiKeys
@@ -99,6 +100,7 @@ class UploadPhotoAsync : IntentService(UploadPhotoAsync::class.java.simpleName) 
     private fun postFileByApi(fileModel: FileModel, index: Int) {
         currentIndex = index
         val response = uploadFile(File(fileModel.fileUrl!!), fileModel, index)
+        Utils.log(response)
         if (isNotNull(response)) {
             try {
                 val jsonObject = JSONObject(response!!)
@@ -127,13 +129,15 @@ class UploadPhotoAsync : IntentService(UploadPhotoAsync::class.java.simpleName) 
     private fun uploadFile(sourceFile: File, fileModel: FileModel, index: Int): String? {
         HttpURLConnection.setFollowRedirects(false)
         try {
+            Utils.log(sourceFile.absolutePath)
+            Utils.log(sourceFile.length())
             connection = URL(ApiKeys.URL_POST_IMAGE_UPLOAD).openConnection() as HttpURLConnection
             connection!!.requestMethod = "POST"
             connection!!.doInput = true
             connection!!.doOutput = true
             connection!!.useCaches = false
             val boundary = "---------------------------boundary"
-            val tail = lineEnd + "--" + boundary + "--" + lineEnd
+            val tail = "$lineEnd--$boundary--$lineEnd"
             connection!!.setRequestProperty(
                 "Content-Type",
                 "multipart/form-data; boundary=$boundary"

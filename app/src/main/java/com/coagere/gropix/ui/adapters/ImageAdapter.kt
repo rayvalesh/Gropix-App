@@ -13,13 +13,17 @@ import com.coagere.gropix.jetpack.entities.FileModel
 import com.coagere.gropix.utils.DownloadImage.downloadFile
 import com.coagere.gropix.utils.DownloadImage.downloadImages
 import com.tc.utils.utils.customs.RoundedCornersTransformation
+import com.tc.utils.utils.helpers.Utils
 import com.tc.utils.utils.utility.isNullAndEmpty
 import com.tc.utils.variables.abstracts.OnEventOccurListener
 import com.tc.utils.variables.enums.ActionType
 import com.tc.utils.variables.interfaces.Constants
 import java.util.*
 
-class ImageAdapter(private val modelList: ArrayList<FileModel>, private val listeners: OnEventOccurListener) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class ImageAdapter(
+    private val modelList: ArrayList<FileModel>,
+    private val listeners: OnEventOccurListener
+) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private var size = 0
 
     fun notifyAdapterItemChanged(fileModel: FileModel) {
@@ -64,9 +68,11 @@ class ImageAdapter(private val modelList: ArrayList<FileModel>, private val list
             size = 2
             notifyDataSetChanged()
         }
+        Utils.log("size $size")
     }
 
     private var enableAdding = true
+
     override fun getItemViewType(position: Int): Int {
         return if (enableAdding) {
             if (position == size - 1) 1 else 0
@@ -77,9 +83,14 @@ class ImageAdapter(private val modelList: ArrayList<FileModel>, private val list
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return if (viewType == 1 && enableAdding) {
-            ViewHolderAdd(LayoutInflater.from(parent.context).inflate(R.layout.adapter_image_add, parent, false))
+            ViewHolderAdd(
+                LayoutInflater.from(parent.context)
+                    .inflate(R.layout.adapter_image_add, parent, false)
+            )
         } else {
-            ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.adapter_image, parent, false))
+            ViewHolder(
+                LayoutInflater.from(parent.context).inflate(R.layout.adapter_image, parent, false)
+            )
         }
     }
 
@@ -93,12 +104,13 @@ class ImageAdapter(private val modelList: ArrayList<FileModel>, private val list
         return size
     }
 
-    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
-        private val fileDescriptionTextView: TextView
-        private val fileTypeTextView: TextView
-        private val fileActionImageView: AppCompatImageView
-        private val progressBar: ProgressBar
-        private val imageView: ImageView
+    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
+        View.OnClickListener {
+        private val fileDescriptionTextView: TextView = itemView.findViewById(R.id.id_text_file_description)
+        private val fileTypeTextView: TextView = itemView.findViewById(R.id.id_text_file_type)
+        private val fileActionImageView: AppCompatImageView = itemView.findViewById(R.id.id_image_file_action)
+        private val progressBar: ProgressBar = itemView.findViewById(R.id.id_progress_bar)
+        private val imageView: ImageView = itemView.findViewById(R.id.id_image)
         fun bindTo(fileModel: FileModel?) {
             itemView.findViewById<View>(R.id.id_image).visibility = View.VISIBLE
             bindImageThings(fileModel, itemView)
@@ -108,25 +120,44 @@ class ImageAdapter(private val modelList: ArrayList<FileModel>, private val list
             val adapterPosition = adapterPosition
             val fileModel = modelList[adapterPosition]
             when (v.id) {
-                R.id.id_image_file_delete -> listeners.getEventData(fileModel, ActionType.ACTION_DELETE, adapterPosition)
+                R.id.id_image_file_delete -> listeners.getEventData(
+                    fileModel,
+                    ActionType.ACTION_DELETE,
+                    adapterPosition
+                )
                 R.id.id_image_file_action -> handleFileActions(fileModel, adapterPosition)
-                R.id.id_image -> listeners.getEventData(fileModel, ActionType.ACTION_EXPLORE_IMAGE, adapterPosition)
+                R.id.id_image -> listeners.getEventData(
+                    fileModel,
+                    ActionType.ACTION_EXPLORE
+                )
             }
         }
 
         private fun bindImageThings(fileModel: FileModel?, itemView: View) {
             if (fileModel!!.actionType == 0) {
                 if (isNullAndEmpty(fileModel.fileUrl))
-                    downloadImages(itemView.context, fileModel.downloadUrl,
-                        imageView, R.drawable.placeholder_rounded, RoundedCornersTransformation.CornerType.ALL, Constants.VALUE_IMAGE_RADIUS)
+                    downloadImages(
+                        itemView.context,
+                        fileModel.downloadUrl,
+                        imageView,
+                        R.drawable.placeholder_rounded,
+                        RoundedCornersTransformation.CornerType.ALL,
+                        Constants.VALUE_IMAGE_RADIUS
+                    )
                 itemView.findViewById<View>(R.id.id_image_file_delete).visibility = View.VISIBLE
-                fileDescriptionTextView.text = itemView.context.getString(R.string.string_button_name_remove)
+                fileDescriptionTextView.text =
+                    itemView.context.getString(R.string.string_button_name_remove)
                 progressBar.visibility = View.GONE
                 fileActionImageView.visibility = View.GONE
             } else {
                 fileTypeTextView.text = fileModel.fileType!!.toUpperCase()
-                downloadFile(itemView.context, fileModel.fileUrl,
-                        imageView, R.drawable.placeholder_rounded, RoundedCornersTransformation.CornerType.ALL)
+                downloadFile(
+                    itemView.context,
+                    fileModel.fileUrl,
+                    imageView,
+                    R.drawable.placeholder_rounded,
+                    RoundedCornersTransformation.CornerType.ALL
+                )
                 handleActionType(fileModel)
             }
         }
@@ -172,29 +203,20 @@ class ImageAdapter(private val modelList: ArrayList<FileModel>, private val list
         }
 
         init {
-            imageView = itemView.findViewById(R.id.id_image)
-            fileActionImageView = itemView.findViewById(R.id.id_image_file_action)
-            fileDescriptionTextView = itemView.findViewById(R.id.id_text_file_description)
-            fileTypeTextView = itemView.findViewById(R.id.id_text_file_type)
-            progressBar = itemView.findViewById(R.id.id_progress_bar)
             fileActionImageView.setOnClickListener(this)
             itemView.findViewById<View>(R.id.id_image_file_delete).setOnClickListener(this)
             imageView.setOnClickListener(this)
         }
     }
 
-    inner class ViewHolderAdd(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
+    inner class ViewHolderAdd(itemView: View) : RecyclerView.ViewHolder(itemView),
+        View.OnClickListener {
         override fun onClick(v: View) {
-            if (v.id == R.id.id_text_hide) {
-                listeners.getEventData(ActionType.ACTION_CANCEL)
-            } else {
-                listeners.getEventData(ActionType.ACTION_ADD)
-            }
+            listeners.getEventData(ActionType.ACTION_ADD)
         }
 
         init {
             itemView.findViewById<View>(R.id.id_image_add).setOnClickListener(this)
-            itemView.findViewById<View>(R.id.id_text_hide).setOnClickListener(this)
             itemView.setOnClickListener(this)
         }
     }

@@ -5,6 +5,8 @@
 
     <data>
 
+        <import type="android.view.View" />
+
         <variable
             name="model"
             type="com.coagere.gropix.jetpack.entities.OrderModel" />
@@ -218,9 +220,8 @@
                                 <TextView
                                     android:id="@+id/id_text_status"
                                     style="@style/TextViewStyleMedium"
-                                     android:layout_width="wrap_content"
+                                    android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="Pending"
                                     android:textColor="@color/colorStyleSixDark"
                                     android:textSize="@dimen/dimen_common_text_size_title" />
                             </LinearLayout>
@@ -242,7 +243,12 @@
                         android:padding="@dimen/dimen_common_margin_less_more"
                         android:text="Cancel Order"
                         android:textColor="@color/colorErrorMessage"
-                        android:textSize="@dimen/dimen_common_text_size_sub" />
+                        android:textSize="@dimen/dimen_common_text_size_sub"
+                        android:visibility="gone" />
+
+                    <include
+                        android:id="@+id/id_progress_bar_cancel"
+                        layout="@layout/include_vector_spinner_small" />
 
                 </LinearLayout>
 
@@ -253,11 +259,13 @@
                     android:background="@drawable/style_shadow_up" />
 
                 <LinearLayout
+
                     android:id="@+id/id_parent_billing"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/colorWhite"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:visibility="@{model.totalAmount != null ? View.VISIBLE : View.GONE}">
 
                     <TextView
                         style="@style/TextViewStyleMedium"
@@ -535,9 +543,94 @@
 
         </androidx.core.widget.NestedScrollView>
 
-        <include
-            layout="@layout/include_app_bar_shadow"
-            android:visibility="gone" />
+        <LinearLayout
+            android:id="@+id/id_parent_confirmation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <include layout="@layout/include_app_bar_shadow_down" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@color/colorWhite"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical"
+                    android:paddingStart="@dimen/dimen_common_margin_large"
+                    android:paddingEnd="@dimen/dimen_common_margin_large">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:layout_width="16dp"
+                            android:layout_height="16dp"
+                            android:layout_gravity="center"
+                            android:layout_marginBottom="@dimen/dimen_margin_balancing"
+                            android:tint="@color/colorTextPrimary"
+                            app:srcCompat="@drawable/icon_vd_rupee" />
+
+                        <TextView
+                            android:id="@+id/id_text_total_amount_confirm"
+                            style="@style/TextViewStyleBold"
+                            text='@{model.totalAmount+"/-"}'
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="122/-"
+                            android:textColor="@color/colorTextPrimary"
+                            android:textSize="@dimen/dimen_common_text_size_very_large" />
+                    </LinearLayout>
+
+                    <TextView
+                        style="@style/TextViewStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Payable Amount"
+                        android:textColor="@color/colorStyleOneDark"
+                        android:textSize="@dimen/dimen_common_text_size_med" />
+
+                </LinearLayout>
+
+                <FrameLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@color/colorStyleThreeDark">
+
+                    <Button
+                        android:id="@+id/id_button_submit"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="end|center"
+                        android:background="@android:color/transparent"
+                        android:onClick="@{clickListener}"
+                        android:paddingLeft="@dimen/dimen_common_margin_large"
+                        android:paddingRight="@dimen/dimen_common_margin_large"
+                        android:text="@string/string_button_name_confirm_order"
+                        android:textColor="@color/colorTextWhite"
+                        android:textSize="@dimen/dimen_button_text_size_large" />
+
+                    <include
+                        android:id="@+id/id_progress_bar_submit"
+                        layout="@layout/include_vector_spinner" />
+
+                </FrameLayout>
+            </LinearLayout>
+
+        </LinearLayout>
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

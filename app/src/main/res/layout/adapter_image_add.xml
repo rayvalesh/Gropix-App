@@ -6,8 +6,8 @@
 
     <FrameLayout
         android:id="@+id/id_image_add"
-        android:layout_width="@dimen/dimen_message_image_size"
-        android:layout_height="@dimen/dimen_message_image_min_size"
+        android:layout_width="@dimen/dimen_add_image_width"
+        android:layout_height="@dimen/dimen_add_image_height"
         android:layout_marginStart="@dimen/dimen_common_margin_medium"
         android:layout_marginTop="@dimen/dimen_common_margin_medium"
         android:layout_marginEnd="@dimen/dimen_common_margin_medium"
@@ -21,17 +21,5 @@
             app:srcCompat="@drawable/icon_vd_image_add" />
 
     </FrameLayout>
-
-    <TextView
-        android:id="@+id/id_text_hide"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:clickable="true"
-        android:focusable="true"
-        android:padding="@dimen/dimen_common_margin_very_small"
-        android:text="@string/string_label_hide"
-        android:textColor="@color/colorErrorMessage"
-        android:visibility="gone" />
 
 </LinearLayout>

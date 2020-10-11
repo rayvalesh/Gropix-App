@@ -1,5 +1,6 @@
 package com.coagere.gropix.ui.frags
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -12,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.coagere.gropix.R
 import com.coagere.gropix.databinding.FragOrderListBinding
 import com.coagere.gropix.jetpack.entities.OrderModel
+import com.coagere.gropix.jetpack.repos.OrderRepo
 import com.coagere.gropix.jetpack.viewmodels.OrderVM
 import com.coagere.gropix.ui.activities.ExploreOrderActivity
 import com.coagere.gropix.ui.adapters.OrderStatusAdapter
@@ -21,6 +23,7 @@ import com.tc.utils.elements.BaseFragment
 import com.tc.utils.utils.helpers.Utils
 import com.tc.utils.variables.abstracts.OnEventOccurListener
 import com.tc.utils.variables.enums.ActionType
+import com.tc.utils.variables.interfaces.Constants
 import com.tc.utils.variables.interfaces.IntentInterface
 import tk.jamun.ui.snacks.MySnackBar
 
@@ -33,12 +36,27 @@ class OrderListFrag : BaseFragment() {
     private val utilityClass: UtilityClass by lazy {
         UtilityClass(
             requireActivity(),
-            requireView()
+            binding!!.root
         )
     }
     private val viewModel: OrderVM by lazy { ViewModelProvider(this).get(OrderVM::class.java) }
     private var modelList: ArrayList<OrderModel> = arrayListOf()
-    private var adapter: OrderStatusAdapter? = null
+    private var adapter: OrderStatusAdapter = OrderStatusAdapter(
+        modelList = modelList, object : OnEventOccurListener() {
+            override fun getEventData(
+                `object`: Any?,
+                actionType: ActionType?,
+                adapterPosition: Int
+            ) {
+                super.getEventData(`object`, actionType, adapterPosition)
+                startActivityForResult(
+                    Intent(requireActivity(), ExploreOrderActivity::class.java)
+                        .putExtra(IntentInterface.INTENT_FOR_POSITION, adapterPosition)
+                        .putExtra(IntentInterface.INTENT_FOR_MODEL, `object` as OrderModel), 1
+                )
+            }
+        }
+    )
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -59,14 +77,20 @@ class OrderListFrag : BaseFragment() {
         return binding!!.root
     }
 
+    /**
+     * Api to get list of [OrderModel] : [OrderRepo.apiGetOrderStatusList]
+     */
     override fun initializeViewModel() {
         super.initializeViewModel()
+        utilityClass.startProgressBar()
+        modelList.clear()
+        adapter.notifyAdapterDataSetChanged()
         viewModel.getApiOrderList(
             modelList = modelList,
             object : OnEventOccurListener() {
                 override fun getEventData(`object`: Any?) {
                     super.getEventData(`object`)
-                    adapter?.notifyAdapterDataSetChanged()
+                    adapter.notifyAdapterDataSetChanged()
                     initializeEmptyView(modelList.isNullOrEmpty())
                 }
 
@@ -87,37 +111,36 @@ class OrderListFrag : BaseFragment() {
     override fun initializeRecyclerView() {
         super.initializeRecyclerView()
         binding!!.idRecyclerView.layoutManager = LinearLayoutManager(requireContext())
-        adapter = OrderStatusAdapter(
-            modelList = modelList, object : OnEventOccurListener() {
-                override fun getEventData(
-                    `object`: Any?,
-                    actionType: ActionType?,
-                    adapterPosition: Int
-                ) {
-                    super.getEventData(`object`, actionType, adapterPosition)
-                    startActivity(
-                        Intent(requireActivity(), ExploreOrderActivity::class.java)
-                            .putExtra(IntentInterface.INTENT_FOR_MODEL, `object` as OrderModel)
-                    )
-                }
-            }
-        )
         binding!!.idRecyclerView.adapter = adapter
-        adapter?.notifyAdapterDataSetChanged()
     }
 
 
     override fun initializeEmptyView(isEmpty: Boolean) {
         super.initializeEmptyView(isEmpty)
+        utilityClass.closeProgressBar()
         Utils.setVisibility(
             binding!!.root.findViewById<LinearLayout>(R.id.id_linear_inbox_empty),
             isEmpty
+        )
+        Utils.setVisibility(
+            binding!!.root.findViewById<LinearLayout>(R.id.id_recycler_view),
+            !isEmpty
         )
         parentListener?.getEventData(isEmpty)
     }
 
     fun bindListener(listener: OnEventOccurListener) {
         parentListener = listener
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == 1 && resultCode == Activity.RESULT_OK) {
+            val adapterPosition = data!!.getIntExtra(IntentInterface.INTENT_FOR_POSITION, 0)
+            val model = modelList[adapterPosition]
+            model.status = data.getIntExtra(IntentInterface.INTENT_COME_FROM, 0)
+            adapter.notifyAdapterItemChange(adapterPosition)
+        }
     }
 
     companion object {

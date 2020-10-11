@@ -16,10 +16,7 @@ import com.coagere.gropix.jetpack.entities.FileModel
 import com.coagere.gropix.ui.frags.OrderListFrag
 import com.coagere.gropix.ui.popups.Popups
 import com.coagere.gropix.ui.sheets.ChooserSheet
-import com.coagere.gropix.utils.CheckOs
-import com.coagere.gropix.utils.HelperFileFormat
-import com.coagere.gropix.utils.ShareData
-import com.coagere.gropix.utils.UtilityClass
+import com.coagere.gropix.utils.*
 import com.tc.utils.elements.BaseActivity
 import com.tc.utils.utils.helpers.HelperActionBar
 import com.tc.utils.utils.helpers.HelperIntent
@@ -38,13 +35,13 @@ import tk.jamunx.ui.camera.utils.InterfaceUtils
 import java.io.File
 
 class MainActivity : BaseActivity(), View.OnClickListener {
-    private var utilityClass: UtilityClass? = null
+    private val utilityClass: UtilityClass by lazy { UtilityClass(this@MainActivity) }
     private var popup: Popups? = null
+    private var frag: OrderListFrag? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         lifecycleScope.launchWhenCreated {
-            utilityClass = UtilityClass(this@MainActivity)
             setContentView(R.layout.activity_main)
             initializeViewModel()
             initializeListeners()
@@ -52,7 +49,6 @@ class MainActivity : BaseActivity(), View.OnClickListener {
             initializeFragsView()
         }
     }
-
 
     override fun setToolbar() {
         super.setToolbar()
@@ -75,9 +71,9 @@ class MainActivity : BaseActivity(), View.OnClickListener {
 
     override fun initializeFragsView() {
         super.initializeFragsView()
-        val frag = supportFragmentManager.findFragmentById(R.id.id_frag) as OrderListFrag
+        frag = supportFragmentManager.findFragmentById(R.id.id_frag) as OrderListFrag
         Handler().postDelayed({
-            frag.bindListener(object : OnEventOccurListener() {
+            frag?.bindListener(object : OnEventOccurListener() {
                 override fun getEventData(`object`: Any?) {
                     super.getEventData(`object`)
                     Utils.setVisibility(id_parent_my_order, !(`object` as Boolean))
@@ -91,9 +87,10 @@ class MainActivity : BaseActivity(), View.OnClickListener {
         super.initializeListeners()
         id_parent_button.setOnClickListener {
             val sheet = ChooserSheet()
-            sheet.showDialog(object : OnEventOccurListener() {
+            sheet.showDialog(0, object : OnEventOccurListener() {
                 override fun getEventData(`object`: Any?) {
                     super.getEventData(`object`)
+                    sheet.dismiss()
                     when (`object` as ActionType) {
                         ActionType.ACTION_CAMERA -> {
                             onClickCamera()
@@ -195,9 +192,11 @@ class MainActivity : BaseActivity(), View.OnClickListener {
                             });
                     }
                 }
+                else -> {
+                    frag?.initializeViewModel()
+                }
             }
     }
-
 
     private fun createPopup(view: View) {
         popup = Popups(this@MainActivity, object : OnEventOccurListener() {
@@ -228,6 +227,9 @@ class MainActivity : BaseActivity(), View.OnClickListener {
                                 R.string.string_label_logout
                             ) {
                                 it.dismiss()
+                                HelperLogout.logMeOut(
+                                    this@MainActivity,
+                                    object : OnEventOccurListener() {})
                             }.setAutoNegativeButton(R.string.string_button_name_no)
                             .setAutoCancelable()
                             .show()
@@ -241,9 +243,9 @@ class MainActivity : BaseActivity(), View.OnClickListener {
     }
 
     private fun uploadImage(fileModels: ArrayList<FileModel>) {
-        startActivity(
+        startActivityForResult(
             Intent(this@MainActivity, OrderConfirmationActivity::class.java)
-                .putParcelableArrayListExtra(IntentInterface.INTENT_FOR_MODEL, fileModels)
+                .putParcelableArrayListExtra(IntentInterface.INTENT_FOR_MODEL, fileModels), 99
         )
     }
 

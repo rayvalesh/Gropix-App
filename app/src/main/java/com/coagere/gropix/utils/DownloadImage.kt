@@ -13,6 +13,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.coagere.gropix.R
 import com.tc.utils.utils.customs.RoundedCornersTransformation
+import com.tc.utils.variables.interfaces.ApiKeys
 import tk.jamun.elements.circularimageview.CircularImageView
 
 object DownloadImage {
@@ -69,7 +70,7 @@ object DownloadImage {
     ) {
         if (!url.isNullOrEmpty())
             Glide.with(view.context)
-                .load(url)
+                .load(ApiKeys.URL_DOMAIN + url)
                 .centerCrop()
                 .transform(
                     RoundedCornersTransformation(

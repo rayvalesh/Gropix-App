@@ -19,29 +19,29 @@ data class OrderModel(
     @SerializedName("mobileNumber")
     var mobileNumber: String? = null,
 
-    @SerializedName("timestamp")
+    @SerializedName("timeStamp")
     var timestamp: String? = null,
 
     @SerializedName("updateTimeStamp")
     var updateTimeStamp: String? = null,
 
     @SerializedName("orderImages")
-    var images: ArrayList<String>? = arrayListOf(),
+    var images: ArrayList<String> = arrayListOf(),
 
     @SerializedName("status")
     var status: Int = 0,
 
     @SerializedName("amount")
-    var amount: String = "",
+    var amount: String? = null,
 
     @SerializedName("deliveryFee")
-    var deliveryFee: String = "",
+    var deliveryFee: String? = null,
 
     @SerializedName("totalAmount")
-    var totalAmount: String = "",
+    var totalAmount: String? = null,
 
     @SerializedName("discount")
-    var discount: String = "",
+    var discount: String? = null,
 
     @SerializedName("address")
     var address: AddressModel = AddressModel(),

@@ -7,17 +7,15 @@ interface Constants {
         const val SPACE = " "
 
         const val THREAD_TIME_DELAY: Long = 90
-        const val VALUE_MALE = 1
-        const val VALUE_FEMALE = 2
-        const val VALUE_OTHER = 3
-        const val VALUE_PAGE_SIZE = 20
-        const val VALUE_NO = 1
         const val VALUE_YES = 1
 
-        const val MODULE_PENDING = 1
-        const val MODULE_CANCELLED = 6
-        const val MODULE_PLACED = 5
-        const val MODULE_CART = 4
+        //1. Pending, 2 Confirmed, 3. Bill Upload, 4 Out for deliver. 5. Complete, 6. Cancelled
+        const val ORDER_PENDING = 1
+        const val ORDER_CART = 2
+        const val ORDER_CONFIRMED = 3
+        const val ORDER_OUT_FOR_DELIVERY = 4
+        const val ORDER_COMPLETE = 5
+        const val ORDER_CANCELLED = 6
 
         const val CONSTANTS_IMAGES_COUNT = 8
         const val VALUE_IMAGE_RADIUS = 22

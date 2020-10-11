@@ -4,10 +4,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.coagere.gropix.R
 import com.coagere.gropix.databinding.AdapterOrderPlacedBinding
 import com.coagere.gropix.databinding.AdapterOrdersCancelledBinding
 import com.coagere.gropix.databinding.AdapterOrdersPendingBinding
 import com.coagere.gropix.jetpack.entities.OrderModel
+import com.tc.utils.utils.helpers.Utils
 import com.tc.utils.variables.abstracts.OnEventOccurListener
 import com.tc.utils.variables.enums.ActionType
 import com.tc.utils.variables.interfaces.Constants
@@ -21,14 +23,12 @@ class OrderStatusAdapter(
     var size = modelList.size
 
     fun notifyAdapterDataSetChanged() {
-        size = this.modelList.size
+        size = modelList.size
         notifyDataSetChanged()
     }
 
-    fun notifyAdapterItemRangeChanged() {
-        val lastSize = size
-        size = modelList.size
-        notifyItemRangeChanged(lastSize, size - lastSize)
+    fun notifyAdapterItemChange(position: Int){
+        notifyItemChanged(position)
     }
 
     override fun getItemViewType(position: Int): Int {
@@ -40,7 +40,7 @@ class OrderStatusAdapter(
         viewType: Int
     ): RecyclerView.ViewHolder {
         when (viewType) {
-            Constants.MODULE_CANCELLED -> {
+            Constants.ORDER_CANCELLED -> {
                 return CancelViewHolder(
                     AdapterOrdersCancelledBinding.inflate(
                         LayoutInflater.from(parent.context),
@@ -49,7 +49,7 @@ class OrderStatusAdapter(
                     )
                 )
             }
-            Constants.MODULE_PLACED -> {
+            Constants.ORDER_COMPLETE -> {
                 return PlacedViewHolder(
                     AdapterOrderPlacedBinding.inflate(
                         LayoutInflater.from(parent.context),
@@ -71,7 +71,6 @@ class OrderStatusAdapter(
     }
 
     override fun getItemCount(): Int {
-        L.logE("aya")
         return size
     }
 
@@ -84,15 +83,36 @@ class OrderStatusAdapter(
     }
 
 
+
     inner class ViewHolder(private var binding: AdapterOrdersPendingBinding) :
         RecyclerView.ViewHolder(binding.root), View.OnClickListener {
+
         fun bindTo(orderModel: OrderModel) {
             binding.apply {
                 clickListener = this@ViewHolder
                 model = orderModel
                 executePendingBindings()
             }
+            when (orderModel.status) {
+                Constants.ORDER_CART -> {
+                    binding.idTextStatus.text =
+                        itemView.context.getString(R.string.string_label_status_cart)
+                }
+                Constants.ORDER_PENDING -> {
+                    binding.idTextStatus.text =
+                        itemView.context.getString(R.string.string_label_status_placed)
+                }
+                Constants.ORDER_CONFIRMED -> {
+                    binding.idTextStatus.text =
+                        itemView.context.getString(R.string.string_label_status_confirmed)
+                }
+                Constants.ORDER_OUT_FOR_DELIVERY -> {
+                    binding.idTextStatus.text =
+                        itemView.context.getString(R.string.string_label_status_out_delivery)
+                }
+            }
         }
+
         override fun onClick(v: View) {
             listener.getEventData(
                 modelList[adapterPosition],

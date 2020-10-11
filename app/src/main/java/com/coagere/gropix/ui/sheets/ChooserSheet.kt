@@ -5,11 +5,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
+import android.widget.TextView
 import androidx.fragment.app.FragmentManager
 import com.coagere.gropix.R
 import com.tc.utils.elements.BaseSheetDialogFragment
 import com.tc.utils.variables.abstracts.OnEventOccurListener
 import com.tc.utils.variables.enums.ActionType
+import com.tc.utils.variables.enums.ModuleType
 import kotlinx.android.synthetic.main.activity_main.*
 
 /**
@@ -17,12 +19,18 @@ import kotlinx.android.synthetic.main.activity_main.*
  */
 class ChooserSheet : BaseSheetDialogFragment(), View.OnClickListener {
     private var parentListener: OnEventOccurListener? = null
+    private var moduleType: Int = 0
 
     init {
         setStyle(STYLE_NORMAL, R.style.BottomSheetDialogTheme)
     }
 
-    fun showDialog(parentListener: OnEventOccurListener, fragmentManager: FragmentManager) {
+    fun showDialog(
+        moduleType: Int? = 0,
+        parentListener: OnEventOccurListener,
+        fragmentManager: FragmentManager
+    ) {
+        this.moduleType = moduleType!!
         this.parentListener = parentListener
         show(fragmentManager, tag)
     }
@@ -37,7 +45,15 @@ class ChooserSheet : BaseSheetDialogFragment(), View.OnClickListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initializeView()
         initializeListeners()
+    }
+
+    override fun initializeView() {
+        super.initializeView()
+        if (moduleType == 1) {
+            requireView().findViewById<TextView>(R.id.id_text).text = "Add more pics"
+        }
     }
 
     override fun initializeListeners() {
@@ -47,6 +63,7 @@ class ChooserSheet : BaseSheetDialogFragment(), View.OnClickListener {
     }
 
     override fun onClick(v: View?) {
+        dismiss()
         when (v?.id) {
             R.id.id_parent_camera -> {
                 parentListener?.getEventData(ActionType.ACTION_CAMERA)

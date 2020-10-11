@@ -47,8 +47,8 @@
 
     <!--buttons -->
     <dimen name="dimen_button_height_medium">34dp</dimen>
-    <dimen name="dimen_button_height_default">42dp</dimen>
-    <dimen name="dimen_button_text_size">15sp</dimen>
+    <dimen name="dimen_button_height_default">44dp</dimen>
+    <dimen name="dimen_button_text_size">16sp</dimen>
     <dimen name="dimen_button_text_size_small">13sp</dimen>
     <dimen name="dimen_button_radius_small">2dp</dimen>
     <dimen name="dimen_button_radius">4dp</dimen>
@@ -59,7 +59,7 @@
     <dimen name="dimen_popup_width">210dp</dimen>
 
     <!--progressbar-->
-    <dimen name="dimen_progress_bar_small">32dp</dimen>
+    <dimen name="dimen_progress_bar">32dp</dimen>
     <dimen name="dimen_spinner_text_size">15sp</dimen>
 
 

@@ -45,7 +45,7 @@
 
     <color name="colorTextHint">#8C8C8C</color>
 
-    <color name="colorEditTextBackground">#ffffff</color>
+    <color name="colorEditTextBackground">#e6e6e6</color>
     <color name="colorAppBarTransparency">#80000000</color>
     <color name="colorButtonDisable">#cccccc</color>
     <color name="colorTextPrimaryAlpha">#767575</color>

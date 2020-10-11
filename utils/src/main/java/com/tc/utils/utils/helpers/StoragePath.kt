@@ -7,7 +7,7 @@ import java.io.IOException
 
 object StoragePath {
     private fun setFileFolder(): File {
-        val file = File(Environment.getExternalStorageDirectory(), "Studiuz/")
+        val file = File(Environment.getExternalStorageDirectory(), "/Grocery/")
         file.mkdirs()
         return file
     }

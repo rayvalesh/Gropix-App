@@ -23,4 +23,12 @@ class OrderVM : ViewModel() {
         OrderRepo.instance.apiGetOrderDetails(model, listener)
     }
 
+    fun cancelOrder(model: OrderModel, listener: OnEventOccurListener) {
+        OrderRepo.instance.apiCancelOrder(model, listener)
+    }
+
+    fun confirmOrder(model: OrderModel, listener: OnEventOccurListener) {
+        OrderRepo.instance.apiConfirmOrder(model, listener)
+    }
+
 }

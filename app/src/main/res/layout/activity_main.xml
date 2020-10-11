@@ -48,8 +48,7 @@
                         android:layout_height="40dp"
                         android:layout_gravity="center"
                         android:contentDescription="@string/app_name"
-                        android:src="@drawable/image_logo"
-                        android:tint="@color/colorBlack" />
+                        android:src="@drawable/image_logo" />
 
                     <ImageView
                         android:id="@+id/id_image_app_name"
@@ -59,7 +58,6 @@
                         android:layout_marginStart="@dimen/dimen_common_margin_less_more"
                         android:contentDescription="@string/app_name"
                         android:scaleType="centerCrop"
-                        android:tint="@color/colorBlack"
                         app:srcCompat="@drawable/image_logo_app_name" />
 
                     <View

@@ -6,6 +6,8 @@ import android.os.Handler
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
+import android.widget.AdapterView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
@@ -14,6 +16,7 @@ import com.coagere.gropix.databinding.ActivityConfirmationBinding
 import com.coagere.gropix.jetpack.entities.AddressModel
 import com.coagere.gropix.jetpack.entities.FileModel
 import com.coagere.gropix.jetpack.entities.OrderModel
+import com.coagere.gropix.jetpack.repos.OrderRepo
 import com.coagere.gropix.jetpack.viewmodels.OrderVM
 import com.coagere.gropix.prefs.UserStorage
 import com.coagere.gropix.ui.frags.ImagesAddFrag
@@ -47,7 +50,7 @@ class OrderConfirmationActivity : BaseActivity(), View.OnClickListener {
         binding = ActivityConfirmationBinding.inflate(LayoutInflater.from(this))
         binding!!.apply {
             clickListener = this@OrderConfirmationActivity
-            model = UserStorage.instance.addressModel
+            this.addressModel = UserStorage.instance.addressModel
             executePendingBindings()
         }
         lifecycleScope.launchWhenCreated {
@@ -72,19 +75,47 @@ class OrderConfirmationActivity : BaseActivity(), View.OnClickListener {
 
     override fun initializeView() {
         super.initializeView()
+        binding!!.root.findViewById<TextView>(R.id.id_text_error_pin).text =
+            "Please select pincode first."
         binding!!.idEditCity.setAdapter(utilityClass.setAdapter(GetData.getCitiesName()))
         binding!!.idEditState.setAdapter(utilityClass.setAdapter(GetData.getStateName()))
-        binding!!.idEditPinCode.setAdapter(utilityClass.setAdapter(GetData.getPinCode()))
+        binding!!.idSpinnerPincode.adapter = utilityClass.setAdapter(GetData.getPinCode())
+        binding!!.idSpinnerPincode.onItemSelectedListener =
+            object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    view: View?,
+                    position: Int,
+                    id: Long
+                ) {
+                    if (position == 0) {
+                        Utils.setVisibility(
+                            binding!!.root.findViewById(R.id.id_text_error_pin),
+                            true
+                        )
+                        model.address.pinCode = null
+                    } else {
+                        Utils.setVisibility(
+                            binding!!.root.findViewById(R.id.id_text_error_pin),
+                            false
+                        )
+                        model.address.pinCode = GetData.getPinCode()[position]
+                    }
+                }
+
+                override fun onNothingSelected(parent: AdapterView<*>?) {
+                }
+            }
     }
 
     override fun initializeFragsView() {
         super.initializeFragsView()
         imageFrag = supportFragmentManager.findFragmentById(R.id.id_frag_image) as ImagesAddFrag
-        for (model in fileModels) {
-            Handler().postDelayed({
+        Handler().postDelayed({
+            for (model in fileModels) {
                 imageFrag.addImages(model)
-            }, Constants.THREAD_TIME_DELAY)
-        }
+            }
+        }, Constants.THREAD_TIME_DELAY)
         imageFrag.bindListeners(object : OnEventOccurListener() {
             override fun getEventData(
                 `object`: Any?,
@@ -93,9 +124,14 @@ class OrderConfirmationActivity : BaseActivity(), View.OnClickListener {
             ) {
                 super.getEventData(`object`, actionType, adapterPosition)
                 if (actionType == ActionType.ACTION_UPDATE_STATUS) {
+                    model.images.clear()
                     for (fileModel in (`object` as Array<FileModel>)) {
-                        model.images!!.add(fileModel.downloadUrl!!)
+                        if (fileModel.downloadUrl != null)
+                            model.images.add(fileModel.downloadUrl!!)
                     }
+                } else if (actionType == ActionType.ACTION_DELETE) {
+                    if (adapterPosition < model.images.size)
+                        model.images.removeAt(adapterPosition)
                 }
             }
         })
@@ -105,49 +141,60 @@ class OrderConfirmationActivity : BaseActivity(), View.OnClickListener {
         onClickSubmit()
     }
 
+    /**
+     * Api call to submit Order : [OrderRepo.apiCreateOrder]
+     */
     private fun onClickSubmit() {
         utilityClass.hideSoftKeyboard()
         if (validate() && CheckConnection.checkConnection(this)) {
-//            utilityClass.startProgressBar()
-            viewModel.performCreateOrder(model, object : OnEventOccurListener() {
-                override fun getEventData(`object`: Any?) {
-                    super.getEventData(`object`)
-//                    utilityClass.closeProgressBar()
-                    Toast.makeText(
-                        this@OrderConfirmationActivity,
-                        "Order Placed Successfully!!",
-                        Toast.LENGTH_LONG
-                    ).show()
-                    Handler().postDelayed({
-                        setResult(Activity.RESULT_OK)
-                        finish()
-                    }, Constants.THREAD_TIME_DELAY)
-                }
-
-                override fun onErrorResponse(`object`: Any?, errorMessage: String?) {
-                    super.onErrorResponse(`object`, errorMessage)
-                    if (utilityClass.isUnAuthrized(`object`)) {
-                        HelperLogout.logMeOut(
-                            this@OrderConfirmationActivity,
-                            object : OnEventOccurListener() {})
-                    } else {
-//                        utilityClass.closeProgressBar()
-                        MySnackBar.getInstance()
-                            .showSnackBarForMessage(
+            JamunAlertDialog(this).setAutoCancelable()
+                .setMessage(R.string.string_message_confirmation)
+                .setAutoNegativeButton(R.string.string_button_name_no)
+                .setPositiveButton(
+                    R.string.string_button_name_confirm_place
+                ) {
+                    it.dismiss()
+                    utilityClass.startProgressBar(
+                        binding!!.idButtonSubmit,
+                        binding!!.root.findViewById(R.id.id_progress_bar_submit)
+                    )
+                    viewModel.performCreateOrder(model, object : OnEventOccurListener() {
+                        override fun getEventData(`object`: Any?) {
+                            super.getEventData(`object`)
+                            utilityClass.closeProgressBar()
+                            Utils.toast(
                                 this@OrderConfirmationActivity,
-                                errorMessage
+                                "Order Placed Successfully!!"
                             )
-                    }
-                }
-            })
+                            setResult(Activity.RESULT_OK)
+                            finish()
+                        }
+
+                        override fun onErrorResponse(`object`: Any?, errorMessage: String?) {
+                            super.onErrorResponse(`object`, errorMessage)
+                            if (utilityClass.isUnAuthrized(`object`)) {
+                                HelperLogout.logMeOut(
+                                    this@OrderConfirmationActivity,
+                                    object : OnEventOccurListener() {})
+                            } else {
+                                utilityClass.closeProgressBar()
+                                MySnackBar.getInstance()
+                                    .showSnackBarForMessage(
+                                        this@OrderConfirmationActivity,
+                                        errorMessage
+                                    )
+                            }
+                        }
+                    })
+                }.show()
         }
     }
 
     private fun validate(): Boolean {
-//        if (model.images.isNullOrEmpty()) {
-//            return false
-//        }
-        if (utilityClass!!.checkEditTextEmpty(
+        if (model.images.isNullOrEmpty()) {
+            return false
+        }
+        if (utilityClass.checkEditTextEmpty(
                 editText = binding!!.idEditName,
                 minLength = resources.getInteger(R.integer.validation_min_name),
                 errorTextView = binding!!.root.findViewById(R.id.id_text_error_name)
@@ -155,7 +202,7 @@ class OrderConfirmationActivity : BaseActivity(), View.OnClickListener {
         ) {
             return false
         }
-        if (utilityClass!!.checkEditTextEmpty(
+        if (utilityClass.checkEditTextEmpty(
                 editText = binding!!.idEditEmail,
                 minLength = resources.getInteger(R.integer.validation_min_email),
                 errorTextView = binding!!.root.findViewById(R.id.id_text_error_email)
@@ -171,7 +218,7 @@ class OrderConfirmationActivity : BaseActivity(), View.OnClickListener {
         ) {
             return false
         }
-        if (utilityClass!!.checkEditTextEmpty(
+        if (utilityClass.checkEditTextEmpty(
                 editText = binding!!.idEditCity,
                 minLength = resources.getInteger(R.integer.validation_min_name),
                 errorTextView = binding!!.root.findViewById(R.id.id_text_error_city)
@@ -179,7 +226,7 @@ class OrderConfirmationActivity : BaseActivity(), View.OnClickListener {
         ) {
             return false
         }
-        if (utilityClass!!.checkEditTextEmpty(
+        if (utilityClass.checkEditTextEmpty(
                 editText = binding!!.idEditState,
                 minLength = resources.getInteger(R.integer.validation_min_name),
                 errorTextView = binding!!.root.findViewById(R.id.id_text_error_city)
@@ -187,13 +234,20 @@ class OrderConfirmationActivity : BaseActivity(), View.OnClickListener {
         ) {
             return false
         }
-        UserStorage.instance.addressModel = AddressModel(
+        Utils.setVisibility(binding!!.root.findViewById(R.id.id_text_error_pin), false)
+        if (model.address.pinCode == null) {
+            Utils.setVisibility(binding!!.root.findViewById(R.id.id_text_error_pin), true)
+            binding!!.idScrollView.fullScroll(View.FOCUS_DOWN)
+            return false
+        }
+        val addressModel = AddressModel(
             street = binding!!.idEditStreet.text.toString(),
             city = binding!!.idEditCity.text.toString(),
             state = binding!!.idEditState.text.toString(),
-            pinCode = binding!!.idEditPinCode.text.toString()
+            pinCode = model.address.pinCode
         )
-        model.address = UserStorage.instance.addressModel!!
+        UserStorage.instance.addressModel = addressModel
+        model.address = addressModel
         model.mobileNumber = UserStorage.instance.mobileNumber
         model.userName = binding!!.idEditName.text.toString()
         model.email = binding!!.idEditEmail.text.toString()

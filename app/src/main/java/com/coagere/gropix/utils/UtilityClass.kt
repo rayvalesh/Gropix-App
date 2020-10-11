@@ -26,6 +26,7 @@ import android.view.animation.AnimationUtils
 import android.view.inputmethod.InputMethodManager
 import android.widget.ArrayAdapter
 import android.widget.EditText
+import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.AppCompatImageView
@@ -54,78 +55,42 @@ import java.io.IOException
 import java.util.ArrayList
 
 class UtilityClass(private val activity: Activity, private val view: View? = null) {
-    private var appCompatImageViewProgress: AppCompatImageView? = null
     private var swipeRefreshLayout: SwipeRefreshLayout? = null
+    private var progressBar: ProgressBar? = null
 
-//    fun setSwipeRefreshLayout(): SwipeRefreshLayout {
-//        swipeRefreshLayout = if (view != null)
-//            view.findViewById(R.id.id_swipe_refresh)
-//        else
-//            activity.findViewById(R.id.id_swipe_refresh)
-//        swipeRefreshLayout?.setColorSchemeColors(
-//            ContextCompat.getColor(activity, R.color.colorSwipeOne),
-//            ContextCompat.getColor(activity, R.color.colorSwipeTwo),
-//            ContextCompat.getColor(activity, R.color.colorSwipeThree),
-//            ContextCompat.getColor(activity, R.color.colorSwipeFour)
-//        )
-//        return swipeRefreshLayout as SwipeRefreshLayout
-//    }
 
-    fun startSwipeRefreshing() {
-        swipeRefreshLayout?.isRefreshing = true
-    }
+    /**
+     * Run progress bar animation
+     */
+    fun startProgressBar(
+        button: View? = null,
+        progressBar: ProgressBar? = null,
+        hideView: Boolean? = false
+    ) {
+        if (progressBar == null) {
+            this.progressBar = if (view != null)
+                view.findViewById(R.id.id_progress_bar) else activity.findViewById(R.id.id_progress_bar)
+        } else this.progressBar = progressBar
 
-    fun setRecyclerView(id: Int, linearLayoutManager: LinearLayoutManager): RecyclerView {
-        return setRecyclerView(
-            id,
-            bottomOffset = false,
-            hasFixedSize = false,
-            linearLayoutManager = linearLayoutManager
-        )
-    }
-
-    @JvmOverloads
-    fun setRecyclerView(
-        id: Int,
-        bottomOffset: Boolean = false,
-        hasFixedSize: Boolean = false,
-        linearLayoutManager: LinearLayoutManager? = LinearLayoutManager(activity)
-    ): RecyclerView {
-        val recyclerView: RecyclerView = if (isNotNull(view)) {
-            view!!.findViewById(id)
-        } else {
-            activity.findViewById(id)
-        }
-        recyclerView.layoutManager = linearLayoutManager
-        recyclerView.itemAnimator = DefaultItemAnimator()
-        recyclerView.setHasFixedSize(hasFixedSize)
-        return recyclerView
-    }
-
-    fun startProgressBar() {
-        startProgressBarById(R.id.id_progress_bar)
-    }
-
-    fun startProgressBarById(id: Int): AppCompatImageView {
-        appCompatImageViewProgress = (if (isNotNull(view)) {
-            view!!.findViewById(id)
-        } else activity.findViewById(id))
-        appCompatImageViewProgress!!.visibility = View.VISIBLE
-        appCompatImageViewProgress!!.setImageResource(R.drawable.avd_progress_bar)
-        swapAnimation(appCompatImageViewProgress!!)
-        return appCompatImageViewProgress as AppCompatImageView
-    }
-
-    fun closeSwipeRefresh() {
-        swipeRefreshLayout?.isRefreshing = false
-        closeProgressBar()
-    }
-
-    fun closeProgressBar() {
-        if (isNotNull(appCompatImageViewProgress)) {
-            appCompatImageViewProgress!!.visibility = View.GONE
+        this.progressBar?.visibility = View.VISIBLE
+        button?.let {
+            if (hideView!!) it.visibility = View.GONE else it.alpha = 0.5f
+            it.isEnabled = false
         }
     }
+
+    fun closeProgressBar(button: View? = null, hideView: Boolean? = false) {
+        progressBar?.visibility = View.GONE
+        button?.let {
+            if (hideView!!) it.visibility = View.GONE else {
+                it.visibility = View.VISIBLE
+                it.alpha = 1f
+            }
+            it.isEnabled = true
+        }
+
+    }
+
 
     fun checkEmailEditTextEmpty(editText: EditText, minLength: Int = 0, errorTextView: TextView? = null): Boolean {
         val message: String? = editText.text.toString()
@@ -190,13 +155,6 @@ class UtilityClass(private val activity: Activity, private val view: View? = nul
         editText?.filters = filterArray
     }
 
-    fun copyToClipboard(tag: String, content: String) {
-        val clipboardManager = activity.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-        val clipData = ClipData.newPlainText(tag, content)
-        clipboardManager.setPrimaryClip(clipData)
-        L.getInstance().toast(activity, activity.getString(R.string.string_toast_url_copied), TOAST_SUCCESS)
-    }
-
     fun hideSoftKeyboard() {
         try {
             val inputMethodManager = activity.getSystemService(
@@ -210,35 +168,6 @@ class UtilityClass(private val activity: Activity, private val view: View? = nul
 
     }
 
-    fun setNestedScrollViewDescendant(): NestedScrollView {
-        val nestedScrollView: NestedScrollView = if (isNotNull(view)) {
-            view!!.findViewById(R.id.id_scroll_view)
-        } else {
-            activity.findViewById(R.id.id_scroll_view)
-        }
-        nestedScrollView.descendantFocusability = ViewGroup.FOCUS_BEFORE_DESCENDANTS
-        nestedScrollView.isFocusableInTouchMode = true
-        return nestedScrollView
-    }
-
-    fun setNestedScrollViewDescendant(viewShadow: View): NestedScrollView {
-        val nestedScrollView: NestedScrollView = if (isNull(view)) {
-            activity.findViewById(R.id.id_scroll_view)
-        } else {
-            view!!.findViewById(R.id.id_scroll_view)
-        }
-        nestedScrollView.descendantFocusability = ViewGroup.FOCUS_BEFORE_DESCENDANTS
-        nestedScrollView.isFocusableInTouchMode = true
-        nestedScrollView.setOnScrollChangeListener(NestedScrollView.OnScrollChangeListener { _, _, scrollY, _, _ ->
-            if (scrollY > 0) {
-                viewShadow.visibility = View.VISIBLE
-            } else {
-                viewShadow.visibility = View.GONE
-            }
-        })
-        return nestedScrollView
-    }
-
     fun setAdapter(data: Array<String>): ArrayAdapter<String> {
         val adapter = ArrayAdapter(activity, R.layout.spinner_textviews, data)
         adapter.setDropDownViewResource(R.layout.simple_spinner_dropdown)
@@ -250,67 +179,6 @@ class UtilityClass(private val activity: Activity, private val view: View? = nul
         return if (`object` is Int)
             `object` == 401
         else false
-    }
-
-
-    fun hideKeyboard(editText: EditText) {
-        val imm = activity.getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
-        imm.hideSoftInputFromWindow(editText.windowToken, 0)
-    }
-
-
-    fun showProgressView(
-        button: View? = null,
-        progressView: AppCompatImageView? = null,
-        hideView: Boolean = false,
-        vararg views: View
-    ) {
-        showProgressDialog(button, progressView, hideView)
-        if (isNotNull(views))
-            for (view in views) {
-                view.visibility = View.GONE
-            }
-
-    }
-
-    fun showProgressDialog(button: View? = null, progressView: AppCompatImageView? = null, hideView: Boolean = false) {
-        if (isNotNull(progressView)) {
-            progressView!!.visibility = View.VISIBLE
-            progressView.setImageResource(R.drawable.avd_progress_bar)
-            swapAnimation(progressView)
-        } else {
-            val progress = if (isNull(this.view)) {
-                this.activity.findViewById(R.id.id_progress_bar)
-            } else {
-                this.view!!.findViewById<AppCompatImageView>(R.id.id_progress_bar)
-            }
-            progress!!.visibility = View.VISIBLE
-            progress.setImageResource(R.drawable.avd_progress_bar)
-            swapAnimation(progress)
-        }
-        button?.let {
-            if (hideView) {
-                it.visibility = View.GONE
-            }
-            it.isEnabled = false
-        }
-    }
-
-
-    fun closeProgressDialog(vararg views: View, progressView: AppCompatImageView? = null, hideView: Boolean? = false) {
-        if (isNotNull(progressView)) {
-            progressView!!.visibility = View.GONE
-        } else {
-            if (isNull(this.view)) {
-                this.activity.findViewById<AppCompatImageView>(R.id.id_progress_bar).visibility = View.GONE
-            } else {
-                this.view!!.findViewById<AppCompatImageView>(R.id.id_progress_bar).visibility = View.GONE
-            }
-        }
-        for (view: View in views) {
-            view.visibility = if (hideView!!) View.GONE else View.VISIBLE
-            view.isEnabled = true
-        }
     }
 
     private val animSlideLeftRight = AnimationUtils.loadAnimation(
@@ -364,16 +232,6 @@ class UtilityClass(private val activity: Activity, private val view: View? = nul
                 dp.toFloat(),
                 Resources.getSystem().displayMetrics
             ).toInt()
-        }
-
-
-        fun swapAnimation(imageView: AppCompatImageView) {
-            val d = imageView.drawable
-            if (Build.VERSION.SDK_INT >= 21 && d is AnimatedVectorDrawable) {
-                d.start()
-            } else if (d is AnimatedVectorDrawableCompat) {
-                d.start()
-            }
         }
     }
 

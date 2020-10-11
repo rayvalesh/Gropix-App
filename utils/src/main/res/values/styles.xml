@@ -110,7 +110,7 @@
     </style>
 
     <style name="EditTextStyle" parent="android:Widget.Holo.EditText">
-        <item name="android:fontFamily">@font/poppins_regular</item>
+        <item name="android:fontFamily">@font/poppins_medium</item>
         <item name="android:includeFontPadding">false</item>
         <item name="android:lineSpacingExtra">-2dp</item>
     </style>
