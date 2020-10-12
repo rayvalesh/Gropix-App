@@ -36,7 +36,7 @@ import tk.jamun.ui.snacks.MySnackBar
  */
 class ExploreOrderActivity : BaseActivity(), View.OnClickListener {
     private var binding: ActivityExploreOrderBinding? = null
-    private lateinit var orderModel: OrderModel
+    private var orderModel = OrderModel()
     private val viewModel by lazy {
         ViewModelProvider(this).get(OrderVM::class.java)
     }
@@ -49,16 +49,16 @@ class ExploreOrderActivity : BaseActivity(), View.OnClickListener {
         setToolbar()
         if (intent.getParcelableExtra<OrderModel>(IntentInterface.INTENT_FOR_MODEL) != null) {
             orderModel = intent.getParcelableExtra(IntentInterface.INTENT_FOR_MODEL)!!
-            binding!!.apply {
-                this.model = orderModel
-                this.clickListener = this@ExploreOrderActivity
-                executePendingBindings()
-            }
             initializeView()
-            initializeBillingData()
         } else {
-            initializeViewModel()
+            orderModel.orderId = intent.getStringExtra(IntentInterface.INTENT_FOR_ID)
         }
+        binding!!.apply {
+            this.model = orderModel
+            this.clickListener = this@ExploreOrderActivity
+            executePendingBindings()
+        }
+        initializeViewModel()
     }
 
 
@@ -83,13 +83,14 @@ class ExploreOrderActivity : BaseActivity(), View.OnClickListener {
 
     override fun initializeViewModel() {
         super.initializeViewModel()
+        val id = orderModel.orderId
         viewModel.getApiOrderDetails(
-            intent.getStringExtra(IntentInterface.INTENT_FOR_ID),
+            id!!,
             object : OnEventOccurListener() {
                 override fun getEventData(`object`: Any?) {
                     super.getEventData(`object`)
                     orderModel = `object` as OrderModel
-                    orderModel.orderId = intent.getStringExtra(IntentInterface.INTENT_FOR_ID)
+                    orderModel.orderId = id
                     initializeView()
                     initializeBillingData()
                 }
@@ -116,28 +117,53 @@ class ExploreOrderActivity : BaseActivity(), View.OnClickListener {
         when (orderModel.status) {
             Constants.ORDER_CART -> {
                 Utils.setVisibility(binding!!.idParentConfirmation, true)
-                binding!!.idTextStatus.setTextColor(ContextCompat.getColor(this, R.color.colorStyleSixDark))
+                binding!!.idTextStatus.setTextColor(
+                    ContextCompat.getColor(
+                        this,
+                        R.color.colorStyleSixDark
+                    )
+                )
                 binding!!.idTextStatus.text =
                     getString(R.string.string_label_status_cart)
             }
             Constants.ORDER_PENDING -> {
                 Utils.setVisibility(binding!!.idParentBilling, false)
-                binding!!.idTextStatus.setTextColor(ContextCompat.getColor(this, R.color.colorStyleFourDark))
+                binding!!.idTextStatus.setTextColor(
+                    ContextCompat.getColor(
+                        this,
+                        R.color.colorStyleFourDark
+                    )
+                )
                 binding!!.idTextStatus.text =
                     getString(R.string.string_label_status_placed)
             }
             Constants.ORDER_CONFIRMED -> {
-                binding!!.idTextStatus.setTextColor(ContextCompat.getColor(this, R.color.colorStyleThreeDark))
+                binding!!.idTextStatus.setTextColor(
+                    ContextCompat.getColor(
+                        this,
+                        R.color.colorStyleThreeDark
+                    )
+                )
                 binding!!.idTextStatus.text =
                     getString(R.string.string_label_status_confirmed)
             }
             Constants.ORDER_OUT_FOR_DELIVERY -> {
-                binding!!.idTextStatus.setTextColor(ContextCompat.getColor(this, R.color.colorStyleThreeDark))
+                binding!!.idTextStatus.setTextColor(
+                    ContextCompat.getColor(
+                        this,
+                        R.color.colorStyleThreeDark
+                    )
+                )
                 binding!!.idTextStatus.text =
                     getString(R.string.string_label_status_out_delivery)
             }
             Constants.ORDER_COMPLETE -> {
-                binding!!.idTextStatus.setTextColor(ContextCompat.getColor(this, R.color.colorStyleOneDark))
+                binding!!.idTextStatus.setTextColor(
+                    ContextCompat.getColor(
+                        this,
+                        R.color.colorStyleOneDark
+                    )
+                )
                 Utils.setVisibility(binding!!.idTextButtonCancel, false)
             }
             Constants.ORDER_CANCELLED -> {

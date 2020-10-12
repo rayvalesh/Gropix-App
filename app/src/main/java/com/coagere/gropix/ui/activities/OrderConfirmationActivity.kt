@@ -179,7 +179,7 @@ class OrderConfirmationActivity : BaseActivity(), View.OnClickListener {
         ) {
             return false
         }
-        if (utilityClass.checkEditTextEmpty(
+        if (utilityClass.checkEmailEditTextEmpty(
                 editText = binding!!.idEditEmail,
                 minLength = resources.getInteger(R.integer.validation_min_email),
                 errorTextView = binding!!.root.findViewById(R.id.id_text_error_email)
