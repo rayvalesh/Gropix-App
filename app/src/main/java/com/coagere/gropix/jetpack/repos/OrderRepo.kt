@@ -135,9 +135,11 @@ class OrderRepo {
     }
 
     fun apiConfirmOrder(model: OrderModel, listener: OnEventOccurListener) {
+        val jsonObject = JSONObject()
+        jsonObject.put("userOrderId", model.orderId)
         VolleySolutions.instance.postCommonTasks(
-            URL_POST_ORDER_CONFIRM + model.orderId,
-            null,
+            URL_POST_ORDER_CONFIRM,
+            jsonObject.toString(),
             listener
         )
     }

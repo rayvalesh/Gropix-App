@@ -100,7 +100,14 @@
             android:name=".ui.activities.ViewImageActivity"
             android:theme="@style/DragDismissTheme" />
 
-        <service android:name=".services.get.MyFirebaseMessagingService" />
+        <service
+            android:name=".services.get.MyFirebaseMessagingService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+
+        </service>
 
         <service android:name=".services.post.UploadPhotoAsync" />
     </application>

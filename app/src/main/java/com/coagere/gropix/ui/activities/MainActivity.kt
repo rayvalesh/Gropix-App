@@ -15,6 +15,7 @@ import com.coagere.gropix.R
 import com.coagere.gropix.jetpack.entities.FileModel
 import com.coagere.gropix.jetpack.repos.UserRepo
 import com.coagere.gropix.prefs.TempStorage
+import com.coagere.gropix.prefs.UserStorage
 import com.coagere.gropix.ui.frags.OrderListFrag
 import com.coagere.gropix.ui.popups.Popups
 import com.coagere.gropix.ui.sheets.ChooserSheet
@@ -49,10 +50,11 @@ class MainActivity : BaseActivity(), View.OnClickListener {
             initializeListeners()
             setToolbar()
             initializeFragsView()
-            if (TempStorage.instance.isFcmSent) {
-                UserRepo.instance.postFcm()
+            if (!TempStorage.instance.isFcmSent) {
+                Handler().postDelayed({
+                    UserRepo.instance.postFcm()
+                }, Constants.THREAD_TIME_DELAY)
             }
-
         }
     }
 

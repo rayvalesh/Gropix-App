@@ -20,6 +20,7 @@ import com.tc.utils.variables.interfaces.ApiKeys.Companion.URL_POST_RESEND_OTP
 import com.tc.utils.variables.interfaces.ApiKeys.Companion.URL_POST_VERIFY_OTP
 import org.json.JSONException
 import org.json.JSONObject
+import tk.jamun.ui.snacks.L
 import tk.jamun.volley.classes.VolleyGSON
 import tk.jamun.volley.classes.VolleyJsonObjectRequest
 import tk.jamun.volley.helpers.VolleyNeeds
@@ -140,7 +141,7 @@ class UserRepo {
     fun postFcm() {
         val jsonObject = JSONObject()
         jsonObject.put("fcm", TempStorage.instance.fcmToken)
-        VolleySolutions.instance.postCommonTasks(ApiKeys.URL_POST_FCM, jsonObject.toString(),
+        VolleySolutions.instance.putCommonTasks(ApiKeys.URL_POST_FCM, jsonObject.toString(),
             object : OnEventOccurListener() {
                 override fun getEventData(`object`: Any?) {
                     super.getEventData(`object`)

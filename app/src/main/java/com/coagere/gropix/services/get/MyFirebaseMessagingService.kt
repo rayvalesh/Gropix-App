@@ -38,7 +38,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         FirebaseMessaging.getInstance().subscribeToTopic("message")
         TempStorage.instance.saveFcmToken(token)
         TempStorage.instance.saveAppStatus = false
-        if (MyApplication.isLoggedIn){
+        if (MyApplication.isLoggedIn) {
             UserRepo.instance.postFcm()
         }
     }

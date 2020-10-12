@@ -32,6 +32,7 @@ import com.tc.utils.variables.abstracts.OnEventOccurListener
 import com.tc.utils.variables.enums.ActionType
 import com.tc.utils.variables.interfaces.Constants
 import com.tc.utils.variables.interfaces.IntentInterface
+import com.tc.utils.variables.interfaces.JamunDialogInterface
 import tk.jamun.ui.snacks.MySnackBar
 
 class OrderConfirmationActivity : BaseActivity(), View.OnClickListener {
@@ -126,6 +127,7 @@ class OrderConfirmationActivity : BaseActivity(), View.OnClickListener {
                 .setPositiveButton(
                     R.string.string_button_name_confirm_place
                 ) {
+
                     it.dismiss()
                     utilityClass.startProgressBar(
                         binding!!.idButtonSubmit,
@@ -168,7 +170,7 @@ class OrderConfirmationActivity : BaseActivity(), View.OnClickListener {
         if (model.images.isNullOrEmpty()) {
             Utils.setVisibility(binding!!.root.findViewById(R.id.id_text_error_image), true)
             binding!!.root.findViewById<TextView>(R.id.id_text_error_image).text =
-                "Please add your Groccery list first."
+                "Please add your Grocery list first."
             return false
         }
         if (utilityClass.checkEditTextEmpty(
