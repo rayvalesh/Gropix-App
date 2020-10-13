@@ -95,7 +95,7 @@ class ExploreOrderActivity : BaseActivity(), View.OnClickListener {
                     binding.invalidateAll()
                     binding.executePendingBindings()
                     initializeView()
-                    initializeBillingData()
+                    initializeRecyclerView()
                 }
 
                 override fun onErrorResponse(`object`: Any?, errorMessage: String?) {
@@ -191,13 +191,6 @@ class ExploreOrderActivity : BaseActivity(), View.OnClickListener {
             RoundedCornersTransformation.CornerType.ALL,
             12
         )
-    }
-
-    private fun initializeBillingData() {
-        id_text_delivery_fee.text = orderModel.deliveryFee
-//        binding.idTextBillAmount.text = orderModel!!.totalAmount.toString()
-        binding.idTextTotalAmount.text = orderModel.totalAmount
-        initializeRecyclerView()
     }
 
     /**
@@ -313,6 +306,4 @@ class ExploreOrderActivity : BaseActivity(), View.OnClickListener {
     override fun onBackPressed() {
         super.onBackPressed()
     }
-
-
 }

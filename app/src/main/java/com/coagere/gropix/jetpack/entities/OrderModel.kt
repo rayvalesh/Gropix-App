@@ -34,7 +34,7 @@ data class OrderModel(
     @SerializedName("amount")
     var amount: String? = null,
 
-    @SerializedName("deliveryFee")
+    @SerializedName("deliveryCharge")
     var deliveryFee: String? = null,
 
     @SerializedName("totalAmount")

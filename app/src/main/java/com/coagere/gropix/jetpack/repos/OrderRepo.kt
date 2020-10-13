@@ -75,7 +75,6 @@ class OrderRepo {
                 object : VolleyResponses() {
                     override fun onResponse(response: Any?, body: String?) {
                         super.onResponse(response, body)
-                        Utils.log(body)
                         val jsonObjectResponse = JSONObject(body)
                         if (ParseJson.instance.dataCheck(jsonObjectResponse, "userOrderId")) {
                             model.orderId = jsonObjectResponse.getString("userOrderId")
@@ -104,13 +103,13 @@ class OrderRepo {
     }
 
     fun apiGetOrderDetails(id: String, listener: OnEventOccurListener) {
-        volleyJsonObjectRequest =
-            VolleyJsonObjectRequest(
+        volleyJsonObjectRequest = VolleyJsonObjectRequest(
                 URL_GET_ORDER_DETAILS + id,
                 OrderModel::class.java,
                 object : VolleyResponses() {
                     override fun onResponse(response: Any?, body: String?) {
                         super.onResponse(response, body)
+                        Utils.log(body)
                         listener.getEventData(response as OrderModel)
                     }
 
@@ -126,7 +125,6 @@ class OrderRepo {
         val jsonObject = JSONObject()
         jsonObject.put("userOrderId", model.orderId)
         jsonObject.put("comment", "")
-        Utils.log(jsonObject.toString())
         VolleySolutions.instance.postCommonTasks(
             URL_POST_ORDER_CANCEL,
             jsonObject.toString(),
@@ -137,6 +135,7 @@ class OrderRepo {
     fun apiConfirmOrder(model: OrderModel, listener: OnEventOccurListener) {
         val jsonObject = JSONObject()
         jsonObject.put("userOrderId", model.orderId)
+        Utils.log(jsonObject.toString())
         VolleySolutions.instance.postCommonTasks(
             URL_POST_ORDER_CONFIRM,
             jsonObject.toString(),
