@@ -15,10 +15,10 @@
             <corners android:radius="@dimen/dimen_progress_custom_radius" />
             <gradient
                 android:angle="270"
-                android:centerColor="@color/colorAccent"
+                android:centerColor="@color/colorLayoutBackground"
                 android:centerY="0.75"
-                android:endColor="@color/colorAccent"
-                android:startColor="@color/colorAccent" />
+                android:endColor="@color/colorLayoutBackground"
+                android:startColor="@color/colorLayoutBackground" />
         </shape>
     </item>
     <item android:id="@android:id/progress">
@@ -27,10 +27,10 @@
                 <corners android:radius="@dimen/dimen_progress_custom_radius" />
                 <gradient
                     android:angle="270"
-                    android:centerColor="@color/colorPrimaryDark"
+                    android:centerColor="@color/colorBlack"
                     android:centerY="0.75"
-                    android:endColor="@color/colorPrimaryDark"
-                    android:startColor="@color/colorPrimaryDark" />
+                    android:endColor="@color/colorBlack"
+                    android:startColor="@color/colorBlack" />
             </shape>
         </clip>
     </item>

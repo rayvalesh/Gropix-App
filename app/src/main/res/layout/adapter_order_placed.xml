@@ -74,8 +74,8 @@
                     style="@style/TextViewStyleMedium"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Delivered"
-                    android:textColor="@color/colorStyleThreeDark"
+                    android:text="@string/string_label_status_delivered"
+                    android:textColor="@color/colorStyleOneDark"
                     android:textSize="@dimen/dimen_common_text_size_very_large" />
 
             </LinearLayout>

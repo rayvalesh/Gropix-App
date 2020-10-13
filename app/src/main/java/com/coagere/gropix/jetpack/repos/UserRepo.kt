@@ -141,11 +141,12 @@ class UserRepo {
     fun postFcm() {
         val jsonObject = JSONObject()
         jsonObject.put("fcm", TempStorage.instance.fcmToken)
-        VolleySolutions.instance.putCommonTasks(ApiKeys.URL_POST_FCM, jsonObject.toString(),
+        Utils.log(jsonObject.toString())
+        VolleySolutions.instance.putCommonTasks(ApiKeys.URL_PUT_FCM, jsonObject.toString(),
             object : OnEventOccurListener() {
                 override fun getEventData(`object`: Any?) {
                     super.getEventData(`object`)
-                    TempStorage.instance.isFcmSent = true
+                    UserStorage.instance.isFcmSent = true
                 }
             })
     }

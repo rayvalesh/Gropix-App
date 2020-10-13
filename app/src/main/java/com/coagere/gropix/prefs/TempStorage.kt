@@ -8,24 +8,11 @@ class TempStorage private constructor(context: Context) {
     private val sharedPreferences: SharedPreferences =
         context.getSharedPreferences(SHARE_TEMP_NAME, SHARED_MODE)
 
-    var isFirstTimeLaunch: Int
-        get() = sharedPreferences.getInt("shared_launcher_version", 0)
-        set(value) {
-            sharedPreferences.edit().putInt("shared_launcher_version", value).apply()
-        }
-
-
-    var isFcmSent: Boolean
-        get() = sharedPreferences.getBoolean("shared_fcm_status", false)
-        set(value) {
-            sharedPreferences.edit().putBoolean("shared_fcm_status", value).apply()
-        }
-
     val fcmToken: String?
         get() = sharedPreferences.getString("shared_fcm_token", null)
 
     fun saveFcmToken(token: String) {
-        isFcmSent = false
+        UserStorage.instance.isFcmSent = false
         sharedPreferences.edit().putString("shared_fcm_token", token).apply()
     }
 

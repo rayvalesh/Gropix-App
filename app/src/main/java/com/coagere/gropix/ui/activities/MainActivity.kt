@@ -50,11 +50,10 @@ class MainActivity : BaseActivity(), View.OnClickListener {
             initializeListeners()
             setToolbar()
             initializeFragsView()
-            if (!TempStorage.instance.isFcmSent) {
-                Handler().postDelayed({
-                    UserRepo.instance.postFcm()
-                }, Constants.THREAD_TIME_DELAY)
+            if (!UserStorage.instance.isFcmSent) {
+                UserRepo.instance.postFcm()
             }
+            Utils.log(TempStorage.instance.fcmToken)
         }
     }
 
@@ -277,8 +276,7 @@ class MainActivity : BaseActivity(), View.OnClickListener {
                 Handler().postDelayed({
                     finish()
                 }, Constants.THREAD_TIME_DELAY)
-            }
-            .show()
+            }.show()
     }
 
 }

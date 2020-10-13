@@ -33,11 +33,6 @@ class UserStorage(context: Context) {
                 )
         ).apply()
 
-
-    var isNotificationEnabled: Boolean
-        get() = sharedPreferences.getBoolean(SHARED_SETTING_NOTIFICATION, true)
-        set(value) = sharedPreferences.edit { putBoolean(SHARED_SETTING_NOTIFICATION, value) }
-
     val isLoggedIn: Boolean
         get() = sharedPreferences.getBoolean(SHARED_LOGIN_CHECK, false)
 
@@ -91,6 +86,12 @@ class UserStorage(context: Context) {
     fun getCompressions(): Int {
         return sharedPreferences.getInt("shared_compressions", 70);
     }
+
+    var isFcmSent: Boolean
+        get() = sharedPreferences.getBoolean("shared_fcm_status", false)
+        set(value) {
+            sharedPreferences.edit().putBoolean("shared_fcm_status", value).apply()
+        }
 
     val city: Int
         get() = sharedPreferences.getInt("KEY_CITY", 0)

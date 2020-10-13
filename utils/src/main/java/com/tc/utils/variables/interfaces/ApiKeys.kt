@@ -21,7 +21,7 @@ interface ApiKeys {
         const val URL_POST_ORDER_CANCEL = URL_API + "cancel/order"
         const val URL_POST_ORDER_CONFIRM = URL_API + "confirm/order"
         const val URL_POST_FEEDBACK = URL_API + "post/feedback"
-        const val URL_POST_FCM = URL_API + "update/fcm"
+        const val URL_PUT_FCM = URL_API + "update/fcm"
 
 
         /**

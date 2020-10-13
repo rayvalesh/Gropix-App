@@ -115,6 +115,8 @@
                     android:layout_height="5dp"
                     android:layout_margin="@dimen/dimen_common_margin_small"
                     android:indeterminate="false"
+                    android:max="100"
+                    android:secondaryProgress="100"
                     android:progressDrawable="@drawable/background_progress" />
 
                 <TextView

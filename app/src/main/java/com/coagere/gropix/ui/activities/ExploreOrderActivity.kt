@@ -35,7 +35,7 @@ import tk.jamun.ui.snacks.MySnackBar
  * @author Jatin Sahgal by 28-Sep-2020 13:54
  */
 class ExploreOrderActivity : BaseActivity(), View.OnClickListener {
-    private var binding: ActivityExploreOrderBinding? = null
+    private lateinit var binding: ActivityExploreOrderBinding
     private var orderModel = OrderModel()
     private val viewModel by lazy {
         ViewModelProvider(this).get(OrderVM::class.java)
@@ -45,18 +45,18 @@ class ExploreOrderActivity : BaseActivity(), View.OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityExploreOrderBinding.inflate(LayoutInflater.from(this))
-        setContentView(binding!!.root)
+        setContentView(binding.root)
         setToolbar()
         if (intent.getParcelableExtra<OrderModel>(IntentInterface.INTENT_FOR_MODEL) != null) {
             orderModel = intent.getParcelableExtra(IntentInterface.INTENT_FOR_MODEL)!!
             initializeView()
+            binding.apply {
+                this.model = orderModel
+                this.clickListener = this@ExploreOrderActivity
+                executePendingBindings()
+            }
         } else {
             orderModel.orderId = intent.getStringExtra(IntentInterface.INTENT_FOR_ID)
-        }
-        binding!!.apply {
-            this.model = orderModel
-            this.clickListener = this@ExploreOrderActivity
-            executePendingBindings()
         }
         initializeViewModel()
     }
@@ -64,8 +64,8 @@ class ExploreOrderActivity : BaseActivity(), View.OnClickListener {
 
     override fun initializeRecyclerView() {
         super.initializeRecyclerView()
-        binding!!.idRecyclerViewBills.layoutManager = LinearLayoutManager(this)
-        binding!!.idRecyclerViewBills.adapter =
+        binding.idRecyclerViewBills.layoutManager = LinearLayoutManager(this)
+        binding.idRecyclerViewBills.adapter =
             BillingDetailsAdapter(orderModel.itemList.toMutableList())
     }
 
@@ -76,9 +76,8 @@ class ExploreOrderActivity : BaseActivity(), View.OnClickListener {
         Utils.doStatusColorWhite(window)
         HelperActionBar.setSupportActionBar(
             this@ExploreOrderActivity,
-            binding!!.idAppBar
+            binding.idAppBar
         )
-
     }
 
     override fun initializeViewModel() {
@@ -91,6 +90,10 @@ class ExploreOrderActivity : BaseActivity(), View.OnClickListener {
                     super.getEventData(`object`)
                     orderModel = `object` as OrderModel
                     orderModel.orderId = id
+                    binding.model= orderModel
+                    binding.clickListener= this@ExploreOrderActivity
+                    binding.invalidateAll()
+                    binding.executePendingBindings()
                     initializeView()
                     initializeBillingData()
                 }
@@ -111,70 +114,79 @@ class ExploreOrderActivity : BaseActivity(), View.OnClickListener {
 
     override fun initializeView() {
         super.initializeView()
-        Utils.setVisibility(binding!!.idTextButtonCancel, true)
-        Utils.setVisibility(binding!!.idParentBilling, true)
-        Utils.setVisibility(binding!!.idParentConfirmation, false)
+        Utils.setVisibility(binding.idTextButtonCancel, true)
+        Utils.setVisibility(binding.idParentBilling, true)
+        Utils.setVisibility(binding.idParentConfirmation, false)
         when (orderModel.status) {
             Constants.ORDER_CART -> {
-                Utils.setVisibility(binding!!.idParentConfirmation, true)
-                binding!!.idTextStatus.setTextColor(
+                Utils.setVisibility(binding.idParentConfirmation, true)
+                binding.idTextStatus.setTextColor(
                     ContextCompat.getColor(
                         this,
                         R.color.colorStyleSixDark
                     )
                 )
-                binding!!.idTextStatus.text =
+                binding.idTextStatus.text =
                     getString(R.string.string_label_status_cart)
             }
             Constants.ORDER_PENDING -> {
-                Utils.setVisibility(binding!!.idParentBilling, false)
-                binding!!.idTextStatus.setTextColor(
+                Utils.setVisibility(binding.idParentBilling, false)
+                binding.idTextStatus.setTextColor(
                     ContextCompat.getColor(
                         this,
                         R.color.colorStyleFourDark
                     )
                 )
-                binding!!.idTextStatus.text =
+                binding.idTextStatus.text =
                     getString(R.string.string_label_status_placed)
             }
             Constants.ORDER_CONFIRMED -> {
-                binding!!.idTextStatus.setTextColor(
+                binding.idTextStatus.setTextColor(
                     ContextCompat.getColor(
                         this,
                         R.color.colorStyleThreeDark
                     )
                 )
-                binding!!.idTextStatus.text =
+                binding.idTextStatus.text =
                     getString(R.string.string_label_status_confirmed)
             }
             Constants.ORDER_OUT_FOR_DELIVERY -> {
-                binding!!.idTextStatus.setTextColor(
+                binding.idTextStatus.setTextColor(
                     ContextCompat.getColor(
                         this,
                         R.color.colorStyleThreeDark
                     )
                 )
-                binding!!.idTextStatus.text =
+                binding.idTextStatus.text =
                     getString(R.string.string_label_status_out_delivery)
             }
             Constants.ORDER_COMPLETE -> {
-                binding!!.idTextStatus.setTextColor(
+                binding.idTextStatus.setTextColor(
                     ContextCompat.getColor(
                         this,
                         R.color.colorStyleOneDark
                     )
                 )
-                Utils.setVisibility(binding!!.idTextButtonCancel, false)
+                Utils.setVisibility(binding.idTextButtonCancel, false)
+                binding.idTextStatus.text =
+                    getString(R.string.string_label_status_delivered)
             }
             Constants.ORDER_CANCELLED -> {
-                Utils.setVisibility(binding!!.idParentBilling, false)
-                Utils.setVisibility(binding!!.idTextButtonCancel, false)
+                binding.idTextStatus.setTextColor(
+                    ContextCompat.getColor(
+                        this,
+                        R.color.colorStyleSixDark
+                    )
+                )
+                binding.idTextStatus.text = getString(R.string.string_label_status_cancelled)
+                Utils.setVisibility(binding.idParentBilling, false)
+                Utils.setVisibility(binding.idTextButtonCancel, false)
             }
         }
         DownloadImage.downloadImages(
             this,
             orderModel.images[0],
-            binding!!.idImage,
+            binding.idImage,
             R.drawable.placeholder_one,
             RoundedCornersTransformation.CornerType.ALL,
             12
@@ -183,8 +195,8 @@ class ExploreOrderActivity : BaseActivity(), View.OnClickListener {
 
     private fun initializeBillingData() {
         id_text_delivery_fee.text = orderModel.deliveryFee
-//        binding!!.idTextBillAmount.text = orderModel!!.totalAmount.toString()
-        binding!!.idTextTotalAmount.text = orderModel.totalAmount
+//        binding.idTextBillAmount.text = orderModel!!.totalAmount.toString()
+        binding.idTextTotalAmount.text = orderModel.totalAmount
         initializeRecyclerView()
     }
 
@@ -203,14 +215,14 @@ class ExploreOrderActivity : BaseActivity(), View.OnClickListener {
                     ) {
                         it.dismiss()
                         utilityClass.startProgressBar(
-                            binding!!.idButtonSubmit,
-                            binding!!.root.findViewById(R.id.id_progress_bar_submit)
+                            binding.idButtonSubmit,
+                            binding.root.findViewById(R.id.id_progress_bar_submit)
                         )
-                        binding!!.idTextButtonCancel.isEnabled = false
+                        binding.idTextButtonCancel.isEnabled = false
                         viewModel.confirmOrder(orderModel, object : OnEventOccurListener() {
                             override fun getEventData(`object`: Any?) {
                                 super.getEventData(`object`)
-                                binding!!.idTextButtonCancel.isEnabled = true
+                                binding.idTextButtonCancel.isEnabled = true
                                 utilityClass.closeProgressBar()
                                 setResult(
                                     RESULT_OK,
@@ -228,7 +240,7 @@ class ExploreOrderActivity : BaseActivity(), View.OnClickListener {
 
                             override fun onErrorResponse(`object`: Any?, errorMessage: String?) {
                                 super.onErrorResponse(`object`, errorMessage)
-                                binding!!.idTextButtonCancel.isEnabled = true
+                                binding.idTextButtonCancel.isEnabled = true
                                 utilityClass.closeProgressBar()
                                 MySnackBar.getInstance()
                                     .showSnackBarForMessage(this@ExploreOrderActivity, errorMessage)
@@ -250,14 +262,14 @@ class ExploreOrderActivity : BaseActivity(), View.OnClickListener {
                     ) {
                         it.dismiss()
                         utilityClass.startProgressBar(
-                            binding!!.idTextButtonCancel,
-                            binding!!.root.findViewById(R.id.id_progress_bar_cancel)
+                            binding.idTextButtonCancel,
+                            binding.root.findViewById(R.id.id_progress_bar_cancel)
                         )
-                        binding!!.idButtonSubmit.isEnabled = false
+                        binding.idButtonSubmit.isEnabled = false
                         viewModel.cancelOrder(orderModel, object : OnEventOccurListener() {
                             override fun getEventData(`object`: Any?) {
                                 super.getEventData(`object`)
-                                binding!!.idButtonSubmit.isEnabled = true
+                                binding.idButtonSubmit.isEnabled = true
                                 utilityClass.closeProgressBar()
                                 setResult(
                                     RESULT_OK,
@@ -275,7 +287,7 @@ class ExploreOrderActivity : BaseActivity(), View.OnClickListener {
 
                             override fun onErrorResponse(`object`: Any?, errorMessage: String?) {
                                 super.onErrorResponse(`object`, errorMessage)
-                                binding!!.idButtonSubmit.isEnabled = true
+                                binding.idButtonSubmit.isEnabled = true
                                 utilityClass.closeProgressBar()
                                 MySnackBar.getInstance()
                                     .showSnackBarForMessage(this@ExploreOrderActivity, errorMessage)

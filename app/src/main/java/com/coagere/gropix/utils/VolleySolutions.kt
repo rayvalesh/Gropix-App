@@ -54,6 +54,7 @@ class VolleySolutions {
             object : VolleyResponses() {
             override fun onResponse(response: Any?, body: String?) {
                 super.onResponse(response, body)
+                Utils.log(body)
                 ParseJson.instance.parseResponseStatus(response, listener)
 
             }

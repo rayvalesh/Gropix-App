@@ -12,6 +12,7 @@ import com.coagere.gropix.jetpack.repos.UserRepo
 import com.coagere.gropix.prefs.TempStorage
 import com.coagere.gropix.utils.MyApplication
 import com.tc.utils.elements.BaseActivity
+import com.tc.utils.utils.helpers.HelperNotificationChannel
 import com.tc.utils.utils.helpers.Utils
 import com.tc.utils.utils.utility.CheckConnection
 import com.tc.utils.variables.abstracts.OnEventOccurListener
@@ -66,6 +67,7 @@ class LauncherActivity : BaseActivity() {
             override fun getEventData(`object`: Any?) {
                 super.getEventData(`object`)
                 id_progress_bar.progress = 72
+                TempStorage.instance.appRegistration = true
                 handler.postDelayed(runnable, 200)
             }
 
@@ -84,9 +86,9 @@ class LauncherActivity : BaseActivity() {
                 binding!!.idParent.visibility = View.VISIBLE
                 handler.postDelayed(runnableHome, 2000)
             } else {
+                HelperNotificationChannel(this)
                 binding!!.idLinearProgress.visibility = View.VISIBLE
                 handler.postDelayed(runnable, 200)
-                TempStorage.instance.appRegistration = true
             }
         } else {
             binding!!.idLinearConnection.visibility = View.VISIBLE

@@ -96,5 +96,7 @@
     <string name="string_button_name_confirm">Confirm</string>
     <string name="string_button_name_wait">Wait</string>
     <string name="string_activity_name_order_details">Order Details</string>
+    <string name="string_label_status_delivered">Delivered</string>
+    <string name="string_label_status_cancelled">Cancelled</string>
 
 </resources>

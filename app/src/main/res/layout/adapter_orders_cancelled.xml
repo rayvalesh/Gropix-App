@@ -74,7 +74,7 @@
                     style="@style/TextViewStyleMedium"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Cancelled"
+                    android:text="@string/string_button_name_cancel_order"
                     android:textColor="@color/colorStyleSixDark"
                     android:textSize="@dimen/dimen_common_text_size_very_large" />
 
