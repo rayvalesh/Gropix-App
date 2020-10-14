@@ -69,19 +69,22 @@ class ImagesAddFrag : BaseFragment(), ServiceReceiver.Receiver {
 
 
     override fun initializeRecyclerView() {
-        binding!!.idRecyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        binding!!.idRecyclerView.layoutManager =
+            LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         adapter = ImageAdapter(modelList, object : OnEventOccurListener() {
             override fun getEventData(`object`: Any?, actionType: ActionType?) {
                 super.getEventData(`object`, actionType)
                 if (actionType == ActionType.ACTION_EXPLORE) {
-                    ViewImageActivity.launch(requireActivity(), arrayOf(`object` as String))
+                    val model = `object` as FileModel
+                    if (!model.downloadUrl.isNullOrEmpty())
+                        ViewImageActivity.launch(requireActivity(), arrayOf(model.downloadUrl!!))
                 }
             }
 
             override fun getEventData(`object`: Any) {
                 super.getEventData(`object`)
                 val sheet = ChooserSheet()
-                sheet.showDialog(1,object : OnEventOccurListener() {
+                sheet.showDialog(1, object : OnEventOccurListener() {
                     override fun getEventData(`object`: Any?) {
                         super.getEventData(`object`)
                         when (`object` as ActionType) {

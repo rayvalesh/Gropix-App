@@ -145,8 +145,7 @@ class OrderListFrag : BaseFragment() {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == 1 && resultCode == Activity.RESULT_OK) {
             val adapterPosition = data!!.getIntExtra(IntentInterface.INTENT_FOR_POSITION, 0)
-            val model = modelList[adapterPosition]
-            model.status = data.getIntExtra(IntentInterface.INTENT_COME_FROM, 0)
+            modelList[adapterPosition] = data!!.getParcelableExtra(IntentInterface.INTENT_FOR_MODEL)!!
             adapter.notifyAdapterItemChange(adapterPosition)
         }
     }

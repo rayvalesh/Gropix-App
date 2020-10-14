@@ -95,6 +95,7 @@ class OrderStatusAdapter(
             }
             when (orderModel.status) {
                 Constants.ORDER_CART -> {
+                    Utils.setVisibility(binding.idParentAmount, false)
                     binding.idTextStatus.setTextColor(
                         ContextCompat.getColor(
                             itemView.context,
@@ -105,6 +106,7 @@ class OrderStatusAdapter(
                         itemView.context.getString(R.string.string_label_status_cart)
                 }
                 Constants.ORDER_PENDING -> {
+                    Utils.setVisibility(binding.idParentAmount, false)
                     binding.idTextStatus.setTextColor(
                         ContextCompat.getColor(
                             itemView.context,
@@ -115,6 +117,7 @@ class OrderStatusAdapter(
                         itemView.context.getString(R.string.string_label_status_placed)
                 }
                 Constants.ORDER_CONFIRMED -> {
+                    Utils.setVisibility(binding.idParentAmount, true)
                     binding.idTextStatus.setTextColor(
                         ContextCompat.getColor(
                             itemView.context,
@@ -125,6 +128,7 @@ class OrderStatusAdapter(
                         itemView.context.getString(R.string.string_label_status_confirmed)
                 }
                 Constants.ORDER_OUT_FOR_DELIVERY -> {
+                    Utils.setVisibility(binding.idParentAmount, true)
                     binding.idTextStatus.setTextColor(
                         ContextCompat.getColor(
                             itemView.context,
@@ -187,7 +191,5 @@ class OrderStatusAdapter(
                 adapterPosition
             )
         }
-
     }
-
 }

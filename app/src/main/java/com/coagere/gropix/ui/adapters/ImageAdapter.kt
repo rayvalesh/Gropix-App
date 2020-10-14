@@ -106,9 +106,11 @@ class ImageAdapter(
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
         View.OnClickListener {
-        private val fileDescriptionTextView: TextView = itemView.findViewById(R.id.id_text_file_description)
+        private val fileDescriptionTextView: TextView =
+            itemView.findViewById(R.id.id_text_file_description)
         private val fileTypeTextView: TextView = itemView.findViewById(R.id.id_text_file_type)
-        private val fileActionImageView: AppCompatImageView = itemView.findViewById(R.id.id_image_file_action)
+        private val fileActionImageView: AppCompatImageView =
+            itemView.findViewById(R.id.id_image_file_action)
         private val progressBar: ProgressBar = itemView.findViewById(R.id.id_progress_bar)
         private val imageView: ImageView = itemView.findViewById(R.id.id_image)
         fun bindTo(fileModel: FileModel?) {
@@ -126,10 +128,12 @@ class ImageAdapter(
                     adapterPosition
                 )
                 R.id.id_image_file_action -> handleFileActions(fileModel, adapterPosition)
-                R.id.id_image -> listeners.getEventData(
-                    fileModel,
-                    ActionType.ACTION_EXPLORE
-                )
+                R.id.id_image -> {
+                    listeners.getEventData(
+                        fileModel,
+                        ActionType.ACTION_EXPLORE
+                    )
+                }
             }
         }
 

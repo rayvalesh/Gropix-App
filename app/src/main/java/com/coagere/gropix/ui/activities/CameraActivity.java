@@ -10,9 +10,11 @@ import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.Matrix;
 import android.hardware.Camera;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.Display;
@@ -170,6 +172,10 @@ public final class CameraActivity extends AppCompatActivity implements View.OnCl
     }
 
     private void setToolbar() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+            getWindow().setStatusBarColor(Color.BLACK);
+        }
         Toolbar toolbar = findViewById(R.id.id_app_bar);
         setSupportActionBar(toolbar);
         HelperActionBar.getActionBar(getSupportActionBar(), R.string.library_string_activity_name_camera, this);
@@ -254,8 +260,8 @@ public final class CameraActivity extends AppCompatActivity implements View.OnCl
 
     @Override
     protected void onDestroy() {
-        super.onDestroy();
         closeSource();
+        super.onDestroy();
     }
 
     private void onSelectFromGalleryResult(Intent data) {
@@ -355,7 +361,7 @@ public final class CameraActivity extends AppCompatActivity implements View.OnCl
     }
 
     public void onClickCancel(View view) {
-        confirmationDialog(getString(R.string.library_string_message_alert_are_you_sure_discard_changes));
+        confirmationDialog(getString(R.string.string_dialog_camera_desc));
     }
 
     private void confirmationDialog(String message) {
@@ -363,17 +369,14 @@ public final class CameraActivity extends AppCompatActivity implements View.OnCl
                 .setAutoNegativeButton(R.string.string_button_name_no)
                 .setMessage(message)
                 .setPositiveButton(R.string.string_button_name_yes_want, it -> {
-                    if (isImageCropped) {
-                    }
+                    it.dismiss();
                     isImageVisible = false;
                     deleteFile(iFile);
                     findViewById(R.id.id_image_cancel).setVisibility(View.GONE);
-                    findViewById(R.id.id_image_right).setVisibility(View.GONE);
+                    findViewById(R.id.id_image_right).setVisibility(View.VISIBLE);
                     imageView.setVisibility(View.GONE);
                     imageViewCamera.setVisibility(View.VISIBLE);
-                    initializeView();
                     imageView.setImageDrawable(null);
-                    it.dismiss();
                 }).show();
     }
 
@@ -395,7 +398,7 @@ public final class CameraActivity extends AppCompatActivity implements View.OnCl
 
     private void closeSource() {
         if (cameraSource != null) {
-            cameraSource.release();
+//            cameraSource.release();
             cameraSource = null;
         }
     }
@@ -488,7 +491,6 @@ public final class CameraActivity extends AppCompatActivity implements View.OnCl
 
     @Override
     public void onBackPressed() {
-        closeEverything();
         super.onBackPressed();
     }
 

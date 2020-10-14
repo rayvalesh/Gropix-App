@@ -11,31 +11,27 @@ import tk.jamun.volley.variables.Exclude
  */
 @Parcelize
 data class FileModel(
-        @SerializedName("fileUrl")
-        var fileUrl: String? = null,
+    @SerializedName("fileUrl")
+    var fileUrl: String? = null,
 
-        @SerializedName("orderFilePath")
-        var downloadUrl: String? = null,
+    @SerializedName("orderFilePath")
+    var downloadUrl: String? = null,
 
-        @SerializedName("fileName")
-        var fileName: String? = null,
+    @SerializedName("fileName")
+    var fileName: String? = null,
 
-        @SerializedName("displaySize")
-        var displaySize: String? = null,
+    @SerializedName("displaySize")
+    var displaySize: String? = null,
 
-        @SerializedName("fileSize")
-        var fileSize: Long = 0,
+    @SerializedName("fileSize")
+    var fileSize: Long = 0,
 
-        @SerializedName("extension")
-        var fileType: String? = null,
-        @Exclude
-        var actionType: Int = 0,
-        @Exclude
-        var progress: Int = 0,
-        @Exclude
-        var progressData: String? = null
-
-
-) : Parcelable {
-
-}
+    @SerializedName("extension")
+    var fileType: String? = null,
+    @Exclude
+    var actionType: Int = 0,
+    @Exclude
+    var progress: Int = 0,
+    @Exclude
+    var progressData: String? = null
+) : Parcelable

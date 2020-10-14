@@ -87,7 +87,7 @@
     <string name="string_message_sure_cancel_order">Are you sure want to Cancel Order?</string>
     <string name="string_button_name_cancel_order">Cancel Order</string>
     <string name="string_button_name_place_order">Place your Order</string>
-    <string name="string_button_name_confirm_order">Confirm your order</string>
+    <string name="string_button_name_confirm_order">Confirm order</string>
     <string name="string_label_status_placed">Placed, Please Wait</string>
     <string name="string_label_status_cart">Ready, Please Confirm</string>
     <string name="string_label_status_confirmed">Confirmed, Deliver Soon</string>
@@ -98,5 +98,6 @@
     <string name="string_activity_name_order_details">Order Details</string>
     <string name="string_label_status_delivered">Delivered</string>
     <string name="string_label_status_cancelled">Cancelled</string>
+    <string name="string_dialog_camera_desc">Do you want to discard changes?</string>
 
 </resources>

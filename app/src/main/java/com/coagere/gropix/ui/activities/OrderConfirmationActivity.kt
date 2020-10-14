@@ -33,6 +33,7 @@ import com.tc.utils.variables.enums.ActionType
 import com.tc.utils.variables.interfaces.Constants
 import com.tc.utils.variables.interfaces.IntentInterface
 import com.tc.utils.variables.interfaces.JamunDialogInterface
+import kotlinx.android.synthetic.main.activity_reach_us.*
 import tk.jamun.ui.snacks.MySnackBar
 
 class OrderConfirmationActivity : BaseActivity(), View.OnClickListener {
@@ -174,6 +175,13 @@ class OrderConfirmationActivity : BaseActivity(), View.OnClickListener {
         ) {
             return false
         }
+        if (utilityClass.checkEmailEditTextEmpty(
+                id_edit_email!!,
+                resources.getInteger(R.integer.validation_min_email),
+                findViewById(R.id.id_text_error_email)
+            )
+        )
+            return false
         if (utilityClass.checkEditTextEmpty(
                 editText = binding!!.idEditStreet,
                 minLength = resources.getInteger(R.integer.validation_min_name),
@@ -227,16 +235,12 @@ class OrderConfirmationActivity : BaseActivity(), View.OnClickListener {
             state = binding!!.idEditState.text.toString(),
             pinCode = binding!!.idEditPincode.text.toString()
         )
-        if (binding!!.idEditEmail.text.toString().isEmpty()) {
-            model.email = ""
-        } else {
-            model.email = binding!!.idEditEmail.text.toString()
-        }
+        model.email = binding!!.idEditEmail.text.toString()
         model.address = addressModel
         model.mobileNumber = UserStorage.instance.mobileNumber
         model.userName = binding!!.idEditName.text.toString()
         UserStorage.instance.addressModel = addressModel
-        UserStorage.instance.email = binding!!.idEditEmail.text.toString()
+        UserStorage.instance.email =model.email
         UserStorage.instance.name = model.userName
         return true
     }
@@ -254,7 +258,6 @@ class OrderConfirmationActivity : BaseActivity(), View.OnClickListener {
                 R.string.string_button_name_yes_want
             ) {
                 it.dismiss()
-                closeEverything()
                 Handler().postDelayed({
                     setResult(Activity.RESULT_OK)
                     finish()

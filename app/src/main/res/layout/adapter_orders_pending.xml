@@ -61,7 +61,7 @@
 
                         <TextView
                             style="@style/TextViewStyleMedium"
-                            text='@{model.address.street +", "+ model.address.city+", " + model.address.state+" (" + model.address.pinCode+")"}'
+                            text='@{model.address.street +" , "+ model.address.city+" , " + model.address.state+"(" + model.address.pinCode+")" }'
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:maxLines="3"
@@ -140,6 +140,7 @@
                 <include layout="@layout/utility_vertical_border_layout" />
 
                 <LinearLayout
+                    android:id="@+id/id_parent_amount"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="end|center"
@@ -147,8 +148,7 @@
                     android:paddingStart="@dimen/dimen_common_margin_more"
                     android:paddingTop="@dimen/dimen_common_margin_medium"
                     android:paddingEnd="@dimen/dimen_common_margin_more"
-                    android:paddingBottom="@dimen/dimen_common_margin_medium"
-                    android:visibility="@{model.totalAmount != null ? View.VISIBLE : View.GONE}">
+                    android:paddingBottom="@dimen/dimen_common_margin_medium">
 
                     <TextView
                         android:layout_width="wrap_content"

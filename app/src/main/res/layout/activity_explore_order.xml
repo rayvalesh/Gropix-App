@@ -150,14 +150,14 @@
                                     android:layout_marginRight="@dimen/dimen_common_margin_medium"
                                     android:text="@string/string_label_colon"
                                     android:textColor="@color/colorTextPrimary"
-                                    android:textSize="@dimen/dimen_common_text_size_title" />
+                                    android:textSize="@dimen/dimen_common_text_size_sub" />
 
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="@{model.orderId}"
                                     android:textColor="@color/colorTextPrimary"
-                                    android:textSize="@dimen/dimen_common_text_size_title" />
+                                    android:textSize="@dimen/dimen_common_text_size_sub" />
                             </LinearLayout>
 
                             <LinearLayout
@@ -182,14 +182,14 @@
                                     android:layout_marginRight="@dimen/dimen_common_margin_medium"
                                     android:text="@string/string_label_colon"
                                     android:textColor="@color/colorTextPrimary"
-                                    android:textSize="@dimen/dimen_common_text_size_title" />
+                                    android:textSize="@dimen/dimen_common_text_size_sub" />
 
                                 <TextView
                                     dateTimeStamp='@{model.timestamp}'
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:textColor="@color/colorTextPrimary"
-                                    android:textSize="@dimen/dimen_common_text_size_title" />
+                                    android:textSize="@dimen/dimen_common_text_size_sub" />
                             </LinearLayout>
 
                             <LinearLayout
@@ -214,7 +214,7 @@
                                     android:layout_marginRight="@dimen/dimen_common_margin_medium"
                                     android:text="@string/string_label_colon"
                                     android:textColor="@color/colorTextPrimary"
-                                    android:textSize="@dimen/dimen_common_text_size_title" />
+                                    android:textSize="@dimen/dimen_common_text_size_sub" />
 
                                 <TextView
                                     android:id="@+id/id_text_status"
@@ -222,7 +222,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:textColor="@color/colorStyleSixDark"
-                                    android:textSize="@dimen/dimen_common_text_size_title" />
+                                    android:textSize="@dimen/dimen_common_text_size_sub" />
                             </LinearLayout>
 
                         </LinearLayout>

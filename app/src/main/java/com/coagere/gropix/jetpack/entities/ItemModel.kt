@@ -6,26 +6,15 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class ItemModel(
-    @SerializedName("itemId")
-    var itemId: String,
-
     @SerializedName("itemName")
-    var itemName: String,
+    var itemName: String? = null,
 
     @SerializedName("itemPrice")
-    var itemPrice: String,
+    var itemPrice: String? = null,
 
     @SerializedName("itemQuantity")
-    var itemQuantity: String,
-
+    var itemQuantity: String? = null,
 
     @SerializedName("amount")
-    var amount: String,
-
-    @SerializedName("status")
-    var status: Int = 0,
-
-    @SerializedName("timeStamp")
-    var timeStamp: String? = null
-
+    var amount: String? = null,
 ) : Parcelable

@@ -108,12 +108,15 @@ class ReachUsActivity : BaseActivity(), View.OnClickListener {
                 findViewById(R.id.id_text_error_name)
             )
         ) return false
-        if (utilityClass!!.checkEmailEditTextEmpty(
-                id_edit_email!!,
-                resources.getInteger(R.integer.validation_min_email),
-                findViewById(R.id.id_text_error_email)
+        if (!id_edit_email.text.isNullOrEmpty()) {
+            if (utilityClass!!.checkEmailEditTextEmpty(
+                    id_edit_email!!,
+                    resources.getInteger(R.integer.validation_min_email),
+                    findViewById(R.id.id_text_error_email)
+                )
             )
-        ) return false
+                return false
+        }
         if (utilityClass!!.checkEditTextEmpty(
                 id_edit_message,
                 resources.getInteger(R.integer.validation_min_message),
@@ -124,10 +127,6 @@ class ReachUsActivity : BaseActivity(), View.OnClickListener {
         model!!.message = id_edit_message!!.text.toString()
         model!!.email = id_edit_email!!.text.toString()
         return true
-    }
-
-    override fun onBackPressed() {
-        super.onBackPressed()
     }
 
     override fun onClick(v: View?) {
