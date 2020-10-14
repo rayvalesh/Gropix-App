@@ -245,6 +245,12 @@ class MainActivity : BaseActivity(), View.OnClickListener {
                             .show()
                     }
                     else -> {
+                        startActivity(
+                            Intent(
+                                this@MainActivity,
+                                ReachUsActivity::class.java
+                            )
+                        )
                     }
                 }
             }

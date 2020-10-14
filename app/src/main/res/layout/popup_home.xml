@@ -28,6 +28,35 @@
                 android:textSize="@dimen/dimen_common_text_size_large" />
 
             <LinearLayout
+                android:id="@+id/id_parent_button_contact"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/more_layouts_click"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="@dimen/dimen_common_margin_more">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="@dimen/dimen_popup_image_size"
+                    android:layout_height="@dimen/dimen_popup_image_size"
+                    android:layout_marginStart="@dimen/dimen_common_margin_small"
+                    android:tint="@color/colorIconLight"
+                    app:srcCompat="@drawable/icon_vd_contact_us" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dimen_common_margin_large"
+                    android:text="Reach to us?"
+                    android:textColor="@color/colorTextPrimary"
+                    android:textSize="@dimen/dimen_button_text_size" />
+            </LinearLayout>
+
+            <include layout="@layout/utility_vertical_border_layout" />
+
+            <LinearLayout
                 android:id="@+id/id_parent_button_share"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
