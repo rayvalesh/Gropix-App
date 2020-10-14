@@ -86,6 +86,7 @@
                     android:maxLines="1"
                     android:paddingLeft="@dimen/dimen_edit_text_padding"
                     android:paddingRight="@dimen/dimen_edit_text_padding"
+                    android:textColor="@color/colorEditTextText"
                     android:textColorHint="@color/colorTextHint"
                     android:textSize="@dimen/dimen_edit_text_size" />
 
@@ -114,6 +115,7 @@
                     android:maxLines="1"
                     android:paddingLeft="@dimen/dimen_edit_text_padding"
                     android:paddingRight="@dimen/dimen_edit_text_padding"
+                    android:textColor="@color/colorEditTextText"
                     android:textColorHint="@color/colorTextHint"
                     android:textSize="@dimen/dimen_edit_text_size" />
 
@@ -142,6 +144,7 @@
                     android:maxLines="5"
                     android:minLines="4"
                     android:padding="@dimen/dimen_edit_text_padding"
+                    android:textColor="@color/colorEditTextText"
                     android:textColorHint="@color/colorTextHint"
                     android:textSize="@dimen/dimen_edit_text_size" />
 

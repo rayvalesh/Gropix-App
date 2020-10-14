@@ -39,8 +39,11 @@ import com.google.android.gms.vision.face.Face;
 import com.google.android.gms.vision.face.FaceDetector;
 import com.coagere.gropix.R;
 import com.tc.utils.utils.helpers.HelperTime;
+import com.tc.utils.utils.helpers.JamunAlertDialog;
 import com.tc.utils.utils.helpers.StoragePath;
 import com.tc.utils.utils.utility.UtilityCheckPermission;
+import com.tc.utils.variables.interfaces.Constants;
+import com.tc.utils.variables.interfaces.JamunDialogInterface;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -356,30 +359,21 @@ public final class CameraActivity extends AppCompatActivity implements View.OnCl
     }
 
     private void confirmationDialog(String message) {
-        new AlertDialog.Builder(this)
-                .setCancelable(true)
+        new JamunAlertDialog(this).setAutoCancelable()
+                .setAutoNegativeButton(R.string.string_button_name_no)
                 .setMessage(message)
-                .setPositiveButton(getString(R.string.library_string_button_name_yes_want), new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        if (isImageCropped) {
-                        }
-                        isImageVisible = false;
-                        deleteFile(iFile);
-                        findViewById(R.id.id_image_cancel).setVisibility(View.GONE);
-                        findViewById(R.id.id_image_right).setVisibility(View.GONE);
-                        imageView.setVisibility(View.GONE);
-                        imageViewCamera.setVisibility(View.VISIBLE);
-                        initializeView();
-                        imageView.setImageDrawable(null);
-                        dialog.dismiss();
+                .setPositiveButton(R.string.string_button_name_yes_want, it -> {
+                    if (isImageCropped) {
                     }
-                })
-                .setNegativeButton(getString(R.string.library_string_button_name_no), new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
+                    isImageVisible = false;
+                    deleteFile(iFile);
+                    findViewById(R.id.id_image_cancel).setVisibility(View.GONE);
+                    findViewById(R.id.id_image_right).setVisibility(View.GONE);
+                    imageView.setVisibility(View.GONE);
+                    imageViewCamera.setVisibility(View.VISIBLE);
+                    initializeView();
+                    imageView.setImageDrawable(null);
+                    it.dismiss();
                 }).show();
     }
 

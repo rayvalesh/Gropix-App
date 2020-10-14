@@ -53,6 +53,8 @@ class OrderConfirmationActivity : BaseActivity(), View.OnClickListener {
         binding!!.apply {
             clickListener = this@OrderConfirmationActivity
             this.addressModel = UserStorage.instance.addressModel
+            this.name = UserStorage.instance.name
+            this.email = UserStorage.instance.email
             executePendingBindings()
         }
         lifecycleScope.launchWhenCreated {
@@ -121,47 +123,38 @@ class OrderConfirmationActivity : BaseActivity(), View.OnClickListener {
     private fun onClickSubmit() {
         utilityClass.hideSoftKeyboard()
         if (validate() && CheckConnection.checkConnection(this)) {
-            JamunAlertDialog(this).setAutoCancelable()
-                .setMessage(R.string.string_message_confirmation)
-                .setAutoNegativeButton(R.string.string_button_name_no)
-                .setPositiveButton(
-                    R.string.string_button_name_confirm_place
-                ) {
-
-                    it.dismiss()
-                    utilityClass.startProgressBar(
-                        binding!!.idButtonSubmit,
-                        binding!!.root.findViewById(R.id.id_progress_bar_submit)
+            utilityClass.startProgressBar(
+                binding!!.idButtonSubmit,
+                binding!!.root.findViewById(R.id.id_progress_bar_submit)
+            )
+            viewModel.performCreateOrder(model, object : OnEventOccurListener() {
+                override fun getEventData(`object`: Any?) {
+                    super.getEventData(`object`)
+                    utilityClass.closeProgressBar()
+                    Utils.toast(
+                        this@OrderConfirmationActivity,
+                        "Order Placed Successfully!!"
                     )
-                    viewModel.performCreateOrder(model, object : OnEventOccurListener() {
-                        override fun getEventData(`object`: Any?) {
-                            super.getEventData(`object`)
-                            utilityClass.closeProgressBar()
-                            Utils.toast(
-                                this@OrderConfirmationActivity,
-                                "Order Placed Successfully!!"
-                            )
-                            setResult(Activity.RESULT_OK)
-                            finish()
-                        }
+                    setResult(Activity.RESULT_OK)
+                    finish()
+                }
 
-                        override fun onErrorResponse(`object`: Any?, errorMessage: String?) {
-                            super.onErrorResponse(`object`, errorMessage)
-                            if (utilityClass.isUnAuthrized(`object`)) {
-                                HelperLogout.logMeOut(
-                                    this@OrderConfirmationActivity,
-                                    object : OnEventOccurListener() {})
-                            } else {
-                                utilityClass.closeProgressBar()
-                                MySnackBar.getInstance()
-                                    .showSnackBarForMessage(
-                                        this@OrderConfirmationActivity,
-                                        errorMessage
-                                    )
-                            }
-                        }
-                    })
-                }.show()
+                override fun onErrorResponse(`object`: Any?, errorMessage: String?) {
+                    super.onErrorResponse(`object`, errorMessage)
+                    if (utilityClass.isUnAuthrized(`object`)) {
+                        HelperLogout.logMeOut(
+                            this@OrderConfirmationActivity,
+                            object : OnEventOccurListener() {})
+                    } else {
+                        utilityClass.closeProgressBar()
+                        MySnackBar.getInstance()
+                            .showSnackBarForMessage(
+                                this@OrderConfirmationActivity,
+                                errorMessage
+                            )
+                    }
+                }
+            })
         }
     }
 
@@ -177,14 +170,6 @@ class OrderConfirmationActivity : BaseActivity(), View.OnClickListener {
                 editText = binding!!.idEditName,
                 minLength = resources.getInteger(R.integer.validation_min_name),
                 errorTextView = binding!!.root.findViewById(R.id.id_text_error_name)
-            )
-        ) {
-            return false
-        }
-        if (utilityClass.checkEmailEditTextEmpty(
-                editText = binding!!.idEditEmail,
-                minLength = resources.getInteger(R.integer.validation_min_email),
-                errorTextView = binding!!.root.findViewById(R.id.id_text_error_email)
             )
         ) {
             return false
@@ -242,11 +227,17 @@ class OrderConfirmationActivity : BaseActivity(), View.OnClickListener {
             state = binding!!.idEditState.text.toString(),
             pinCode = binding!!.idEditPincode.text.toString()
         )
-        UserStorage.instance.addressModel = addressModel
+        if (binding!!.idEditEmail.text.toString().isEmpty()) {
+            model.email = ""
+        } else {
+            model.email = binding!!.idEditEmail.text.toString()
+        }
         model.address = addressModel
         model.mobileNumber = UserStorage.instance.mobileNumber
         model.userName = binding!!.idEditName.text.toString()
-        model.email = binding!!.idEditEmail.text.toString()
+        UserStorage.instance.addressModel = addressModel
+        UserStorage.instance.email = binding!!.idEditEmail.text.toString()
+        UserStorage.instance.name = model.userName
         return true
     }
 
@@ -258,7 +249,7 @@ class OrderConfirmationActivity : BaseActivity(), View.OnClickListener {
     override fun onBackPressed() {
         JamunAlertDialog(this).setAutoCancelable()
             .setAutoNegativeButton(R.string.string_button_name_no)
-            .setMessage(R.string.string_message_sure_go_back)
+            .setMessage("Do you want to cancel your order?")
             .setPositiveButton(
                 R.string.string_button_name_yes_want
             ) {
@@ -268,7 +259,6 @@ class OrderConfirmationActivity : BaseActivity(), View.OnClickListener {
                     setResult(Activity.RESULT_OK)
                     finish()
                 }, Constants.THREAD_TIME_DELAY)
-            }
-            .show()
+            }.show()
     }
 }

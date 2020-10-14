@@ -79,13 +79,13 @@
                         android:padding="@dimen/dimen_common_margin_more">
 
                         <FrameLayout
-                            android:layout_width="100dp"
-                            android:layout_height="100dp">
+                            android:layout_width="90dp"
+                            android:layout_height="90dp">
 
                             <ImageView
                                 android:id="@+id/id_image"
-                                android:layout_width="100dp"
-                                android:layout_height="100dp"
+                                android:layout_width="90dp"
+                                android:layout_height="90dp"
                                 android:layout_marginBottom="@dimen/dimen_common_margin_more"
                                 android:clickable="true"
                                 android:contentDescription="@string/string_icon_desc_image"

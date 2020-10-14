@@ -63,7 +63,7 @@
     <string name="string_label_serial_no">Sr.</string>
     <string name="string_label_item_name">Item Name</string>
     <string name="string_label_items">Items</string>
-    <string name="string_label_times">Times</string>
+    <string name="string_label_times">Quantity</string>
     <string name="string_label_total_amount">Total amount</string>
     <string name="string_label_amount_unit">/-</string>
     <string name="string_label_amount">Amount</string>
