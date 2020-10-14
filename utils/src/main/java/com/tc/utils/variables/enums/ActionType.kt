@@ -15,5 +15,5 @@ enum class ActionType {
     ACTION_CAMERA,
     ACTION_GALLERY,
     DACHSHUND,
-
+    ACTION_CONTACT,
 }

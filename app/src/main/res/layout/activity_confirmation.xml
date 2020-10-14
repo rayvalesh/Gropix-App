@@ -13,6 +13,13 @@
             name="clickListener"
             type="android.view.View.OnClickListener" />
 
+        <variable
+            name="name"
+            type="String" />
+
+        <variable
+            name="email"
+            type="String" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -149,6 +156,7 @@
                     <EditText
                         android:id="@+id/id_edit_name"
                         style="@style/EditTextStyle"
+                        text="@{name}"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/dimen_edit_text_height"
                         android:layout_marginEnd="@dimen/dimen_common_margin_small"
@@ -181,6 +189,7 @@
                     <EditText
                         android:id="@+id/id_edit_email"
                         style="@style/EditTextStyle"
+                        text="@{email}"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/dimen_edit_text_height"
                         android:layout_marginEnd="@dimen/dimen_common_margin_small"
@@ -196,10 +205,6 @@
                         android:textColor="@color/colorEditTextText"
                         android:textColorHint="@color/colorTextHint"
                         android:textSize="@dimen/dimen_edit_text_size" />
-
-                    <include
-                        android:id="@+id/id_text_error_email"
-                        layout="@layout/include_layout_text_error" />
 
                     <TextView
                         android:layout_width="wrap_content"

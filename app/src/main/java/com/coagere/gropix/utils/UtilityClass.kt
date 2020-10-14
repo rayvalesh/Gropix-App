@@ -59,6 +59,28 @@ class UtilityClass(private val activity: Activity, private val view: View? = nul
     private var progressBar: ProgressBar? = null
 
 
+    fun setSwipeRefreshLayout(): SwipeRefreshLayout {
+        swipeRefreshLayout = if (view != null)
+            view.findViewById(R.id.id_swipe_refresh)
+        else
+            activity.findViewById(R.id.id_swipe_refresh)
+        swipeRefreshLayout?.setColorSchemeColors(
+            ContextCompat.getColor(activity, R.color.colorSwipeOne),
+            ContextCompat.getColor(activity, R.color.colorSwipeTwo),
+            ContextCompat.getColor(activity, R.color.colorSwipeThree),
+            ContextCompat.getColor(activity, R.color.colorSwipeFour)
+        )
+        return swipeRefreshLayout as SwipeRefreshLayout
+    }
+
+    fun startSwipeRefreshing() {
+        swipeRefreshLayout?.isRefreshing = true
+    }
+
+    fun closeSwipeRefresh() {
+        swipeRefreshLayout?.isRefreshing=false
+    }
+
     /**
      * Run progress bar animation
      */

@@ -33,6 +33,12 @@
 
     <color name="colorTabSelected">@color/colorPrimary</color>
 
+    <color name="colorSwipeOne">#5eb8ff</color>
+    <color name="colorSwipeTwo">#0288d1</color>
+    <color name="colorSwipeThree">#0288d1</color>
+    <color name="colorSwipeFour">#005b9f</color>
+
+
     <color name="colorStyleFour">#fbad04</color>
     <color name="colorStyleSix">#f50057</color>
     <color name="colorStyleOneDark">#0052cc</color>

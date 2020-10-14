@@ -46,11 +46,17 @@ class UserStorage(context: Context) {
             return headerArrayList
         }
 
-    val name: String?
+    var name: String?
         get() = sharedPreferences.getString("KEY_NAME", null)
+        set(value) = sharedPreferences.edit {
+            putString("KEY_NAME", value)
+        }
 
-    val email: String?
+    var email: String?
         get() = sharedPreferences.getString("KEY_EMAIL", null)
+        set(value) = sharedPreferences.edit {
+            putString("KEY_EMAIL", value)
+        }
 
     var mobileNumber: String
         get() = sharedPreferences.getString(SHARED_NUMBER, "")!!

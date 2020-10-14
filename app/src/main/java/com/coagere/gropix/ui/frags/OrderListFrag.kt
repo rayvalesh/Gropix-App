@@ -90,6 +90,7 @@ class OrderListFrag : BaseFragment() {
             object : OnEventOccurListener() {
                 override fun getEventData(`object`: Any?) {
                     super.getEventData(`object`)
+                    utilityClass.closeSwipeRefresh()
                     adapter.notifyAdapterDataSetChanged()
                     initializeEmptyView(modelList.isNullOrEmpty())
                 }
@@ -101,6 +102,8 @@ class OrderListFrag : BaseFragment() {
                             requireActivity(),
                             object : OnEventOccurListener() {})
                     } else {
+                        utilityClass.closeSwipeRefresh()
+                        utilityClass.closeProgressBar()
                         MySnackBar.getInstance()
                             .showSnackBarForMessage(requireActivity(), errorMessage)
                     }
@@ -110,6 +113,11 @@ class OrderListFrag : BaseFragment() {
 
     override fun initializeRecyclerView() {
         super.initializeRecyclerView()
+        utilityClass.setSwipeRefreshLayout().setOnRefreshListener {
+            modelList.clear()
+            adapter.notifyAdapterDataSetChanged()
+            initializeViewModel()
+        }
         binding!!.idRecyclerView.layoutManager = LinearLayoutManager(requireContext())
         binding!!.idRecyclerView.adapter = adapter
     }

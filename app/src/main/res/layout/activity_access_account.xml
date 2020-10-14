@@ -253,7 +253,8 @@
             android:layout_gravity="bottom"
             android:background="@drawable/background_scroll_white_top"
             android:gravity="center_horizontal"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:visibility="gone">
 
             <View
                 android:layout_width="match_parent"
