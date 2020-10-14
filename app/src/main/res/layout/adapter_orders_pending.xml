@@ -47,8 +47,8 @@
 
                     <androidx.appcompat.widget.AppCompatImageView
                         downloadImage="@{model.images[0]}"
-                        android:layout_width="90dp"
-                        android:layout_height="90dp"
+                        android:layout_width="@dimen/dimen_tile_image"
+                        android:layout_height="@dimen/dimen_tile_image"
                         android:background="@drawable/placeholder_one"
                         android:contentDescription="@string/string_icon_desc_image"
                         android:src="@drawable/placeholder_one" />
@@ -56,7 +56,7 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/dimen_common_margin_more"
+                        android:layout_marginStart="@dimen/dimen_common_margin_less_more"
                         android:orientation="vertical">
 
                         <TextView
@@ -91,7 +91,7 @@
                                 android:layout_marginRight="@dimen/dimen_common_margin_medium"
                                 android:text="@string/string_label_colon"
                                 android:textColor="@color/colorTextPrimary"
-                                android:textSize="@dimen/dimen_common_text_size_title" />
+                                android:textSize="@dimen/dimen_common_text_size_sub" />
 
                             <TextView
                                 dateTimeStamp='@{model.timestamp}'
@@ -123,7 +123,7 @@
                                 android:layout_marginRight="@dimen/dimen_common_margin_medium"
                                 android:text="@string/string_label_colon"
                                 android:textColor="@color/colorTextPrimary"
-                                android:textSize="@dimen/dimen_common_text_size_title" />
+                                android:textSize="@dimen/dimen_common_text_size_sub" />
 
                             <TextView
                                 android:id="@+id/id_text_status"
@@ -131,7 +131,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textColor="@color/colorStyleFourDark"
-                                android:textSize="@dimen/dimen_common_text_size_title" />
+                                android:textSize="@dimen/dimen_common_text_size_med" />
                         </LinearLayout>
                     </LinearLayout>
 

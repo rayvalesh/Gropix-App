@@ -73,7 +73,7 @@
     <string name="string_button_name_pay">Pay &amp; Submit</string>
     <string name="string_toast_success_feedback">Feedback sent successfully</string>
     <string name="string_message_error_file_size">Please select Image less then 12 mb.</string>
-    <string name="string_label_order_status">Order Status</string>
+    <string name="string_label_order_status">Status</string>
     <string name="string_label_placed">Placed</string>
     <string name="string_label_pending">Pending</string>
     <string name="string_label_cancelled">Cancelled</string>

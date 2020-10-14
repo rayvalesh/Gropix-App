@@ -37,7 +37,6 @@ class OrderRepo {
                 object : VolleyResponses() {
                     override fun onResponse(response: Any?, body: String?) {
                         super.onResponse(response, body)
-                        L.logE(body)
                         modelList.addAll(response as Array<OrderModel>)
                         listener.getEventData(ResponseTypes.TYPE_SUCCESS)
                     }

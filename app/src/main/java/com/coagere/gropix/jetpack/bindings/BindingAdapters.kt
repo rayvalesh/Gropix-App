@@ -30,9 +30,9 @@ object BindingAdapters {
     fun dateStamp(view: TextView, timeStamp: String? = null) {
         if (!timeStamp.isNullOrEmpty() && timeStamp != "null") {
             if (timeStamp.length == 19) {
-//                view.text = HelperTime.get().getDate(timeStamp)
+                view.text = HelperTime.get().getDateFormatWithToday(timeStamp)
             } else
-                view.text = HelperTime.get().parseDateFromString(timeStamp)
+                view.text = HelperTime.get().getDateFormatWithToday(timeStamp +" 00:00:00")
         }
     }
 

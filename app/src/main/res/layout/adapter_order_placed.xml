@@ -36,8 +36,8 @@
 
             <ImageView
                 downloadImage="@{model.images[0]}"
-                android:layout_width="110dp"
-                android:layout_height="match_parent"
+                android:layout_width="@dimen/dimen_tile_image"
+                android:layout_height="@dimen/dimen_tile_image"
                 android:contentDescription="@string/string_icon_desc_image"
                 android:scaleType="centerCrop"
                 android:src="@drawable/placeholder_one" />
@@ -47,6 +47,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="end"
+                android:layout_marginStart="@dimen/dimen_common_margin_less_more"
                 android:orientation="vertical">
 
                 <TextView
@@ -56,7 +57,7 @@
                     android:layout_height="wrap_content"
                     android:maxLines="3"
                     android:textColor="@color/colorTextPrimaryLight"
-                    android:textSize="@dimen/dimen_common_text_size_title" />
+                    android:textSize="@dimen/dimen_common_text_size_med_large" />
 
                 <TextView
                     dateTimeStamp="@{model.timestamp}"
@@ -76,7 +77,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/string_label_status_delivered"
                     android:textColor="@color/colorStyleOneDark"
-                    android:textSize="@dimen/dimen_common_text_size_very_large" />
+                    android:textSize="@dimen/dimen_common_text_size_large" />
 
             </LinearLayout>
         </LinearLayout>

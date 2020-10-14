@@ -43,8 +43,9 @@ public class HelperTime {
     }
 
     private static HelperTime helperTime;
-    private Calendar calendar;
-    private SimpleDateFormat simpleDateFormat, simpleDateFormatUTC;
+    private final Calendar calendar;
+    private final SimpleDateFormat simpleDateFormat;
+    private final SimpleDateFormat simpleDateFormatUTC;
 
     public static HelperTime get() {
         if (helperTime == null)
@@ -69,12 +70,7 @@ public class HelperTime {
         return simpleDateFormat.format(new Date());
     }
 
-    public String getTimeStampUTC() {
-        return simpleDateFormatUTC.format(new Date());
-    }
-
-
-    public  String parseDateFromString(String entryTime) {
+    public String parseDateFromString(String entryTime) {
         int month = Integer.parseInt(entryTime.substring(TIMESTAMP_MONTH_START, Constants.TIMESTAMP_MONTH_END));
         if (month > 12) {
             month = 12;
@@ -90,58 +86,8 @@ public class HelperTime {
     }
 
 
-
     public int getCurrentYear() {
         return calendar.get(Calendar.YEAR);
-    }
-
-    public Calendar getDateCalendar(String timeStamp) {
-        Calendar calendarNew = Calendar.getInstance();
-        try {
-            calendarNew.setTime(simpleDateFormat.parse(timeStamp));
-            return calendarNew;
-        } catch (ParseException e) {
-            L.logI(e.getMessage());
-        }
-        return calendarNew;
-    }
-
-
-    public String getDateInFormat(int date, int month, int year) {
-        if (month > 11) {
-            month = 11;
-        } else if (month < 0) {
-            month = 0;
-        }
-        return getIntoTwo(date) + " " + months[month].substring(0, 3) + ", " + year;
-    }
-
-    public String getDateInFormatToSave(int date, int month, int year) {
-        return year + HYPHEN + getIntoTwo(month)
-                + Constants.HYPHEN + getIntoTwo(date);
-    }
-
-
-    public String getDateInFormatToPost(String date) {
-        if (date.length() == 10) {
-            return date.substring(Constants.TIMESTAMP_DATE_START, Constants.TIMESTAMP_DATE_END)
-                    + Constants.SLASH + getIntoTwo((Integer.parseInt(date.substring(TIMESTAMP_MONTH_START, Constants.TIMESTAMP_MONTH_END))))
-                    + Constants.SLASH + date.substring(Constants.TIMESTAMP_YEAR_START, Constants.TIMESTAMP_YEAR_END) + " 00:00:00";
-        } else {
-            return date.substring(Constants.TIMESTAMP_DATE_START, Constants.TIMESTAMP_DATE_END)
-                    + SLASH + getIntoTwo((Integer.parseInt(date.substring(TIMESTAMP_MONTH_START, Constants.TIMESTAMP_MONTH_END))))
-                    + Constants.SLASH + date.substring(Constants.TIMESTAMP_YEAR_START, Constants.TIMESTAMP_YEAR_END) + date.substring(Constants.TIMESTAMP_DATE_END, Constants.TIMESTAMP_SEC_END);
-        }
-    }
-
-    public String getDateInFormatFromPost(String date) {
-        if (date.length() == 10) {
-            return date.substring(6) + Constants.HYPHEN + getIntoTwo((Integer.parseInt(date.substring(3, 5))))
-                    + Constants.HYPHEN + date.substring(0, 2) + " 00:00:00";
-        } else {
-            return date.substring(6) + Constants.HYPHEN + getIntoTwo((Integer.parseInt(date.substring(3, 5))))
-                    + Constants.HYPHEN + date.substring(0, 2) + " " + date.substring(Constants.TIMESTAMP_DATE_END, Constants.TIMESTAMP_SEC_END);
-        }
     }
 
     public String getIntoTwo(int month) {
@@ -172,41 +118,6 @@ public class HelperTime {
         }
     }
 
-    public int getDateDifference(int type, Calendar latestDate, Calendar oldDate) {
-        if (latestDate.compareTo(oldDate) > 0) {
-            long different = latestDate.getTime().getTime() - oldDate.getTime().getTime();
-            long secondsInMilli = 1000;
-            if (type == Calendar.HOUR_OF_DAY) {
-                long minutesInMilli = secondsInMilli * 60;
-                long hoursInMilli = minutesInMilli * 60;
-                return (int) (different / hoursInMilli);
-            } else if (type == Calendar.SECOND) {
-                return (int) (different / secondsInMilli);
-            } else if (type == Calendar.MINUTE) {
-                long minutesInMilli = secondsInMilli * 60;
-                return (int) (different / minutesInMilli);
-            } else if (type == Calendar.MONTH) {
-                int diffYear = latestDate.get(Calendar.YEAR) - oldDate.get(Calendar.YEAR);
-                return diffYear * 12 + latestDate.get(Calendar.MONTH) - oldDate.get(Calendar.MONTH);
-            } else if (type == Calendar.YEAR) {
-                return latestDate.get(Calendar.YEAR) - oldDate.get(Calendar.YEAR);
-            } else {
-                long minutesInMilli = secondsInMilli * 60;
-                long hoursInMilli = minutesInMilli * 60;
-                long daysInMilli = hoursInMilli * 24;
-                return (int) (different / daysInMilli);
-            }
-        }
-        return 0;
-    }
-
-    public String getAge(String dob) {
-        if (dob.length() == 10) {
-            dob = dob + " 00:00:00";
-        }
-        return getDateDifference(Calendar.YEAR, calendar, getDateCalendar(dob.replaceAll("/", "-"))) + " Year Old";
-    }
-
     public String getDateFormatWithToday(String date) {
         try {
             Calendar calendarNew = Calendar.getInstance();
@@ -214,31 +125,10 @@ public class HelperTime {
             calendarNew.setTime(simpleDateFormatUTC.parse(date));
             calendarNew.setTimeZone(TimeZone.getDefault());
             date = getTimeStamp(calendarNew);
-            if (date.substring(TIMESTAMP_YEAR_START, TIMESTAMP_DATE_END).equals(getTimeStamp().substring(TIMESTAMP_YEAR_START, TIMESTAMP_DATE_END))) {
-                return getWithAmPm(date);
-            } else {
-                return parseDateFromString(date) + " " + weekDaysSmall[calendarNew.get(Calendar.DAY_OF_WEEK)] + " " + getWithAmPm(date);
-            }
+            return weekDaysSmall[calendarNew.get(Calendar.DAY_OF_WEEK)] + " " + parseDateFromString(date) + " " + getWithAmPm(date);
+
         } catch (ParseException e) {
             return date;
         }
     }
-
-    public String getDateFormatForChat(String date) {
-        try {
-            Calendar calendarNew = Calendar.getInstance();
-            date = date.substring(TIMESTAMP_YEAR_START, TIMESTAMP_SEC_END).replace("T", " ");
-            calendarNew.setTime(simpleDateFormatUTC.parse(date));
-            calendarNew.setTimeZone(TimeZone.getDefault());
-            date = getTimeStamp(calendarNew);
-            if (date.substring(TIMESTAMP_YEAR_START, TIMESTAMP_DATE_END).equals(getTimeStamp().substring(TIMESTAMP_YEAR_START, TIMESTAMP_DATE_END))) {
-                return getWithAmPm(date);
-            } else {
-                return parseDateFromString(date) + " " + getWithAmPm(date);
-            }
-        } catch (ParseException e) {
-            return date;
-        }
-    }
-
 }

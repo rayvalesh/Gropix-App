@@ -53,7 +53,6 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         try {
             if (!remoteMessage.data.isNullOrEmpty()) {
                 val jsonObject = JSONObject(remoteMessage.data as Map<String, String>)
-                Utils.log(jsonObject.toString())
                 val random = Random()
                 random.nextInt()
                 val title = jsonObject.getString("title")

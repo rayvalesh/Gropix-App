@@ -90,8 +90,8 @@ class ExploreOrderActivity : BaseActivity(), View.OnClickListener {
                     super.getEventData(`object`)
                     orderModel = `object` as OrderModel
                     orderModel.orderId = id
-                    binding.model= orderModel
-                    binding.clickListener= this@ExploreOrderActivity
+                    binding.model = orderModel
+                    binding.clickListener = this@ExploreOrderActivity
                     binding.invalidateAll()
                     binding.executePendingBindings()
                     initializeView()
@@ -217,17 +217,8 @@ class ExploreOrderActivity : BaseActivity(), View.OnClickListener {
                                 super.getEventData(`object`)
                                 binding.idTextButtonCancel.isEnabled = true
                                 utilityClass.closeProgressBar()
-                                setResult(
-                                    RESULT_OK,
-                                    Intent().putExtra(
-                                        IntentInterface.INTENT_COME_FROM,
-                                        Constants.ORDER_CONFIRMED
-                                    ).putExtra(
-                                        IntentInterface.INTENT_FOR_POSITION, intent.getIntExtra(
-                                            IntentInterface.INTENT_FOR_POSITION, 0
-                                        )
-                                    )
-                                )
+                                orderModel.status = Constants.ORDER_CONFIRMED
+                                setResult()
                                 finish()
                             }
 
@@ -264,17 +255,8 @@ class ExploreOrderActivity : BaseActivity(), View.OnClickListener {
                                 super.getEventData(`object`)
                                 binding.idButtonSubmit.isEnabled = true
                                 utilityClass.closeProgressBar()
-                                setResult(
-                                    RESULT_OK,
-                                    Intent().putExtra(
-                                        IntentInterface.INTENT_COME_FROM,
-                                        Constants.ORDER_CANCELLED
-                                    ).putExtra(
-                                        IntentInterface.INTENT_FOR_POSITION, intent.getIntExtra(
-                                            IntentInterface.INTENT_FOR_POSITION, 0
-                                        )
-                                    )
-                                )
+                                orderModel.status = Constants.ORDER_CANCELLED
+                                setResult()
                                 finish()
                             }
 
@@ -304,6 +286,17 @@ class ExploreOrderActivity : BaseActivity(), View.OnClickListener {
     }
 
     override fun onBackPressed() {
+        setResult()
         super.onBackPressed()
+    }
+
+    private fun setResult() {
+        setResult(
+            RESULT_OK, Intent().putExtra(
+                IntentInterface.INTENT_FOR_POSITION, intent.getIntExtra(
+                    IntentInterface.INTENT_FOR_POSITION, 0
+                )
+            ).putExtra(IntentInterface.INTENT_FOR_MODEL, orderModel)
+        )
     }
 }
