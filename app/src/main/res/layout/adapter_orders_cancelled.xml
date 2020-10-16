@@ -53,19 +53,46 @@
                 <TextView
                     style="@style/TextViewStyleMedium"
                     text='@{model.address.street +" , "+ model.address.city+" , " + model.address.state+"(" + model.address.pinCode+")" }'
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:gravity="end"
                     android:maxLines="3"
                     android:textColor="@color/colorTextPrimaryLight"
                     android:textSize="@dimen/dimen_common_text_size_med_large" />
 
-                <TextView
-                    dateTimeStamp="@{model.timestamp}"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/dimen_common_margin_more"
-                    android:textColor="@color/colorTextPrimary"
-                    android:textSize="@dimen/dimen_common_text_size_med" />
+                    android:layout_marginTop="@dimen/dimen_common_margin"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="Ordered"
+                        android:textColor="@color/colorTextPrimaryAlpha"
+                        android:textSize="@dimen/dimen_common_text_size_sub" />
+
+                    <TextView
+                        style="@style/TextViewStyleBold"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="@dimen/dimen_common_margin_medium"
+                        android:layout_marginRight="@dimen/dimen_common_margin_medium"
+                        android:text="@string/string_label_colon"
+                        android:textColor="@color/colorTextPrimary"
+                        android:textSize="@dimen/dimen_common_text_size_sub" />
+
+                    <TextView
+                        dateTimeStamp="@{model.timestamp}"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/dimen_common_margin_more"
+                        android:textColor="@color/colorTextPrimary"
+                        android:textSize="@dimen/dimen_common_text_size_med" />
+                </LinearLayout>
 
                 <include
                     android:id="@+id/id_view"
@@ -75,7 +102,7 @@
                     style="@style/TextViewStyleMedium"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/string_button_name_cancel_order"
+                    android:text="@string/string_label_status_cancelled"
                     android:textColor="@color/colorStyleSixDark"
                     android:textSize="@dimen/dimen_common_text_size_large" />
 

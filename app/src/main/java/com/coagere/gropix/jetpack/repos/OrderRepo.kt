@@ -43,6 +43,7 @@ class OrderRepo {
 
                     override fun onErrorResponse(statusCode: Int, errorMessage: String?) {
                         super.onErrorResponse(statusCode, errorMessage)
+                        Utils.log(statusCode)
                         listener.onErrorResponse(statusCode, errorMessage)
                     }
                 })

@@ -172,6 +172,7 @@ class ExploreOrderActivity : BaseActivity(), View.OnClickListener {
                     getString(R.string.string_label_status_delivered)
             }
             Constants.ORDER_CANCELLED -> {
+                binding.idTextDateTitle.text = "Ordered"
                 binding.idTextStatus.setTextColor(
                     ContextCompat.getColor(
                         this,
@@ -200,39 +201,29 @@ class ExploreOrderActivity : BaseActivity(), View.OnClickListener {
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.id_button_submit -> {
-                JamunAlertDialog(this).setAutoCancelable()
-                    .setMessage(R.string.string_message_sure_confirm_order)
-                    .setAutoNegativeButton(R.string.string_button_name_wait)
-                    .setPositiveButton(
-                        R.string.string_button_name_confirm
-                    ) {
-                        it.dismiss()
-                        utilityClass.startProgressBar(
-                            binding.idButtonSubmit,
-                            binding.root.findViewById(R.id.id_progress_bar_submit)
-                        )
-                        binding.idTextButtonCancel.isEnabled = false
-                        viewModel.confirmOrder(orderModel, object : OnEventOccurListener() {
-                            override fun getEventData(`object`: Any?) {
-                                super.getEventData(`object`)
-                                binding.idTextButtonCancel.isEnabled = true
-                                utilityClass.closeProgressBar()
-                                orderModel.status = Constants.ORDER_CONFIRMED
-                                setResult()
-                                finish()
-                            }
-
-                            override fun onErrorResponse(`object`: Any?, errorMessage: String?) {
-                                super.onErrorResponse(`object`, errorMessage)
-                                binding.idTextButtonCancel.isEnabled = true
-                                utilityClass.closeProgressBar()
-                                MySnackBar.getInstance()
-                                    .showSnackBarForMessage(this@ExploreOrderActivity, errorMessage)
-                            }
-                        })
+                utilityClass.startProgressBar(
+                    binding.idButtonSubmit,
+                    binding.root.findViewById(R.id.id_progress_bar_submit)
+                )
+                binding.idTextButtonCancel.isEnabled = false
+                viewModel.confirmOrder(orderModel, object : OnEventOccurListener() {
+                    override fun getEventData(`object`: Any?) {
+                        super.getEventData(`object`)
+                        binding.idTextButtonCancel.isEnabled = true
+                        utilityClass.closeProgressBar()
+                        orderModel.status = Constants.ORDER_CONFIRMED
+                        setResult()
+                        finish()
                     }
-                    .show()
 
+                    override fun onErrorResponse(`object`: Any?, errorMessage: String?) {
+                        super.onErrorResponse(`object`, errorMessage)
+                        binding.idTextButtonCancel.isEnabled = true
+                        utilityClass.closeProgressBar()
+                        MySnackBar.getInstance()
+                            .showSnackBarForMessage(this@ExploreOrderActivity, errorMessage)
+                    }
+                })
             }
             R.id.id_image -> {
                 ViewImageActivity.launch(this, orderModel.images.toTypedArray())

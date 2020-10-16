@@ -1,6 +1,5 @@
 package com.tc.utils.utils.helpers;
 
-import tk.jamun.ui.snacks.L;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -9,12 +8,8 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
 
-import static com.tc.utils.utils.helpers.HelperTime.Constants.HYPHEN;
-import static com.tc.utils.utils.helpers.HelperTime.Constants.SLASH;
-import static com.tc.utils.utils.helpers.HelperTime.Constants.TIMESTAMP_DATE_END;
 import static com.tc.utils.utils.helpers.HelperTime.Constants.TIMESTAMP_MONTH_START;
 import static com.tc.utils.utils.helpers.HelperTime.Constants.TIMESTAMP_SEC_END;
-import static com.tc.utils.utils.helpers.HelperTime.Constants.TIMESTAMP_YEAR_END;
 import static com.tc.utils.utils.helpers.HelperTime.Constants.TIMESTAMP_YEAR_START;
 import static com.tc.utils.utils.helpers.HelperTime.Constants.months;
 import static com.tc.utils.utils.helpers.HelperTime.Constants.weekDaysSmall;
@@ -34,8 +29,6 @@ public class HelperTime {
         int TIMESTAMP_MINUTE_END = 16;
         int TIMESTAMP_SEC_START = 17;
         int TIMESTAMP_SEC_END = 19;
-        String SLASH = "/";
-        String COLON = ":";
         String TIMESTAMP = "yyyy-MM-dd HH:mm:ss";
         String[] weekDaysSmall = {"", "Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"};
         String HYPHEN = "-";
@@ -77,12 +70,8 @@ public class HelperTime {
         } else if (month < 1) {
             month = 1;
         }
-        if (Integer.parseInt(entryTime.substring(Constants.TIMESTAMP_YEAR_START, Constants.TIMESTAMP_YEAR_END)) == getCurrentYear()) {
-            return entryTime.substring(Constants.TIMESTAMP_DATE_START, Constants.TIMESTAMP_DATE_END) + " "
-                    + months[month].substring(0, 3) + ",";
-        } else
-            return entryTime.substring(Constants.TIMESTAMP_DATE_START, Constants.TIMESTAMP_DATE_END) + " "
-                    + months[month].substring(0, 3) + ", " + entryTime.substring(Constants.TIMESTAMP_YEAR_START, Constants.TIMESTAMP_YEAR_END);
+        return entryTime.substring(Constants.TIMESTAMP_DATE_START, Constants.TIMESTAMP_DATE_END) + " "
+                + months[month].substring(0, 3) + " '" + entryTime.substring(Constants.TIMESTAMP_YEAR_START, Constants.TIMESTAMP_YEAR_END).substring(2);
     }
 
 
@@ -102,8 +91,8 @@ public class HelperTime {
             timestamp = "0000/00/00 " + timestamp;
         }
         int i = Integer.parseInt(timestamp.substring(Constants.TIMESTAMP_HOUR_START, Constants.TIMESTAMP_HOUR_END));
-        if (i == 12) {
-            return "00:" + timestamp.substring(Constants.TIMESTAMP_MINUTE_START, Constants.TIMESTAMP_MINUTE_END) + " PM";
+        if (i == 12 || i==0) {
+            return "12:" + timestamp.substring(Constants.TIMESTAMP_MINUTE_START, Constants.TIMESTAMP_MINUTE_END) + " PM";
         } else if (i >= 12) {
             int j = i - 12;
             String s;
@@ -126,7 +115,6 @@ public class HelperTime {
             calendarNew.setTimeZone(TimeZone.getDefault());
             date = getTimeStamp(calendarNew);
             return weekDaysSmall[calendarNew.get(Calendar.DAY_OF_WEEK)] + " " + parseDateFromString(date) + " " + getWithAmPm(date);
-
         } catch (ParseException e) {
             return date;
         }

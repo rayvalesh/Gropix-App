@@ -37,20 +37,6 @@ class Popups(private val context: Context, private val listener: OnEventOccurLis
             popupWindow?.dismiss()
         }
     }
-
-//    fun callClassPopup(viewPoint: View) {
-//        val view: View = LayoutInflater.from(context).inflate(R.layout.popup_class, null)
-//        popupWindow = Utils.popupWindowOverflow(view, context, viewPoint)
-//        view.findViewById<LinearLayout>(R.id.id_parent_button_delete).setOnClickListener {
-//            listener.getEventData(ActionType.ACTION_DELETE)
-//            popupWindow?.dismiss()
-//        }
-//        view.findViewById<LinearLayout>(R.id.id_parent_button_edit).setOnClickListener {
-//            listener.getEventData(ActionType.ACTION_EDIT)
-//            popupWindow?.dismiss()
-//        }
-//    }
-
     fun dismiss() {
         popupWindow?.dismiss()
     }
