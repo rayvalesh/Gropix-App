@@ -20,6 +20,11 @@ class UserVM : ViewModel() {
     }
 
     fun clearEverything() {
+        UserRepo.instance.cancelApiCalls()
+    }
+
+    fun cancelOtpCall() {
+        UserRepo.instance.cancelOtpCall()
     }
 
 

@@ -203,7 +203,8 @@
                     android:layout_marginTop="@dimen/dimen_common_margin_more"
                     android:text="Contact us at :-"
                     android:textColor="@color/colorEditTextTitle"
-                    android:textSize="@dimen/dimen_edit_text_title_size" />
+                    android:textSize="@dimen/dimen_edit_text_title_size"
+                    android:visibility="gone" />
 
                 <TextView
                     style="@style/TextViewStyleMedium"
@@ -216,7 +217,8 @@
                     android:paddingBottom="@dimen/dimen_common_margin_small"
                     android:text="+91-90909090990"
                     android:textColor="@color/colorTextPrimary"
-                    android:textSize="@dimen/dimen_common_text_size_med_large" />
+                    android:textSize="@dimen/dimen_common_text_size_med_large"
+                    android:visibility="gone" />
 
             </LinearLayout>
 

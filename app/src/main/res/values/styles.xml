@@ -28,7 +28,6 @@
         <item name="android:windowBackground">@android:color/white</item>
         <item name="android:textColorPrimary">@android:color/white</item>
         <item name="android:textColorSecondary">@color/colorWhite</item>
-        <item name="android:textColor">@color/colorTextPrimary</item>
         <item name="android:textViewStyle">@style/TextViewStyle</item>
         <item name="checkboxStyle">@style/CheckBoxStyle</item>
         <item name="radioButtonStyle">@style/RadioTextStyle</item>

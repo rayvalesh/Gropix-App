@@ -16,7 +16,6 @@
         android:paddingRight="@dimen/dimen_common_margin_large"
         android:paddingBottom="@dimen/dimen_common_margin_more">
 
-
         <TextView
             android:id="@+id/id_text"
             style="@style/TextViewStyleMedium"

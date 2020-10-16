@@ -28,7 +28,7 @@ import tk.jamun.ui.snacks.MySnackBar
 class AccessAccountActivity : BaseActivity(), View.OnClickListener {
     private val utilityClass: UtilityClass by lazy { UtilityClass(this) }
     private var isAdded = false
-    private var binding: ActivityAccessAccountBinding? = null
+    private lateinit var binding: ActivityAccessAccountBinding
     private val viewModel: UserVM by lazy { ViewModelProvider(this).get(UserVM::class.java) }
     private var count: Int = 1
     private var countDownTimer: CountDownTimer? = null
@@ -42,7 +42,7 @@ class AccessAccountActivity : BaseActivity(), View.OnClickListener {
             this!!.clickListener = this@AccessAccountActivity
         }
         lifecycleScope.launchWhenCreated {
-            setContentView(binding!!.root)
+            setContentView(binding.root)
             initializeViewModel()
             initializeListeners()
             initializeRecyclerView()
@@ -50,15 +50,15 @@ class AccessAccountActivity : BaseActivity(), View.OnClickListener {
     }
 
     override fun initializeListeners() {
-        binding!!.idEditNumber.setText("")
-        binding!!.idEditNumber.addTextChangedListener(object : TextWatcher {
+        binding.idEditNumber.setText("")
+        binding.idEditNumber.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
                 if (s.toString().length < 4) {
-                    binding!!.idEditNumber.setText(getString(R.string.string_label_default_country))
+                    binding.idEditNumber.setText(getString(R.string.string_label_default_country))
                     isAdded = true
                     Selection.setSelection(
-                        binding!!.idEditNumber.text,
-                        binding!!.idEditNumber.text!!.length
+                        binding.idEditNumber.text,
+                        binding.idEditNumber.text!!.length
                     )
                 }
                 if (s.toString().isEmpty()) {
@@ -72,20 +72,21 @@ class AccessAccountActivity : BaseActivity(), View.OnClickListener {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
             }
         })
-        binding!!.idEditNumber.setOnFocusChangeListener { v, hasFocus ->
-            if (hasFocus && (binding!!.idEditNumber.text!!.isEmpty() || !binding!!.idEditNumber.text!!.startsWith(
+        binding.idEditNumber.setOnFocusChangeListener { v, hasFocus ->
+            if (hasFocus && (binding.idEditNumber.text!!.isEmpty() || !binding.idEditNumber.text!!.startsWith(
                     getString(R.string.string_label_default_country)
                 ))
             ) {
-                binding!!.idEditNumber.setText(getString(R.string.string_label_default_country))
+                binding.idEditNumber.setText(getString(R.string.string_label_default_country))
                 isAdded = true
                 Selection.setSelection(
-                    binding!!.idEditNumber.text,
-                    binding!!.idEditNumber.text!!.length
+                    binding.idEditNumber.text,
+                    binding.idEditNumber.text!!.length
                 )
             }
         }
-        binding!!.idEditOtp.addTextChangedListener(object : TextWatcher {
+        binding.idButtonEdit.setOnClickListener(this)
+        binding.idEditOtp.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
                 if (s.toString().length == 4) {
                     onClickSubmit()
@@ -99,8 +100,8 @@ class AccessAccountActivity : BaseActivity(), View.OnClickListener {
                 if (s.length == 1) {
                     utilityClass.closeProgressBar()
                     handler.removeCallbacks(runnable)
-                    utilityClass.setEditTextMaxLength(binding!!.idEditOtp, 4)
-                    binding!!.idEditOtp.hint = ""
+                    utilityClass.setEditTextMaxLength(binding.idEditOtp, 4)
+                    binding.idEditOtp.hint = ""
                 }
             }
 
@@ -115,16 +116,16 @@ class AccessAccountActivity : BaseActivity(), View.OnClickListener {
     private fun onClickOtp() {
         utilityClass.hideSoftKeyboard()
         if (validate() && CheckConnection.checkConnection(this)) {
-            utilityClass.startProgressBar(binding!!.idImageArrow, hideView = true)
-            binding!!.idEditNumber.isEnabled = false
-            binding!!.idParentButtonSubmit.isEnabled = false
+            utilityClass.startProgressBar(binding.idImageArrow, hideView = true)
+            binding.idEditNumber.isEnabled = false
+            binding.idParentButtonSubmit.isEnabled = false
             viewModel.performAccessAccount(
-                binding!!.idEditNumber.text.toString()
-                    .substring(4, binding!!.idEditNumber.text.toString().length),
+                binding.idEditNumber.text.toString()
+                    .substring(4, binding.idEditNumber.text.toString().length),
                 object : OnEventOccurListener() {
                     override fun onErrorResponse(`object`: Any?, errorMessage: String?) {
                         super.onErrorResponse(`object`, errorMessage)
-                        binding!!.idEditNumber.isEnabled = true
+                        binding.idEditNumber.isEnabled = true
                         hideProgressBar()
                         MySnackBar.getInstance()
                             .showSnackBarForMessage(this@AccessAccountActivity, errorMessage)
@@ -132,8 +133,8 @@ class AccessAccountActivity : BaseActivity(), View.OnClickListener {
 
                     override fun getEventData(`object`: Any?) {
                         super.getEventData(`object`)
-                        showOtpView()
                         hideProgressBar()
+                        showOtpView()
                     }
                 })
         }
@@ -145,17 +146,17 @@ class AccessAccountActivity : BaseActivity(), View.OnClickListener {
         processingCount += 1
         when (processingCount) {
             0 -> {
-                binding!!.idEditOtp.hint = "Processing"
+                binding.idEditOtp.hint = "Processing"
             }
             1 -> {
-                binding!!.idEditOtp.hint = "Processing."
+                binding.idEditOtp.hint = "Processing."
             }
             2 -> {
-                binding!!.idEditOtp.hint = "Processing.."
+                binding.idEditOtp.hint = "Processing.."
             }
             else -> {
                 processingCount = -1
-                binding!!.idEditOtp.hint = "Processing..."
+                binding.idEditOtp.hint = "Processing..."
             }
         }
         callRunnable()
@@ -166,45 +167,47 @@ class AccessAccountActivity : BaseActivity(), View.OnClickListener {
     }
 
     private fun showOtpView() {
-        utilityClass.setEditTextMaxLength(binding!!.idEditOtp, 14)
-        utilityClass.startProgressBar(progressBar = binding!!.root.findViewById(R.id.id_progress_bar_otp))
-        binding!!.idEditOtp.requestFocus()
+        utilityClass.closeProgressBar()
+        utilityClass.startProgressBar(progressBar = binding.root.findViewById(R.id.id_progress_bar_otp))
+        binding.idEditOtp.requestFocus()
         callRunnable()
-        binding!!.idParentCheckbox.visibility = View.GONE
-        binding!!.idParentOtp.visibility = View.VISIBLE
-        binding!!.idTextButton.text = getString(R.string.string_button_name_verify_otp)
+        binding.idParentCheckbox.visibility = View.GONE
+        binding.idParentOtp.visibility = View.VISIBLE
+        binding.idTextButton.text = getString(R.string.string_button_name_verify_otp)
         startTimer()
     }
 
     private fun hideOtpView() {
-        binding!!.idEditOtp.setText("")
-        utilityClass.closeProgressBar(binding!!.idImageArrow)
-        binding!!.idProgressBar.visibility = View.VISIBLE
+        binding.idProgressBar.visibility = View.GONE
+        binding.idEditOtp.setText("")
+        utilityClass.closeProgressBar(binding.idImageArrow)
+        binding.idProgressBar.visibility = View.VISIBLE
         handler.removeCallbacks(runnable)
-        binding!!.idTextButton.text = getString(R.string.string_button_name_submit_otp)
-        binding!!.idParentCheckbox.visibility = View.VISIBLE
-        binding!!.idEditNumber.isEnabled = true
-        binding!!.idEditNumber.requestFocus()
-        binding!!.idParentOtp.visibility = View.GONE
+        binding.idTextButton.text = getString(R.string.string_button_name_submit_otp)
+        binding.idParentCheckbox.visibility = View.VISIBLE
+        binding.idEditNumber.isEnabled = true
+        binding.idEditNumber.requestFocus()
+        binding.idParentOtp.visibility = View.GONE
+        binding.idParentButtonSubmit.isEnabled = true
     }
 
 
     private fun onClickSubmit() {
         utilityClass.hideSoftKeyboard()
         if (validateOtp() && CheckConnection.checkConnection(this)) {
-            binding!!.idParentButtonSubmit.isEnabled = false
-            binding!!.idEditOtp.isEnabled = false
-            binding!!.idEditOtp.setTextColor(
+            binding.idParentButtonSubmit.isEnabled = false
+            binding.idEditOtp.isEnabled = false
+            binding.idEditOtp.setTextColor(
                 ContextCompat.getColor(
                     this@AccessAccountActivity,
                     R.color.colorTextWhite
                 )
             )
-            utilityClass.startProgressBar(binding!!.idImageArrow, hideView = true)
+            utilityClass.startProgressBar(binding.idImageArrow, hideView = true)
             viewModel.performOtpVerification(
-                binding!!.idEditNumber.text.toString()
-                    .substring(4, binding!!.idEditNumber.text.toString().length),
-                binding!!.idEditOtp.text.toString(),
+                binding.idEditNumber.text.toString()
+                    .substring(4, binding.idEditNumber.text.toString().length),
+                binding.idEditOtp.text.toString(),
                 object : OnEventOccurListener() {
                     override fun onErrorResponse(`object`: Any, errorMessage: String) {
                         hideProgressBar()
@@ -214,8 +217,8 @@ class AccessAccountActivity : BaseActivity(), View.OnClickListener {
 
                     override fun getEventData(`object`: Any) {
                         super.getEventData(`object`)
-                        UserStorage.instance.mobileNumber = binding!!.idEditNumber.text.toString()
-                            .substring(4, binding!!.idEditNumber.text.toString().length)
+                        UserStorage.instance.mobileNumber = binding.idEditNumber.text.toString()
+                            .substring(4, binding.idEditNumber.text.toString().length)
                         hideProgressBar()
                         startActivity(
                             Intent(
@@ -230,41 +233,36 @@ class AccessAccountActivity : BaseActivity(), View.OnClickListener {
     }
 
     private fun hideProgressBar() {
-        utilityClass.closeProgressBar(binding!!.idImageArrow)
-        Handler().postDelayed({
-            binding!!.idProgressBar.visibility = View.VISIBLE
-            binding!!.idParentButtonSubmit.isEnabled = true
-            binding!!.idEditOtp.isEnabled = true
-
-        }, Constants.THREAD_TIME_DELAY)
+        utilityClass.closeProgressBar(binding.idImageArrow)
     }
 
 
     private fun onClickResend() {
         utilityClass.hideSoftKeyboard()
         if (CheckConnection.checkConnection(this)) {
-            binding!!.idTextTimer.isEnabled = false
+            binding.idTextTimer.isEnabled = false
             utilityClass.startProgressBar(
-                binding!!.idTextTimer,
-                progressBar = binding!!.root.findViewById(R.id.id_progress_bar_resend),
+                binding.idTextTimer,
+                progressBar = binding.root.findViewById(R.id.id_progress_bar_resend),
                 true
             )
             viewModel.performResendOtp(
                 object : OnEventOccurListener() {
                     override fun onErrorResponse(`object`: Any, errorMessage: String) {
-                        binding!!.idTextTimer.isEnabled = true
-                        utilityClass.closeProgressBar()
+                        binding.idTextTimer.isEnabled = true
+                        utilityClass.closeProgressBar(binding.idTextTimer)
+                        showOtpView()
                         MySnackBar.getInstance()
                             .showSnackBarForMessage(this@AccessAccountActivity, errorMessage)
                     }
 
                     override fun getEventData(`object`: Any) {
                         count += 1
-                        utilityClass.closeProgressBar()
+                        utilityClass.closeProgressBar(binding.idTextTimer)
                         MySnackBar.getInstance().showSnackBarForMessage(
                             this@AccessAccountActivity,
                             getString(R.string.string_toast_otp_resent)
-                                    + Constants.SPACE + binding!!.idEditNumber.text.toString() + "!"
+                                    + Constants.SPACE + binding.idEditNumber.text.toString() + "!"
                         )
                         startTimer()
                     }
@@ -273,7 +271,7 @@ class AccessAccountActivity : BaseActivity(), View.OnClickListener {
     }
 
     private fun startTimer() {
-        binding!!.idTextTimer.isEnabled = false
+        binding.idTextTimer.isEnabled = false
         isTimerRunning = true
         countDownTimer?.cancel()
         countDownTimer = object : CountDownTimer((count * 60000).toLong(), 1000) {
@@ -281,7 +279,7 @@ class AccessAccountActivity : BaseActivity(), View.OnClickListener {
                 var seconds = (millisUntilFinished / 1000).toInt()
                 val minutes = seconds / 60
                 seconds %= 60
-                binding!!.idTextTimer.text =
+                binding.idTextTimer.text =
                     "Resend : " + (String.format("%02d", minutes) + ":" + String.format(
                         "%02d",
                         seconds
@@ -289,9 +287,9 @@ class AccessAccountActivity : BaseActivity(), View.OnClickListener {
             }
 
             override fun onFinish() {
-                binding!!.idTextTimer.isEnabled = true
+                binding.idTextTimer.isEnabled = true
                 isTimerRunning = false
-                binding!!.idTextTimer.text = getString(R.string.string_button_name_resend_otp)
+                binding.idTextTimer.text = getString(R.string.string_button_name_resend_otp)
             }
         }
         countDownTimer!!.start()
@@ -300,36 +298,36 @@ class AccessAccountActivity : BaseActivity(), View.OnClickListener {
 
     private fun validateOtp(): Boolean {
         return !utilityClass.checkEditTextEmpty(
-            binding!!.idEditOtp, resources.getInteger(R.integer.validation_min_otp),
+            binding.idEditOtp, resources.getInteger(R.integer.validation_min_otp),
             findViewById(R.id.id_text_error_otp)
         )
     }
 
     private fun validate(): Boolean {
-        if (binding!!.idEditNumber.text!!.length != 14) {
-            binding!!.idTextErrorNumber.visibility = View.VISIBLE
+        if (binding.idEditNumber.text!!.length != 14) {
+            binding.idTextErrorNumber.visibility = View.VISIBLE
             return false
-        } else if (!binding!!.idEditNumber.text!!.startsWith(
+        } else if (!binding.idEditNumber.text!!.startsWith(
                 getString(R.string.string_label_default_country)
             )
         ) {
-            binding!!.idTextErrorNumber.visibility = View.VISIBLE
+            binding.idTextErrorNumber.visibility = View.VISIBLE
             return false
         }
 
-        binding!!.idTextErrorNumber.visibility = View.GONE
-        if (!binding!!.idCheckbox.isChecked) {
-            binding!!.idCheckbox.isChecked = true
+        binding.idTextErrorNumber.visibility = View.GONE
+        if (!binding.idCheckbox.isChecked) {
+            binding.idCheckbox.isChecked = true
             return false
         }
-        binding!!.idEditNumber.setTextColor(
+        binding.idEditNumber.setTextColor(
             ContextCompat.getColor(
                 this@AccessAccountActivity,
                 R.color.colorTextWhite
             )
         )
         UserStorage.instance.mobileNumber =
-            binding!!.idEditNumber.toString().substring(4, binding!!.idEditNumber.toString().length)
+            binding.idEditNumber.toString().substring(4, binding.idEditNumber.toString().length)
         return true
     }
 
@@ -340,7 +338,7 @@ class AccessAccountActivity : BaseActivity(), View.OnClickListener {
 
     override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
         utilityClass.hideSoftKeyboard()
-        binding!!.idEditNumber.clearFocus()
+        binding.idEditNumber.clearFocus()
         return super.dispatchTouchEvent(ev)
     }
 
@@ -357,7 +355,7 @@ class AccessAccountActivity : BaseActivity(), View.OnClickListener {
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.id_parent_button_submit -> {
-                if (binding!!.idParentOtp.visibility == View.GONE) {
+                if (binding.idParentOtp.visibility == View.GONE) {
                     onClickOtp()
                 } else
                     onClickSubmit()
@@ -367,7 +365,7 @@ class AccessAccountActivity : BaseActivity(), View.OnClickListener {
             }
             R.id.id_button_edit -> {
                 hideOtpView()
-//            viewModel.cancelOtpCall()
+                viewModel.cancelOtpCall()
                 cancelTimer()
             }
             R.id.id_text_timer -> {

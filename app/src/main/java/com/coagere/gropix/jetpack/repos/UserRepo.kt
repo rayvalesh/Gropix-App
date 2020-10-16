@@ -23,6 +23,7 @@ import org.json.JSONObject
 import tk.jamun.ui.snacks.L
 import tk.jamun.volley.classes.VolleyGSON
 import tk.jamun.volley.classes.VolleyJsonObjectRequest
+import tk.jamun.volley.helpers.VolleyCancel
 import tk.jamun.volley.helpers.VolleyNeeds
 import tk.jamun.volley.variables.VolleyResponses
 
@@ -72,7 +73,6 @@ class UserRepo {
             jsonObject.put("deviceAppId", TempStorage.instance.appId)
         } catch (ignored: JSONException) {
         }
-        Utils.log(jsonObject.toString())
         volleyJsonObjectRequest =
             VolleyJsonObjectRequest(
                 URL_POST_LOGIN,
@@ -166,6 +166,14 @@ class UserRepo {
         VolleySolutions.instance.postCommonTasks(URL_GET_LOGOUT, null, listener)
     }
 
+    fun cancelApiCalls() {
+        VolleyCancel.closeVolleyObject(volleyJsonObjectRequest)
+
+    }
+
+    fun cancelOtpCall() {
+        VolleyCancel.closeVolleyObject(volleyJsonObjectRequest)
+    }
 
     companion object {
         @get:Synchronized
