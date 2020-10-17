@@ -233,7 +233,7 @@ class ExploreOrderActivity : BaseActivity(), View.OnClickListener {
                     .setMessage(R.string.string_message_sure_cancel_order)
                     .setAutoNegativeButton(R.string.string_button_name_no)
                     .setPositiveButton(
-                        R.string.string_button_name_cancel_order
+                        R.string.string_button_name_yes
                     ) {
                         it.dismiss()
                         utilityClass.startProgressBar(

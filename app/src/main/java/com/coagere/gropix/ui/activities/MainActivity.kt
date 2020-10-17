@@ -9,6 +9,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.view.View
 import android.view.animation.AnimationUtils
+import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
 import com.coagere.gropix.R
@@ -41,6 +42,7 @@ class MainActivity : BaseActivity(), View.OnClickListener {
     private val utilityClass: UtilityClass by lazy { UtilityClass(this@MainActivity) }
     private var popup: Popups? = null
     private var frag: OrderListFrag? = null
+    private val appCompatBehavior = AppCompactBehavior()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -74,6 +76,8 @@ class MainActivity : BaseActivity(), View.OnClickListener {
                 override fun down() {
                 }
             })
+        (id_parent_button_card.layoutParams as CoordinatorLayout.LayoutParams).behavior =
+            appCompatBehavior
     }
 
     override fun initializeFragsView() {

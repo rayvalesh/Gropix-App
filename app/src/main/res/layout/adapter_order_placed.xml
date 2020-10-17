@@ -56,13 +56,13 @@
                     text='@{model.address.street +" , "+ model.address.city+" , " + model.address.state+"(" + model.address.pinCode+")" }'
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="end"
                     android:maxLines="3"
                     android:textColor="@color/colorTextPrimaryLight"
                     android:textSize="@dimen/dimen_common_text_size_med_large" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
+                    android:gravity="center_vertical"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dimen_common_margin"
                     android:orientation="horizontal">
@@ -90,7 +90,6 @@
                         dateTimeStamp="@{model.timestamp}"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="@dimen/dimen_common_margin_more"
                         android:textColor="@color/colorTextPrimary"
                         android:textSize="@dimen/dimen_common_text_size_med" />
                 </LinearLayout>
