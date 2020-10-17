@@ -71,18 +71,6 @@
                     android:tint="@color/colorWhite"
                     app:srcCompat="@drawable/icon_vd_camera" />
 
-                <com.google.android.material.floatingactionbutton.FloatingActionButton
-                    android:id="@+id/id_float_camera"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/dimen_common_margin_small"
-                    android:src="@drawable/icon_vd_camera"
-                    android:tint="@color/colorWhite"
-                    android:visibility="gone"
-                    app:backgroundTint="@color/colorPrimary"
-                    app:elevation="@dimen/dimen_float_elevation"
-                    app:fabSize="normal" />
-
                 <TextView
                     style="@style/TextViewStyleMedium"
                     android:layout_width="wrap_content"
@@ -114,19 +102,6 @@
                     android:padding="@dimen/dimen_common_margin_less_more"
                     android:tint="@color/colorWhite"
                     app:srcCompat="@drawable/icon_vd_manager" />
-
-                <com.google.android.material.floatingactionbutton.FloatingActionButton
-                    android:id="@+id/id_float_manager"
-
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/dimen_common_margin_small"
-                    android:src="@drawable/icon_vd_manager"
-                    android:tint="@color/colorWhite"
-                    android:visibility="gone"
-                    app:backgroundTint="@color/colorPrimary"
-                    app:elevation="@dimen/dimen_float_elevation"
-                    app:fabSize="normal" />
 
                 <TextView
                     style="@style/TextViewStyleMedium"

@@ -373,7 +373,8 @@ public final class CameraActivity extends AppCompatActivity implements View.OnCl
                     isImageVisible = false;
                     deleteFile(iFile);
                     findViewById(R.id.id_image_cancel).setVisibility(View.GONE);
-                    findViewById(R.id.id_image_right).setVisibility(View.VISIBLE);
+                    findViewById(R.id.id_image_rotation).setVisibility(View.GONE);
+                    findViewById(R.id.id_image_flash).setVisibility(View.VISIBLE);
                     imageView.setVisibility(View.GONE);
                     imageViewCamera.setVisibility(View.VISIBLE);
                     imageView.setImageDrawable(null);

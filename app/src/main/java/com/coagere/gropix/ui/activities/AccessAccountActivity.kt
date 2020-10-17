@@ -100,7 +100,6 @@ class AccessAccountActivity : BaseActivity(), View.OnClickListener {
                 if (s.length == 1) {
                     utilityClass.closeProgressBar()
                     handler.removeCallbacks(runnable)
-                    utilityClass.setEditTextMaxLength(binding.idEditOtp, 4)
                     binding.idEditOtp.hint = ""
                 }
             }
@@ -179,6 +178,7 @@ class AccessAccountActivity : BaseActivity(), View.OnClickListener {
 
     private fun hideOtpView() {
         binding.idProgressBar.visibility = View.GONE
+        binding.idEditOtp.isEnabled = true
         binding.idEditOtp.setText("")
         utilityClass.closeProgressBar(binding.idImageArrow)
         binding.idProgressBar.visibility = View.VISIBLE
@@ -233,6 +233,7 @@ class AccessAccountActivity : BaseActivity(), View.OnClickListener {
     }
 
     private fun hideProgressBar() {
+        binding.idEditOtp.isEnabled = true
         utilityClass.closeProgressBar(binding.idImageArrow)
     }
 

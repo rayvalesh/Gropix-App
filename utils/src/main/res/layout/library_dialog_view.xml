@@ -14,7 +14,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="@dimen/dimen_common_margin_less_large">
+            android:paddingTop="@dimen/dimen_common_margin_less_large"
+            android:paddingStart="@dimen/dimen_common_margin_less_large"
+            android:paddingEnd="@dimen/dimen_common_margin_less_large"
+            android:paddingBottom="@dimen/dimen_common_margin">
 
             <TextView
                 android:id="@+id/id_text_title"
@@ -34,7 +37,7 @@
                 android:paddingBottom="@dimen/dimen_common_margin_medium"
                 android:text="Are you sure want to logut?"
                 android:textColor="@color/colorTextPrimary"
-                android:textSize="@dimen/dimen_common_text_size_med_large" />
+                android:textSize="@dimen/dimen_common_text_size_large" />
 
             <LinearLayout
                 android:layout_width="match_parent"

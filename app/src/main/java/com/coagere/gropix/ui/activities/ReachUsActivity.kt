@@ -108,15 +108,13 @@ class ReachUsActivity : BaseActivity(), View.OnClickListener {
                 findViewById(R.id.id_text_error_name)
             )
         ) return false
-        if (!id_edit_email.text.isNullOrEmpty()) {
-            if (utilityClass!!.checkEmailEditTextEmpty(
-                    id_edit_email!!,
-                    resources.getInteger(R.integer.validation_min_email),
-                    findViewById(R.id.id_text_error_email)
-                )
+        if (utilityClass!!.checkEmailEditTextEmpty(
+                id_edit_email!!,
+                resources.getInteger(R.integer.validation_min_email),
+                findViewById(R.id.id_text_error_email)
             )
-                return false
-        }
+        )
+            return false
         if (utilityClass!!.checkEditTextEmpty(
                 id_edit_message,
                 resources.getInteger(R.integer.validation_min_message),

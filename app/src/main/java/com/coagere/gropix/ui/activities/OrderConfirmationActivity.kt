@@ -83,6 +83,9 @@ class OrderConfirmationActivity : BaseActivity(), View.OnClickListener {
         binding!!.idEditCity.setAdapter(utilityClass.setAdapter(GetData.getCitiesName()))
         binding!!.idEditState.setAdapter(utilityClass.setAdapter(GetData.getStateName()))
         binding!!.idEditPincode.setAdapter(utilityClass.setAdapter(GetData.getPinCode()))
+        binding!!.idEditPincode.setOnItemClickListener { parent, view, position, id ->
+            Utils.setVisibility(binding!!.root.findViewById(R.id.id_text_error_pin), false)
+        }
     }
 
     override fun initializeFragsView() {
@@ -175,13 +178,15 @@ class OrderConfirmationActivity : BaseActivity(), View.OnClickListener {
         ) {
             return false
         }
-        if (utilityClass.checkEmailEditTextEmpty(
-                id_edit_email!!,
-                resources.getInteger(R.integer.validation_min_email),
-                findViewById(R.id.id_text_error_email)
+        if (!id_edit_email.text.isNullOrEmpty()) {
+            if (utilityClass.checkEmailEditTextEmpty(
+                    id_edit_email!!,
+                    resources.getInteger(R.integer.validation_min_email),
+                    findViewById(R.id.id_text_error_email)
+                )
             )
-        )
-            return false
+                return false
+        }
         if (utilityClass.checkEditTextEmpty(
                 editText = binding!!.idEditStreet,
                 minLength = resources.getInteger(R.integer.validation_min_name),
@@ -240,7 +245,7 @@ class OrderConfirmationActivity : BaseActivity(), View.OnClickListener {
         model.mobileNumber = UserStorage.instance.mobileNumber
         model.userName = binding!!.idEditName.text.toString()
         UserStorage.instance.addressModel = addressModel
-        UserStorage.instance.email =model.email
+        UserStorage.instance.email = model.email
         UserStorage.instance.name = model.userName
         return true
     }
