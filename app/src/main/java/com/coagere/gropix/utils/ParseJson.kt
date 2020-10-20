@@ -3,6 +3,7 @@ package com.coagere.gropix.utils
 
 import com.coagere.gropix.prefs.TempStorage
 import com.coagere.gropix.prefs.UserStorage
+import com.tc.utils.utils.helpers.Utils
 import com.tc.utils.variables.abstracts.OnEventOccurListener
 import com.tc.utils.variables.enums.ResponseTypes
 import org.json.JSONException

@@ -5,7 +5,7 @@ interface ApiKeys {
 
         const val URL_DOMAIN = "http://testing.techcruzers.com/grocery/bk/"
         const val URL_API = URL_DOMAIN + "api/user/"
-        const val URL_PRIVACY_POLICY = ""
+        const val URL_PRIVACY_POLICY = "http://www.gropix.in/pp/privacy-policy.html"
 
         const val URL_POST_DEVICE = URL_API + "deviceregistration"
         const val URL_POST_LOGIN = URL_API + "login"
@@ -22,12 +22,5 @@ interface ApiKeys {
         const val URL_POST_ORDER_CONFIRM = URL_API + "confirm/order"
         const val URL_POST_FEEDBACK = URL_API + "post/feedback"
         const val URL_PUT_FCM = URL_API + "update/fcm"
-
-
-        /**
-         * @param year : Year yyyy
-         * @param month : JANUARY, FEBRUARY, MARCH, APRIL, MAY, JUNE, JULY, AUGUST, SEPTEMBER, OCTOBER, NOVEMBER, DECEMBER
-         */
-
     }
 }

@@ -115,7 +115,8 @@ class ExploreOrderActivity : BaseActivity(), View.OnClickListener {
     override fun initializeView() {
         super.initializeView()
         Utils.setVisibility(binding.idTextButtonCancel, true)
-        Utils.setVisibility(binding.idParentBilling, true)
+        if (!orderModel.itemList.isNullOrEmpty())
+            Utils.setVisibility(binding.idParentBilling, true)
         Utils.setVisibility(binding.idParentConfirmation, false)
         when (orderModel.status) {
             Constants.ORDER_CART -> {

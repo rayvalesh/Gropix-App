@@ -39,7 +39,7 @@ class AccessAccountActivity : BaseActivity(), View.OnClickListener {
         super.onCreate(savedInstanceState)
         binding = ActivityAccessAccountBinding.inflate(LayoutInflater.from(this))
         binding.apply {
-            this!!.clickListener = this@AccessAccountActivity
+            this.clickListener = this@AccessAccountActivity
         }
         lifecycleScope.launchWhenCreated {
             setContentView(binding.root)
@@ -181,7 +181,6 @@ class AccessAccountActivity : BaseActivity(), View.OnClickListener {
         binding.idEditOtp.isEnabled = true
         binding.idEditOtp.setText("")
         utilityClass.closeProgressBar(binding.idImageArrow)
-        binding.idProgressBar.visibility = View.VISIBLE
         handler.removeCallbacks(runnable)
         binding.idTextButton.text = getString(R.string.string_button_name_submit_otp)
         binding.idParentCheckbox.visibility = View.VISIBLE
@@ -233,6 +232,7 @@ class AccessAccountActivity : BaseActivity(), View.OnClickListener {
     }
 
     private fun hideProgressBar() {
+        binding.idParentButtonSubmit.isEnabled = true
         binding.idEditOtp.isEnabled = true
         utilityClass.closeProgressBar(binding.idImageArrow)
     }

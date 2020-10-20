@@ -67,7 +67,7 @@ class ReachUsActivity : BaseActivity(), View.OnClickListener {
 
 
     /**
-     * Api call to post Information
+     * Api call to post Information : [UserRepo.postFeedback]
      */
     private fun submitClick() {
         if (validate()) {
@@ -124,6 +124,7 @@ class ReachUsActivity : BaseActivity(), View.OnClickListener {
         model!!.name = id_edit_name!!.text.toString()
         model!!.message = id_edit_message!!.text.toString()
         model!!.email = id_edit_email!!.text.toString()
+        model!!.mobileNumber = UserStorage.instance.mobileNumber
         return true
     }
 

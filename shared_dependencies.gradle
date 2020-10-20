@@ -9,17 +9,14 @@ dependencies {
     api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${versions.kotlin_version}"
 
     api "com.google.firebase:firebase-crashlytics:${versions.firebaseCrashlytics}"
-    api "com.google.firebase:firebase-analytics:${versions.firebaseAnalytics}"
     api "com.google.firebase:firebase-messaging:${versions.firebaseMessaging}"
 
     api 'com.github.bumptech.glide:glide:4.11.0'
 
     api "tk.jamun.ui:snacks:0.0.5"
-    api 'tk.jamun.elements:circularimageview:0.0.1'
 
     api "androidx.lifecycle:lifecycle-runtime-ktx:${versions.lifecycle}"
     api "androidx.lifecycle:lifecycle-viewmodel-ktx:${versions.lifecycle}"
-    api "androidx.lifecycle:lifecycle-livedata-ktx:${versions.lifecycle}"
     api "androidx.lifecycle:lifecycle-common-java8:${versions.lifecycle}"
 
     api 'tk.jamun:volley:0.0.7'
