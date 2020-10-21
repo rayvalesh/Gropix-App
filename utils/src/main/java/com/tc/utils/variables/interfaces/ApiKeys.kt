@@ -3,7 +3,7 @@ package com.tc.utils.variables.interfaces
 interface ApiKeys {
     companion object {
 
-        const val URL_DOMAIN = "http://testing.techcruzers.com/grocery/bk/"
+        const val URL_DOMAIN = "http://gropix.in/bk/"
         const val URL_API = URL_DOMAIN + "api/user/"
         const val URL_PRIVACY_POLICY = "http://www.gropix.in/pp/privacy-policy.html"
 

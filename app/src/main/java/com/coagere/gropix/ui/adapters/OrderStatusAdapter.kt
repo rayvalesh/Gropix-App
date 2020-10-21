@@ -76,10 +76,10 @@ class OrderStatusAdapter(
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        if (holder is ViewHolder) holder.bindTo(modelList[position])
-        if (holder is PlacedViewHolder) holder.bindTo(modelList[position])
+        if (holder is ViewHolder) holder.bindTo(modelList[position], position)
+        if (holder is PlacedViewHolder) holder.bindTo(modelList[position], position)
         else if (holder is CancelViewHolder) {
-            holder.bindTo(modelList[position])
+            holder.bindTo(modelList[position], position)
         }
     }
 
@@ -87,7 +87,7 @@ class OrderStatusAdapter(
     inner class ViewHolder(private var binding: AdapterOrdersPendingBinding) :
         RecyclerView.ViewHolder(binding.root), View.OnClickListener {
 
-        fun bindTo(orderModel: OrderModel) {
+        fun bindTo(orderModel: OrderModel, position: Int) {
             binding.apply {
                 clickListener = this@ViewHolder
                 model = orderModel
@@ -139,6 +139,7 @@ class OrderStatusAdapter(
                         itemView.context.getString(R.string.string_label_status_out_delivery)
                 }
             }
+            Utils.setVisibility(binding.idViewBottom, position == size - 1)
         }
 
         override fun onClick(v: View) {
@@ -153,12 +154,13 @@ class OrderStatusAdapter(
     inner class PlacedViewHolder(private var binding: AdapterOrderPlacedBinding) :
         RecyclerView.ViewHolder(binding.root), View.OnClickListener {
 
-        fun bindTo(orderModel: OrderModel) {
+        fun bindTo(orderModel: OrderModel, position: Int) {
             binding.apply {
                 this.clickListener = this@PlacedViewHolder
                 model = orderModel
                 executePendingBindings()
             }
+            Utils.setVisibility(binding.idViewBottom, position == size - 1)
 
         }
 
@@ -175,12 +177,13 @@ class OrderStatusAdapter(
     inner class CancelViewHolder(private var binding: AdapterOrdersCancelledBinding) :
         RecyclerView.ViewHolder(binding.root), View.OnClickListener {
 
-        fun bindTo(orderModel: OrderModel) {
+        fun bindTo(orderModel: OrderModel, position: Int) {
             binding.apply {
                 this.clickListener = this@CancelViewHolder
                 model = orderModel
                 executePendingBindings()
             }
+            Utils.setVisibility(binding.idViewBottom, position == size - 1)
 
         }
 

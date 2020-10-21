@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <network-security-config>
-<!--      <domain-config cleart-->
     <domain-config cleartextTrafficPermitted="true">
-        <domain includeSubdomains="true">testing.techcruzers.com</domain>
-    </domain-config>
-    <domain-config cleartextTrafficPermitted="true">
-        <domain includeSubdomains="true">techcruzers.com</domain>
+        <domain includeSubdomains="true">gropix.in</domain>
     </domain-config>
     <debug-overrides>
         <trust-anchors>

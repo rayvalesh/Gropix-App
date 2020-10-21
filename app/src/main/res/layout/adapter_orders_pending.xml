@@ -206,5 +206,11 @@
 
             </LinearLayout>
         </androidx.cardview.widget.CardView>
+
+        <View
+            android:id="@+id/id_view_bottom"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:visibility="gone" />
     </LinearLayout>
 </layout>

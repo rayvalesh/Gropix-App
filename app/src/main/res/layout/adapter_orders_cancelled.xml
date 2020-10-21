@@ -12,100 +12,112 @@
             type="android.view.View.OnClickListener" />
     </data>
 
-    <androidx.cardview.widget.CardView
-        style="@style/CardStyle"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/dimen_common_margin_more"
-        android:layout_marginTop="@dimen/dimen_common_margin_less_more"
-        android:layout_marginRight="@dimen/dimen_common_margin_more"
-        android:layout_marginBottom="@dimen/dimen_common_margin_very_small"
-        android:clickable="true"
-        android:focusable="true">
+        android:orientation="vertical">
 
-        <LinearLayout
-            android:id="@+id/id_parent"
+        <androidx.cardview.widget.CardView
+            style="@style/CardStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/more_layouts_click"
+            android:layout_marginLeft="@dimen/dimen_common_margin_more"
+            android:layout_marginTop="@dimen/dimen_common_margin_less_more"
+            android:layout_marginRight="@dimen/dimen_common_margin_more"
+            android:layout_marginBottom="@dimen/dimen_common_margin_very_small"
             android:clickable="true"
-            android:focusable="true"
-            android:onClick="@{clickListener}"
-            android:orientation="horizontal"
-            android:padding="@dimen/dimen_common_margin_more">
-
-            <ImageView
-                downloadImage="@{model.images[0]}"
-                android:layout_width="@dimen/dimen_tile_image"
-                android:layout_height="@dimen/dimen_tile_image"
-                android:contentDescription="@string/string_icon_desc_image"
-                android:scaleType="centerCrop"
-                android:src="@drawable/placeholder_one" />
+            android:focusable="true">
 
             <LinearLayout
-                android:layout_width="0dp"
+                android:id="@+id/id_parent"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/dimen_common_margin_less_more"
-                android:layout_weight="1"
-                android:gravity="end"
-                android:orientation="vertical">
+                android:background="@drawable/more_layouts_click"
+                android:clickable="true"
+                android:focusable="true"
+                android:onClick="@{clickListener}"
+                android:orientation="horizontal"
+                android:padding="@dimen/dimen_common_margin_more">
 
-                <TextView
-                    style="@style/TextViewStyleMedium"
-                    text='@{model.address.street +" , "+ model.address.city+" , " + model.address.state+"(" + model.address.pinCode+")" }'
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:maxLines="3"
-                    android:textColor="@color/colorTextPrimaryLight"
-                    android:textSize="@dimen/dimen_common_text_size_med_large" />
+                <ImageView
+                    downloadImage="@{model.images[0]}"
+                    android:layout_width="@dimen/dimen_tile_image"
+                    android:layout_height="@dimen/dimen_tile_image"
+                    android:contentDescription="@string/string_icon_desc_image"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/placeholder_one" />
 
                 <LinearLayout
-                    android:gravity="center_vertical"
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dimen_common_margin"
-                    android:orientation="horizontal">
+                    android:layout_marginStart="@dimen/dimen_common_margin_less_more"
+                    android:layout_weight="1"
+                    android:gravity="end"
+                    android:orientation="vertical">
 
                     <TextView
-                        android:layout_width="wrap_content"
+                        style="@style/TextViewStyleMedium"
+                        text='@{model.address.street +" , "+ model.address.city+" , " + model.address.state+"(" + model.address.pinCode+")" }'
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:text="Ordered"
-                        android:textColor="@color/colorTextPrimaryAlpha"
-                        android:textSize="@dimen/dimen_common_text_size_sub" />
+                        android:maxLines="3"
+                        android:textColor="@color/colorTextPrimaryLight"
+                        android:textSize="@dimen/dimen_common_text_size_med_large" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dimen_common_margin"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:text="Ordered"
+                            android:textColor="@color/colorTextPrimaryAlpha"
+                            android:textSize="@dimen/dimen_common_text_size_sub" />
+
+                        <TextView
+                            style="@style/TextViewStyleBold"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="@dimen/dimen_common_margin_medium"
+                            android:layout_marginRight="@dimen/dimen_common_margin_medium"
+                            android:text="@string/string_label_colon"
+                            android:textColor="@color/colorTextPrimary"
+                            android:textSize="@dimen/dimen_common_text_size_sub" />
+
+                        <TextView
+                            dateTimeStamp="@{model.timestamp}"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/colorTextPrimary"
+                            android:textSize="@dimen/dimen_common_text_size_med" />
+                    </LinearLayout>
+
+                    <include
+                        android:id="@+id/id_view"
+                        layout="@layout/utility_vertical_border_layout_header" />
 
                     <TextView
-                        style="@style/TextViewStyleBold"
+                        style="@style/TextViewStyleMedium"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginLeft="@dimen/dimen_common_margin_medium"
-                        android:layout_marginRight="@dimen/dimen_common_margin_medium"
-                        android:text="@string/string_label_colon"
-                        android:textColor="@color/colorTextPrimary"
-                        android:textSize="@dimen/dimen_common_text_size_sub" />
+                        android:text="@string/string_label_status_cancelled"
+                        android:textColor="@color/colorStyleSixDark"
+                        android:textSize="@dimen/dimen_common_text_size_large" />
 
-                    <TextView
-                        dateTimeStamp="@{model.timestamp}"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/colorTextPrimary"
-                        android:textSize="@dimen/dimen_common_text_size_med" />
                 </LinearLayout>
-
-                <include
-                    android:id="@+id/id_view"
-                    layout="@layout/utility_vertical_border_layout_header" />
-
-                <TextView
-                    style="@style/TextViewStyleMedium"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/string_label_status_cancelled"
-                    android:textColor="@color/colorStyleSixDark"
-                    android:textSize="@dimen/dimen_common_text_size_large" />
-
             </LinearLayout>
-        </LinearLayout>
-    </androidx.cardview.widget.CardView>
+        </androidx.cardview.widget.CardView>
+
+        <View
+            android:id="@+id/id_view_bottom"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:visibility="gone" />
+    </LinearLayout>
 </layout>
