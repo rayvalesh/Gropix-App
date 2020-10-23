@@ -193,7 +193,8 @@
                     android:focusable="true"
                     android:paddingTop="@dimen/dimen_common_margin_small"
                     android:paddingBottom="@dimen/dimen_common_margin_small"
-                    android:text="absd@gmail.com"
+
+                    android:text="gropix.coagere@gmail.com"
                     android:textColor="@color/colorTextPrimary"
                     android:textSize="@dimen/dimen_common_text_size_med_large" />
 

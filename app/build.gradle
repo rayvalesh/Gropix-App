@@ -13,8 +13,8 @@ android {
         applicationId "com.coagere.gropix"
         minSdkVersion versions.minSdk
         targetSdkVersion versions.targetSdk
-        versionCode 2
-        versionName "0.0.1"
+        versionCode 3
+        versionName "0.0.3"
         multiDexEnabled true
         vectorDrawables.useSupportLibrary = true
     }
@@ -39,8 +39,7 @@ android {
                     'proguard-rules.pro'
         }
         release {
-            minifyEnabled true
-            shrinkResources true
+            minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
