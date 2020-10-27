@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">GroPix</string>
     <string name="string_label_tag">You Shop, We Deliver</string>
-    <string name="string_app_version">v0.0.1</string>
+    <string name="string_app_version">v0.0.4</string>
     <string name="string_message_connection_title">Oops! Internet Issue</string>
 
     <string name="string_toast_otp_resent">OTP resend to</string>

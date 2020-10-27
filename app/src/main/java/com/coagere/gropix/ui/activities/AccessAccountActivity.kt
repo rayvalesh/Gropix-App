@@ -139,25 +139,9 @@ class AccessAccountActivity : BaseActivity(), View.OnClickListener {
         }
     }
 
-    private var processingCount = -1
 
     private val runnable = Runnable {
-        processingCount += 1
-        when (processingCount) {
-            0 -> {
-                binding.idEditOtp.hint = "Processing"
-            }
-            1 -> {
-                binding.idEditOtp.hint = "Processing."
-            }
-            2 -> {
-                binding.idEditOtp.hint = "Processing.."
-            }
-            else -> {
-                processingCount = -1
-                binding.idEditOtp.hint = "Processing..."
-            }
-        }
+        binding.idEditOtp.hint = "Enter Otp"
         callRunnable()
     }
 
@@ -167,7 +151,6 @@ class AccessAccountActivity : BaseActivity(), View.OnClickListener {
 
     private fun showOtpView() {
         utilityClass.closeProgressBar()
-        utilityClass.startProgressBar(progressBar = binding.root.findViewById(R.id.id_progress_bar_otp))
         binding.idEditOtp.requestFocus()
         callRunnable()
         binding.idParentCheckbox.visibility = View.GONE

@@ -13,8 +13,8 @@ android {
         applicationId "com.coagere.gropix"
         minSdkVersion versions.minSdk
         targetSdkVersion versions.targetSdk
-        versionCode 3
-        versionName "0.0.3"
+        versionCode 4
+        versionName "0.0.4"
         multiDexEnabled true
         vectorDrawables.useSupportLibrary = true
     }
