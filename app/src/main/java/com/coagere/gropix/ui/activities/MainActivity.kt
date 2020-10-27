@@ -52,10 +52,10 @@ class MainActivity : BaseActivity(), View.OnClickListener {
             initializeListeners()
             setToolbar()
             initializeFragsView()
+            Utils.log(UserStorage.instance.isFcmSent)
             if (!UserStorage.instance.isFcmSent) {
                 UserRepo.instance.postFcm()
             }
-            Utils.log(TempStorage.instance.fcmToken)
         }
     }
 

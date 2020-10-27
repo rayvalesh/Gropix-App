@@ -110,8 +110,6 @@ class UserStorage(context: Context) {
         private const val SHARED_TOKEN = "shared_key"
         private const val SHARED_USER_ID = "shared_user"
         private const val SHARED_NUMBER = "shared_number"
-        private const val SHARED_SETTING_NOTIFICATION = "shared_notification"
-        private const val SHARED_FCM_STATUS = "shared_fcm_sent"
 
         @JvmStatic
         @get:Synchronized
